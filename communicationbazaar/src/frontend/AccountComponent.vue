@@ -2,6 +2,10 @@
   <h1>
     account
   </h1>
+
+  <button class="btn btn-primary">
+    Hallo
+  </button>
 </template>
 
 <script>
