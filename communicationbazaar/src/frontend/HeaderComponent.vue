@@ -23,7 +23,7 @@ export default {
 .header {
   position: relative;
   color: salmon;
-  height: 200px;
+  height: 100px;
   background-color: orange;
 }
 

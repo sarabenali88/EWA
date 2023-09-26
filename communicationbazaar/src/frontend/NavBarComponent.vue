@@ -1,34 +1,33 @@
 <template>
 
-  <nav>
-    <ul>
-      <ul id="left">
-        <li>
-          <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
-            Image list
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
-            My Account
-          </router-link>
-        </li>
-      </ul>
+  <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    Link with href
+  </a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    Button with data-bs-target
+  </button>
 
-      <ul id="right">
-        <li>
-          <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
-            Log in
-          </router-link>
-        </li>
-      </ul>
-    </ul>
-  </nav>
+  <div class="offcanvas offcanvas-start sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+      </div>
+      <div class="dropdown mt-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 </template>
 
@@ -51,62 +50,24 @@ export default {
 
 <style scoped>
 
-/*none style, otherwise there will be comming dots*/
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  :root {
+    --bs-offcanvas-width: 400px;
+    --topNavBarHeight: 200px;
+  }
+  .offcanvas {
+    width: var(--bs-offcanvas-width);
+  }
 
-nav {
-  background-color: rgb(116, 255, 116);
-  color: #000;
-  height: 50px;
-  align-items: center;
-}
+  .sidebar-nav {
+    top: 100px !important;
 
-nav ul {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 8px;
-}
+  }
 
-/*Color of the links and smooth color change*/
-nav a {
-  text-decoration: none;
-  color: #000;
-  padding: 10px 20px;
-  transition: background-color 0.3s;
-}
-
-nav a:hover {
-  background-color: rgb(46, 165, 46);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgb(116, 255, 116);
-  min-width: 120px;
-  padding: 0;
-}
-
-.dropdown-content li {
-  padding: 10px;
-  text-align: center;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.active-tab {
-  background-color: rgb(46, 165, 46);
-}
-
-/*Keeping account at the right side*/
-#right {
-  justify-content: flex-end;
-  padding-right: 10px;
-}
+  @media (min-width: 992px) {
+    .sidebar-nav {
+      transform: none !important;
+      visibility: visible !important;
+      top: 100px !important;
+    }
+  }
 </style>
