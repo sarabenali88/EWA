@@ -20,7 +20,15 @@ export default {
 </script>
 
 <style scoped>
+
 #mainContent {
-  margin-left: 150px;
+  margin-left: 0;
+}
+
+@media (min-width: 992px) {
+  #mainContent {
+    margin-top: -40px;
+    margin-left: 150px;
+  }
 }
 </style>
