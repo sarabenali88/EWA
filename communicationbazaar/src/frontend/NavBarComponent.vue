@@ -11,6 +11,9 @@
        aria-labelledby="offcanvasExampleLabel">
 
     <div class="sidebar">
+      <div class="nav-icons">
+
+      </div>
       <ul>
         <li>
           <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
@@ -61,18 +64,26 @@ export default {
   --topNavBarHeight: 200px;
 }
 
+.nav-icons {
+  background-color: #F4F4F4;
+  width: 30%;
+  height: 100%;
+
+}
+
 .sidebar-nav {
   top: 100px !important;
 }
 
 .sidebar {
-  background-color: rgb(116, 255, 116);
+  display: flex;
   align-items: center;
-  width: 150px;
-  padding: 20px;
+  width: 20%;
+  padding-right: 20px;
   position: fixed;
   overflow-y: auto;
   height: 100%;
+  border-right: solid lightgrey 2px;
 }
 
 #sideBarButton {

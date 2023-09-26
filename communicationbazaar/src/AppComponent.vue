@@ -30,7 +30,7 @@ export default {
 @media (min-width: 992px) {
   #mainContent {
     margin-top: -40px;
-    margin-left: 150px;
+    margin-left: 20%;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
