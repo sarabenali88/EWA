@@ -1,7 +1,9 @@
 <template>
   <HeaderComponent/>
   <NavBarComponent/>
-  <router-view/>
+  <div id="mainContent">
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -18,4 +20,7 @@ export default {
 </script>
 
 <style scoped>
+#mainContent {
+  margin-left: 150px;
+}
 </style>
