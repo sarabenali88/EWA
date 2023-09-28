@@ -59,9 +59,14 @@
             My Account
           </router-link>
         </li>
-        <li>
+        <li :class="{'hiddenButton': json.some(account => account.loggedIn) === true}">
           <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
             Log in
+          </router-link>
+        </li>
+        <li :class="{'hiddenButton': json.some(account => account.loggedIn) === false}" @click="logOut">
+          <router-link to>
+            Log out
           </router-link>
         </li>
       </ul>
@@ -70,6 +75,8 @@
 </template>
 
 <script>
+import json from "@/account.json";
+
 export default {
   name: 'NavBarComponent',
   data() {
@@ -77,12 +84,20 @@ export default {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
       myAccountRoute: '/myAccountRoute',
-      signInRoute: '/signIn'
+      signInRoute: '/signIn',
+      json: json
     }
   },
   watch: {},
   computed: {},
-  methods: {}
+  methods: {
+    logOut() {
+      json.forEach(account => {
+        account.loggedIn = false;
+        this.$router.push(this.signInRoute);
+      })
+    }
+  }
 }
 </script>
 
@@ -152,6 +167,10 @@ li:hover {
 
 .active-tab {
   background-color: rgb(46, 165, 46);
+}
+
+.hiddenButton {
+  visibility: hidden;
 }
 
 @media (min-width: 992px) {
