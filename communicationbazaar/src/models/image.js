@@ -1,3 +1,5 @@
+import {Laptop} from "@/models/laptop.js";
+
 export class LaptopImage{
     laptop;
     version;
@@ -24,7 +26,7 @@ export class LaptopImage{
 
 
     constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment) {
-        this.laptop = laptop;
+        this.laptop = new Laptop();
         this.version = version;
         this.store = store;
         this.upDateDate = upDateDate;
