@@ -9,9 +9,10 @@ export class Laptop {
     gpu;
     sizeInch;
     sizeCm;
+    os;
+    prize;
 
-
-    constructor(articleNumber, ean, brand, description, processor, ram, storage, gpu, sizeInch, sizeCm) {
+    constructor(articleNumber, ean, brand, description, processor, ram, storage, gpu, sizeInch, sizeCm, os, prize) {
         this.articleNumber = articleNumber;
         this.ean = ean;
         this.brand = brand;
@@ -22,5 +23,7 @@ export class Laptop {
         this.gpu = gpu;
         this.sizeInch = sizeInch;
         this.sizeCm = sizeCm;
+        this.os = os;
+        this.prize = prize;
     }
 }

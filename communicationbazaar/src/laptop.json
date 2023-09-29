@@ -9,7 +9,9 @@
    "storage": "512 GB + 512 GB",
    "gpu": "UHD Graphics 620",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637762,
@@ -21,7 +23,9 @@
    "storage": "512 GB SSD",
    "gpu": "GeForce MX150",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637761,
@@ -33,7 +37,9 @@
    "storage": "512 GB",
    "gpu": "UHD Graphics 620",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637760,
@@ -45,7 +51,9 @@
    "storage": "256 GB",
    "gpu": "GeForce MX150",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637759,
@@ -57,7 +65,9 @@
    "storage": "256 GB + 1 TB",
    "gpu": "UHD Graphics 620",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637758,
@@ -69,7 +79,9 @@
    "storage": "512 GB",
    "gpu": "UHD Graphics 620",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637757,
@@ -81,7 +93,9 @@
    "storage": "256 GB SSD",
    "gpu": "UHD Graphics 620",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637756,
@@ -93,7 +107,9 @@
    "storage": "128 GB",
    "gpu": "UHD Graphics 605",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637755,
@@ -105,7 +121,9 @@
    "storage": "256 GB",
    "gpu": "HD Graphics 620",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.9 cm"
+   "sizeCm": "43.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637754,
@@ -117,7 +135,9 @@
    "storage": "512 GB",
    "gpu": "GeForce MX230",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637753,
@@ -129,7 +149,9 @@
    "storage": "256 GB",
    "gpu": "UHD Graphics 620",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1637752,
@@ -141,7 +163,9 @@
    "storage": "256 GB SSD",
    "gpu": "Radeon Vega 8 Graphics",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1635574,
@@ -153,7 +177,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635573,
@@ -165,7 +191,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635572,
@@ -177,7 +205,9 @@
    "storage": "512 GB SSD",
    "gpu": "UHD Graphics 617",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635571,
@@ -189,7 +219,9 @@
    "storage": "128 GB SSD",
    "gpu": "UHD Graphics 617",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635568,
@@ -201,7 +233,9 @@
    "storage": "512 GB SSD",
    "gpu": "UHD Graphics 617",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635567,
@@ -213,7 +247,9 @@
    "storage": "256 GB SSD",
    "gpu": "UHD Graphics 617",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1635054,
@@ -225,7 +261,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1634572,
@@ -237,7 +275,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1633574,
@@ -249,7 +289,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1632508,
@@ -261,7 +303,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1631612,
@@ -273,7 +317,9 @@
    "storage": "256 GB",
    "gpu": "Iris Plus Graphics 645",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1627819,
@@ -285,7 +331,9 @@
    "storage": "256 GB SSD",
    "gpu": "Iris Plus Graphics 645",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1627818,
@@ -297,7 +345,9 @@
    "storage": "128 GB SSD",
    "gpu": "Iris Plus Graphics 645",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1627817,
@@ -309,7 +359,9 @@
    "storage": "256 GB SSD",
    "gpu": "Iris Plus Graphics 645",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 1627816,
@@ -321,7 +373,9 @@
    "storage": "128 GB SSD",
    "gpu": "Iris Plus Graphics 645",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 3800068,
@@ -333,7 +387,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "",
+   "prize": 500
  },
  {
    "articleNumber": 3800062,
@@ -345,7 +401,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 3800044,
@@ -357,7 +415,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 3800043,
@@ -369,7 +429,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1770034,
@@ -381,7 +443,9 @@
    "storage": "512 GB",
    "gpu": "Intel Iris Xe Graphics",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1770032,
@@ -393,7 +457,9 @@
    "storage": "512 GB",
    "gpu": "Intel Iris Xe Graphics",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1770004,
@@ -405,7 +471,9 @@
    "storage": "512 GB",
    "gpu": "Intel Iris Xe Graphics",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1770000,
@@ -417,7 +485,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1769999,
@@ -429,7 +499,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 4070",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.9 cm"
+   "sizeCm": "43.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1769998,
@@ -441,7 +513,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 4060",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1769997,
@@ -453,7 +527,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 4050",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.9 cm"
+   "sizeCm": "43.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1769996,
@@ -465,7 +541,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 4060",
    "sizeInch": "16 inch",
-   "sizeCm": "40.6 cm"
+   "sizeCm": "40.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764798,
@@ -477,7 +555,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 4060",
    "sizeInch": "14.5 inch",
-   "sizeCm": "36.83 cm"
+   "sizeCm": "36.83 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764797,
@@ -489,7 +569,9 @@
    "storage": "1 TB",
    "gpu": "Iris X",
    "sizeInch": "16 inch",
-   "sizeCm": "40.64 cm"
+   "sizeCm": "40.64 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764796,
@@ -501,7 +583,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "16 inch",
-   "sizeCm": "40.64 cm"
+   "sizeCm": "40.64 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764795,
@@ -513,7 +597,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "16 inch",
-   "sizeCm": "40.64 cm"
+   "sizeCm": "40.64 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764794,
@@ -525,7 +611,9 @@
    "storage": "1 TB",
    "gpu": "Iris X",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.94 cm"
+   "sizeCm": "43.94 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764793,
@@ -537,7 +625,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "14.5 inch",
-   "sizeCm": "36.83 cm"
+   "sizeCm": "36.83 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764792,
@@ -549,7 +639,9 @@
    "storage": "512 GB",
    "gpu": "UHD 600",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.94 cm"
+   "sizeCm": "43.94 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764791,
@@ -561,7 +653,9 @@
    "storage": "512 GB",
    "gpu": "Iris X",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.94 cm"
+   "sizeCm": "43.94 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764790,
@@ -573,7 +667,9 @@
    "storage": "512 GB",
    "gpu": "Radeon RX Vega 6",
    "sizeInch": "14.0 inch",
-   "sizeCm": "35.56 cm"
+   "sizeCm": "35.56 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1764410,
@@ -585,7 +681,9 @@
    "storage": "1 TB",
    "gpu": "UHD 600",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.78 cm"
+   "sizeCm": "33.78 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739485,
@@ -597,7 +695,9 @@
    "storage": "64 GB",
    "gpu": "UHD 605",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739484,
@@ -609,7 +709,9 @@
    "storage": "64 GB",
    "gpu": "UHD 605",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739483,
@@ -621,7 +723,9 @@
    "storage": "64 GB",
    "gpu": "Intel UHD Graphics 600",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739482,
@@ -633,7 +737,9 @@
    "storage": "64 GB",
    "gpu": "Intel UHD Graphics 600",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739481,
@@ -645,7 +751,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739480,
@@ -657,7 +765,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739479,
@@ -669,7 +779,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739478,
@@ -681,7 +793,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739477,
@@ -693,7 +807,9 @@
    "storage": "1 TB",
    "gpu": "NVIDIA GeForce RTX 3050",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739476,
@@ -705,7 +821,9 @@
    "storage": "1 TB",
    "gpu": "NVIDIA GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739475,
@@ -717,7 +835,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739474,
@@ -729,7 +849,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3060",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739473,
@@ -741,7 +863,9 @@
    "storage": "1 TB",
    "gpu": "NVIDIA GeForce RTX 3050 Ti",
    "sizeInch": "16.1 inch",
-   "sizeCm": "40.9 cm"
+   "sizeCm": "40.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739472,
@@ -753,7 +877,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739471,
@@ -765,7 +891,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739470,
@@ -777,7 +905,9 @@
    "storage": "512 GB",
    "gpu": "NVIDIA GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739469,
@@ -789,7 +919,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739468,
@@ -801,7 +933,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1739467,
@@ -813,7 +947,9 @@
    "storage": "512 GB",
    "gpu": "Intel Iris Xe Graphics",
    "sizeInch": "13.5 inch",
-   "sizeCm": "34.3 cm"
+   "sizeCm": "34.3 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1697952,
@@ -825,7 +961,9 @@
    "storage": "512 GB SSD",
    "gpu": "Radeon Graphics",
    "sizeInch": "13.3 inch",
-   "sizeCm": "33.8 cm"
+   "sizeCm": "33.8 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696885,
@@ -837,7 +975,9 @@
    "storage": "specs not entered",
    "gpu": "specs not entered",
    "sizeInch": "specs not entered",
-   "sizeCm": "specs not entered"
+   "sizeCm": "specs not entered",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696884,
@@ -849,7 +989,9 @@
    "storage": "512 GB SSD",
    "gpu": "Iris Xe Graphics",
    "sizeInch": "14 inch",
-   "sizeCm": "35.6 cm"
+   "sizeCm": "35.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696883,
@@ -861,7 +1003,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3060",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696882,
@@ -873,7 +1017,9 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696819,
@@ -885,7 +1031,9 @@
    "storage": "1 TB",
    "gpu": "GeForce RTX 3060",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696818,
@@ -897,7 +1045,9 @@
    "storage": "512 GB SSD",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.9 cm"
+   "sizeCm": "43.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696817,
@@ -909,7 +1059,9 @@
    "storage": "1280 GB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696816,
@@ -921,7 +1073,9 @@
    "storage": "512 GB SSD",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696815,
@@ -933,7 +1087,9 @@
    "storage": "512 GB + 1 TB HDD",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696814,
@@ -945,7 +1101,9 @@
    "storage": "512 GB SSD + 1 TB HDD",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696813,
@@ -957,7 +1115,9 @@
    "storage": "512 GB",
    "gpu": "GeForce GTX 1650",
    "sizeInch": "17.3 inch",
-   "sizeCm": "43.9 cm"
+   "sizeCm": "43.9 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696812,
@@ -969,7 +1129,9 @@
    "storage": "512 GB",
    "gpu": "GeForce GTX 1650",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696811,
@@ -981,7 +1143,9 @@
    "storage": "512 GB SSD",
    "gpu": "GeForce RTX 3050 Ti",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  },
  {
    "articleNumber": 1696810,
@@ -993,6 +1157,8 @@
    "storage": "512 GB",
    "gpu": "GeForce RTX 3050",
    "sizeInch": "15.6 inch",
-   "sizeCm": "39.6 cm"
+   "sizeCm": "39.6 cm",
+   "os": "WIN11",
+   "prize": 500
  }
 ]

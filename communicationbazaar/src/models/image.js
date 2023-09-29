@@ -12,6 +12,7 @@ export class LaptopImage{
     year;
     name;
     comment;
+    imageMaker;
 
     static Status = {
         TODO: "Te doen",
@@ -21,11 +22,16 @@ export class LaptopImage{
 
     static Release = {
         NEW: "Nieuw",
-        UPDATE: "Update",
+        UPDATE: "Update"
     }
 
+    static Problem = {
+        YES: "Ja",
+        NO: "Nee",
+        REPORTED: "Ja, gemeld"
+    }
 
-    constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment) {
+    constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
         this.laptop = new Laptop();
         this.version = version;
         this.store = store;
@@ -37,5 +43,6 @@ export class LaptopImage{
         this.year = year;
         this.name = name;
         this.comment = comment;
+        this.imageMaker = imageMaker;
     }
 }
