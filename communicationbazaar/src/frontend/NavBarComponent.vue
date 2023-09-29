@@ -60,6 +60,11 @@
           </router-link>
         </li>
         <li>
+          <router-link :to="profilePageRoute" :class="{'active-tab': $route.path === profilePageRoute}">
+            Profile
+          </router-link>
+        </li>
+        <li>
           <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
             Log in
           </router-link>
@@ -77,6 +82,7 @@ export default {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
       myAccountRoute: '/myAccountRoute',
+      profilePageRoute: '/profilePageRoute',
       signInRoute: '/signIn'
     }
   },

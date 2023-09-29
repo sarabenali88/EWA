@@ -5,6 +5,7 @@ import ImageListComponent from "@/frontend/ImageListComponent";
 import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
 import NavBar from "@/frontend/NavBarComponent";
+import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -12,6 +13,7 @@ export const router = createRouter({
         { path: NavBar.data().homeRoute, component: WelcomeComponent },
         { path: NavBar.data().imageListRoute, component: ImageListComponent },
         { path: NavBar.data().myAccountRoute, component: AccountComponent },
+        { path: NavBar.data().profilePageRoute, component: ProfilePageComponent },
         { path: NavBar.data().signInRoute, component: SignInComponent },
         { path: '/:pathMatch(.*)', component: UnknownRoute }
     ]
