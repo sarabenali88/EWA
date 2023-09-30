@@ -39,7 +39,8 @@ export default {
 <style scoped>
 
 .logo {
-  width: 400px;
+  width: 200px;
+  height: 100px;
 }
 
 .input-group-lg {

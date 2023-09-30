@@ -4,7 +4,7 @@ import UnknownRoute from "@/frontend/UnknownRouteComponent";
 import ImageListComponent from "@/frontend/ImageListComponent";
 import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
-
+import addImageComponent from "@/frontend/addImageComponent.vue";
 export const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -12,6 +12,7 @@ export const router = createRouter({
         { path: '/imageListRoute', component: ImageListComponent },
         { path: '/myAccountRoute', component: AccountComponent },
         { path: '/signIn', component: SignInComponent },
-        { path: '/:pathMatch(.*)', component: UnknownRoute }
+        { path: '/:pathMatch(.*)', component: UnknownRoute },
+        { path: '/addImage', component: addImageComponent}
     ]
 })

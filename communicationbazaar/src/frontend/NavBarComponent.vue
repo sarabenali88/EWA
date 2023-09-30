@@ -45,7 +45,7 @@ export default {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
       myAccountRoute: '/myAccountRoute',
-      signInRoute: '/signIn'
+      signInRoute: '/signIn',
     }
   },
   watch: {},
