@@ -7,7 +7,7 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="eanId" name="ean" placeholder="EAN code" :rules="[validateEan]" lazy/>
+          <Field type="text" id="eanId" name="ean" placeholder="EAN code" :rules="[validateInput]" lazy/>
           <ErrorMessage class="error" name="ean"/>
           </div>
         </div>
@@ -127,20 +127,16 @@ export default {
     }
   },
   methods: {
-    validateEan(value) {
+    validateInput(value) {
+      let ean = document.getElementById('eanId').value;
         if (!value) {
           return 'Dit veld is verplicht';
         }
-        if (isNaN(value)) {
+        if (isNaN(ean)) {
           return "EAN code moet uit getallen bestaan";
         }
         return true;
       },
-    validateInput(value){
-      if (!value) {
-        return 'Dit veld is verplicht';
-      }
-    },
     }
 }
 </script>
