@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Form>
+    <Form @submit.prevent="submitForm">
       <div class="row">
         <div class="col-25">
           <label for="ean">EAN code</label>
@@ -41,7 +41,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="locationId" name="location" placeholder="Image door winkel" :rules="[validateInput]" lazy/>
+          <Field type="text" id="locationId" name="location" placeholder="Locatie van winkel" :rules="[validateInput]"
+                 lazy/>
             <ErrorMessage class="error" name="location"/>
             </div>
         </div>
@@ -67,7 +68,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="date" id="dateId" name="date" :rules="[validateInput]" lazy/>
+          <Field :min="getToday()"
+                 type="date" id="dateId" name="date" :rules="[validateInput]" lazy/>
             <ErrorMessage class="error" name="date"/>
           </div>
         </div>
@@ -88,16 +90,19 @@
           <label for="subject">Problemen</label>
         </div>
         <div class="col-75">
-          <Field type="radio" value="yes" name="problem" :rules="[validateInput]" lazy/>Ja
-          <Field type="radio" value="no" name="problem" :rules="[validateInput]" lazy/>Nee
-          <Field type="radio" value="reported" name="problem" :rules="[validateInput]" lazy/>Gemeld bij SP
-            <ErrorMessage class="error" name="problem"/>
+          <Field type="radio" value="yes" name="problem" v-model="selectedOption" />Ja
+          <Field type="radio" value="no" name="problem" v-model="selectedOption"/>Nee
+          <Field type="radio" value="reported" name="problem" v-model="selectedOption"/>Gemeld bij SP
+          <div v-if="selectedOption === 'yes'">
+            <div>
+              <label>Probleem uitleg:</label>
+            </div>
+            <textarea v-model="problemExplanation"></textarea>
+          </div>
           </div>
       </div>
       <div class="row">
-        <button type="submit">
-          Opslaan
-        </button>
+          <button type="submit">Opslaan</button>
       </div>
 
     </Form>
@@ -107,13 +112,15 @@
 
 
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import {ErrorMessage, Field, Form} from 'vee-validate';
+
 export default {
   name: "addImageComponent",
   components: {
     Form,
     Field,
     ErrorMessage,
+
   },
   data() {
     return {
@@ -123,7 +130,8 @@ export default {
       location: '',
       selectedVModel: null,
       imageListRoute: '/imageListRoute',
-
+      selectedOption: 'no',
+      problemExplanation: ''
     }
   },
   methods: {
@@ -136,7 +144,18 @@ export default {
           return "EAN code moet uit getallen bestaan";
         }
         return true;
+
       },
+    getToday() {
+      return new Date().toISOString().split("T")[0];
+    },
+    submitForm(event){
+      if (this.validateInput() === true){
+        this.$router.push('/imageListRoute')
+      }else{
+        event.preventDefault();
+      }
+    }
     }
 }
 </script>
