@@ -1,0 +1,321 @@
+[
+ {
+   "laptop": [
+     {
+       "articleNumber": 1637763,
+       "ean": 4710180623840,
+       "brand": "ACER",
+       "description": "SWIFT 5 SF515-51T-500N",
+       "processor": "Intel Core i5-8265U",
+       "ram": "8 GB",
+       "storage": "512 GB + 512 GB",
+       "gpu": "UHD Graphics 620",
+       "sizeInch": "15.6 inch",
+       "sizeCm": "39.6 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Hoorn",
+   "upDateDate": "10-7-2023",
+   "status": "Afgerond",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 28,
+   "year": 2023,
+   "name": "ImageNaam1",
+   "comment": "",
+   "imageMaker": "Cor Van Assen"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1635567,
+       "ean": 2000016355673,
+       "brand": "APPLE",
+       "description": "Z0X200067/CTO/MBA 13 SG/1.6/16/256",
+       "processor": "Intel Core i5-8400",
+       "ram": "16 GB",
+       "storage": "256 GB SSD",
+       "gpu": "UHD Graphics 617",
+       "sizeInch": "13.3 inch",
+       "sizeCm": "33.8 cm",
+       "os": "",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Ede",
+   "upDateDate": "27-7-2023",
+   "status": "Mee bezig",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 30,
+   "year": 2023,
+   "name": "ImageNaam2",
+   "comment": "",
+   "imageMaker": "Anke Severijns"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1631612,
+       "ean": 2000016316124,
+       "brand": "APPLE",
+       "description": "CTO/MBP 13 TB SG/1.4/8/645/256/GER",
+       "processor": "Intel Core i5",
+       "ram": "8 GB",
+       "storage": "256 GB",
+       "gpu": "Iris Plus Graphics 645",
+       "sizeInch": "13.3 inch",
+       "sizeCm": "33.8 cm",
+       "os": "",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Ede",
+   "upDateDate": "22-8-2023",
+   "status": "Afgerond",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 34,
+   "year": 2023,
+   "name": "ImageNaam3",
+   "comment": "",
+   "imageMaker": "Anke Severijns"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 3800068,
+       "ean": 38000683,
+       "brand": "ASUS",
+       "description": "L 3800 C-COM/P2.0/512MB/40GB/F/L",
+       "processor": "specs not entered",
+       "ram": "specs not entered",
+       "storage": "specs not entered",
+       "gpu": "specs not entered",
+       "sizeInch": "specs not entered",
+       "sizeCm": "specs not entered",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Ede",
+   "upDateDate": "14-7-2023",
+   "status": "Afgerond",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 28,
+   "year": 2023,
+   "name": "ImageNaam4",
+   "comment": "",
+   "imageMaker": "Robert Arts"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 3800044,
+       "ean": 38000447,
+       "brand": "ASUS",
+       "description": "L 3500 H COM P 2.4/256/40/USB 2.0",
+       "processor": "specs not entered",
+       "ram": "specs not entered",
+       "storage": "specs not entered",
+       "gpu": "specs not entered",
+       "sizeInch": "specs not entered",
+       "sizeCm": "specs not entered",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Tilburg",
+   "upDateDate": "2-9-2023",
+   "status": "Afgerond",
+   "release": "Nieuw",
+   "problem": "Nee",
+   "week": 35,
+   "year": 2023,
+   "name": "ImageNaam5",
+   "comment": "",
+   "imageMaker": "Esther Sneijders"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1739485,
+       "ean": 196188194003,
+       "brand": "HP",
+       "description": "X360 14A-CA0350ND",
+       "processor": "Intel Pentium Silver N5030",
+       "ram": "8 GB",
+       "storage": "64 GB",
+       "gpu": "UHD 605",
+       "sizeInch": "14 inch",
+       "sizeCm": "35.6 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.3",
+   "store": "Tilburg",
+   "upDateDate": "17-7-2023",
+   "status": "Mee bezig",
+   "release": "Nieuw",
+   "problem": "Ja, Gemeld",
+   "week": 29,
+   "year": 2023,
+   "name": "ImageNaam6",
+   "comment": "Download doet het niet",
+   "imageMaker": "Nina El-Ghazzawy"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1739481,
+       "ean": 196548846405,
+       "brand": "HP",
+       "description": "VICTUS 16-E1435ND",
+       "processor": "AMD Ryzen 7 5800H",
+       "ram": "16 GB",
+       "storage": "1 TB",
+       "gpu": "GeForce RTX 3050 Ti",
+       "sizeInch": "16.1 inch",
+       "sizeCm": "40.9 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.4",
+   "store": "Dordrecht",
+   "upDateDate": "11-8-2023",
+   "status": "Mee bezig",
+   "release": "Nieuw",
+   "problem": "Ja",
+   "week": 32,
+   "year": 2023,
+   "name": "ImageNaam7",
+   "comment": "",
+   "imageMaker": "Nina El-Ghazzawy"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1739475,
+       "ean": 196548502448,
+       "brand": "HP",
+       "description": "VICTUS 16-D1440ND",
+       "processor": "Intel Core i5-12500H",
+       "ram": "16 GB",
+       "storage": "512 GB",
+       "gpu": "GeForce RTX 3050 Ti",
+       "sizeInch": "16.1 inch",
+       "sizeCm": "40.9 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.4",
+   "store": "Dordrecht",
+   "upDateDate": "1-8-2023",
+   "status": "Te doen",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 31,
+   "year": 2023,
+   "name": "ImageNaam8",
+   "comment": "",
+   "imageMaker": "Dawud Jonkers"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1696819,
+       "ean": 195890851327,
+       "brand": "LENOVO",
+       "description": "LEGION5 15-I7-11800H 16GB 1TB SSD RTX3060",
+       "processor": "Intel Core i7-11800H",
+       "ram": "16 GB",
+       "storage": "1 TB",
+       "gpu": "GeForce RTX 3060",
+       "sizeInch": "15.6 inch",
+       "sizeCm": "39.6 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.4",
+   "store": "Dordrecht",
+   "upDateDate": "2-8-2023",
+   "status": "Te doen",
+   "release": "Update",
+   "problem": "Nee",
+   "week": 31,
+   "year": 2023,
+   "name": "ImageNaam9",
+   "comment": "",
+   "imageMaker": "Katrine Borisov"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1696813,
+       "ean": 195890371528,
+       "brand": "LENOVO",
+       "description": "LEGION5 17-RYZEN 5 16GB 512GB GTX1650",
+       "processor": "AMD Ryzen 5 5600H",
+       "ram": "16 GB",
+       "storage": "512 GB",
+       "gpu": "GeForce GTX 1650",
+       "sizeInch": "17.3 inch",
+       "sizeCm": "43.9 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.4",
+   "store": "Hoorn",
+   "upDateDate": "2-8-2023",
+   "status": "Te doen",
+   "release": "Nieuw",
+   "problem": "Nee",
+   "week": 31,
+   "year": 2023,
+   "name": "ImageNaam10",
+   "comment": "",
+   "imageMaker": "Salome Stoica"
+ },
+ {
+   "laptop": [
+     {
+       "articleNumber": 1637755,
+       "ean": 4710180626902,
+       "brand": "ACER",
+       "description": "ASPIRE 3 A317-51K-37GG",
+       "processor": "Intel Core i3-7020U",
+       "ram": "4 GB",
+       "storage": "256 GB",
+       "gpu": "HD Graphics 620",
+       "sizeInch": "17.3 inch",
+       "sizeCm": "43.9 cm",
+       "os": "WIN11",
+       "prize": 500
+     }
+   ],
+   "version": "MM V4.0.4",
+   "store": "Hoorn",
+   "upDateDate": "2-8-2023",
+   "status": "Mee bezig",
+   "release": "Nieuw",
+   "problem": "Ja",
+   "week": 31,
+   "year": 2023,
+   "name": "ImageNaam11",
+   "comment": "",
+   "imageMaker": "Eadwine Schwangau"
+ }
+]
