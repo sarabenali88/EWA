@@ -6,6 +6,7 @@ import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
 import NavBar from "@/frontend/NavBarComponent";
 import json from '../account.json'
+import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -16,7 +17,8 @@ export const router = createRouter({
         },
         {
             path: NavBar.data().imageListRoute,
-            component: ImageListComponent
+            component: ImageListComponent,
+            children: [ { path: ':id', component: imageDetailComponent }]
         },
         {
             path: NavBar.data().myAccountRoute,
