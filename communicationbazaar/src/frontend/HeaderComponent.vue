@@ -40,6 +40,7 @@ export default {
 
 .logo {
   width: 400px;
+  z-index: -2;
 }
 
 .input-group-lg {
