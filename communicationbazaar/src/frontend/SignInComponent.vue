@@ -53,6 +53,7 @@ export default {
           if (this.password === this.accountData[i].password) {
             alert("Ingelogd");
             this.$router.push(NavBar.data().homeRoute);
+            NavBar.methods.setCurrentContent('contentImage')
             this.accountData[i].loggedIn = true;
           } else if (this.password !== this.accountData[i].password) {
             alert("Wachtwoord verkeerd.");
