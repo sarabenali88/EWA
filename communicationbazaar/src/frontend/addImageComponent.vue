@@ -1,14 +1,15 @@
 <template>
   <div class="container">
-    <Form @submit.prevent="submitForm">
+    <form>
       <div class="row">
         <div class="col-25">
           <label for="ean">EAN code</label>
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="eanId" name="ean" placeholder="EAN code" :rules="[validateInput]" lazy/>
-          <ErrorMessage class="error" name="ean"/>
+            <input type="number" v-model.number="ean" placeholder="EAN code" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && ean === null">Dit veld is verplicht</div>
+            <div class="error" v-if="invalidEan === 'invalidEan' && ean < 0">EAN code mag niet kleiner dan 0 zijn!</div>
           </div>
         </div>
       </div>
@@ -18,9 +19,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="startId" name="start" placeholder="Startklaar versie"
-                 :rules="[validateInput]" lazy/>
-            <ErrorMessage class="error" name="start"/>
+            <input type="text" v-model.trim="startVersion" placeholder="Startklaar versie" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && startVersion === ''">Dit veld is verplicht</div>
           </div>
         </div>
       </div>
@@ -30,8 +30,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="imageId" name="image" placeholder="Image naam" :rules="[validateInput]" lazy/>
-            <ErrorMessage class="error" name="image"/>
+            <input type="text" placeholder="Image naam" v-model.trim="imageName" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && imageName === ''">Dit veld is verplicht</div>
           </div>
         </div>
       </div>
@@ -41,10 +41,9 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="text" id="locationId" name="location" placeholder="Locatie van winkel" :rules="[validateInput]"
-                 lazy/>
-            <ErrorMessage class="error" name="location"/>
-            </div>
+            <input type="text" v-model.trim="locationImage" placeholder="Locatie van winkel" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && locationImage === ''">Dit veld is verplicht</div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -53,12 +52,12 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field as="select" id="statusId" name="status" :rules="[validateInput]" lazy>
-            <option value="todo">Te doen</option>
-            <option value="ongoing">Mee bezig</option>
-            <option value="finished">Afgerond</option>
-          </Field>
-            <ErrorMessage class="error" name="status"/>
+            <select v-model="statusSelect" @blur="validateInput">
+              <option value="todo">Te doen</option>
+              <option value="ongoing">Mee bezig</option>
+              <option value="finished">Afgerond</option>
+            </select>
+            <div class="error" v-if="invalid === 'invalid' && statusSelect === ''">Dit veld is verplicht</div>
           </div>
         </div>
       </div>
@@ -68,9 +67,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field :min="getToday()"
-                 type="date" id="dateId" name="date" :rules="[validateInput]" lazy/>
-            <ErrorMessage class="error" name="date"/>
+            <input :min="getToday()" type="date" v-model="date" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && date === ''">Dit veld is verplicht</div>
           </div>
         </div>
       </div>
@@ -80,8 +78,8 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-          <Field type="week" id="weekId" name="week" :rules="[validateInput]" lazy/>
-            <ErrorMessage class="error" name="week"/>
+            <input type="week" v-model="week" @blur="validateInput"/>
+            <div class="error" v-if="invalid === 'invalid' && week === ''">Dit veld is verplicht</div>
           </div>
         </div>
       </div>
@@ -89,79 +87,75 @@
         <div class="col-25">
           <label for="subject">Problemen</label>
         </div>
-        <div class="col-75">
-          <Field type="radio" value="yes" name="problem" v-model="selectedOption" />Ja
-          <Field type="radio" value="no" name="problem" v-model="selectedOption"/>Nee
-          <Field type="radio" value="reported" name="problem" v-model="selectedOption"/>Gemeld bij SP
+        <div class="col-75" @blur="validateInput">
+          <input type="radio" value="yes" name="problem" v-model="selectedOption"/>Ja
+          <input type="radio" value="no" name="problem" v-model="selectedOption"/>Nee
+          <input type="radio" value="reported" name="problem" v-model="selectedOption"/>Gemeld bij SP
           <div v-if="selectedOption === 'yes'">
             <div>
               <label>Probleem uitleg:</label>
             </div>
             <textarea v-model="problemExplanation"></textarea>
           </div>
-          </div>
+        </div>
       </div>
       <div class="row">
-          <button type="submit">Opslaan</button>
+        <button @click="validateInput">Opslaan</button>
       </div>
 
-    </Form>
+    </form>
   </div>
 
 </template>
 
 
 <script>
-import {ErrorMessage, Field, Form} from 'vee-validate';
-
 export default {
   name: "addImageComponent",
-  components: {
-    Form,
-    Field,
-    ErrorMessage,
-
-  },
   data() {
     return {
-      eanCode: '',
+      ean: null,
       startVersion: '',
       imageName: '',
-      location: '',
-      selectedVModel: null,
+      locationImage: '',
+      statusSelect: '',
+      date: '',
+      week: '',
+      invalid: 'pending',
+      invalidEan: 'pending',
       imageListRoute: '/imageListRoute',
       selectedOption: 'no',
       problemExplanation: ''
     }
   },
   methods: {
-    validateInput(value) {
-      let ean = document.getElementById('eanId').value;
-        if (!value) {
-          return 'Dit veld is verplicht';
-        }
-        if (isNaN(ean)) {
-          return "EAN code moet uit getallen bestaan";
-        }
-        return true;
+    validateInput() {
+      if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
+          this.statusSelect === '' || this.date === ''|| this.week === ''){
+        this.invalid = 'invalid';
+      }else{
+        this.invalid = '';
+      }
+      if (this.ean < 0){
+        this.invalidEan = 'invalidEan';
+      }else{
+        this.invalidEan = '';
+      }
+      if (this.invalid === '' && this.invalidEan === ''){
+        this.$router.push('/imageListRoute');
 
-      },
+      }
+    },
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
-    submitForm(event){
-      if (this.validateInput() === true){
-        this.$router.push('/imageListRoute')
-      }else{
-        event.preventDefault();
-      }
-    }
-    }
+
+  }
 }
 </script>
 
 <style scoped>
-input[type=text], input[type=date], input[type=week], select, textarea {
+input[type=text], input[type=date], input[type=number], input[type=week], select, textarea {
   width: 70%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -186,7 +180,7 @@ label {
 }
 
 /* Style the submit button */
-button[type=submit] {
+button{
   background-color: #DA1C25;
   color: white;
   padding: 12px 10px;
@@ -224,14 +218,14 @@ button[type=submit] {
   display: table;
   clear: both;
 }
-.error{
-  color: darkred;
-}
 .input-container {
   display: flex;
   flex-direction: column;
 }
 
+.error{
+  color: darkred;
+}
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
