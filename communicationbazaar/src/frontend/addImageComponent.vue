@@ -78,7 +78,7 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-            <input type="week" v-model="week"/>
+            <input type="week" v-model="week" :min="minWeek"/>
             <div class="error" v-if="invalid === true && week === ''">Dit veld is verplicht</div>
           </div>
         </div>
@@ -141,6 +141,7 @@ export default {
       }else{
         this.invalidEan = '';
       }
+
       if (this.invalid === '' && this.invalidEan === ''){
         this.$router.push('/imageListRoute');
 
@@ -150,8 +151,16 @@ export default {
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
-
-  }
+  },
+  computed: {
+    minWeek() {
+      const today = new Date(); // get today's date
+      const year = today.getFullYear(); // get today's year
+      const week = Math.ceil((today - new Date(year, 0, 1)) / 604800000); //calculate current week by the
+      // difference between today and the first year by milliseconds
+      return `${year}-W${week}`; // minimum week value in formatie
+    },
+  },
 }
 </script>
 
