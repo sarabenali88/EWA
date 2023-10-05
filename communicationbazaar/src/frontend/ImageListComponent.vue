@@ -84,6 +84,13 @@
       Alle Images
     </h1>
     <div class="container-fluid p-3">
+      <div v-if="selectedImage">
+        <div class="card card-body">
+          <router-view v-bind:currentImage="selectedImage">
+
+          </router-view>
+        </div>
+      </div>
       <table class="table table-sm">
         <thead>
         <tr>
@@ -104,11 +111,6 @@
         </tr>
         </tbody>
       </table>
-      <div v-if="selectedImage">
-        <router-view v-bind:currentImage="selectedImage">
-
-        </router-view>
-      </div>
     </div>
   </div>
 </template>
