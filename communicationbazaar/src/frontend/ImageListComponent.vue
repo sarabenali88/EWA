@@ -105,6 +105,11 @@
         </tbody>
       </table>
     </div>
+    <router-link :to="'/addImage'">
+      <button>
+        add Image
+      </button>
+    </router-link>
   </div>
 </template>
 

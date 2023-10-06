@@ -4,12 +4,14 @@ import UnknownRoute from "@/frontend/UnknownRouteComponent";
 import ImageListComponent from "@/frontend/ImageListComponent";
 import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
+import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
 import json from '../account.json'
 import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
 import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
 import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
 import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
+
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -43,6 +45,7 @@ export const router = createRouter({
             path: NavBar.data().signInRoute,
             component: SignInComponent
         },
-        {path: '/:pathMatch(.*)', component: UnknownRoute}
+        { path: '/:pathMatch(.*)', component: UnknownRoute },
+        { path: '/addImage', component: addImageComponent}
     ]
 })
