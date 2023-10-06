@@ -85,7 +85,7 @@
     </h1>
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
-        <div class="card card-body">
+        <div class="card card-body mb-3">
           <router-view v-bind:currentImage="selectedImage">
 
           </router-view>

@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="pt-3">
-    <ul class="nav nav-underline" id="myTab" role="tablist">
+    <ul class="nav nav-underline ms-3" id="myTab" role="tablist">
       <li class="nav-link active" role="option" data-bs-toggle="tab" value="com" @click="setNav('com')">
         Commentaar
       </li>
@@ -94,7 +94,8 @@
         </div>
       </div>
       <div v-else >
-
+        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
+                  :value="currentImage.comment" readonly></textarea>
       </div>
     </div>
   </div>
