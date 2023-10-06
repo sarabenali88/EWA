@@ -106,7 +106,7 @@
       </table>
     </div>
     <router-link :to="'/addImage'">
-      <button>
+      <button type="button" class="btn btn-danger">
         add Image
       </button>
     </router-link>
