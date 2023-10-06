@@ -7,6 +7,7 @@ import SignInComponent from "@/frontend/SignInComponent";
 import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
 import json from '../account.json'
+import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 
 export const router = createRouter({
@@ -18,7 +19,8 @@ export const router = createRouter({
         },
         {
             path: NavBar.data().imageListRoute,
-            component: ImageListComponent
+            component: ImageListComponent,
+            children: [ { path: ':id', component: imageDetailComponent }]
         },
         {
             path: NavBar.data().myAccountRoute,
