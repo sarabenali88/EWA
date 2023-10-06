@@ -63,14 +63,66 @@
               </div>
             </li>
             <li>
-              <div :class="{'active-route': $route.path === imageListRoute}">
+              <div :class="{'active-route': $route.path === allImagesRoute}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                     :class="{'active-icon': $route.path === imageListRoute}" viewBox="0 0 16 16">
+                     :class="{'active-icon': $route.path === allImagesRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                   <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
-                <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
-                  Image list
+                <router-link :to="imageListRoute" :class="{'active-tab': $route.path === allImagesRoute}">
+                  allImages
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusTodo}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === statusTodo}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="statusTodo" :class="{'active-tab': $route.path === statusTodo}">
+                  Todo list
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusOnGoing}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === statusOnGoing}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="statusOnGoing" :class="{'active-tab': $route.path === statusOnGoing}">
+                  On Going list
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusFinished}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === statusFinished}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
+                  Finished list
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusOverDate}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === statusOverDate}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="statusOverDate" :class="{'active-tab': $route.path === statusOverDate}">
+                  OverDate list
                 </router-link>
               </div>
             </li>
@@ -138,10 +190,11 @@ export default {
     return {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
-      statusTodoRoute: '/statusTodo',
-      statusOnGoingRoute: '/statusOnGoing',
-      statusFinishedRoute: '/statusFinished',
-      statusOverDateRoute: '/statusOverDate',
+      allImagesRoute: '/imageListRoute/allImages',
+      statusTodo: '/imageListRoute/statusTodo',
+      statusOnGoing: '/imageListRoute/statusOnGoing',
+      statusFinished: '/imageListRoute/statusFinished',
+      statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
       json: json,

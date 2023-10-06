@@ -1,7 +1,7 @@
 <template>
   <header class="container-fluid text-center mb-5">
     <div class="row mt-2">
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.todoStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-card-checklist my-4"
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.onGoingStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-arrow-repeat my-4 mx-1"
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;" @click="getSelectedStatus(this.finishedStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-check my-4 mx-1"
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;" @click="getSelectedStatus(this.overDateStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-x my-4 mx-1"
@@ -79,83 +79,52 @@
       </div>
     </div>
   </header>
-  <div class="ms-lg-5">
-    <h1>
-      Alle Images
-    </h1>
-    <div class="container-fluid p-3">
-      <div v-if="selectedImage">
-        <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage">
-
-          </router-view>
-        </div>
-      </div>
-      <table class="table table-sm">
-        <thead>
-        <tr>
-          <th scope="col">EAN</th>
-          <th scope="col">Laptop naam</th>
-          <th scope="col">Medewerker</th>
-          <th scope="col">Status</th>
-          <th scope="col">Datum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td>{{ image.laptop[0].ean }}</td>
-          <td>{{ image.name }}</td>
-          <td>{{ image.imageMaker }}</td>
-          <td>{{ image.status }}</td>
-          <td>{{ image.upDateDate }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-      <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
-        add Image
-      </button>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import imageData from '@/image.json';
-import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "ImageListComponent",
-  components: imageDetailComponent,
-  data() {
-    return {
-      images: [],
-      selectedImage: null
-    }
+  components: {
   },
   created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
+    this.$router.push("/imageListRoute/allImages");
+  },
+  data() {
+    return {
+      todoStatus: "todoStatus",
+      onGoingStatus: "onGoingStatus",
+      finishedStatus: "finishedStatus",
+      overDateStatus: "overDateStatus",
+      allImagesStatus: "allImages",
+      selectedStatus: this.allImagesStatus
     }
-
-    this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
-    findSelectedFromRouteParams(id) {
-      if (id > 0) {
-        id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
-      }
-      return null;
-    },
-    setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
-      if (this.selectedImage === image) {
-        this.selectedImage = null
-        this.$router.push(parentPath);
+    getSelectedStatus(status) {
+      if (this.selectedStatus === status){
+        this.$router.push("/imageListRoute/allImages");
+        this.selectedStatus = this.allImagesStatus;
       } else {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+
+        if (status === this.todoStatus){
+          this.$router.push("/imageListRoute/statusTodo");
+          this.selectedStatus = this.todoStatus;
+        }
+        if (status === this.onGoingStatus){
+          this.$router.push("/imageListRoute/statusOnGoing");
+          this.selectedStatus = this.onGoingStatus;
+        }
+        if (status === this.finishedStatus){
+          this.$router.push("/imageListRoute/statusFinished");
+          this.selectedStatus = this.finishedStatus;
+        }
+        if (status === this.overDateStatus){
+          this.$router.push("/imageListRoute/statusOverDate");
+          this.selectedStatus = this.overDateStatus;
+        }
       }
-      console.log(this.selectedImage)
     }
   }
 }
