@@ -11,6 +11,7 @@ import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
 import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
 import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
 import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
+import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 
 export const router = createRouter({
@@ -24,10 +25,10 @@ export const router = createRouter({
             path: NavBar.data().imageListRoute,
             component: ImageListComponent,
             children: [
-                {path: NavBar.data().statusTodoRoute, component: imageStatusTodoComponent},
-                {path: NavBar.data().statusOnGoingRoute, component: imageStatusOnGoingComponent},
-                {path: NavBar.data().statusFinishedRoute, component: imageStatusFinishedComponent},
-                {path: NavBar.data().statusOverDateRoute, component: imageStatusOverDateComponent}
+                {path: NavBar.data().statusTodoRoute, component: imageStatusTodoComponent, children: [ { path: ':id', component: imageDetailComponent }]},
+                {path: NavBar.data().statusOnGoingRoute, component: imageStatusOnGoingComponent, children: [ { path: ':id', component: imageDetailComponent }]},
+                {path: NavBar.data().statusFinishedRoute, component: imageStatusFinishedComponent, children: [ { path: ':id', component: imageDetailComponent }]},
+                {path: NavBar.data().statusOverDateRoute, component: imageStatusOverDateComponent, children: [ { path: ':id', component: imageDetailComponent }]}
             ]
         },
         {
