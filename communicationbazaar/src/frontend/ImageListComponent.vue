@@ -112,11 +112,9 @@
         </tbody>
       </table>
     </div>
-    <router-link :to="'/addImage'">
-      <button type="button" class="btn btn-danger">
+      <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
         add Image
       </button>
-    </router-link>
   </div>
 </template>
 
