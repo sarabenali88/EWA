@@ -4,7 +4,7 @@
   </h1>
   <ul>
   <li>
-    <router-link :to="addImageRoute" :class="{'active-tab': $route.path === addImageRoute}">
+    <router-link :to="'/addImage'">
       <button>
       add Image
       </button>
@@ -16,12 +16,6 @@
 <script>
 export default {
   name: "ImageListComponent",
-
-  data() {
-    return {
-      addImageRoute: '/addImage'
-    }
-  }
 }
 </script>
 

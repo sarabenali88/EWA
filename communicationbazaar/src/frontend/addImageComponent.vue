@@ -123,7 +123,6 @@ export default {
       week: '',
       invalid: null,
       invalidEan: null,
-      imageListRoute: '/imageListRoute',
       selectedOption: 'no',
       problemExplanation: ''
     }
