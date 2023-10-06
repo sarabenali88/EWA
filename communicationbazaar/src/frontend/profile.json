@@ -1,0 +1,15 @@
+[
+  {
+    "employeeNumber": "2130901",
+    "password": "IloveBazary4%",
+    "firstName": "Cindy",
+    "lastName": "Visser",
+    "mobileNumber": "0654904382",
+    "email": "cindyvisser@mm.nl",
+    "address": "Roeterweg",
+    "houseNumber": 1290,
+    "postcode": "1003 FJ",
+    "city": "Amsterdam",
+    "function": "Employee"
+  }
+]

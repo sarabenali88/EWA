@@ -6,7 +6,7 @@
                                                                                      alt="MediaMarkt employee"
                                                                                      width="150px"
                                                                                      src="../assets/Cindy.jpg"><span
-            class="fs-3">Cindy Visser</span><span class="text-black-50 fs-6">cindyvisser@mm.nl</span><span> </span>
+            class="fs-3">Cindy Visser</span><span class="text-black-50 fs-6">cindyvisser@mm.nl</span>
         </div>
       </div>
       <form action="/action_page.php" class="col-md-5 border-right">
@@ -18,7 +18,7 @@
           <div class="row mt-2" v-for="item in data" :key="item.id">
             <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control"
                                                                                 placeholder="Username"
-                                                                                :value="item.personalNumber" required>
+                                                                                :value="item.employeeNumber" required>
             </div>
             <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control"
                                                                                 placeholder="Password"
@@ -26,45 +26,69 @@
           </div>
           <div class="row mt-3" v-for="item in data" :key="item.id">
             <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
-                                                                           placeholder="First name" :value="item.name"
+                                                                           placeholder="First name"
+                                                                           :value="item.firstName"
                                                                            required></div>
             <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control"
-                                                                              value="" placeholder="Surname" required>
+                                                                              :value="item.lastName"
+                                                                              placeholder="Surname" required>
             </div>
             <div class="col-md-12"><label class="labels" for="phone">Mobile Number</label><input type="tel"
                                                                                                  class="form-control"
                                                                                                  placeholder="Mobile number"
                                                                                                  pattern="[0-9]{10}"
-                                                                                                 value="" required>
+                                                                                                 :value="item.mobileNumber"
+                                                                                                 required>
             </div>
             <div class="col-md-9"><label class="labels">Address</label><input type="text" class="form-control"
-                                                                              placeholder="Address" value="" required>
+                                                                              placeholder="Address"
+                                                                              :value="item.address" required>
             </div>
             <div class="col-md-3"><label class="labels">House number</label><input type="number" class="form-control"
-                                                                                   placeholder="Number" value=""
+                                                                                   placeholder="Number"
+                                                                                   :value="item.houseNumber"
                                                                                    required>
             </div>
             <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control"
-                                                                                placeholder="Postcode" value=""
+                                                                                placeholder="Postcode"
+                                                                                :value="item.postcode"
                                                                                 required></div>
             <div class="col-md-12"><label class="labels">City</label><input type="text" class="form-control"
-                                                                            placeholder="City" value="" required></div>
-            <div class="col-md-12"><label class="labels">Department</label><input type="text" class="form-control"
-                                                                                  placeholder="Department" value=""
-                                                                                  required>
+                                                                            placeholder="City"
+                                                                            :value="item.city" required></div>
+            <div class="col-md-12"><label class="labels">Function</label><input type="text" class="form-control"
+                                                                                placeholder="Function"
+                                                                                :value="item.function"
+                                                                                required>
             </div>
             <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control"
-                                                                             placeholder="Email" :value="item.email"
+                                                                             placeholder="Email"
+                                                                             :value="item.email"
                                                                              required>
             </div>
           </div>
-          <div class="mt-3 ">
+          <div class="mt-3">
             <div class="col-md-12"><label class="labels">Nationality</label><input type="checkbox" class="btn-check "
                                                                                    id="btn-check " autocomplete="off">
             </div>
-            <label class="btn btn-dark" for="btn-check">BE</label>
-            <label class="btn btn-warning ms-2" for="btn-check-2">NL</label>
-            <label class="btn btn-info ms-2" for="btn-check-3">LU</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" required>
+              <label class="form-check-label" for="flexRadioDefault1">
+                Belgian
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" required>
+              <label class="form-check-label" for="flexRadioDefault2">
+                Dutch
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" required>
+              <label class="form-check-label" for="flexRadioDefault3">
+                Luxembourger
+              </label>
+            </div>
           </div>
           <div class="mt-5 text-center"><input class="btn btn-danger btn-lg btn-block" type="submit" value="Save">
           </div>
@@ -76,7 +100,7 @@
 </template>
 
 <script>
-import account from './account.json'
+import account from './profile.json'
 
 export default {
   name: "ProfilePageComponent",
