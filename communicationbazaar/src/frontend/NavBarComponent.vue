@@ -138,6 +138,10 @@ export default {
     return {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
+      statusTodoRoute: '/statusTodo',
+      statusOnGoingRoute: '/statusOnGoing',
+      statusFinishedRoute: '/statusFinished',
+      statusOverDateRoute: '/statusOverDate',
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
       json: json,
