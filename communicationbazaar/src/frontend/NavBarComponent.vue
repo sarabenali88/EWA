@@ -1,5 +1,5 @@
 <template>
-
+  <!-- Button for side bar-->
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list"
        viewBox="0 0 16 16" id="sideBarButton" data-bs-toggle="offcanvas" href="#offcanvasExample"
        aria-controls="offcanvasExample">
@@ -7,37 +7,131 @@
     .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
   </svg>
 
+  <!-- Hidden side bar -->
   <div class="offcanvas sidebar-nav" tabindex="-1" id="offcanvasExample"
        aria-labelledby="offcanvasExampleLabel">
 
     <div class="sidebar">
-      <ul>
-        <li>
-          <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
-            Image list
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
-            My Account
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
-            Log in
-          </router-link>
-        </li>
-      </ul>
+      <div class="nav-icons">
+        <div class="active-line" :class="{'profile-active': currentContent === 'contentProfile', 'laptop-active': currentContent === 'contentLaptop', 'admin-active': currentContent === 'contentAdmin'}"></div>
+
+        <!-- Image overview icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-grid"
+             viewBox="0 0 16 16" @click="setCurrentContent('contentImage')">
+          <path
+              d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+        </svg>
+
+        <!-- Profile page icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person"
+             viewBox="0 0 16 16" @click="setCurrentContent('contentProfile')">
+          <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+        </svg>
+
+
+        <!-- Laptop database icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-database"
+             viewBox="0 0 16 16" @click="setCurrentContent('contentLaptop')">
+          <path
+              d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313ZM13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 5.698ZM14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13V4Zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 8.698Zm0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289 4.096-.777c.324-.147.633-.323.904-.525Z"/>
+        </svg>
+
+        <!-- Admin icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock"
+             viewBox="0 0 16 16" @click="setCurrentContent('contentAdmin')">
+          <path
+              d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+        </svg>
+
+      </div>
+
+      <div class="nav-side" >
+
+        <div class="content" :class="{ 'selected' : currentContent === 'contentImage'}">
+          <h5 class="offcanvas-title" >Image</h5>
+          <ul>
+            <li>
+              <div :class="{'active-route': $route.path === homeRoute}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house" viewBox="0 0 16 16"
+                     :class="{'active-icon': $route.path === homeRoute}">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                </svg>
+                <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
+                  Home
+                </router-link>
+              </div>
+            </li>
+            <li>
+              <div :class="{'active-route': $route.path === imageListRoute}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === imageListRoute}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
+                  Image list
+                </router-link>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
+          <h5 class="offcanvas-title" >Profile</h5>
+          <ul>
+            <li>
+              <div :class="{'active-route': $route.path === myAccountRoute}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house" viewBox="0 0 16 16"
+                     :class="{'active-icon': $route.path === myAccountRoute}">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                </svg>
+                <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
+                  My Account
+                </router-link>
+              </div>
+            </li>
+            <li>
+              <div :class="{'active-route': $route.path === signInRoute, 'hiddenButton': json.some(account => account.loggedIn) === true}" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
+                  Sign In
+                </router-link>
+              </div>
+            </li>
+          </ul>
+          <ul>
+            <li :class="{'hiddenButton': json.some(account => account.loggedIn) === false}" @click="logOut">
+              <router-link to>
+                Log out
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
+          <h5 class="offcanvas-title" >Laptop</h5>
+
+        </div>
+
+        <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
+          <h5 class="offcanvas-title" >Admin</h5>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+import json from "../account.json";
+
 export default {
   name: 'NavBarComponent',
   data() {
@@ -46,11 +140,38 @@ export default {
       imageListRoute: '/imageListRoute',
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
+      json: json,
+
+      currentContent: 'contentImage'
     }
   },
-  watch: {},
+  watch: {
+    '$route' () {
+      if(this.$route.path.match(this.homeRoute) ||this.$route.path.match(this.imageListRoute)) {
+        this.setCurrentContent('contentImage')
+      }
+      if (this.$route.path.match(this.signInRoute)) {
+        this.setCurrentContent('contentProfile')
+      }
+    }
+
+
+
+
+  },
   computed: {},
-  methods: {}
+  methods: {
+    logOut() {
+      json.forEach(account => {
+        account.loggedIn = false;
+        this.$router.push(this.signInRoute);
+      })
+    },
+
+    setCurrentContent(contentId) {
+      this.currentContent = contentId;
+    }
+  }
 }
 </script>
 
@@ -61,18 +182,84 @@ export default {
   --topNavBarHeight: 200px;
 }
 
+.active-line {
+  border-right: #DA1C25 solid 2px;
+  height: 60px;
+  position: absolute;
+  left: 100px;
+  top: 18px;
+}
+
+.image-active {
+  top: 18px;
+}
+
+.profile-active {
+  top: 112px;
+}
+
+.laptop-active {
+  top: 212px;
+}
+
+.admin-active {
+  top: 312px;
+}
+
+
+
+.offcanvas-title {
+  padding-bottom: 20px;
+}
+
+.content {
+  display: none;
+}
+
+.content.selected {
+  display: block;
+  padding-left: 30px;
+}
+
+
+.nav-side {
+  width: 200px;
+  height: 100%;
+}
+
+li .bi {
+  margin: 0 0 5px 0 !important;
+}
+
+
+.offcanvas-title {
+  color: lightgrey;
+  font-size: 35px;
+}
+
+.nav-icons {
+  background-color: #F4F4F4;
+  width: 100px;
+  height: 100%;
+  padding: 8px;
+}
+
+.bi {
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
 .sidebar-nav {
   top: 100px !important;
 }
 
 .sidebar {
-  background-color: rgb(116, 255, 116);
-  align-items: center;
-  width: 150px;
-  padding: 20px;
-  position: fixed;
+  display: flex;
+  width: 300px;
   overflow-y: auto;
   height: 100%;
+  border-right: solid lightgrey 2px;
+  background-color: white;
 }
 
 #sideBarButton {
@@ -80,9 +267,10 @@ export default {
   cursor: pointer;
 }
 
+
 ul {
+  margin-left: -35px;
   list-style: none;
-  padding: 0;
 }
 
 li {
@@ -95,13 +283,39 @@ li a {
   color: black;
 }
 
-li:hover {
-  background-color: rgb(46, 165, 46);
+.active-tab {
+  color: #DA1C25;
+  font-weight: bold;
+  display: inline-block;
+  width: 140px;
+  height: 30px;
+  padding-left: 5px;
 }
 
-.active-tab {
-  background-color: rgb(46, 165, 46);
+.active-route {
+  margin-left: -10px;
+  display: flex;
+  padding-left: 10px;
+  padding-top: 3px;
+  background-color: #F5F5F5;
+  width: 140px;
+  height: 30px;
+  border-radius: 5px;
 }
+
+.active-icon {
+  fill: #DA1C25;
+  width: 28px;
+}
+
+.active-route .bi {
+  margin: 0 0 5px 0 !important;
+}
+
+.hiddenButton {
+  display: none;
+}
+
 
 @media (min-width: 992px) {
   .sidebar-nav {
@@ -109,6 +323,11 @@ li:hover {
     visibility: visible !important;
     top: 100px !important;
   }
+
+  .sidebar-default {
+    visibility: visible;
+  }
+
 
   #sideBarButton {
     visibility: hidden;
