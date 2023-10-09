@@ -67,7 +67,7 @@ export default {
       return null;
     },
     isCorrespondingStatus(image){
-      if (image.status === "Te Doen"){
+      if (image.status === "Te doen"){
         return true;
       } else return false;
     },

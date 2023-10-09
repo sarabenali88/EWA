@@ -67,7 +67,7 @@ export default {
       return null;
     },
     isCorrespondingStatus(image){
-      if (image.status === "Update"){
+      if (image.status === "Verouderd"){
         return true;
       } else return false;
     },

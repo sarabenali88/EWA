@@ -67,7 +67,7 @@ export default {
       return null;
     },
     isCorrespondingStatus(image){
-      if (image.status === "Finished"){
+      if (image.status === "Afgerond"){
         return true;
       } else return false;
     },

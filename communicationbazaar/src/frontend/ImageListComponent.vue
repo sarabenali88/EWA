@@ -15,7 +15,7 @@
         <div class="col">
           <h6>Todo:</h6>
           <div>
-            <h1>38 </h1>
+            <h1>{{amountOfImagesToDo}}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="col">
           <h6>On going:</h6>
           <div>
-            <h1>12 </h1>
+            <h1>{{amountOfImagesOnGoing}}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="col">
           <h6>Finished:</h6>
           <div>
-            <h1>64</h1>
+            <h1>{{amountOfImagesFinished}}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -72,7 +72,7 @@
         <div class="col">
           <h6>Over Date:</h6>
           <div>
-            <h1>64</h1>
+            <h1>{{ amountOfImagesOverDate }}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import imageData from '@/image.json';
+
 
 export default {
   name: "ImageListComponent",
@@ -90,9 +92,20 @@ export default {
   },
   created() {
     this.$router.push("/imageListRoute/allImages");
+
+    for (let i in imageData) {
+      this.images.push(imageData[i]);
+    }
+
+    this.amountOfImages();
   },
   data() {
     return {
+      images: [],
+      amountOfImagesToDo: 0,
+      amountOfImagesOnGoing: 0,
+      amountOfImagesFinished: 0,
+      amountOfImagesOverDate: 0,
       todoStatus: "todoStatus",
       onGoingStatus: "onGoingStatus",
       finishedStatus: "finishedStatus",
@@ -123,6 +136,22 @@ export default {
         if (status === this.overDateStatus){
           this.$router.push("/imageListRoute/statusOverDate");
           this.selectedStatus = this.overDateStatus;
+        }
+      }
+    },
+    amountOfImages(){
+      for (const image of this.images) {
+        if (image.status === "Te doen"){
+          this.amountOfImagesToDo++;
+        }
+        if (image.status === "Mee bezig"){
+          this.amountOfImagesOnGoing++;
+        }
+        if (image.status === "Afgerond"){
+          this.amountOfImagesFinished++;
+        }
+        if (image.status === "Verouderd"){
+          this.amountOfImagesOverDate++;
         }
       }
     }
