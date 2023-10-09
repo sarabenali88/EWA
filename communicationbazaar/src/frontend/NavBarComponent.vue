@@ -73,7 +73,7 @@
                   <path
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
-                <router-link :to="imageListRoute" :class="{'active-tab': $route.path === allImagesRoute}">
+                <router-link :to="allImagesRoute" :class="{'active-tab': $route.path === allImagesRoute}">
                   allImages
                 </router-link>
               </div>
@@ -207,6 +207,7 @@
 
 <script>
 import json from "../account.json";
+import allImagesComponent from "@/frontend/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
@@ -238,7 +239,11 @@ export default {
 
 
   },
-  computed: {},
+  computed: {
+    allImagesComponent() {
+      return allImagesComponent
+    }
+  },
   methods: {
     logOut() {
       json.forEach(account => {
