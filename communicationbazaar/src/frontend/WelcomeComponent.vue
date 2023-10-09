@@ -1,12 +1,14 @@
 <template>
   <h1>
-    Hallo
+    Welcome
   </h1>
+
 </template>
 
 <script>
 export default {
-  name: "WelcomeComponent"
+  name: "WelcomeComponent",
+
 }
 </script>
 
