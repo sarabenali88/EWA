@@ -6,6 +6,7 @@
     "email": "pietervdBroek@gmail.com",
     "role": "ImageMaker",
     "imagesOnGoing": [],
-    "imagesDone": []
+    "imagesDone": [],
+    "loggedIn": false
   }
 ]
