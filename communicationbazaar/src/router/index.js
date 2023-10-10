@@ -13,6 +13,7 @@ import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.
 import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
 import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import WebScraperComponent from "@/frontend/WebScraperComponent";
 
 
 export const router = createRouter({
@@ -68,7 +69,11 @@ export const router = createRouter({
             path: NavBar.data().signInRoute,
             component: SignInComponent
         },
-        {path: '/:pathMatch(.*)', component: UnknownRoute},
-        {path: '/addImage', component: addImageComponent}
+        {
+            path: NavBar.data().webScraperRoute,
+            component: WebScraperComponent
+        },
+        { path: '/:pathMatch(.*)', component: UnknownRoute },
+        { path: '/addImage', component: addImageComponent}
     ]
 })

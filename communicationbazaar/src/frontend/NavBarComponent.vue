@@ -222,6 +222,7 @@ export default {
       statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
+      webScraperRoute: '/webScraper',
       json: json,
 
       currentContent: 'contentImage'
