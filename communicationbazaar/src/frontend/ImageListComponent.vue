@@ -1,7 +1,7 @@
 <template>
   <header class="container-fluid text-center mb-5">
     <div class="row mt-2">
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.todoStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-card-checklist my-4"
@@ -15,12 +15,12 @@
         <div class="col">
           <h6>Todo:</h6>
           <div>
-            <h1>38 </h1>
+            <h1>{{amountOfImagesToDo}}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.onGoingStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-arrow-repeat my-4 mx-1"
@@ -34,12 +34,12 @@
         <div class="col">
           <h6>On going:</h6>
           <div>
-            <h1>12 </h1>
+            <h1>{{amountOfImagesOnGoing}}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;" @click="getSelectedStatus(this.finishedStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-check my-4 mx-1"
@@ -53,12 +53,12 @@
         <div class="col">
           <h6>Finished:</h6>
           <div>
-            <h1>64</h1>
+            <h1>{{amountOfImagesFinished}}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;" @click="getSelectedStatus(this.overDateStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-x my-4 mx-1"
@@ -72,7 +72,7 @@
         <div class="col">
           <h6>Over Date:</h6>
           <div>
-            <h1>64</h1>
+            <h1>{{ amountOfImagesOverDate }}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -120,42 +120,76 @@
 
 <script>
 import imageData from '@/image.json';
-import imageDetailComponent from "@/frontend/ImageDetailComponent";
+
 
 export default {
   name: "ImageListComponent",
-  components: imageDetailComponent,
-  data() {
-    return {
-      images: [],
-      selectedImage: null
-    }
+  components: {
   },
   created() {
+    this.$router.push("/imageListRoute/allImages");
+
     for (let i in imageData) {
       this.images.push(imageData[i]);
     }
 
-    this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
+    this.amountOfImages();
+  },
+  data() {
+    return {
+      images: [],
+      amountOfImagesToDo: 0,
+      amountOfImagesOnGoing: 0,
+      amountOfImagesFinished: 0,
+      amountOfImagesOverDate: 0,
+      todoStatus: "todoStatus",
+      onGoingStatus: "onGoingStatus",
+      finishedStatus: "finishedStatus",
+      overDateStatus: "overDateStatus",
+      allImagesStatus: "allImages",
+      selectedStatus: this.allImagesStatus
+    }
   },
   methods: {
-    findSelectedFromRouteParams(id) {
-      if (id > 0) {
-        id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
-      }
-      return null;
-    },
-    setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
-      if (this.selectedImage === image) {
-        this.selectedImage = null
-        this.$router.push(parentPath);
+    getSelectedStatus(status) {
+      if (this.selectedStatus === status){
+        this.$router.push("/imageListRoute/allImages");
+        this.selectedStatus = this.allImagesStatus;
       } else {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+
+        if (status === this.todoStatus){
+          this.$router.push("/imageListRoute/statusTodo");
+          this.selectedStatus = this.todoStatus;
+        }
+        if (status === this.onGoingStatus){
+          this.$router.push("/imageListRoute/statusOnGoing");
+          this.selectedStatus = this.onGoingStatus;
+        }
+        if (status === this.finishedStatus){
+          this.$router.push("/imageListRoute/statusFinished");
+          this.selectedStatus = this.finishedStatus;
+        }
+        if (status === this.overDateStatus){
+          this.$router.push("/imageListRoute/statusOverDate");
+          this.selectedStatus = this.overDateStatus;
+        }
       }
-      console.log(this.selectedImage)
+    },
+    amountOfImages(){
+      for (const image of this.images) {
+        if (image.status === "Te doen"){
+          this.amountOfImagesToDo++;
+        }
+        if (image.status === "Mee bezig"){
+          this.amountOfImagesOnGoing++;
+        }
+        if (image.status === "Afgerond"){
+          this.amountOfImagesFinished++;
+        }
+        if (image.status === "Verouderd"){
+          this.amountOfImagesOverDate++;
+        }
+      }
     }
   }
 }

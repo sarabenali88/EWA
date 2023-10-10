@@ -7,6 +7,11 @@ import SignInComponent from "@/frontend/SignInComponent";
 import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
 import json from '../account.json'
+import allImagesComponent from "@/frontend/allImagesComponent.vue";
+import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
+import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
+import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
+import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 
@@ -15,12 +20,38 @@ export const router = createRouter({
     routes: [
         {
             path: NavBar.data().homeRoute,
-            component: WelcomeComponent
+            component: WelcomeComponent,
         },
         {
             path: NavBar.data().imageListRoute,
             component: ImageListComponent,
-            children: [ { path: ':id', component: imageDetailComponent }]
+            children: [
+                {
+                    path: 'allImages',
+                    component: allImagesComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusTodo',
+                    component: imageStatusTodoComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusOnGoing',
+                    component: imageStatusOnGoingComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusFinished',
+                    component: imageStatusFinishedComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusOverDate',
+                    component: imageStatusOverDateComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                }
+            ]
         },
         {
             path: NavBar.data().myAccountRoute,
@@ -37,7 +68,7 @@ export const router = createRouter({
             path: NavBar.data().signInRoute,
             component: SignInComponent
         },
-        { path: '/:pathMatch(.*)', component: UnknownRoute },
-        { path: '/addImage', component: addImageComponent}
+        {path: '/:pathMatch(.*)', component: UnknownRoute},
+        {path: '/addImage', component: addImageComponent}
     ]
 })
