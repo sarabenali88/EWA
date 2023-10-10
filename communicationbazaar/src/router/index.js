@@ -6,31 +6,54 @@ import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
 import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
-import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import json from '../account.json'
+import allImagesComponent from "@/frontend/allImagesComponent.vue";
+import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
+import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
+import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
+import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
-
+import WebScraperComponent from "@/frontend/WebScraperComponent";
+import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 
 
 export const router = createRouter({
     history: createWebHashHistory(),
     routes: [
-
-        { path: NavBar.data().homeRoute, component: WelcomeComponent },
-        { path: NavBar.data().imageListRoute, component: ImageListComponent },
-        { path: NavBar.data().myAccountRoute, component: AccountComponent },
-        { path: NavBar.data().profilePageRoute, component: ProfilePageComponent },
-        { path: NavBar.data().signInRoute, component: SignInComponent },
-        { path: '/:pathMatch(.*)', component: UnknownRoute },
-
         {
             path: NavBar.data().homeRoute,
-            component: WelcomeComponent
+            component: WelcomeComponent,
         },
         {
             path: NavBar.data().imageListRoute,
             component: ImageListComponent,
-            children: [ { path: ':id', component: imageDetailComponent }]
+            children: [
+                {
+                    path: 'allImages',
+                    component: allImagesComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusTodo',
+                    component: imageStatusTodoComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusOnGoing',
+                    component: imageStatusOnGoingComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusFinished',
+                    component: imageStatusFinishedComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusOverDate',
+                    component: imageStatusOverDateComponent,
+                    children: [{path: ':id', component: imageDetailComponent}]
+                }
+            ]
         },
         {
             path: NavBar.data().myAccountRoute,
@@ -47,8 +70,14 @@ export const router = createRouter({
             path: NavBar.data().signInRoute,
             component: SignInComponent
         },
+        {
+            path: NavBar.data().webScraperRoute,
+            component: WebScraperComponent
+        },
+        {
+            path: '/profilePage', component: ProfilePageComponent
+        },
         { path: '/:pathMatch(.*)', component: UnknownRoute },
-        { path: '/addImage', component: addImageComponent},
-
-    ],
+        { path: '/addImage', component: addImageComponent}
+    ]
 })

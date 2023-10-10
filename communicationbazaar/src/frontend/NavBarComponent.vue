@@ -13,7 +13,8 @@
 
     <div class="sidebar">
       <div class="nav-icons">
-        <div class="active-line" :class="{'profile-active': currentContent === 'contentProfile', 'laptop-active': currentContent === 'contentLaptop', 'admin-active': currentContent === 'contentAdmin'}"></div>
+        <div class="active-line"
+             :class="{'profile-active': currentContent === 'contentProfile', 'laptop-active': currentContent === 'contentLaptop', 'admin-active': currentContent === 'contentAdmin'}"></div>
 
         <!-- Image overview icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-grid"
@@ -46,46 +47,18 @@
 
       </div>
 
-      <!-- Navbar links -->
-      <ul>
-        <li>
-          <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
-            Image list
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
-            My Account
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="profilePageRoute" :class="{'active-tab': $route.path === profilePageRoute}">
-            Profile
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
-            Log in
-          </router-link>
-        </li>
-      </ul>
-
-
-      <div class="nav-side" >
+      <div class="nav-side">
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentImage'}">
-          <h5 class="offcanvas-title" >Image</h5>
+          <h5 class="offcanvas-title">Image</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === homeRoute}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house" viewBox="0 0 16 16"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
+                     viewBox="0 0 16 16"
                      :class="{'active-icon': $route.path === homeRoute}">
-                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                  <path
+                      d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
                 <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
                   Home
@@ -93,14 +66,83 @@
               </div>
             </li>
             <li>
-              <div :class="{'active-route': $route.path === imageListRoute}">
+              <div :class="{'active-route': $route.path === allImagesRoute}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                     :class="{'active-icon': $route.path === imageListRoute}" viewBox="0 0 16 16">
+                     :class="{'active-icon': $route.path === allImagesRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                  <path
+                      d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
-                <router-link :to="imageListRoute" :class="{'active-tab': $route.path === imageListRoute}">
-                  Image list
+                <router-link :to="allImagesRoute" :class="{'active-tab': $route.path === allImagesRoute}">
+                  All Images
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusTodo}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                     :class="{'active-icon': $route.path === statusTodo}"
+                     class="bi bi-card-checklist my-4"
+                     viewBox="0 0 16 16">
+                  <path
+                      d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                  <path
+                      d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                <router-link :to="statusTodo" :class="{'active-tab': $route.path === statusTodo}">
+                  Todo List
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusOnGoing}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                     :class="{'active-icon': $route.path === statusOnGoing}"
+                     class="bi bi-arrow-repeat my-4 mx-1"
+                     viewBox="0 0 16 16">
+                  <path
+                      d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                  <path fill-rule="evenodd"
+                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                </svg>
+                <router-link :to="statusOnGoing" :class="{'active-tab': $route.path === statusOnGoing}">
+                  On Going List
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusFinished}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                     :class="{'active-icon': $route.path === statusFinished}"
+                     class="bi bi-calendar-check my-4 mx-1"
+                     viewBox="0 0 16 16">
+                  <path
+                      d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                  <path
+                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                </svg>
+                <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
+                  Finished List
+                </router-link>
+              </div>
+            </li>
+
+            <li>
+              <div :class="{'active-route': $route.path === statusOverDate}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                     :class="{'active-icon': $route.path === statusOverDate}"
+                     class="bi bi-calendar-x my-4 mx-1"
+                     viewBox="0 0 16 16">
+                  <path
+                      d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
+                  <path
+                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                </svg>
+                <router-link :to="statusOverDate" :class="{'active-tab': $route.path === statusOverDate}">
+                  OverDate List
                 </router-link>
               </div>
             </li>
@@ -108,13 +150,15 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
-          <h5 class="offcanvas-title" >Profile</h5>
+          <h5 class="offcanvas-title">Profile</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === myAccountRoute}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house" viewBox="0 0 16 16"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
+                     viewBox="0 0 16 16"
                      :class="{'active-icon': $route.path === myAccountRoute}">
-                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                  <path
+                      d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
                 <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
                   My Account
@@ -122,11 +166,13 @@
               </div>
             </li>
             <li>
-              <div :class="{'active-route': $route.path === signInRoute, 'hiddenButton': json.some(account => account.loggedIn) === true}" >
+              <div
+                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': json.some(account => account.loggedIn) === true}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                  <path
+                      d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
                   Sign In
@@ -144,24 +190,24 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
-          <h5 class="offcanvas-title" >Laptop</h5>
+          <h5 class="offcanvas-title">Laptop</h5>
 
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
-          <h5 class="offcanvas-title" >Admin</h5>
+          <h5 class="offcanvas-title">Admin</h5>
 
         </div>
 
       </div>
 
->>>>>>> 1f324a21ff0ae6d6aae012c722a4cd72e84f2285
     </div>
   </div>
 </template>
 
 <script>
 import json from "../account.json";
+import allImagesComponent from "@/frontend/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
@@ -169,21 +215,22 @@ export default {
     return {
       homeRoute: '/',
       imageListRoute: '/imageListRoute',
+      allImagesRoute: '/imageListRoute/allImages',
+      statusTodo: '/imageListRoute/statusTodo',
+      statusOnGoing: '/imageListRoute/statusOnGoing',
+      statusFinished: '/imageListRoute/statusFinished',
+      statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',
-
-      profilePageRoute: '/profilePageRoute',
-
-
       signInRoute: '/signIn',
+      webScraperRoute: '/webScraper',
       json: json,
 
       currentContent: 'contentImage'
-
     }
   },
   watch: {
-    '$route' () {
-      if(this.$route.path.match(this.homeRoute) ||this.$route.path.match(this.imageListRoute)) {
+    '$route'() {
+      if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
       if (this.$route.path.match(this.signInRoute)) {
@@ -192,10 +239,12 @@ export default {
     }
 
 
-
-
   },
-  computed: {},
+  computed: {
+    allImagesComponent() {
+      return allImagesComponent
+    }
+  },
   methods: {
     logOut() {
       json.forEach(account => {
@@ -241,7 +290,6 @@ export default {
 .admin-active {
   top: 312px;
 }
-
 
 
 .offcanvas-title {

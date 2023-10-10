@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import account from './profile.json'
+import account from '@/profile.json'
 
 export default {
   name: "ProfilePageComponent",

@@ -3,7 +3,27 @@
     "personalNumber": "2130234",
     "password": "IloveApples4%",
     "name": "Pieter van de Broek",
-    "email": "pietervdBroek@gmail.com",
+    "email": "pietervdbroek@gmail.com",
+    "role": "ImageMaker",
+    "imagesOnGoing": [],
+    "imagesDone": [],
+    "loggedIn": false
+  },
+  {
+    "personalNumber": "2165954",
+    "password": "MacbookPro3$",
+    "name": "Julia Beekman",
+    "email": "juliabeekman@gmail.com",
+    "role": "ImageMaker",
+    "imagesOnGoing": [],
+    "imagesDone": [],
+    "loggedIn": false
+  },
+  {
+    "personalNumber": "2121843",
+    "password": "GroteBeer9!",
+    "name": "Guus de Jong",
+    "email": "guusdejong@gmail.com",
     "role": "ImageMaker",
     "imagesOnGoing": [],
     "imagesDone": [],

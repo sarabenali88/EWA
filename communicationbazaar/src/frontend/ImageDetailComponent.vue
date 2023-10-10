@@ -50,17 +50,53 @@
     </div>
   </div>
   <div class="pt-3">
-    <ul class="nav nav-underline" id="myTab" role="tablist">
-      <li class="nav-link active" role="presentation" data-bs-toggle="tab">
+    <ul class="nav nav-underline ms-3" id="myTab" role="tablist">
+      <li class="nav-link active" role="option" data-bs-toggle="tab" value="com" @click="setNav('com')">
         Commentaar
       </li>
-      <li class="nav-link" role="presentation" data-bs-toggle="tab">
+      <li class="nav-link" role="option" data-bs-toggle="tab" value="desc" @click="setNav('desc')">
         Beschrijving
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="commentab" role="tabpanel" aria-labelledby="comment-tab" tabindex="0">ik doe het</div>
-      <div class="tab-pane fade" id="infotab" role="tabpanel" aria-labelledby="info-tab" tabindex="0">ik ook</div>
+      <div v-if="showDesc" class="m-2">
+        <div v-if="currentImage.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
+          <div class="col col-sm-2 text-body-tertiary">
+            OS:
+          </div>
+          <div class="col-sm-auto">
+            {{currentImage.laptop[0].os}}
+          </div>
+        </div>
+        <div class="row justify-content-sm-left">
+          <div class="col col-sm-2 text-body-tertiary">
+            Startklaar versie:
+          </div>
+          <div class="col-sm-auto">
+            {{currentImage.version}}
+          </div>
+        </div>
+        <div class="row justify-content-sm-left">
+          <div class="col col-sm-2 text-body-tertiary">
+            Nieuw/Update:
+          </div>
+          <div class="col-sm-auto">
+            {{currentImage.release}}
+          </div>
+        </div>
+        <div class="row justify-content-sm-left">
+          <div class="col col-sm-2 text-body-tertiary">
+            Locatie:
+          </div>
+          <div class="col-sm-auto">
+            {{currentImage.store}}
+          </div>
+        </div>
+      </div>
+      <div v-else >
+        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
+                  :value="currentImage.comment" readonly></textarea>
+      </div>
     </div>
   </div>
 </div>
@@ -74,7 +110,17 @@ export default {
   ],
   data(){
     return {
-      showDiv: false
+      showDesc: false
+    }
+  },
+  methods: {
+    setNav(word){
+      if (word === 'com'){
+        this.showDesc = false;
+      }
+      if (word === 'desc'){
+        this.showDesc = true;
+      }
     }
   }
 }

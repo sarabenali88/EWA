@@ -58,15 +58,10 @@ export default {
           } else if (this.password !== this.accountData[i].password) {
             alert("Wachtwoord verkeerd.");
           }
-        } else if (this.personalNumber !== this.accountData[i].personalNumber) {
-          alert("Personeelsnummer verkeerd " + this.personalNumber + ' ' + this.accountData[i].personalNumber);
         }
       }
     }
   },
-  created() {
-    console.log(json)
-  }
 }
 
 
