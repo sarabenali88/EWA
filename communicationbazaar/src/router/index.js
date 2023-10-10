@@ -14,6 +14,7 @@ import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponen
 import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 import WebScraperComponent from "@/frontend/WebScraperComponent";
+import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 
 
 export const router = createRouter({
@@ -72,6 +73,9 @@ export const router = createRouter({
         {
             path: NavBar.data().webScraperRoute,
             component: WebScraperComponent
+        },
+        {
+            path: '/profilePage', component: ProfilePageComponent
         },
         { path: '/:pathMatch(.*)', component: UnknownRoute },
         { path: '/addImage', component: addImageComponent}
