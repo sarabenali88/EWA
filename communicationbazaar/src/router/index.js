@@ -8,6 +8,7 @@ import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
 import json from '../account.json'
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import WebScraperComponent from "@/frontend/WebScraperComponent";
 
 
 export const router = createRouter({
@@ -36,6 +37,10 @@ export const router = createRouter({
         {
             path: NavBar.data().signInRoute,
             component: SignInComponent
+        },
+        {
+            path: NavBar.data().webScraperRoute,
+            component: WebScraperComponent
         },
         { path: '/:pathMatch(.*)', component: UnknownRoute },
         { path: '/addImage', component: addImageComponent}

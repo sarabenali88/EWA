@@ -140,6 +140,7 @@ export default {
       imageListRoute: '/imageListRoute',
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
+      webScraperRoute: '/webScraper',
       json: json,
 
       currentContent: 'contentImage'

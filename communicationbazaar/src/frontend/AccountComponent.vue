@@ -15,15 +15,15 @@
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h6>Name</h6>
-                    <p class="text-muted">Maria Howitz</p>
+                    <p class="text-muted">{{ name }}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Email</h6>
-                    <p class="text-muted">info@example.com</p>
+                    <p class="text-muted">{{ email }}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Role</h6>
-                    <p class="text-muted">Image maker</p>
+                    <p class="text-muted">{{ role }}</p>
                   </div>
                 </div>
                 <h6>Projects</h6>
@@ -48,8 +48,32 @@
 </template>
 
 <script>
+
+import json from "@/account.json";
+
 export default {
-  name: "AccountComponent"
+  name: "AccountComponent",
+
+  data() {
+    return {
+      name: '',
+      email: '',
+      role: '',
+      array: [],
+    }
+  },
+  created() {
+    this.createInformation();
+  },
+  methods: {
+    createInformation() {
+
+      const user = json.find(account => account.loggedIn);
+      this.name = user.name;
+      this.role = user.role;
+      this.email = user.email;
+    }
+  }
 }
 </script>
 
