@@ -1,7 +1,8 @@
 <template>
   <header class="container-fluid text-center mb-5">
     <div class="row mt-2">
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.todoStatus)">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;"
+           @click="getSelectedStatus(this.todoStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-card-checklist my-4"
@@ -15,12 +16,13 @@
         <div class="col">
           <h6>Todo:</h6>
           <div>
-            <h1>{{amountOfImagesToDo}}</h1>
+            <h1>{{ amountOfImagesToDo }}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;" @click="getSelectedStatus(this.onGoingStatus)">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;"
+           @click="getSelectedStatus(this.onGoingStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-arrow-repeat my-4 mx-1"
@@ -34,12 +36,13 @@
         <div class="col">
           <h6>On going:</h6>
           <div>
-            <h1>{{amountOfImagesOnGoing}}</h1>
+            <h1>{{ amountOfImagesOnGoing }}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;" @click="getSelectedStatus(this.finishedStatus)">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;"
+           @click="getSelectedStatus(this.finishedStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-check my-4 mx-1"
@@ -53,12 +56,13 @@
         <div class="col">
           <h6>Finished:</h6>
           <div>
-            <h1>{{amountOfImagesFinished}}</h1>
+            <h1>{{ amountOfImagesFinished }}</h1>
             <h4>images</h4>
           </div>
         </div>
       </div>
-      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;" @click="getSelectedStatus(this.overDateStatus)">
+      <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;"
+           @click="getSelectedStatus(this.overDateStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-x my-4 mx-1"
@@ -80,41 +84,10 @@
     </div>
   </header>
   <div class="ms-lg-5">
-    <h1>
-      Alle Images
-    </h1>
-    <div class="container-fluid p-3">
-      <div v-if="selectedImage">
-        <div class="card card-body mb-3">
-          <router-view v-bind:currentImage="selectedImage">
-
-          </router-view>
-        </div>
-      </div>
-      <table class="table table-sm">
-        <thead>
-        <tr>
-          <th scope="col">EAN</th>
-          <th scope="col">Laptop naam</th>
-          <th scope="col">Medewerker</th>
-          <th scope="col">Status</th>
-          <th scope="col">Datum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td>{{ image.laptop[0].ean }}</td>
-          <td>{{ image.name }}</td>
-          <td>{{ image.imageMaker }}</td>
-          <td>{{ image.status }}</td>
-          <td>{{ image.upDateDate }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-      <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
-        add Image
-      </button>
+    <router-view></router-view>
+    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
+      add Image
+    </button>
   </div>
 </template>
 
@@ -124,8 +97,7 @@ import imageData from '@/image.json';
 
 export default {
   name: "ImageListComponent",
-  components: {
-  },
+  components: {},
   created() {
     this.$router.push("/imageListRoute/allImages");
 
@@ -152,41 +124,41 @@ export default {
   },
   methods: {
     getSelectedStatus(status) {
-      if (this.selectedStatus === status){
+      if (this.selectedStatus === status) {
         this.$router.push("/imageListRoute/allImages");
         this.selectedStatus = this.allImagesStatus;
       } else {
 
-        if (status === this.todoStatus){
+        if (status === this.todoStatus) {
           this.$router.push("/imageListRoute/statusTodo");
           this.selectedStatus = this.todoStatus;
         }
-        if (status === this.onGoingStatus){
+        if (status === this.onGoingStatus) {
           this.$router.push("/imageListRoute/statusOnGoing");
           this.selectedStatus = this.onGoingStatus;
         }
-        if (status === this.finishedStatus){
+        if (status === this.finishedStatus) {
           this.$router.push("/imageListRoute/statusFinished");
           this.selectedStatus = this.finishedStatus;
         }
-        if (status === this.overDateStatus){
+        if (status === this.overDateStatus) {
           this.$router.push("/imageListRoute/statusOverDate");
           this.selectedStatus = this.overDateStatus;
         }
       }
     },
-    amountOfImages(){
+    amountOfImages() {
       for (const image of this.images) {
-        if (image.status === "Te doen"){
+        if (image.status === "Te doen") {
           this.amountOfImagesToDo++;
         }
-        if (image.status === "Mee bezig"){
+        if (image.status === "Mee bezig") {
           this.amountOfImagesOnGoing++;
         }
-        if (image.status === "Afgerond"){
+        if (image.status === "Afgerond") {
           this.amountOfImagesFinished++;
         }
-        if (image.status === "Verouderd"){
+        if (image.status === "Verouderd") {
           this.amountOfImagesOverDate++;
         }
       }

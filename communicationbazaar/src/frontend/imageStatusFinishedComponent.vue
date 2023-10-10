@@ -1,41 +1,37 @@
 <template>
-  <div class="ms-lg-5">
-    <h1>
-      Status Finished Images
-    </h1>
-    <div class="container-fluid p-3">
-      <div v-if="selectedImage">
-        <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage">
+  <h1>
+    Status Finished Images
+  </h1>
+  <div class="container-fluid p-3">
+    <div v-if="selectedImage">
+      <div class="card card-body">
+        <router-view v-bind:currentImage="selectedImage">
 
-          </router-view>
-        </div>
+        </router-view>
       </div>
-      <table class="table table-sm">
-        <thead>
-        <tr>
-          <th scope="col">EAN</th>
-          <th scope="col">Laptop naam</th>
-          <th scope="col">Medewerker</th>
-          <th scope="col">Status</th>
-          <th scope="col">Datum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-        </tr>
-        </tbody>
-      </table>
     </div>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
-      add Image
-    </button>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">EAN</th>
+        <th scope="col">Laptop naam</th>
+        <th scope="col">Medewerker</th>
+        <th scope="col">Status</th>
+        <th scope="col">Datum</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
 </template>
 
 <script>
@@ -66,13 +62,13 @@ export default {
       }
       return null;
     },
-    isCorrespondingStatus(image){
-      if (image.status === "Afgerond"){
+    isCorrespondingStatus(image) {
+      if (image.status === "Afgerond") {
         return true;
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);

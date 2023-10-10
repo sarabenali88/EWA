@@ -1,5 +1,4 @@
 <template>
-  <div class="ms-lg-5">
     <h1>
       Status Todo Images
     </h1>
@@ -32,10 +31,7 @@
         </tbody>
       </table>
     </div>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
-      add Image
-    </button>
-  </div>
+
 </template>
 
 <script>
