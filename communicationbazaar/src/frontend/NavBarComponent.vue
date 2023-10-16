@@ -196,7 +196,18 @@
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
           <h5 class="offcanvas-title">Admin</h5>
-
+          <div
+              :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                 :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
+              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              <path
+                  d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+            <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
+              All users
+            </router-link>
+          </div>
         </div>
 
       </div>
@@ -223,6 +234,7 @@ export default {
       myAccountRoute: '/myAccountRoute',
       signInRoute: '/signIn',
       webScraperRoute: '/webScraper',
+      allUsersRoute: '/allUsers',
       json: json,
 
       currentContent: 'contentImage'
@@ -398,6 +410,10 @@ li a {
 
 .hiddenButton {
   display: none;
+}
+
+.showButton {
+
 }
 
 
