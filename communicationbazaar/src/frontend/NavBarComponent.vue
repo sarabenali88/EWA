@@ -248,6 +248,9 @@ export default {
       if (this.$route.path.match(this.signInRoute)) {
         this.setCurrentContent('contentProfile')
       }
+      if (this.$route.path.match(this.allUsersRoute)) {
+        this.setCurrentContent('contentAdmin')
+      }
     }
 
 
