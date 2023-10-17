@@ -40,7 +40,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
             <button @click="cancelEvent()" class="btn btn-secondary">Annuleren</button>
-            <button  class="btn btn-primary m-lg-2">Wijzigen</button>
+            <button @click="editEvent()" class="btn btn-primary m-lg-2">Wijzigen</button>
           </div>
         </div>
       </div>
@@ -64,29 +64,33 @@ export default {
   watch: {
     currentAccount: {
       handler(newAccount) {
-        this.copyAccount(newAccount);
+        if (newAccount !== null) {
+          this.copyAccount(newAccount);
+        }
       },
       deep: true,
     }
   },
   methods: {
-    setNav(word) {
-      if (word === 'com') {
-        this.showDesc = false;
-      }
-      if (word === 'desc') {
-        this.showDesc = true;
+    cancelEvent() {
+      if (this.hasChanged) {
+        if (confirm("Weet je zeker dat je wilt cancelen?")) {
+          this.$emit('cancelEvent', null);
+        }
       }
     },
-    cancelEvent() {
-      if (this.accountCopy !== this.currentAccount) {
-        if (confirm("Weet je zeker dat je wilt cancelen?")) {
-          this.$emit('cancelAccount', null)
+    editEvent() {
+      if (this.hasChanged) {
+        if (confirm("Weet je zeker dat je wilt wijzigen")){
+          this.$emit('editEvent', this.accountCopy);
         }
       }
     },
     copyAccount(currentAccount) {
-      this.accountCopy = currentAccount;
+      this.accountCopy = JSON.parse(JSON.stringify(currentAccount));
+    },
+    hasChanged() {
+      return this.accountCopy !== this.currentAccount;
     }
   }
 }

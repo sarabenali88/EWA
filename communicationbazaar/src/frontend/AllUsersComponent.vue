@@ -2,7 +2,7 @@
   <h1>User List</h1>
 
   <div class="container-fluid px-5">
-    <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent">
+    <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @editEvent="editEvent">
 
     </router-view>
   </div>
@@ -46,7 +46,7 @@ export default {
   name: "AllUsersComponent",
   components: UserDetailComponent,
 
-  emits: ['cancelEvent'],
+  emits: ['cancelEvent', 'editEvent'],
   data() {
     return {
       accounts: [],
@@ -87,7 +87,19 @@ export default {
       return this.selectedAccount;
     },
     cancelEvent(selectedAccount) {
+      this.$router.push(NavBarComponent.data().allUsersRoute);
       this.selectedAccount = selectedAccount;
+    },
+    editEvent(accountCopy) {
+      const updatedData = JSON.stringify(accountCopy);
+      const user = accounts.find(account => account.personalNumber === this.selectedAccount.personalNumber);
+      console.log(user)
+      user.personalNumber = updatedData.personalNumber;
+      user.password = updatedData.password;
+      user.email = updatedData.email;
+      user.role = updatedData.role;
+      user.name = updatedData.name;
+      console.log(updatedData);
     }
   }
 }
