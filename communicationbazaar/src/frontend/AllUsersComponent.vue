@@ -23,7 +23,7 @@
                   <span class="job_post">{{ account.role }}</span>
                   <p>{{ account.email }}</p>
                   <div>
-                    <button class="btn btn-primary btn-round" @click="setAccount(account)">Wijzigen</button>
+                    <button class="btn btn-danger btn-round" @click="setAccount(account)">Wijzigen</button>
                   </div>
                 </div>
               </div>
@@ -91,15 +91,20 @@ export default {
       this.selectedAccount = selectedAccount;
     },
     editEvent(accountCopy) {
-      const updatedData = JSON.stringify(accountCopy);
+      const data = JSON.stringify(accountCopy);
+      const updatedData = JSON.parse(data);
       const user = accounts.find(account => account.personalNumber === this.selectedAccount.personalNumber);
+      let userIndex = this.accounts.indexOf(user);
+      console.log(userIndex)
       console.log(user)
       user.personalNumber = updatedData.personalNumber;
       user.password = updatedData.password;
       user.email = updatedData.email;
       user.role = updatedData.role;
       user.name = updatedData.name;
-      console.log(updatedData);
+      this.accounts[userIndex] = user;
+      this.$router.push(NavBarComponent.data().allUsersRoute);
+      this.selectedAccount = null;
     }
   }
 }

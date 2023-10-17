@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-primary">Account Details</h6>
+          <h6 class="mb-2 text-danger">Account Details</h6>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
@@ -40,7 +40,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
             <button @click="cancelEvent()" class="btn btn-secondary">Annuleren</button>
-            <button @click="editEvent()" class="btn btn-primary m-lg-2">Wijzigen</button>
+            <button @click="editEvent()" class="btn btn-danger m-lg-2">Wijzigen</button>
           </div>
         </div>
       </div>
