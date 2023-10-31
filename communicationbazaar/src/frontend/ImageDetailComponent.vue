@@ -32,8 +32,11 @@
         </svg>
         Medewerker:
       </div>
-      <div class="col-sm-auto">
+      <div v-if="currentImage.imageMaker !== ''">
         {{currentImage.imageMaker}}
+      </div>
+      <div v-else class="col-sm-auto text-body-secondary" >
+        Niet toegewezen
       </div>
     </div>
     <div class="row justify-content-md-left">
