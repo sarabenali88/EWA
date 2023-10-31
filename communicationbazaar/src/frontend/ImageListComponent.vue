@@ -2,6 +2,7 @@
   <header class="container-fluid text-center mb-5">
     <div class="row mt-2">
       <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;"
+           :class="{'active-tab': $route.path === '/imageListRoute/statusTodo'}"
            @click="getSelectedStatus(this.todoStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
@@ -22,6 +23,7 @@
         </div>
       </div>
       <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .75;"
+           :class="{'active-tab': $route.path === '/imageListRoute/statusOnGoing'}"
            @click="getSelectedStatus(this.onGoingStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
@@ -42,6 +44,7 @@
         </div>
       </div>
       <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .95;"
+           :class="{'active-tab': $route.path === '/imageListRoute/statusFinished'}"
            @click="getSelectedStatus(this.finishedStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
@@ -62,6 +65,7 @@
         </div>
       </div>
       <div class="row col w-auto h-75 mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2" style="--bs-bg-opacity: .100;"
+           :class="{'active-tab': $route.path === '/imageListRoute/statusOverDate'}"
            @click="getSelectedStatus(this.overDateStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
@@ -171,5 +175,9 @@ export default {
 
 .statusButtonsStyling {
   height: 100px;
+}
+
+.active-tab {
+  border: solid black 2px;
 }
 </style>
