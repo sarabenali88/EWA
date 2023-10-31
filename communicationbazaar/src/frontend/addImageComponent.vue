@@ -3,7 +3,7 @@
     <form @submit.prevent="validateInput">
       <div class="row">
         <div class="col-25">
-          <label for="ean">{{$t("codeNumber")}}</label>
+          <label for="ean">{{$t('codeNumber')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">

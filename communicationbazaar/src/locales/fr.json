@@ -1,10 +1,10 @@
 [{
-  "codeNumber": "Ean Code",
-  "ReadyToUseVersion": "Startklaar Versie",
-  "imageName": "Image Naam",
-  "imageLocation": "Image Locatie",
-  "status": "status",
-  "date": "Datum",
-  "week": "Week"
+  "codeNumber": "Code EAN",
+  "ReadyToUseVersion": "Version prête à l'emploi",
+  "imageName": "Nom de l'image",
+  "imageLocation": "Emplacement de l'image",
+  "status": "Statut",
+  "date": "Date",
+  "week": "Semaine"
 }
 ]

@@ -43,11 +43,11 @@ export default {
     updateLocale() {
       // update the i18n locale when the user selects a different language
       if (this.$i18n.locale === 'nl') {
-        this.$i18n.locale = 'en';
-      } else if (this.$i18n.locale === 'en') {
-        this.$i18n.locale = 'fr';
-      } else {
         this.$i18n.locale = 'nl';
+      } else if (this.$i18n.locale === 'en') {
+        this.$i18n.locale = 'en';
+      } else {
+        this.$i18n.locale = 'fr';
       }
     },
     },
