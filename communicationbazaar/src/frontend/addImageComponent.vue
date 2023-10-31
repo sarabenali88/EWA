@@ -3,11 +3,11 @@
     <form @submit.prevent="validateInput">
       <div class="row">
         <div class="col-25">
-          <label for="ean">EAN code</label>
+          <label for="ean">{{$t("codeNumber")}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
-            <input type="number" v-model.number="ean" placeholder="EAN code" @blur="validateInput"/>
+            <input type="number" v-model.number="ean" @blur="validateInput"/>
             <div class="error" v-if="invalid === true && ean === null">Dit veld is verplicht</div>
             <div class="error" v-if="invalidEan === true && ean < 0">EAN code mag niet kleiner dan 0 zijn!</div>
           </div>
@@ -15,11 +15,11 @@
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="start">Startklaar Versie</label>
+          <label for="start">Startklaar versie</label>
         </div>
         <div class="col-75">
           <div class="input-container">
-            <input type="text" v-model.trim="startVersion" placeholder="Startklaar versie"/>
+            <input type="text" v-model.trim="startVersion"/>
             <div class="error" v-if="invalid === true && startVersion === ''">Dit veld is verplicht</div>
           </div>
         </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-75">
           <div class="input-container">
-            <input type="text" placeholder="Image naam" v-model.trim="imageName"/>
+            <input type="text" v-model.trim="imageName"/>
             <div class="error" v-if="invalid === true && imageName === ''">Dit veld is verplicht</div>
           </div>
         </div>
@@ -92,8 +92,11 @@
 
 </template>
 
-
 <script>
+import nlTrans from "../locales/nl.json";
+import enTrans from "../locales/en.json";
+import frTrans from "../locales/fr.json";
+import '../i18n.js'
 export default {
   name: "addImageComponent",
   data() {
@@ -108,10 +111,21 @@ export default {
       invalid: null,
       invalidEan: null,
       selectedOption: 'no',
-      problemExplanation: ''
+      problemExplanation: '',
+      nlTranslations: nlTrans,
+      enTranslations: enTrans,
+      frTranslations: frTrans,
+
+
     }
   },
+  created() {
+    // for (let i in nlTrans) {
+    //   this.nlTranslations.push(nlTrans[i]);
+   // }
+  },
   methods: {
+
     validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
           this.statusSelect === '' || this.date === ''|| this.week === ''){
