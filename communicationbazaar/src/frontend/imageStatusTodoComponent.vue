@@ -16,6 +16,7 @@
           <th scope="col">EAN</th>
           <th scope="col">Laptop naam</th>
           <th scope="col">Medewerker</th>
+          <th scope="col">Vestiging</th>
           <th scope="col">Status</th>
           <th scope="col">Datum</th>
         </tr>
@@ -25,6 +26,7 @@
           <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
         </tr>

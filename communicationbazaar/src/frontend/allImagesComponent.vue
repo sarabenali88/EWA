@@ -16,6 +16,7 @@
         <th scope="col">EAN</th>
         <th scope="col">Laptop naam</th>
         <th scope="col">Medewerker</th>
+        <th scope="col">Vestiging</th>
         <th scope="col">Status</th>
         <th scope="col">Datum</th>
       </tr>
@@ -25,6 +26,7 @@
         <td>{{ image.laptop[0].ean }}</td>
         <td>{{ image.name }}</td>
         <td>{{ image.imageMaker }}</td>
+        <td>{{image.store}}</td>
         <td>{{ image.status }}</td>
         <td>{{ image.upDateDate }}</td>
       </tr>

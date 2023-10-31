@@ -14,7 +14,7 @@
     "password": "MacbookPro3$",
     "name": "Julia Beekman",
     "email": "juliabeekman@gmail.com",
-    "role": "ImageMaker",
+    "role": "admin",
     "imagesOnGoing": [],
     "imagesDone": [],
     "loggedIn": false
@@ -24,7 +24,7 @@
     "password": "GroteBeer9!",
     "name": "Guus de Jong",
     "email": "guusdejong@gmail.com",
-    "role": "ImageMaker",
+    "role": "admin",
     "imagesOnGoing": [],
     "imagesDone": [],
     "loggedIn": false
