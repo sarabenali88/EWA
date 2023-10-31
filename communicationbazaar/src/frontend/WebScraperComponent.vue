@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      Web scraper
+      Test
     </h1>
   </div>
 </template>
