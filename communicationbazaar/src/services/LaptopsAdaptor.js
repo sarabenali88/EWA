@@ -22,20 +22,20 @@ export class LaptopsAdaptor {
     return laptops?.map(laptop => Laptop.copyConstructor(laptop));
   }
 
-  async asyncFindById (id) {
-    const laptopData = await this.fetchJson(this.resourcesUrl + '/' + id);
+  async asyncFindById (ean) {
+    const laptopData = await this.fetchJson(this.resourcesUrl + '/' + ean);
     return Laptop.copyConstructor(laptopData);
   }
 
   async asyncSave (laptop) {
-    return this.fetchJson(this.resourcesUrl + '/' + laptop.id,
+    return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,
       {
         method: 'POST'
       });
   }
 
-  async asyncDeleteById (id) {
-    return this.fetchJson(this.resourcesUrl + '/' + id,
+  async asyncDeleteById (ean) {
+    return this.fetchJson(this.resourcesUrl + '/' + ean,
       {
         method: 'DELETE'
       });
