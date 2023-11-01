@@ -83,22 +83,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="subject">Problemen</label>
-        </div>
-        <div class="col-75">
-          <input type="radio" value="yes" name="problem" v-model="selectedOption"/>Ja
-          <input type="radio" value="no" name="problem" v-model="selectedOption"/>Nee
-          <input type="radio" value="reported" name="problem" v-model="selectedOption"/>Gemeld bij SP
-          <div v-if="selectedOption === 'yes'">
-            <div>
-              <label>Probleem uitleg:</label>
-            </div>
-            <textarea v-model="problemExplanation"></textarea>
-          </div>
-        </div>
-      </div>
       <div>
         <button @click="validateInput">Opslaan</button>
       </div>
