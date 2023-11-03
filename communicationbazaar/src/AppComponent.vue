@@ -1,15 +1,19 @@
 <template>
-  <HeaderComponent/>
-  <NavBarComponent/>
-  <div id="mainContent">
-    <router-view/>
+  <div class="all">
+    <HeaderComponent/>
+    <NavBarComponent/>
+    <div id="mainContent">
+      <router-view/>
+    </div>
   </div>
+
 </template>
 
 <script>
 
 import HeaderComponent from "@/frontend/HeaderComponent";
 import NavBarComponent from "@/frontend/NavBarComponent";
+import "./main.css"
 export default {
   name: 'App',
   components: {
@@ -21,16 +25,18 @@ export default {
 
 <style scoped>
 
+.all {
+  overflow: hidden;
+}
 #mainContent {
   margin-left: 0;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
+  max-height: calc(100vh + 100px);
 }
 
 @media (min-width: 992px) {
   #mainContent {
-    margin-top: -40px;
-    margin-left: 20%;
+    margin-top: -50px;
+    margin-left: 300px;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }

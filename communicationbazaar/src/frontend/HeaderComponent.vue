@@ -1,5 +1,4 @@
 <template>
-  <div class="header">
     <div class="headerContent">
       <!-- Mediamarkt logo-->
       <img class="logo" :src="mediaMarktLogo" alt="">
@@ -19,7 +18,6 @@
       </div>
     </div>
 
-  </div>
 </template>
 
 <script>
@@ -40,7 +38,7 @@ export default {
 
 .logo {
   width: 400px;
-  z-index: -2;
+  /*z-index: 0;*/
 }
 
 .input-group-lg {
@@ -79,19 +77,16 @@ export default {
   box-shadow: 0 0 0 0.15rem rgba(218, 28, 37, 0.25);
 }
 
-.header {
-  position: relative;
-  color: salmon;
-  height: 100px;
-  border-bottom: solid lightgrey 2px;
-}
-
 .headerContent {
+  position: absolute;
+  background-color: white;
+  width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
   padding: 20px;
-  position: relative;
+  border-bottom: solid lightgrey 2px;
+  overflow-y: hidden;
 }
 
 
