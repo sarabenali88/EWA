@@ -9,7 +9,7 @@
     </h1>
 
     <div>
-      <table id="cabinOverview">
+      <table>
         <thead>
         <tr>
           <th v-for="column in laptopColumns" :key="column.id">{{ column.name }}</th>
@@ -39,7 +39,7 @@
     </h1>
 
     <div>
-      <table id="cabinOverview">
+      <table>
         <thead>
         <tr>
           <th v-for="column in imageColumns" :key="column.id">{{ column.name }}</th>
@@ -63,6 +63,32 @@
         </tbody>
       </table>
     </div>
+
+    <h1>
+      Accounts random lijst
+    </h1>
+
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th v-for="column in accountColumns" :key="column.id">{{ column.name }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="account in accounts" :key="account.id">
+          <td>{{ account.personalNumber }}</td>
+          <td>{{ account.password }}</td>
+          <td>{{ account.name }}</td>
+          <td>{{ account.email }}</td>
+          <td>{{ account.role }}</td>
+          <td>{{ account.imagesOnGoing[0].laptop.ean }}</td>
+          <td>{{ account.imagesDone[0].laptop.ean }}</td>
+          <td>{{ account.loggedIn }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -70,7 +96,7 @@
 
 export default {
   name: "WebScraperComponent",
-  inject: ["imagesService", "laptopsService"],
+  inject: ["imagesService", "laptopsService", "accountsService"],
 
   data() {
     return {
@@ -103,6 +129,17 @@ export default {
         { name: 'name' },
         { name: 'comment' },
         { name: 'imageMaker' }
+      ],
+      accounts: [],
+      accountColumns: [
+        { name: 'personalNumber' },
+        { name: 'password' },
+        { name: 'name' },
+        { name: 'email' },
+        { name: 'role' },
+        { name: 'imagesOnGoing' },
+        { name: 'imagesDone' },
+        { name: 'loggedIn' }
       ]
     }
   },
@@ -111,6 +148,7 @@ export default {
   async created() {
     this.laptops = await this.laptopsService.asyncFindAll();
     this.images = await this.imagesService.asyncFindAll();
+    this.accounts = await this.accountsService.asyncFindAll();
   }
 }
 </script>

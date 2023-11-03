@@ -49,7 +49,7 @@ export default {
   methods: {
     checkInput() {
       for (let i = 0; i < this.accountData.length; i++) {
-        if (this.personalNumber === this.accountData[i].personalNumber) {
+        if (parseInt(this.personalNumber) === this.accountData[i].personalNumber) {
           if (this.password === this.accountData[i].password) {
             alert("Ingelogd");
             this.$router.push(NavBar.data().homeRoute);

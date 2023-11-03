@@ -34,8 +34,8 @@ export class ImagesAdaptor {
             });
     }
 
-    async asyncDeleteById (id) {
-        return this.fetchJson(this.resourcesUrl + '/' + id,
+    async asyncDeleteById (ean) {
+        return this.fetchJson(this.resourcesUrl + '/' + ean,
             {
                 method: 'DELETE'
             });

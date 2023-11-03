@@ -49,6 +49,6 @@ export class Image{
     static copyConstructor (image, id) {
         if (image == null) return null;
 
-        return Object.assign(new Laptop(id), image);
+        return Object.assign(new Image(id), image);
     }
 }
