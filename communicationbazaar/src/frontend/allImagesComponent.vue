@@ -25,8 +25,9 @@
       <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td>{{ image.laptop[0].ean }}</td>
         <td>{{ image.name }}</td>
-        <td>{{ image.imageMaker }}</td>
-        <td>{{image.store}}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-else class="text-secondary">Niet toegewezen</td>
+        <td>{{ image.store }}</td>
         <td>{{ image.status }}</td>
         <td>{{ image.upDateDate }}</td>
       </tr>

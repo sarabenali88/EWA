@@ -25,7 +25,8 @@
         <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
           <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+          <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
+          <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">Niet toegewezen</td>
           <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
@@ -33,7 +34,6 @@
         </tbody>
       </table>
     </div>
-
 </template>
 
 <script>
