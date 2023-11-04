@@ -1,10 +1,17 @@
-[{
-  "codeNumber": "Code EAN",
-  "ReadyToUseVersion": "Version prête à l'emploi",
-  "imageName": "Nom de l'image",
-  "imageLocation": "Emplacement de l'image",
-  "status": "Statut",
-  "date": "Date",
-  "week": "Semaine"
+{
+  "addImage": {
+    "eanNumber": "Code EAN",
+    "ReadyToUseVersion": "Version prête à l'emploi",
+    "imageName": "Nom de l'image",
+    "imageLocation": "Emplacement de l'image",
+    "status": "Statut",
+    "statusToDo": "À faire",
+    "statusOngoing": "En cours d'élaboration",
+    "statusFinished": "Terminé",
+    "date": "Date",
+    "week": "Semaine",
+    "alertEmpty": "Ce champ est obligatoire",
+    "alertEan": "Le code EAN ne peut pas être inférieur à 0",
+    "buttonName": "Enregistrer"
+  }
 }
-]

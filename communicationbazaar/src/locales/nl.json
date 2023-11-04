@@ -1,10 +1,17 @@
-[{
-  "codeNumber": "EAN Code",
-  "ReadyToUseVersion": "Startklaar Versie",
-  "imageName": "Image Naam",
-  "imageLocation": "Image Locatie",
-  "status": "status",
-  "date": "Datum",
-  "week": "Week"
+{
+  "addImage": {
+    "eanNumber": "EAN Code",
+    "ReadyToUseVersion": "Startklaar Versie",
+    "imageName": "Image Naam",
+    "imageLocation": "Image Locatie",
+    "status": "Status",
+    "statusToDo": "Te doen",
+    "statusOngoing": "Mee bezig",
+    "statusFinished": "Afgerond",
+    "date": "Datum",
+    "week": "Week",
+    "alertEmpty": "Dit veld is verplicht",
+    "alertEan": "EAN code mag niet kleiner dan 0 zijn",
+    "buttonName": "Opslaan"
+  }
 }
-  ]

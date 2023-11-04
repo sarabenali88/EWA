@@ -3,88 +3,88 @@
     <form @submit.prevent="validateInput">
       <div class="row">
         <div class="col-25">
-          <label for="ean">{{$t('codeNumber')}}</label>
+          <label for="ean">{{$t('addImage.eanNumber')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <input type="number" v-model.number="ean" @blur="validateInput"/>
-            <div class="error" v-if="invalid === true && ean === null">Dit veld is verplicht</div>
-            <div class="error" v-if="invalidEan === true && ean < 0">EAN code mag niet kleiner dan 0 zijn!</div>
+            <div class="error" v-if="invalid === true && ean === null">{{$t('addImage.alertEmpty')}}</div>
+            <div class="error" v-if="invalidEan === true && ean < 0">{{$t('addImage.alertEan')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="start">Startklaar versie</label>
+          <label for="start">{{ $t('addImage.ReadyToUseVersion') }}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <input type="text" v-model.trim="startVersion"/>
-            <div class="error" v-if="invalid === true && startVersion === ''">Dit veld is verplicht</div>
+            <div class="error" v-if="invalid === true && startVersion === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="image">Image Naam</label>
+          <label for="image">{{$t('addImage.imageName')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <input type="text" v-model.trim="imageName"/>
-            <div class="error" v-if="invalid === true && imageName === ''">Dit veld is verplicht</div>
+            <div class="error" v-if="invalid === true && imageName === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="location">Image locatie</label>
+          <label for="location">{{$t('addImage.imageLocation')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
-            <input type="text" v-model.trim="locationImage" placeholder="Locatie van winkel"/>
-            <div class="error" v-if="invalid === true && locationImage === ''">Dit veld is verplicht</div>
+            <input type="text" v-model.trim="locationImage"/>
+            <div class="error" v-if="invalid === true && locationImage === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="status">Status</label>
+          <label for="status">{{$t('addImage.status')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <select v-model="statusSelect">
-              <option value="todo">Te doen</option>
-              <option value="ongoing">Mee bezig</option>
-              <option value="finished">Afgerond</option>
+              <option value="todo">{{$t('addImage.statusToDo')}}</option>
+              <option value="ongoing">{{$t('addImage.statusOngoing')}}</option>
+              <option value="finished">{{$t('addImage.statusFinished')}}</option>
             </select>
-            <div class="error" v-if="invalid === true && statusSelect === ''">Dit veld is verplicht</div>
+            <div class="error" v-if="invalid === true && statusSelect === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="date">Datum</label>
+          <label for="date">{{$t('addImage.date')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <input :min="getToday()" type="date" v-model="date"/>
-            <div class="error" v-if="invalid === true && date === ''">Dit veld is verplicht</div>
+            <div class="error" v-if="invalid === true && date === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="week">Week</label>
+          <label for="week">{{$t('addImage.week')}}</label>
         </div>
         <div class="col-75">
           <div class="input-container">
             <input type="week" v-model="week" :min="minWeek"/>
-            <div class="error" v-if="invalid === true && week === ''">Dit veld is verplicht</div>
+            <div class="error" v-if="invalid === true && week === ''">{{$t('addImage.alertEmpty')}}</div>
           </div>
         </div>
       </div>
       <div>
-        <button @click="validateInput">Opslaan</button>
+        <button @click="validateInput">{{$t('addImage.buttonName')}}</button>
       </div>
 
     </form>
@@ -93,9 +93,6 @@
 </template>
 
 <script>
-import nlTrans from "../locales/nl.json";
-import enTrans from "../locales/en.json";
-import frTrans from "../locales/fr.json";
 import '../i18n.js'
 export default {
   name: "addImageComponent",
@@ -110,22 +107,9 @@ export default {
       week: '',
       invalid: null,
       invalidEan: null,
-      selectedOption: 'no',
-      problemExplanation: '',
-      nlTranslations: nlTrans,
-      enTranslations: enTrans,
-      frTranslations: frTrans,
-
-
     }
   },
-  created() {
-    // for (let i in nlTrans) {
-    //   this.nlTranslations.push(nlTrans[i]);
-   // }
-  },
   methods: {
-
     validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
           this.statusSelect === '' || this.date === ''|| this.week === ''){

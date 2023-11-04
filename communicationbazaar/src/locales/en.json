@@ -1,9 +1,17 @@
-[{
-  "codeNumber": "EAN Code",
-  "ReadyToUseVersion": "Ready To Use Version",
-  "imageName": "Image Name",
-  "imageLocation": "Image Location",
-  "status": "Status",
-  "date": "Date",
-  "week": "Week"
-}]
+{
+  "addImage": {
+    "eanNumber": "EAN Code",
+    "ReadyToUseVersion": "Ready To Use Version",
+    "imageName": "Image Name",
+    "imageLocation": "Image Location",
+    "status": "Status",
+    "statusToDo": "To Do",
+    "statusOngoing": "Ongoing",
+    "statusFinished": "Finished",
+    "date": "Date",
+    "week": "Week",
+    "alertEmpty": "This field is required",
+    "alertEan": "EAN code may not be less than 0",
+    "buttonName": "Save"
+  }
+}
