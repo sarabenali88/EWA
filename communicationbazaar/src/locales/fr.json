@@ -13,5 +13,14 @@
     "alertEmpty": "Ce champ est obligatoire",
     "alertEan": "Le code EAN ne peut pas être inférieur à 0",
     "buttonName": "Enregistrer"
+  },
+  "allImages": {
+    "titleName": "Toutes les Images",
+    "ean": "EAN",
+    "imageName": "Nom de l'image",
+    "employeeName": "Employé",
+    "location": "Localisation",
+    "status" : "Statut",
+    "date" : "Date"
   }
 }

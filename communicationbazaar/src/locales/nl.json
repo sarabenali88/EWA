@@ -13,5 +13,14 @@
     "alertEmpty": "Dit veld is verplicht",
     "alertEan": "EAN code mag niet kleiner dan 0 zijn",
     "buttonName": "Opslaan"
+  },
+  "allImages": {
+    "titleName": "Alle Images",
+    "ean": "EAN",
+    "imageName": "Image Naam",
+    "employeeName": "Medewerker",
+    "location": "Vestiging",
+    "status" : "Status",
+    "date" : "Datum"
   }
 }

@@ -13,5 +13,14 @@
     "alertEmpty": "This field is required",
     "alertEan": "EAN code may not be less than 0",
     "buttonName": "Save"
+  },
+  "allImages": {
+    "titleName": "All Images",
+    "ean": "EAN",
+    "imageName": "Image Name",
+    "employeeName": "Employee",
+    "location": "Location",
+    "status" : "Status",
+    "date" : "Date"
   }
 }
