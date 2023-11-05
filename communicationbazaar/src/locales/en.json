@@ -22,5 +22,19 @@
     "location": "Location",
     "status" : "Status",
     "date" : "Date"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "ITEM No",
+    "status": "Status",
+    "employee": "Employee",
+    "date": "Datum",
+    "comment": "Comments",
+    "description": "Description",
+    "os": "OS",
+    "ReadyToUseVersion": "Ready To Use Version",
+    "newUpdate": "New/Update",
+    "location": "Location",
+    "placeholder": "No comments yet"
   }
 }

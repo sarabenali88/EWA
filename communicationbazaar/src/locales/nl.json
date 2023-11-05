@@ -22,5 +22,19 @@
     "location": "Vestiging",
     "status" : "Status",
     "date" : "Datum"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "ART NR",
+    "status": "Status",
+    "employee": "Medewerker",
+    "date": "Datum",
+    "comment": "Commentaar",
+    "description": "Beschrijving",
+    "os": "OS",
+    "ReadyToUseVersion": "Startklaar Versie",
+    "newUpdate": "Nieuw/Update",
+    "location": "Locatie",
+    "placeholder": "Nog geen comments"
   }
 }

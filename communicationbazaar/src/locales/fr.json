@@ -22,5 +22,19 @@
     "location": "Localisation",
     "status" : "Statut",
     "date" : "Date"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "Réf. ART",
+    "status": "Statut",
+    "employee": "Employé",
+    "date": "Date",
+    "comment": "Commentaire",
+    "description": "Description",
+    "os": "OS",
+    "ReadyToUseVersion": "Version prête à l'emploi",
+    "newUpdate": "Nouveau/Mise à jour",
+    "location": "Localisation",
+    "placeholder": "Pas encore de commentaires"
   }
 }
