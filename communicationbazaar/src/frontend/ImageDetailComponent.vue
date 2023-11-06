@@ -1,8 +1,16 @@
 <template>
 <div>
-  <h3>
-    {{currentImage.laptop[0].brand}} {{currentImage.laptop[0].description}}
-  </h3>
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <h3>
+        {{currentImage.laptop[0].brand}} {{currentImage.laptop[0].description}}
+      </h3>
+    </div>
+    <div class="col-4">
+      <button type="button" class="btn btn-danger m-2">Verwijderen</button>
+      <button type="button" class="btn btn-outline-secondary" @click="onChange()">Bewerken</button>
+    </div>
+  </div>
   <div class="row justify-content-md-left">
     <div class="col col-sm-3">
       EAN: {{currentImage.laptop[0].ean}}
@@ -96,7 +104,19 @@
           </div>
         </div>
       </div>
-      <div v-else >
+      <div v-else-if="editComment === true && !showDesc" >
+        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
+                  :value="currentImage.comment"></textarea>
+        <div class="row justify-content-between">
+          <div class="col-auto">
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">Opslaan</button>
+            <button type="button" class="btn btn-outline-danger" @click="onChange()">Afsluiten</button>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!showDesc">
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
                   :value="currentImage.comment" readonly></textarea>
       </div>
@@ -113,7 +133,8 @@ export default {
   ],
   data(){
     return {
-      showDesc: false
+      showDesc: false,
+      editComment: false,
     }
   },
   methods: {
@@ -124,6 +145,16 @@ export default {
       if (word === 'desc'){
         this.showDesc = true;
       }
+    },
+    onChange(){
+      if (this.editComment === true){
+        this.editComment = false;
+      } else {
+        this.editComment = true;
+      }
+    },
+    saveChanges(){
+
     }
   }
 }
