@@ -33,6 +33,7 @@
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
+          <option v-for="(value, key) in statuses" :value="value" :key="key">{{ value }}</option>
         </select>
       </div>
     </div>
@@ -130,6 +131,7 @@
 </template>
 
 <script>
+import {LaptopImage} from "@/models/image";
 export default {
   name: "ImageDetailComponent",
   props: [
@@ -151,7 +153,7 @@ export default {
   },
   data(){
     return {
-      statuses: [],
+      statuses: LaptopImage.Status,
       showDesc: false,
       editComment: false,
       imageCopy: null,
@@ -174,8 +176,8 @@ export default {
       }
     },
     saveChanges(){
-      console.log(this.imageCopy.comment)
-      this.$emit('save-image', this.accountCopy);
+      console.log(this.imageCopy.status.value)
+      this.$emit('save-image', this.imageCopy);
       this.editComment = false;
     },
     copyImage(currentImage) {
