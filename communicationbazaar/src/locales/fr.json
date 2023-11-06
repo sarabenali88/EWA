@@ -36,5 +36,17 @@
     "newUpdate": "Nouveau/Mise à jour",
     "location": "Localisation",
     "placeholder": "Pas encore de commentaires"
+  },
+  "adminPanel" : {
+    "headTitle": "Liste des utilisateurs",
+    "title": "Détails du compte",
+    "name": "Nom",
+    "email": "Courriel",
+    "employeeNumber": "Numéro de personnel",
+    "role": "Rôle",
+    "cancelButton": "Annuler",
+    "editButton": "Changer",
+    "cancelMessage": "Êtes-vous sûr de vouloir annuler?",
+    "editMessage": "Êtes-vous sûr de vouloir changer?"
   }
 }

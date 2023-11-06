@@ -36,5 +36,17 @@
     "newUpdate": "New/Update",
     "location": "Location",
     "placeholder": "No comments yet"
+  },
+  "adminPanel" : {
+    "headTitle": "User List",
+    "title": "Account Details",
+    "name": "Name",
+    "email": "Email",
+    "employeeNumber": "Employee number",
+    "role": "Role",
+    "cancelButton": "Cancel",
+    "editButton": "Edit",
+    "cancelMessage": "Are you sure you want to cancel?",
+    "editMessage": "Are you sure you want to change?"
   }
 }

@@ -36,5 +36,17 @@
     "newUpdate": "Nieuw/Update",
     "location": "Locatie",
     "placeholder": "Nog geen comments"
+  },
+  "adminPanel" : {
+    "headTitle": "Gebruikerslijst",
+    "title": "Accountgegevens",
+    "name": "Naam",
+    "email": "E-mail",
+    "employeeNumber": "Personeelsnummer",
+    "role": "Functie",
+    "cancelButton": "Annuleren",
+    "editButton": "Wijzigen",
+    "cancelMessage": "Weet je zeker dat je wilt cancelen?",
+    "editMessage": "Weet je zeker dat je wilt wijzigen?"
   }
 }
