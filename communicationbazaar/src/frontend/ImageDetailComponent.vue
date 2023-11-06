@@ -28,8 +28,12 @@
         </svg>
         Status:
       </div>
-      <div class="col-sm-auto">
+      <div v-if="editComment === false" class="col-sm-auto">
         {{imageCopy.status}}
+      </div>
+      <div v-else class="col-sm-auto">
+        <select class="form-select" v-model="imageCopy.status">
+        </select>
       </div>
     </div>
     <div class="row justify-content-md-left">
@@ -40,7 +44,7 @@
         </svg>
         Medewerker:
       </div>
-      <div v-if="imageCopy.imageMaker !== ''">
+      <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
         {{imageCopy.imageMaker}}
       </div>
       <div v-else class="col-sm-auto text-body-secondary" >
@@ -106,7 +110,7 @@
       </div>
       <div v-else-if="editComment === true && !showDesc" >
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
-                  :value="imageCopy.comment"></textarea>
+                  v-model="imageCopy.comment"></textarea>
         <div class="row justify-content-between">
           <div class="col-auto">
           </div>
@@ -118,7 +122,7 @@
       </div>
       <div v-else-if="!showDesc">
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
-                  :value="imageCopy.comment" readonly></textarea>
+                  v-model="imageCopy.comment" readonly></textarea>
       </div>
     </div>
   </div>
@@ -131,6 +135,7 @@ export default {
   props: [
     'currentImage'
   ],
+  emits: ['delete-image', 'save-image'],
   created() {
     this.copyImage(this.currentImage);
   },
@@ -146,6 +151,7 @@ export default {
   },
   data(){
     return {
+      statuses: [],
       showDesc: false,
       editComment: false,
       imageCopy: null,
@@ -169,6 +175,8 @@ export default {
     },
     saveChanges(){
       console.log(this.imageCopy.comment)
+      this.$emit('save-image', this.accountCopy);
+      this.editComment = false;
     },
     copyImage(currentImage) {
       this.imageCopy = JSON.parse(JSON.stringify(currentImage));
