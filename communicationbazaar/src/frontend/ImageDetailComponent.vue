@@ -3,7 +3,7 @@
   <div class="row justify-content-between">
     <div class="col-auto">
       <h3>
-        {{currentImage.laptop[0].brand}} {{currentImage.laptop[0].description}}
+        {{imageCopy.laptop[0].brand}} {{imageCopy.laptop[0].description}}
       </h3>
     </div>
     <div class="col-4">
@@ -13,10 +13,10 @@
   </div>
   <div class="row justify-content-md-left">
     <div class="col col-sm-3">
-      EAN: {{currentImage.laptop[0].ean}}
+      EAN: {{imageCopy.laptop[0].ean}}
     </div>
     <div class="col-md-auto">
-      ART NR: {{currentImage.laptop[0].articleNumber}}
+      ART NR: {{imageCopy.laptop[0].articleNumber}}
     </div>
   </div>
   <div class="pt-4 m-sm-1">
@@ -29,7 +29,7 @@
         Status:
       </div>
       <div class="col-sm-auto">
-        {{currentImage.status}}
+        {{imageCopy.status}}
       </div>
     </div>
     <div class="row justify-content-md-left">
@@ -40,8 +40,8 @@
         </svg>
         Medewerker:
       </div>
-      <div v-if="currentImage.imageMaker !== ''">
-        {{currentImage.imageMaker}}
+      <div v-if="imageCopy.imageMaker !== ''">
+        {{imageCopy.imageMaker}}
       </div>
       <div v-else class="col-sm-auto text-body-secondary" >
         Niet toegewezen
@@ -56,7 +56,7 @@
         Datum:
       </div>
       <div class="col-sm-auto">
-        {{currentImage.upDateDate}}
+        {{imageCopy.upDateDate}}
       </div>
     </div>
   </div>
@@ -71,12 +71,12 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div v-if="showDesc" class="m-2">
-        <div v-if="currentImage.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
+        <div v-if="imageCopy.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             OS:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.laptop[0].os}}
+            {{imageCopy.laptop[0].os}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -84,7 +84,7 @@
             Startklaar versie:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.version}}
+            {{imageCopy.version}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -92,7 +92,7 @@
             Nieuw/Update:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.release}}
+            {{imageCopy.release}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -100,13 +100,13 @@
             Locatie:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.store}}
+            {{imageCopy.store}}
           </div>
         </div>
       </div>
       <div v-else-if="editComment === true && !showDesc" >
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
-                  :value="currentImage.comment"></textarea>
+                  :value="imageCopy.comment"></textarea>
         <div class="row justify-content-between">
           <div class="col-auto">
           </div>
@@ -118,7 +118,7 @@
       </div>
       <div v-else-if="!showDesc">
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
-                  :value="currentImage.comment" readonly></textarea>
+                  :value="imageCopy.comment" readonly></textarea>
       </div>
     </div>
   </div>
@@ -131,10 +131,24 @@ export default {
   props: [
     'currentImage'
   ],
+  created() {
+    this.copyImage(this.currentImage);
+  },
+  watch: {
+    currentImage: {
+      handler(newImage) {
+        if (newImage !== null) {
+          this.copyImage(newImage);
+        }
+      },
+      deep: true,
+    }
+  },
   data(){
     return {
       showDesc: false,
       editComment: false,
+      imageCopy: null,
     }
   },
   methods: {
@@ -154,8 +168,11 @@ export default {
       }
     },
     saveChanges(){
-
-    }
+      console.log(this.imageCopy.comment)
+    },
+    copyImage(currentImage) {
+      this.imageCopy = JSON.parse(JSON.stringify(currentImage));
+    },
   }
 }
 </script>
