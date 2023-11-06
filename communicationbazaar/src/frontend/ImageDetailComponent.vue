@@ -176,7 +176,6 @@ export default {
       }
     },
     saveChanges(){
-      console.log(this.imageCopy.status.value)
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
     },
