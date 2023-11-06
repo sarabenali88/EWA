@@ -12,7 +12,8 @@
     "week": "Semaine",
     "alertEmpty": "Ce champ est obligatoire",
     "alertEan": "Le code EAN ne peut pas être inférieur à 0",
-    "buttonName": "Enregistrer"
+    "buttonSave": "Enregistrer",
+    "buttonAdd": "Ajouter une image"
   },
   "allImages": {
     "titleName": "Toutes les Images",
@@ -48,5 +49,26 @@
     "editButton": "Changer",
     "cancelMessage": "Êtes-vous sûr de vouloir annuler?",
     "editMessage": "Êtes-vous sûr de vouloir changer?"
+
+  },
+  "imageStatus": {
+    "toDoTitle" : "Statut Images à faire",
+    "ongoingTitle" : "Statut En Cours Images",
+    "finishedTitle" : "Statut Images complétées",
+    "overDateTitle" : "Statut obsolète Images",
+    "statusToDo": "À faire",
+    "statusOngoing": "En cours",
+    "statusFinished": "Terminé",
+    "statusOverDate": "Surdate"
+  },
+  "signIn": {
+    "title": "Se connecter",
+    "personalNumber": "Numéro personnel",
+    "password": "Mot de passe",
+    "remember": "Mémoriser le mot de passe",
+    "logInButton": "Se connecter",
+    "loggedInMessage": "Connecté",
+    "wrongPassMessage": "Mot de passe erroné"
+
   }
 }

@@ -84,7 +84,7 @@
         </div>
       </div>
       <div>
-        <button @click="validateInput">{{$t('addImage.buttonName')}}</button>
+        <button @click="validateInput">{{$t('addImage.buttonSave')}}</button>
       </div>
 
     </form>

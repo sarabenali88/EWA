@@ -12,7 +12,8 @@
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
     "alertEan": "EAN code mag niet kleiner dan 0 zijn",
-    "buttonName": "Opslaan"
+    "buttonSave": "Opslaan",
+    "buttonAdd": "Image toevoegen"
   },
   "allImages": {
     "titleName": "Alle Images",
@@ -48,5 +49,25 @@
     "editButton": "Wijzigen",
     "cancelMessage": "Weet je zeker dat je wilt cancelen?",
     "editMessage": "Weet je zeker dat je wilt wijzigen?"
+  },
+  "imageStatus": {
+    "toDoTitle" : "Status Te doen Images",
+    "ongoingTitle" : "Status Mee bezig Images",
+    "finishedTitle" : "Status Afgeronde Images",
+    "overDateTitle" : "Status Over Datum Images",
+    "statusToDo": "Te doen",
+    "statusOngoing": "Mee bezig",
+    "statusFinished": "Afgerond",
+    "statusOverDate": "Over Datum"
+  },
+  "signIn": {
+    "title": "Inloggen",
+    "personalNumber": "Persoonlijk nummer",
+    "password": "Wachtwoord",
+    "remember": "Onthoud wachtwoord",
+    "logInButton": "Inloggen",
+    "loggedInMessage": "Ingelogd",
+    "wrongPassMessage": "Verkeerd wachtwoord"
+
   }
 }
