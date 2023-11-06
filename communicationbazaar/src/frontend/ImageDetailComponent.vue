@@ -7,8 +7,14 @@
       </h3>
     </div>
     <div class="col-4">
-      <button type="button" class="btn btn-danger m-2">Verwijderen</button>
-      <button type="button" class="btn btn-outline-secondary" @click="onChange()">Bewerken</button>
+      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}"
+                     type="button" class="btn btn-danger m-2">
+        Verwijderen
+      </button>
+      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false}"
+                     type="button" class="btn btn-outline-secondary" @click="onChange()">
+        Bewerken
+      </button>
     </div>
   </div>
   <div class="row justify-content-md-left">
@@ -132,6 +138,8 @@
 
 <script>
 import {LaptopImage} from "@/models/image";
+import json from "../account.json";
+
 export default {
   name: "ImageDetailComponent",
   props: [
@@ -157,6 +165,7 @@ export default {
       showDesc: false,
       editComment: false,
       imageCopy: null,
+      json: json
     }
   },
   methods: {
@@ -176,6 +185,9 @@ export default {
       }
     },
     saveChanges(){
+      if (this.imageCopy.status === "Te doen"){
+        this.imageCopy.imageMaker = ""
+      }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
     },
@@ -187,5 +199,7 @@ export default {
 </script>
 
 <style scoped>
-
+.hiddenButton {
+  display: none;
+}
 </style>
