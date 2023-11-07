@@ -82,7 +82,8 @@
           <td>{{ account.name }}</td>
           <td>{{ account.email }}</td>
           <td>{{ account.role }}</td>
-          <td>{{ account.imagesOnGoing[0].laptop.ean }}</td>
+          <td>{{ account.imagesOnGoing[0].laptop.ean
+            }}</td>
           <td>{{ account.imagesDone[0].laptop.ean }}</td>
           <td>{{ account.loggedIn }}</td>
         </tr>
@@ -154,5 +155,12 @@ export default {
 </script>
 
 <style scoped>
+table th, table td {
+  padding: 10px;
+  border: 1px solid black;
+}
 
+table th {
+  border: 1px solid black;
+}
 </style>

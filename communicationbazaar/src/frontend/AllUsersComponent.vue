@@ -23,7 +23,8 @@
                   <span class="job_post">{{ account.role }}</span>
                   <p>{{ account.email }}</p>
                   <div>
-                    <button class="btn btn-danger btn-round" @click="setAccount(account)">Wijzigen</button>
+                    <button class="btn btn-secondary btn-round" @click="setAccount(account)">Wijzigen</button>
+                    <button class="btn btn-danger btn-round" @click="deleteAccount(account)">Verwijderen</button>
                   </div>
                 </div>
               </div>
@@ -46,6 +47,7 @@ export default {
   name: "AllUsersComponent",
   components: UserDetailComponent,
 
+  inject: ["accountsService"],
   emits: ['cancelEvent', 'editEvent'],
   data() {
     return {
@@ -53,10 +55,8 @@ export default {
       selectedAccount: null
     }
   },
-  created() {
-    for (let i in accounts) {
-      this.accounts.push(accounts[i]);
-    }
+  async created() {
+    this.accounts = await this.accountsService.asyncFindAll();
   },
   watch: {
     '$route'() {
@@ -105,6 +105,13 @@ export default {
       this.accounts[userIndex] = user;
       this.$router.push(NavBarComponent.data().allUsersRoute);
       this.selectedAccount = null;
+    },
+    async deleteAccount(account) {
+      if (confirm("Weet je zeker dat je dit account wilt verwijderen?")) {
+        const indexToDelete = this.accounts.indexOf(this.accounts.find((account) => account.personalNumber === account.personalNumber));
+        this.accounts.splice(indexToDelete, 1);
+        await this.accountsService.asyncDeleteById(account.personalNumber);
+      }
     }
   }
 }

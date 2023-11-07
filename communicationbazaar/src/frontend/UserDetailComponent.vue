@@ -40,7 +40,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
             <button @click="cancelEvent()" class="btn btn-secondary">Annuleren</button>
-            <button @click="editEvent()" class="btn btn-danger m-lg-2">Wijzigen</button>
+            <button @click="editEvent()" class="btn btn-success m-lg-2">OK</button>
           </div>
         </div>
       </div>
