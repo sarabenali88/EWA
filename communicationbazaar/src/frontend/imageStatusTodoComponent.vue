@@ -1,7 +1,13 @@
 <template>
-    <h1>
-      Status Todo Images
-    </h1>
+  <h1>
+    Status Todo Images
+  </h1>
+  <div :class="{'hiddenPage': json.some(account => account.loggedIn && account.role === 'ImageMaker') ||
+   json.some(account => account.loggedIn && account.role === 'admin')}">
+    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
+  </div>
+  <div :class="{'hiddenPage': json.some(account => account.loggedIn) === false ||
+   json.some(account => account.loggedIn && account.role === 'coworker')}">
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
@@ -26,19 +32,21 @@
           <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
         </tr>
         </tbody>
       </table>
     </div>
+  </div>
 
 </template>
 
 <script>
 import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import accountData from '@/account.json';
 
 export default {
   name: "imageStatusTodoComponent",
@@ -46,7 +54,8 @@ export default {
   data() {
     return {
       images: [],
-      selectedImage: null
+      selectedImage: null,
+      json : accountData
     }
   },
   created() {
@@ -64,13 +73,13 @@ export default {
       }
       return null;
     },
-    isCorrespondingStatus(image){
-      if (image.status === "Te doen"){
+    isCorrespondingStatus(image) {
+      if (image.status === "Te doen") {
         return true;
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
@@ -88,5 +97,9 @@ export default {
 
 .statusButtonsStyling {
   height: 100px;
+}
+
+.hiddenPage{
+  display: none;
 }
 </style>
