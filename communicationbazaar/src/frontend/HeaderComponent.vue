@@ -12,7 +12,7 @@
       </div>
       <!--Translation select-->
       <div>
-        <select v-model="$i18n.locale" @change="updateLocale">
+        <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
           <option value="fr">Français</option>
@@ -111,7 +111,10 @@ export default {
   padding: 20px;
   position: relative;
 }
-
-
-
+.language{
+  margin-left: 50px
+}
+.language:hover{
+  border-color: salmon;
+}
 </style>
