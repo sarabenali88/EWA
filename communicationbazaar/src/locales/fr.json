@@ -69,6 +69,22 @@
     "logInButton": "Se connecter",
     "loggedInMessage": "Connecté",
     "wrongPassMessage": "Mot de passe erroné"
-
+  },
+  "header":{
+    "placeholder": "Recherche par image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "Toutes les Images",
+    "toDoList": "Liste de tâches",
+    "ongoingList": "Liste en cours",
+    "finishedList": "Liste finie",
+    "overDateList": "Liste obsolète",
+    "myAccount": "Mon compte",
+    "logIn": "Se connecter",
+    "logOut": "Se déconnecter",
+    "allUsers": "Tous les utilisateurs",
+    "profileTitle": "Profil",
+    "adminTitle": "Admin."
   }
 }

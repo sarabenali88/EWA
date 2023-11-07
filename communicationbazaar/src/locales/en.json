@@ -69,5 +69,22 @@
     "logInButton": "Log in",
     "loggedInMessage": "Logged In",
     "wrongPassMessage": "Wrong password"
+  },
+  "header":{
+    "placeholder": "Search for image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "All Images",
+    "toDoList": "Todo List",
+    "ongoingList": "Ongoing List",
+    "finishedList": "Finished List",
+    "overDateList": "Overdate List",
+    "myAccount": "My Account",
+    "logIn": "Sign in",
+    "logOut": "Log out",
+    "allUsers": "All users",
+    "profileTitle": "Profile",
+    "adminTitle": "Admin"
   }
 }

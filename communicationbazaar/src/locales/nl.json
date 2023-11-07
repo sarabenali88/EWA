@@ -68,6 +68,22 @@
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord"
-
+  },
+  "header":{
+    "placeholder": "Zoek voor image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "Alle Images",
+    "toDoList": "Te doen Lijst",
+    "ongoingList": "In ontwikkeling Lijst",
+    "finishedList": "Afgerond Lijst",
+    "overDateList": "Over datum Lijst",
+    "myAccount": "Mijn account",
+    "logIn": "Log in",
+    "logOut": "Log uit",
+    "allUsers": "Alle gebruikers",
+    "profileTitle": "Profiel",
+    "adminTitle": "Admin"
   }
 }
