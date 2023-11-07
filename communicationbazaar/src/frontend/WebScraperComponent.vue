@@ -152,6 +152,7 @@ export default {
     this.accounts = await this.accountsService.asyncFindAll();
   }
 }
+
 </script>
 
 <style scoped>
