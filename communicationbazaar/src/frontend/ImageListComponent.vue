@@ -89,7 +89,9 @@
   </header>
   <div class="ms-lg-5">
     <router-view></router-view>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
+    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
+            :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account =>
+            account.loggedIn && account.role !== 'ImageMaker')}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
@@ -97,6 +99,7 @@
 
 <script>
 import imageData from '@/image.json';
+import json from "@/account.json";
 
 
 export default {
@@ -123,7 +126,8 @@ export default {
       finishedStatus: "finishedStatus",
       overDateStatus: "overDateStatus",
       allImagesStatus: "allImages",
-      selectedStatus: this.allImagesStatus
+      selectedStatus: this.allImagesStatus,
+      json: json,
     }
   },
   methods: {
@@ -180,4 +184,8 @@ export default {
 .active-tab {
   border: solid black 2px;
 }
+.hiddenButton {
+  display: none;
+}
+
 </style>
