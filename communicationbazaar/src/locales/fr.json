@@ -13,7 +13,9 @@
     "alertEmpty": "Ce champ est obligatoire",
     "alertEan": "Le code EAN ne peut pas être inférieur à 0",
     "buttonSave": "Enregistrer",
-    "buttonAdd": "Ajouter une image"
+    "buttonAdd": "Ajouter une image",
+    "buttonCancel": "Annuler",
+    "cancelMessage": "Êtes-vous sûr de vouloir annuler?"
   },
   "allImages": {
     "titleName": "Toutes les Images",

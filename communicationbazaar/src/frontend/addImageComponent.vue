@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit.prevent="validateInput">
+    <form>
       <div class="row">
         <div class="col-25">
           <label for="ean">{{$t('addImage.eanNumber')}}</label>
@@ -84,7 +84,10 @@
         </div>
       </div>
       <div>
-        <button @click="validateInput">{{$t('addImage.buttonSave')}}</button>
+        <button class="buttonSave" @click="validateInput">{{$t('addImage.buttonSave')}}</button>
+      </div>
+      <div>
+      <button class="buttonCancel" @click="cancelEvent">{{$t('addImage.buttonCancel')}}</button>
       </div>
 
     </form>
@@ -110,6 +113,14 @@ export default {
     }
   },
   methods: {
+    cancelEvent(){
+      if (this.ean !== '' || this.startVersion !== '' || this.imageName !== '' || this.locationImage !== '' ||
+          this.statusSelect !== '' || this.date !== '' || this.week !== '') {
+        if (confirm(this.$t('addImage.cancelMessage'))){
+          this.$router.push('/imageListRoute');
+        }
+      }
+    },
     validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
           this.statusSelect === '' || this.date === ''|| this.week === ''){
@@ -122,12 +133,9 @@ export default {
       }else{
         this.invalidEan = '';
       }
-
       if (this.invalid === '' && this.invalidEan === ''){
         this.$router.push('/imageListRoute');
-
       }
-
     },
     getToday() {
       return new Date().toISOString().split("T")[0];
@@ -171,7 +179,7 @@ label {
 }
 
 /* Style the submit button */
-button{
+.buttonSave{
   background-color: #DA1C25;
   color: white;
   padding: 12px 10px;
@@ -180,6 +188,18 @@ button{
   cursor: pointer;
   width: 25%;
   margin-top: 20px;
+  float: left;
+}
+.buttonCancel{
+  background-color: #DA1C25;
+  color: white;
+  padding: 12px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 25%;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 /* Style the container */
@@ -220,7 +240,7 @@ button{
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+  .col-25, .col-75, input[type=button] {
     width: 100%;
     margin-top: 0;
   }

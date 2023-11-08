@@ -13,7 +13,9 @@
     "alertEmpty": "This field is required",
     "alertEan": "EAN code may not be less than 0",
     "buttonSave": "Save",
-    "buttonAdd": "Add image"
+    "buttonAdd": "Add image",
+    "buttonCancel": "Cancel",
+    "cancelMessage": "Are you sure you want to cancel?"
 
   },
   "allImages": {
