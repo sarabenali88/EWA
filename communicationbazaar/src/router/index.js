@@ -17,6 +17,7 @@ import WebScraperComponent from "@/frontend/WebScraperComponent";
 import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
+import imageStatusMyImagesComponent from "@/frontend/imageStatusMyImagesComponent";
 
 
 export const router = createRouter({
@@ -89,7 +90,9 @@ export const router = createRouter({
             }
         },
         {
-            path: '/profilePage', component: ProfilePageComponent
+            path: '/profilePage', component: ProfilePageComponent, children: [
+                {path: "", component: imageStatusMyImagesComponent}
+            ]
         },
         { path: '/:pathMatch(.*)', component: UnknownRoute },
         { path: '/addImage', component: addImageComponent}
