@@ -89,9 +89,9 @@
   </header>
   <div class="ms-lg-5">
     <router-view></router-view>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')">
-<!--            :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account =>-->
-<!--            account.loggedIn && account.role !== 'ImageMaker')}">-->
+    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
+            :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account =>
+            account.loggedIn && account.role !== 'ImageMaker')}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
