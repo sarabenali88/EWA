@@ -17,6 +17,7 @@ import WebScraperComponent from "@/frontend/WebScraperComponent";
 import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
+import UserAddComponent from "@/frontend/UserAddComponent";
 
 
 export const router = createRouter({
@@ -79,7 +80,9 @@ export const router = createRouter({
         {
             path: NavBar.data().allUsersRoute,
             component: AllUsersComponent,
-            children: [{path: ':id', component: UserDetailComponent}],
+            children: [
+                {path: ':id', component: UserDetailComponent},
+                {path: 'userAdd', component: UserAddComponent}],
             beforeEnter: (to, from, next) => {
                 if (json.some(account => account.loggedIn && account.role === 'admin')) {
                     next();

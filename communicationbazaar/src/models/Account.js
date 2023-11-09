@@ -8,11 +8,6 @@ export class Account {
     imagesDone;
     loggedIn;
 
-    static LOGGEDIN = {
-        TRUE: true,
-        FALSE: false
-    }
-
     constructor(personalNumber, password, name, email, role, imagesOnGoing, imagesDone, loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;

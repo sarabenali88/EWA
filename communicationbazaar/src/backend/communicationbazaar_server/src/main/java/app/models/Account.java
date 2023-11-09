@@ -1,5 +1,7 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
@@ -27,6 +29,12 @@ public class Account {
             this.value = value;
         }
 
+        @JsonCreator
+        public static LOGGEDIN fromBoolean(Boolean value) {
+            return value ? TRUE : FALSE;
+        }
+
+        @JsonValue
         public boolean getValue() {
             return value;
         }
@@ -71,6 +79,10 @@ public class Account {
 
     public int getPersonalNumber() {
         return personalNumber;
+    }
+
+    public void setPersonalNumber(int personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     public String getPassword() {

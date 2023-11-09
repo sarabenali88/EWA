@@ -10,6 +10,7 @@ import java.util.List;
 public class AccountRepositoryMock implements Repository<Account> {
     private List<Account> accounts = new ArrayList<>();
     private final int LISTLENGTH = 7;
+    private int personalNuberCreate = 10000;
 
     public AccountRepositoryMock() {
 //        for (int i = 0; i < LISTLENGTH; i++) {
@@ -65,7 +66,14 @@ public class AccountRepositoryMock implements Repository<Account> {
 
     @Override
     public Account save(Account model) {
-
+        if (this.findById(model.getPersonalNumber()) != null) {
+            int modelIndex = this.accounts.indexOf(this.findById(model.getPersonalNumber()));
+            this.accounts.set(modelIndex, model);
+        } else if (model.getPersonalNumber() == 0){
+            model.setPersonalNumber(this.personalNuberCreate);
+            this.personalNuberCreate++;
+            this.accounts.add(model);
+        }
         return model;
     }
 
