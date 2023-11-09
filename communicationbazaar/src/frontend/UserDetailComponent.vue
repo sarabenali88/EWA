@@ -20,13 +20,13 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
             <label for="phone">Personeelsnummer</label>
-            <input v-model="accountCopy.personalNumber" class="form-control">
+            <input v-model="accountCopy.personalNumber" class="form-control" readonly>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
             <label for="website">Wachtwoord</label>
-            <input v-model="accountCopy.password" class="form-control">
+            <input v-model="accountCopy.password" class="form-control" type="password" readonly>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

@@ -7,7 +7,7 @@
     </router-view>
   </div>
 
-  <button class="btn btn-secondary btn-round" @click="addAccount()">Gebruiker toevoegen</button>
+  <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">Gebruiker toevoegen</button>
 
   <div class="container-fluid p-3">
     <ul>
@@ -132,7 +132,7 @@ export default {
 
 <style scoped>
 
-h1 {
+h1, #addButton {
   margin-left: 40px;
 }
 
