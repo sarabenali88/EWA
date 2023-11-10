@@ -5,6 +5,10 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <h6 class="mb-2 text-danger">Account Toevoegen</h6>
         </div>
+        <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ alertMessage }}
+          <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+        </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !name }">
             <label for="fullName">Naam</label>
@@ -37,13 +41,32 @@
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
-            <button @click="cancelEvent()" class="btn btn-secondary">Annuleren</button>
-            <button @click="saveEvent()" class="btn btn-success m-lg-2">OK</button>
+            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">Annuleren</button>
+            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">OK</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmatie</h5>
+          <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Weet u zeker dat u door wilt gaan?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">Annuleren</button>
+          <button type="button" class="btn btn-success" @click="performAction()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -58,30 +81,65 @@ export default {
       name: "",
       email: "",
       password: "",
-      role: ""
+      role: "",
+      showAlert: false,
+      alertMessage: '',
+      showModal: false,
+      cancel: "cancel",
+      confirm: "confirm",
+      action: ""
     }
   },
   methods: {
     cancelEvent() {
-      if (confirm("Weet je zeker dat je wilt annuleren?")) {
-        this.$emit('cancelEvent', null);
-      }
+      this.$emit('cancelEvent', null);
     },
     saveEvent() {
-      if (this.fieldsFilledCheck()) {
-        if (confirm("Weet u zeker dat u de gebruiker wilt toevoegen?")) {
-          this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, [], [], false)
-          this.$emit('saveEvent', this.account);
-        }
-      }
+      this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, [], [], false)
+      this.$emit('saveEvent', this.account);
     },
     fieldsFilledCheck() {
       if (!this.name || !this.email || !this.role || !this.password) {
-        alert("Niet elk veld is ingevuld")
+        this.displayAlert("Niet elk veld is ingevuld!")
         return false;
       } else {
         return true;
       }
+    },
+    displayAlert(message) {
+      this.alertMessage = message;
+      this.showAlert = true;
+    },
+    dismissAlert() {
+      this.showAlert = false;
+      this.alertMessage = '';
+    },
+    showConfirmModal(cancelOrConfirm) {
+      if (cancelOrConfirm === "confirm") {
+        if (this.fieldsFilledCheck()) {
+          this.dismissAlert();
+          this.action = "confirm";
+          this.showModal = true;
+        }
+      } else if (cancelOrConfirm === "cancel") {
+        this.action = "cancel";
+        this.showModal = true;
+      }
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    performAction() {
+      if (this.action === "confirm") {
+        this.saveEvent();
+        this.closeModal();
+      } else if (this.action === "cancel") {
+        this.cancelEvent();
+        this.closeModal();
+      }
+    },
+    cancelAction() {
+      this.closeModal();
     }
   }
 }
@@ -91,5 +149,9 @@ export default {
 .has-error input, .has-error select {
   border-color: red;
   box-shadow: 0 0 10px red;
+}
+
+.modal {
+  margin-top: -20px;
 }
 </style>

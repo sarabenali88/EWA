@@ -1,5 +1,10 @@
 <template>
-  <h1>Gebruikers lijst</h1>
+  <h1>Gebruikerslijst</h1>
+
+  <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+    {{ alertMessage }}
+    <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+  </div>
 
   <div class="container-fluid px-5">
     <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
@@ -37,7 +42,23 @@
     </ul>
   </div>
 
-
+  <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmatie</h5>
+          <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Weet u zeker dat u door wilt gaan?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">Annuleren</button>
+          <button type="button" class="btn btn-success" @click="performAction()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -61,6 +82,13 @@ export default {
       accounts: [],
       selectedAccount: null,
       loggedInAccount: undefined,
+      showAlert: false,
+      alertMessage: '',
+      showModal: false,
+      fromUpdate: "fromUpdate",
+      fromAdd: "fromAdd",
+      action: "",
+      confirmAccount: undefined
     }
   },
   created() {
@@ -92,11 +120,9 @@ export default {
       if (account === this.selectedAccount) {
         this.selectedAccount = null;
         this.$router.push(NavBarComponent.data().allUsersRoute);
-      } else  if (this.$route.path === NavBarComponent.data().allUsersRoute + '/userAdd') {
-        if (confirm("Weet u zeker dat u geen gebruiker wilt toevoegen?")) {
-          this.selectedAccount = account;
-          this.$router.push(NavBarComponent.data().allUsersRoute + '/' + account.personalNumber);
-        }
+      } else if (this.$route.path === NavBarComponent.data().allUsersRoute + '/userAdd') {
+        this.confirmAccount = account;
+        this.showConfirmModal("fromUpdate");
       } else {
         this.selectedAccount = account;
         this.$router.push(NavBarComponent.data().allUsersRoute + '/' + account.personalNumber);
@@ -106,10 +132,7 @@ export default {
       if (this.selectedAccount === null) {
         this.$router.push(NavBarComponent.data().allUsersRoute + '/userAdd');
       } else if (this.$route.path === NavBarComponent.data().allUsersRoute + '/' + this.selectedAccount.personalNumber) {
-        if (confirm("Weet u zeker dat u het wijzigen wilt annuleren?")) {
-          this.selectedAccount = null;
-          this.$router.push(NavBarComponent.data().allUsersRoute + '/userAdd');
-        }
+        this.showConfirmModal("fromAdd");
       }
     },
     getCurrentAccount() {
@@ -123,7 +146,7 @@ export default {
       if (account.personalNumber === 0) {
         const newAccount = await this.accountsService.asyncSave(account);
         this.accounts.push(newAccount);
-        alert("Nieuw account voor " + newAccount.name + " is aangemaakt met personeelsnummer " + newAccount.personalNumber);
+        this.displayAlert("Nieuw account voor " + newAccount.name + " is aangemaakt met personeelsnummer " + newAccount.personalNumber);
         this.$router.push(NavBarComponent.data().allUsersRoute);
       } else {
         const updatedData = JSON.parse(JSON.stringify(account));
@@ -151,6 +174,40 @@ export default {
       }
     },
     setInformation() {
+    },
+    displayAlert(message) {
+      this.alertMessage = message;
+      this.showAlert = true;
+    },
+    dismissAlert() {
+      this.showAlert = false;
+      this.alertMessage = '';
+    },
+    showConfirmModal(origin) {
+      if (origin === "fromUpdate") {
+        this.action = "fromUpdate";
+        this.showModal = true;
+      } else if (origin === "fromAdd") {
+        this.action = "fromAdd";
+        this.showModal = true;
+      }
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    performAction() {
+      if (this.action === "fromUpdate") {
+        this.selectedAccount = this.confirmAccount;
+        this.$router.push(NavBarComponent.data().allUsersRoute + '/' + this.selectedAccount.personalNumber);
+        this.closeModal();
+      } else if (this.action === "fromAdd") {
+        this.selectedAccount = null;
+        this.$router.push(NavBarComponent.data().allUsersRoute + '/userAdd');
+        this.closeModal();
+      }
+    },
+    cancelAction() {
+      this.closeModal();
     }
   }
 }
@@ -160,6 +217,10 @@ export default {
 
 h1, #addButton {
   margin-left: 40px;
+}
+
+#addButton {
+  margin-top: 10px;
 }
 
 .card {
@@ -178,4 +239,12 @@ li {
   list-style: none;
 }
 
+#alert {
+  margin-left: 40px;
+  margin-right: 30px;
+}
+
+.modal {
+  margin-top: -20px;
+}
 </style>

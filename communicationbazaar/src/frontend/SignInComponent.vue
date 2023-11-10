@@ -8,6 +8,10 @@
             <h3 class="mb-5">Sign in</h3>
 
             <div class="form-outline mb-4">
+              <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ alertMessage }}
+                <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+              </div>
               <input v-model="personalNumber" @keyup.enter="checkInput" type="text" class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">Personal Number</label>
             </div>
@@ -44,7 +48,9 @@ export default {
       accounts: [],
       personalNumber: "",
       password: "",
-      account: null
+      account: null,
+      showAlert: false,
+      alertMessage: ''
     }
   },
   async created() {
@@ -53,13 +59,12 @@ export default {
   methods: {
     async checkInput() {
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
-        alert("personeelsnummer verkeerd.");
+        this.displayAlert("Personeelsnummer is verkeerd!")
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
         if (this.account.password !== this.password) {
-          alert("Wachtwoord verkeerd.");
+          this.displayAlert("Wachtwoord is verkeerd!")
         } else {
-          alert("Ingelogd");
           NavBar.methods.setCurrentContent('contentImage')
           this.account.loggedIn = true;
           console.log(this.account.loggedIn)
@@ -67,7 +72,15 @@ export default {
           this.$router.push(NavBar.data().homeRoute);
         }
       }
-    }
+    },
+    displayAlert(message) {
+      this.alertMessage = message;
+      this.showAlert = true;
+    },
+    dismissAlert() {
+      this.showAlert = false;
+      this.alertMessage = '';
+    },
   },
 }
 
