@@ -67,7 +67,6 @@ export default {
         } else {
           NavBar.methods.setCurrentContent('contentImage')
           this.account.loggedIn = true;
-          console.log(this.account.loggedIn)
           await this.accountsService.asyncSave(this.account);
           this.$router.push(NavBar.data().homeRoute);
         }
