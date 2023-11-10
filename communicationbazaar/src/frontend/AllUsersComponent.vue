@@ -158,11 +158,8 @@ export default {
       }
     },
     async deleteAccount(account) {
-      if (confirm("Weet je zeker dat je dit account wilt verwijderen?")) {
-        const indexToDelete = this.accounts.indexOf(this.accounts.find((account) => account.personalNumber === account.personalNumber));
-        this.accounts.splice(indexToDelete, 1);
-        await this.accountsService.asyncDeleteById(account.personalNumber);
-      }
+      this.confirmAccount = account;
+      this.showConfirmModal("delete");
     },
     async createInformation() {
       this.accounts = await this.accountsService.asyncFindAll();
@@ -183,19 +180,22 @@ export default {
       this.showAlert = false;
       this.alertMessage = '';
     },
-    showConfirmModal(origin) {
-      if (origin === "fromUpdate") {
+    showConfirmModal(confirmAction) {
+      if (confirmAction === "fromUpdate") {
         this.action = "fromUpdate";
         this.showModal = true;
-      } else if (origin === "fromAdd") {
+      } else if (confirmAction === "fromAdd") {
         this.action = "fromAdd";
+        this.showModal = true;
+      } else if (confirmAction === "delete") {
+        this.action = "delete";
         this.showModal = true;
       }
     },
     closeModal() {
       this.showModal = false;
     },
-    performAction() {
+    async performAction() {
       if (this.action === "fromUpdate") {
         this.selectedAccount = this.confirmAccount;
         this.$router.push(NavBarComponent.data().allUsersRoute + '/' + this.selectedAccount.personalNumber);
@@ -203,6 +203,12 @@ export default {
       } else if (this.action === "fromAdd") {
         this.selectedAccount = null;
         this.$router.push(NavBarComponent.data().allUsersRoute + '/userAdd');
+        this.closeModal();
+      } else if (this.action === "delete") {
+        const indexToDelete = this.accounts.indexOf(this.accounts.find((account) => account.personalNumber === this.confirmAccount.personalNumber));
+        this.accounts.splice(indexToDelete, 1);
+        await this.accountsService.asyncDeleteById(this.confirmAccount.personalNumber);
+        this.displayAlert("Gebruiker " + this.confirmAccount.name + " is succesvol verwijderd");
         this.closeModal();
       }
     },
