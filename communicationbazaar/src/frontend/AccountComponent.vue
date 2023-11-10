@@ -31,11 +31,19 @@
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h6>On going</h6>
-                    <p class="text-muted">Lorem ipsum</p>
+                    <ul>
+                      <li v-for="image in imagesOnGoing" :key="image.laptop.ean">
+                        <p>{{ image.laptop.ean }}</p>
+                      </li>
+                    </ul>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Done</h6>
-                    <p class="text-muted">Dolor sit amet</p>
+                    <ul>
+                      <li v-for="image in imagesDone" :key="image.laptop.ean">
+                        <p>{{ image.laptop.ean }}</p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -64,7 +72,8 @@ export default {
       name: '',
       email: '',
       role: '',
-      array: [],
+      imagesOnGoing: [],
+      imagesDone: [],
       accounts: [],
       loggedInAccount: undefined
     }
@@ -93,6 +102,11 @@ export default {
       }
     },
     setInformation() {
+      this.name = this.loggedInAccount.name;
+      this.email = this.loggedInAccount.email;
+      this.role = this.loggedInAccount.role;
+      this.imagesOnGoing = this.loggedInAccount.imagesOnGoing;
+      this.imagesDone = this.loggedInAccount.imagesDone;
     }
   },
 }
@@ -102,5 +116,9 @@ export default {
 
 #profilePicture {
   width: 80px;
+}
+
+li {
+  list-style: none;
 }
 </style>
