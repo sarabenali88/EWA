@@ -123,6 +123,7 @@ export default {
       if (account.personalNumber === 0) {
         const newAccount = await this.accountsService.asyncSave(account);
         this.accounts.push(newAccount);
+        alert("Nieuw account voor " + newAccount.name + " is aangemaakt met personeelsnummer " + newAccount.personalNumber);
         this.$router.push(NavBarComponent.data().allUsersRoute);
       } else {
         const updatedData = JSON.parse(JSON.stringify(account));

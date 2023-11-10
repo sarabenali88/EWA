@@ -284,7 +284,7 @@ export default {
 
     setCurrentContent(contentId) {
       this.currentContent = contentId;
-    }
+    },
   }
 }
 </script>
