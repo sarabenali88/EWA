@@ -8,12 +8,12 @@
             <h3 class="mb-5">Sign in</h3>
 
             <div class="form-outline mb-4">
-              <input v-model="personalNumber" type="text" class="form-control form-control-lg"/>
+              <input v-model="personalNumber" @keyup.enter="checkInput" type="text" class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">Personal Number</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" type="password" id="typePasswordX-2" class="form-control form-control-lg"/>
+              <input v-model="password" @keyup.enter="checkInput" type="password" id="typePasswordX-2" class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">Password</label>
             </div>
 
