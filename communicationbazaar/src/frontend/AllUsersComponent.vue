@@ -43,6 +43,7 @@
 <script>
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import NavBarComponent from "@/frontend/NavBarComponent";
+import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "AllUsersComponent",
@@ -50,21 +51,34 @@ export default {
 
   inject: ["accountsService"],
   emits: ['cancelEvent', 'saveEvent'],
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.createInformation();
+    });
+  },
   data() {
     return {
       accounts: [],
-      selectedAccount: null
+      selectedAccount: null,
+      loggedInAccount: undefined,
     }
   },
-  async created() {
-    this.accounts = await this.accountsService.asyncFindAll();
+  created() {
+    this.createInformation();
   },
   watch: {
     '$route'() {
       if (this.$route.path.match(NavBarComponent.data().allUsersRoute) && this.accounts.find(account => account.personalNumber === this.$route.params.id)) {
         this.selectedAccount = this.findSelectedFromRouteParams(this.$route.params.id);
       }
-
+    },
+    loggedInAccount: {
+      handler: function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.setInformation();
+        }
+      },
+      deep: true
     }
   },
   methods: {
@@ -125,6 +139,17 @@ export default {
         this.accounts.splice(indexToDelete, 1);
         await this.accountsService.asyncDeleteById(account.personalNumber);
       }
+    },
+    async createInformation() {
+      this.accounts = await this.accountsService.asyncFindAll();
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn && this.loggedInAccount.role !== "admin") {
+        this.$router.push(NavBar.data().homeRoute);
+      } else {
+        this.setInformation();
+      }
+    },
+    setInformation() {
     }
   }
 }

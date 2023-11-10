@@ -28,7 +28,7 @@ export class AccountsAdaptor {
     }
 
     async asyncSave(account) {
-        console.log(account)
+        console.log(account.loggedIn)
         if (account.personalNumber === 0) {
             return this.fetchJson(this.resourcesUrl,
                 {

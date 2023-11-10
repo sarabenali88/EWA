@@ -34,30 +34,37 @@
 
 <script>
 
-import json from '../account.json'
 import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "SignInComponent",
+  inject: ["accountsService"],
   data() {
     return {
+      accounts: [],
       personalNumber: "",
       password: "",
-      accountData: json
+      account: null
     }
   },
+  async created() {
+    this.accounts = await this.accountsService.asyncFindAll();
+  },
   methods: {
-    checkInput() {
-      for (let i = 0; i < this.accountData.length; i++) {
-        if (parseInt(this.personalNumber) === this.accountData[i].personalNumber) {
-          if (this.password === this.accountData[i].password) {
-            alert("Ingelogd");
-            this.$router.push(NavBar.data().homeRoute);
-            NavBar.methods.setCurrentContent('contentImage')
-            this.accountData[i].loggedIn = true;
-          } else if (this.password !== this.accountData[i].password) {
-            alert("Wachtwoord verkeerd.");
-          }
+    async checkInput() {
+      if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+        alert("personeelsnummer verkeerd.");
+      } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+        this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
+        if (this.account.password !== this.password) {
+          alert("Wachtwoord verkeerd.");
+        } else {
+          alert("Ingelogd");
+          NavBar.methods.setCurrentContent('contentImage')
+          this.account.loggedIn = true;
+          console.log(this.account.loggedIn)
+          await this.accountsService.asyncSave(this.account);
+          this.$router.push(NavBar.data().homeRoute);
         }
       }
     }

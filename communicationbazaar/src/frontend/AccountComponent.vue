@@ -49,31 +49,52 @@
 
 <script>
 
-import json from "@/account.json";
+import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "AccountComponent",
-
+  inject: ["accountsService"],
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.createInformation();
+    });
+  },
   data() {
     return {
       name: '',
       email: '',
       role: '',
       array: [],
+      accounts: [],
+      loggedInAccount: undefined
     }
   },
   created() {
     this.createInformation();
   },
-  methods: {
-    createInformation() {
-
-      const user = json.find(account => account.loggedIn);
-      this.name = user.name;
-      this.role = user.role;
-      this.email = user.email;
+  watch: {
+    loggedInAccount: {
+      handler: function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.setInformation();
+        }
+      },
+      deep: true
     }
-  }
+  },
+  methods: {
+    async createInformation() {
+      this.accounts = await this.accountsService.asyncFindAll();
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn) {
+        this.$router.push(NavBar.data().signInRoute);
+      } else {
+        this.setInformation();
+      }
+    },
+    setInformation() {
+    }
+  },
 }
 </script>
 

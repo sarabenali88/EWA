@@ -6,7 +6,6 @@ import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
 import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
-import json from '../account.json'
 import allImagesComponent from "@/frontend/allImagesComponent.vue";
 import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
 import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
@@ -18,7 +17,6 @@ import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import UserAddComponent from "@/frontend/UserAddComponent";
-
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -61,13 +59,6 @@ export const router = createRouter({
         {
             path: NavBar.data().myAccountRoute,
             component: AccountComponent,
-            beforeEnter: (to, from, next) => {
-                if (json.some(account => account.loggedIn)) {
-                    next();
-                } else {
-                    next(NavBar.data().signInRoute)
-                }
-            }
         },
         {
             path: NavBar.data().signInRoute,
@@ -83,18 +74,11 @@ export const router = createRouter({
             children: [
                 {path: ':id', component: UserDetailComponent},
                 {path: 'userAdd', component: UserAddComponent}],
-            beforeEnter: (to, from, next) => {
-                if (json.some(account => account.loggedIn && account.role === 'admin')) {
-                    next();
-                } else {
-                    next(NavBar.data().homeRoute)
-                }
-            }
         },
         {
             path: '/profilePage', component: ProfilePageComponent
         },
-        { path: '/:pathMatch(.*)', component: UnknownRoute },
-        { path: '/addImage', component: addImageComponent}
+        {path: '/:pathMatch(.*)', component: UnknownRoute},
+        {path: '/addImage', component: addImageComponent}
     ]
 })
