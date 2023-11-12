@@ -191,6 +191,11 @@
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
           <h5 class="offcanvas-title">Laptop</h5>
+          <ul>
+            <li>
+
+            </li>
+          </ul>
 
         </div>
 
@@ -288,6 +293,7 @@ export default {
   position: absolute;
   left: 100px;
   top: 18px;
+  transition: 250ms ease-in-out;
 }
 
 .image-active {
@@ -362,8 +368,10 @@ li .bi {
 }
 
 #sideBarButton {
+  margin-top: 100px;
   overflow-y: auto;
   cursor: pointer;
+  z-index: 2;
 }
 
 
@@ -386,7 +394,7 @@ li a {
   color: #DA1C25;
   font-weight: bold;
   display: inline-block;
-  width: 140px;
+  width: 170px;
   height: 30px;
   padding-left: 5px;
 }
@@ -397,7 +405,7 @@ li a {
   padding-left: 10px;
   padding-top: 3px;
   background-color: #F5F5F5;
-  width: 140px;
+  width: 160px;
   height: 30px;
   border-radius: 5px;
 }
