@@ -46,6 +46,7 @@ export default {
   #mainContent {
     overflow: auto;
     padding-bottom: 200px;
+    padding-top: 75px;
   }
 
 }
