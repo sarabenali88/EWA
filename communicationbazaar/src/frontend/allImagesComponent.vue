@@ -86,7 +86,7 @@ export default {
       // Sort the copy
       return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
     }
-  },
+  }
 }
 </script>
 
