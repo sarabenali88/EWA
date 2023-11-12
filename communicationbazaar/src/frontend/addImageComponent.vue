@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <form>
       <div class="row">
         <div class="col-25">
           <label for="ean">{{$t('addImage.eanNumber')}}</label>
@@ -86,17 +85,14 @@
       <div>
         <button class="buttonSave" @click="validateInput">{{$t('addImage.buttonSave')}}</button>
       </div>
-      <div>
-      <button class="buttonCancel" @click="cancelEvent">{{$t('addImage.buttonCancel')}}</button>
-      </div>
 
-    </form>
   </div>
 
 </template>
 
 <script>
 import '../i18n.js'
+
 export default {
   name: "addImageComponent",
   data() {
@@ -113,14 +109,6 @@ export default {
     }
   },
   methods: {
-    cancelEvent(){
-      if (this.ean !== '' || this.startVersion !== '' || this.imageName !== '' || this.locationImage !== '' ||
-          this.statusSelect !== '' || this.date !== '' || this.week !== '') {
-        if (confirm(this.$t('addImage.cancelMessage'))){
-          this.$router.push('/imageListRoute');
-        }
-      }
-    },
     validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
           this.statusSelect === '' || this.date === ''|| this.week === ''){
@@ -172,13 +160,11 @@ input[type=radio] {
   resize: vertical;
 }
 
-/* Style the label to display next to the inputs */
 label {
   padding: 12px 12px 12px 0;
   display: inline-block;
 }
 
-/* Style the submit button */
 .buttonSave{
   background-color: #DA1C25;
   color: white;
@@ -190,19 +176,6 @@ label {
   margin-top: 20px;
   float: left;
 }
-.buttonCancel{
-  background-color: #DA1C25;
-  color: white;
-  padding: 12px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 25%;
-  margin-top: 20px;
-  margin-left: 20px;
-}
-
-/* Style the container */
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;
@@ -210,7 +183,6 @@ label {
   margin-top: 25px;
 }
 
-/* Floating column for labels: 25% width */
 .col-25 {
   width: 25%;
   margin-top: 6px;
@@ -222,8 +194,6 @@ label {
   width: 75%;
   margin-top: 6px;
 }
-
-/* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
@@ -238,7 +208,6 @@ label {
   color: darkred;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=button] {
     width: 100%;

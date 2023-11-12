@@ -38,7 +38,12 @@
     "ReadyToUseVersion": "Startklaar Versie",
     "newUpdate": "Nieuw/Update",
     "location": "Locatie",
-    "placeholder": "Nog geen comments"
+    "placeholder": "Nog geen comments",
+    "deleteButton": "Verwijderen",
+    "editButton": "Bewerken",
+    "unassigned": "Niet toegewezen",
+    "saveButton": "Opslaan",
+    "closeButton": "Afsluiten"
   },
   "adminPanel" : {
     "headTitle": "Gebruikerslijst",

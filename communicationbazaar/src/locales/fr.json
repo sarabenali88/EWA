@@ -12,7 +12,7 @@
     "week": "Semaine",
     "alertEmpty": "Ce champ est obligatoire",
     "alertEan": "Le code EAN ne peut pas être inférieur à 0",
-    "buttonSave": "Enregistrer",
+    "buttonSave": "Sauvegarder",
     "buttonAdd": "Ajouter une image",
     "buttonCancel": "Annuler",
     "cancelMessage": "Êtes-vous sûr de vouloir annuler?"
@@ -38,7 +38,12 @@
     "ReadyToUseVersion": "Version prête à l'emploi",
     "newUpdate": "Nouveau/Mise à jour",
     "location": "Localisation",
-    "placeholder": "Pas encore de commentaires"
+    "placeholder": "Pas encore de commentaires",
+    "deleteButton": "Supprimer",
+    "editButton": "Editer",
+    "unassigned": "Non alloué",
+    "saveButton": "Sauvegarder",
+    "closeButton": "Fermer"
   },
   "adminPanel" : {
     "headTitle": "Liste des utilisateurs",

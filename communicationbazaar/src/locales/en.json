@@ -39,7 +39,12 @@
     "ReadyToUseVersion": "Ready To Use Version",
     "newUpdate": "New/Update",
     "location": "Location",
-    "placeholder": "No comments yet"
+    "placeholder": "No comments yet",
+    "deleteButton": "Delete",
+    "editButton": "Edit",
+    "unassigned": "Unassigned",
+    "saveButton": "Save",
+    "closeButton": "Close"
   },
   "adminPanel" : {
     "headTitle": "User List",
