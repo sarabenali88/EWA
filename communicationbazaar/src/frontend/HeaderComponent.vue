@@ -89,6 +89,26 @@ export default {
   overflow-y: hidden;
 }
 
+@media (max-width: 500px) {
 
+  .headerContent {
+    height: 75px;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .bi-search {
+    display: none;
+  }
+
+  .input-group-lg {
+    display: none;
+  }
+
+
+
+}
 
 </style>

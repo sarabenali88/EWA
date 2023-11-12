@@ -2,10 +2,10 @@
   <h1>
     Alle Images
   </h1>
-  <div class="container-fluid p-3">
+  <div class="container-fluid p-3 overflow-auto" >
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view v-bind:currentImage="selectedImage" >
 
         </router-view>
       </div>

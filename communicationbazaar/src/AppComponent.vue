@@ -2,7 +2,7 @@
   <div class="all">
     <HeaderComponent/>
     <NavBarComponent/>
-    <div id="mainContent">
+    <div id="mainContent" >
       <router-view/>
     </div>
   </div>
@@ -40,5 +40,13 @@ export default {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
+}
+
+@media (max-width: 500px) {
+  #mainContent {
+    overflow: auto;
+    padding-bottom: 200px;
+  }
+
 }
 </style>

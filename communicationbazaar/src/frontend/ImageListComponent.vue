@@ -180,4 +180,8 @@ export default {
 .active-tab {
   border: solid black 2px;
 }
+
+@media (max-width: 500px) {
+  
+}
 </style>
