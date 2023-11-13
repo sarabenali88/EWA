@@ -22,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td>{{ image.laptop[0].ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
@@ -84,6 +84,18 @@ export default {
       const index = this.images.indexOf(this.selectedImage);
       this.images[index] = image;
       this.setImage(image);
+    },
+    dateConverter(givenDate){
+      let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
+      return new Date(date[2], date[1], date[0]);
+    }
+  },
+  computed: {
+    sortedItems() {
+      // Create a shallow copy of the images array
+      let imagesCopy = [...this.images];
+      // Sort the copy
+      return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
     }
   }
 }
