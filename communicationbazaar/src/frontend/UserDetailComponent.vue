@@ -3,23 +3,23 @@
     <div class="card-body">
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-danger">Account Details</h6>
+          <h6 class="mb-2 text-danger">{{$t('adminPanel.title')}}</h6>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="fullName">Naam</label>
+            <label for="fullName">{{$t('adminPanel.name')}}</label>
             <input v-model="accountCopy.name" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="eMail">Email</label>
+            <label for="eMail">{{$t('adminPanel.email')}}</label>
             <input v-model="accountCopy.email" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="phone">Personeelsnummer</label>
+            <label for="phone">{{$t('adminPanel.employeeNumber')}}</label>
             <input v-model="accountCopy.personalNumber" class="form-control">
           </div>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="zIp">Role</label>
+            <label for="zIp">{{$t('adminPanel.role')}}</label>
             <input v-model="accountCopy.role" class="form-control mb-2">
           </div>
         </div>
@@ -39,8 +39,8 @@
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
-            <button @click="cancelEvent()" class="btn btn-secondary">Annuleren</button>
-            <button @click="editEvent()" class="btn btn-danger m-lg-2">Wijzigen</button>
+            <button @click="cancelEvent()" class="btn btn-secondary">{{$t('adminPanel.cancelButton')}}</button>
+            <button @click="editEvent()" class="btn btn-danger m-lg-2">{{$t('adminPanel.editButton')}}</button>
           </div>
         </div>
       </div>
@@ -74,14 +74,14 @@ export default {
   methods: {
     cancelEvent() {
       if (this.hasChanged) {
-        if (confirm("Weet je zeker dat je wilt cancelen?")) {
+        if (confirm(this.$t('adminPanel.cancelMessage'))) {
           this.$emit('cancelEvent', null);
         }
       }
     },
     editEvent() {
       if (this.hasChanged) {
-        if (confirm("Weet je zeker dat je wilt wijzigen")){
+        if (confirm(this.$t('adminPanel.editMessage'))){
           this.$emit('editEvent', this.accountCopy);
         }
       }

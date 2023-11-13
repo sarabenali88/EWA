@@ -1,5 +1,5 @@
 <template>
-  <h1>User List</h1>
+  <h1>{{$t('adminPanel.headTitle')}}</h1>
 
   <div class="container-fluid px-5">
     <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @editEvent="editEvent">
@@ -23,7 +23,7 @@
                   <span class="job_post">{{ account.role }}</span>
                   <p>{{ account.email }}</p>
                   <div>
-                    <button class="btn btn-danger btn-round" @click="setAccount(account)">Wijzigen</button>
+                    <button class="btn btn-danger btn-round" @click="setAccount(account)">{{$t('adminPanel.editButton')}}</button>
                   </div>
                 </div>
               </div>
