@@ -7,11 +7,11 @@
       </h3>
     </div>
     <div class="col-4">
-      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}"
+      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false || accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
                      type="button" class="btn btn-danger m-2">
         Verwijderen
       </button>
-      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false}"
+      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}"
                      type="button" class="btn btn-outline-secondary" @click="onChange()">
         Bewerken
       </button>
@@ -54,7 +54,10 @@
       <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
         {{imageCopy.imageMaker}}
       </div>
-      <div v-else class="col-sm-auto text-body-secondary" >
+      <div v-else-if="imageCopy.imageMaker === '' && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
+        Claim
+      </div>
+      <div v-if="imageCopy.imageMaker === '' && editComment === false" class="col-sm-auto text-body-secondary" >
         Niet toegewezen
       </div>
     </div>
@@ -137,17 +140,19 @@
 </template>
 
 <script>
-import {LaptopImage} from "@/models/image";
-import json from "../account.json";
+import {Image} from "@/models/Image";
 
 export default {
   name: "ImageDetailComponent",
+  inject: ["accountsService"],
   props: [
     'currentImage',
   ],
   emits: ['delete-image', 'save-image'],
-  created() {
+  async created() {
     this.copyImage(this.currentImage);
+    this.accounts = await this.accountsService.asyncFindAll();
+    this.account = this.accounts.find(account => account.loggedIn)
   },
   watch: {
     currentImage: {
@@ -161,11 +166,13 @@ export default {
   },
   data(){
     return {
-      statuses: LaptopImage.Status,
+      statuses: Image.Status,
       showDesc: false,
       editComment: false,
       imageCopy: null,
-      json: json
+      accounts: [],
+      imageClaimed: false,
+      account: null,
     }
   },
   methods: {
@@ -188,12 +195,23 @@ export default {
       if (this.imageCopy.status === "Te doen"){
         this.imageCopy.imageMaker = ""
       }
+      if (this.imageCopy.status !== "Te doen"){
+        this.imageCopy.imageMaker = this.account.name
+      }
+      if (this.imageCopy.imageCopy !== '' && this.imageCopy.status === "Te doen"){
+        this.imageCopy.status = "Mee bezig"
+      }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
+      this.imageClaimed = false;
     },
     copyImage(currentImage) {
       this.imageCopy = JSON.parse(JSON.stringify(currentImage));
     },
+    claimImage(){
+      this.imageClaimed = true;
+      this.imageCopy.imageMaker = this.account.name;
+    }
   }
 }
 </script>

@@ -6,7 +6,6 @@ import AccountComponent from "@/frontend/AccountComponent";
 import SignInComponent from "@/frontend/SignInComponent";
 import addImageComponent from "@/frontend/addImageComponent.vue";
 import NavBar from "@/frontend/NavBarComponent";
-import json from '../account.json'
 import allImagesComponent from "@/frontend/allImagesComponent.vue";
 import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
 import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
@@ -17,6 +16,7 @@ import WebScraperComponent from "@/frontend/WebScraperComponent";
 import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
+import UserAddComponent from "@/frontend/UserAddComponent";
 import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
 
 
@@ -61,13 +61,6 @@ export const router = createRouter({
         {
             path: NavBar.data().myAccountRoute,
             component: AccountComponent,
-            beforeEnter: (to, from, next) => {
-                if (json.some(account => account.loggedIn)) {
-                    next();
-                } else {
-                    next(NavBar.data().signInRoute)
-                }
-            }
         },
         {
             path: NavBar.data().signInRoute,
@@ -80,14 +73,9 @@ export const router = createRouter({
         {
             path: NavBar.data().allUsersRoute,
             component: AllUsersComponent,
-            children: [{path: ':id', component: UserDetailComponent}],
-            beforeEnter: (to, from, next) => {
-                if (json.some(account => account.loggedIn && account.role === 'admin')) {
-                    next();
-                } else {
-                    next(NavBar.data().homeRoute)
-                }
-            }
+            children: [
+                {path: ':id', component: UserDetailComponent},
+                {path: 'userAdd', component: UserAddComponent}],
         },
         {
             path: NavBar.data().myProfileRoute,

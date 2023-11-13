@@ -8,12 +8,16 @@
             <h3 class="mb-5">{{ $t('signIn.title') }}</h3>
 
             <div class="form-outline mb-4">
-              <input v-model="personalNumber" type="text" class="form-control form-control-lg"/>
+              <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ alertMessage }}
+                <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+              </div>
+              <input v-model="personalNumber" @keyup.enter="checkInput" type="text" class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.personalNumber') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" type="password" id="typePasswordX-2" class="form-control form-control-lg"/>
+              <input v-model="password" @keyup.enter="checkInput" type="password" id="typePasswordX-2" class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
@@ -35,33 +39,48 @@
 
 <script>
 
-import json from '../account.json'
 import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "SignInComponent",
+  inject: ["accountsService"],
   data() {
     return {
+      accounts: [],
       personalNumber: "",
       password: "",
-      accountData: json
+      account: null,
+      showAlert: false,
+      alertMessage: ''
     }
   },
+  async created() {
+    this.accounts = await this.accountsService.asyncFindAll();
+  },
   methods: {
-    checkInput() {
-      for (let i = 0; i < this.accountData.length; i++) {
-        if (this.personalNumber === this.accountData[i].personalNumber) {
-          if (this.password === this.accountData[i].password) {
-            alert(this.$t('signIn.loggedInMessage'));
-            this.$router.push(NavBar.data().homeRoute);
-            NavBar.methods.setCurrentContent('contentImage')
-            this.accountData[i].loggedIn = true;
-          } else if (this.password !== this.accountData[i].password) {
-            alert(this.$t('signIn.wrongPassMessage'));
-          }
+    async checkInput() {
+      if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+        this.displayAlert("Personeelsnummer is verkeerd")
+      } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+        this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
+        if (this.account.password !== this.password) {
+          this.displayAlert(this.$t('signIn.wrongPassMessage'))
+        } else {
+          NavBar.methods.setCurrentContent('contentImage')
+          this.account.loggedIn = true;
+          await this.accountsService.asyncSave(this.account);
+          this.$router.push(NavBar.data().homeRoute);
         }
       }
-    }
+    },
+    displayAlert(message) {
+      this.alertMessage = message;
+      this.showAlert = true;
+    },
+    dismissAlert() {
+      this.showAlert = false;
+      this.alertMessage = '';
+    },
   },
 }
 

@@ -2,12 +2,12 @@
   <h1>
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
-  <div :class="{'hiddenPage': json.some(account => account.loggedIn && account.role === 'ImageMaker') ||
-   json.some(account => account.loggedIn && account.role === 'admin')}">
+  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
+   accounts.some(account => account.loggedIn && account.role === 'admin')}">
     <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
   </div>
-  <div :class="{'hiddenPage': json.some(account => account.loggedIn) === false ||
-   json.some(account => account.loggedIn && account.role === 'coworker')}">
+  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
+   accounts.some(account => account.loggedIn && account.role === 'coworker')}">
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
@@ -76,23 +76,26 @@
 <script>
 import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
-import accountData from '@/account.json';
 
 export default {
   name: "imageStatusOnGoingComponent",
+  inject: ["accountsService"],
   components: imageDetailComponent,
   data() {
     return {
       images: [],
       selectedImage: null,
-      json: accountData
+      accounts: [],
+      account: null
     }
   },
-  created() {
+  async created() {
     for (let i in imageData) {
       this.images.push(imageData[i]);
     }
 
+    this.accounts = await this.accountsService.asyncFindAll();
+    this.account = this.accounts.find(account => account.loggedIn)
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
