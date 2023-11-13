@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-danger">Account Details</h6>
+          <h6 class="mb-2 text-danger">{{$t('adminPanel.title')}}</h6>
         </div>
         <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ alertMessage }}
@@ -11,19 +11,19 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.name }">
-            <label for="fullName">Naam</label>
+            <label for="fullName">{{$t('adminPanel.name')}}</label>
             <input v-model="accountCopy.name" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.email }">
-            <label for="eMail">Email</label>
+            <label for="eMail">{{$t('adminPanel.email')}}</label>
             <input v-model="accountCopy.email" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="phone">Personeelsnummer</label>
+            <label for="phone">{{$t('adminPanel.employeeNumber')}}</label>
             <input v-model="accountCopy.personalNumber" class="form-control" readonly>
           </div>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.role }">
-            <label for="zIp">Rol</label>
+            <label for="zIp">{{$t('adminPanel.role')}}</label>
             <select v-model="accountCopy.role" class="form-select" aria-label="Default select example">
               <option value="" disabled selected>Selecteer</option>
               <option value="ImageMaker">ImageMaker</option>
@@ -53,8 +53,8 @@
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
-            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">Annuleren</button>
-            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">OK</button>
+            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">{{$t('adminPanel.cancelButton')}}</button>
+            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">{{$t('adminPanel.editButton')}}</button>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@
           <p>Weet u zeker dat u door wilt gaan?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cancelAction()">Annuleren</button>
-          <button type="button" class="btn btn-success" @click="performAction()">OK</button>
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
+          <button type="button" class="btn btn-success" @click="performAction()">{{$t('adminPanel.editButton')}}</button>
         </div>
       </div>
     </div>
