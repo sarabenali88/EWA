@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
     Status Over Date Images
   </h1>
   <div class="container-fluid p-3">

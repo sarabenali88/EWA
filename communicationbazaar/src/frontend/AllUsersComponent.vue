@@ -1,37 +1,39 @@
 <template>
-  <h1>User List</h1>
+  <div class="all">
+    <h1>User List</h1>
 
-  <div class="container-fluid px-5">
-    <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @editEvent="editEvent">
+    <div class="container-fluid px-5">
+      <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @editEvent="editEvent">
 
-    </router-view>
-  </div>
+      </router-view>
+    </div>
 
-  <div class="container-fluid p-3">
-    <ul>
-      <li v-for="account in accounts" :key="account.personalNumber">
-        <div class="col-xl-6 col-lg-7 col-md-12">
-          <div class="card profile-header">
-            <div class="body">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                  <img class="w-50 rounded-circle mt-4 m-lg-4" src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                       alt="">
-                </div>
-                <div class="col-lg-8 col-md-8 col-12">
-                  <h4 class="m-t-0 m-b-0"><strong>{{ account.name }}</strong></h4>
-                  <span class="job_post">{{ account.role }}</span>
-                  <p>{{ account.email }}</p>
-                  <div>
-                    <button class="btn btn-danger btn-round" @click="setAccount(account)">Wijzigen</button>
+    <div class="container-fluid p-3">
+      <ul>
+        <li v-for="account in accounts" :key="account.personalNumber">
+          <div class="col-xl-6 col-lg-7 col-md-12">
+            <div class="card profile-header">
+              <div class="body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-12">
+                    <img class="w-50 rounded-circle mt-4 m-lg-4" src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                         alt="">
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h4 class="m-t-0 m-b-0"><strong>{{ account.name }}</strong></h4>
+                    <span class="job_post">{{ account.role }}</span>
+                    <p>{{ account.email }}</p>
+                    <div>
+                      <button class="btn btn-danger btn-round" @click="setAccount(account)">Wijzigen</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
 
@@ -132,4 +134,11 @@ li {
   list-style: none;
 }
 
+@media (max-width: 700px) {
+  .all {
+    margin-top: 10px;
+    margin-left: -35px;
+  }
+
+}
 </style>
