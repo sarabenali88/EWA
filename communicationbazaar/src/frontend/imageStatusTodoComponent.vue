@@ -55,16 +55,17 @@
     <table class="table table-sm">
       <thead>
       <tr>
-        <th scope="col">EAN</th>
-        <th scope="col">Medewerker</th>
-        <th scope="col">Status</th>
-        <th scope="col">Datum</th>
+        <th scope="col">{{$t('allImages.ean')}}</th>
+        <th scope="col">{{$t('allImages.employeeName')}}</th>
+        <th scope="col">{{$t('allImages.status')}}</th>
+        <th scope="col">{{$t('allImages.date')}}</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">Niet toegewezen</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>

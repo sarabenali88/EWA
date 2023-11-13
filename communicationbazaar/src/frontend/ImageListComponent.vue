@@ -105,7 +105,7 @@
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2">Todo:</h6>
+          <h6 class="py-2">{{ $t('imageStatus.statusToDo') }}:</h6>
           <h1 class="px-2 py-0">{{ amountOfImagesToDo }}</h1>
           <h4 class="px-2 py-1">Images</h4>
         </div>
@@ -124,7 +124,7 @@
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2 ">On going:</h6>
+          <h6 class="py-2 ">{{ $t('imageStatus.statusOngoing') }}:</h6>
             <h1 class="px-2 py-0">{{ amountOfImagesOnGoing }}</h1>
             <h4 class="px-2 py-1">Images</h4>
         </div>
@@ -143,7 +143,7 @@
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2 ">Finished:</h6>
+          <h6 class="py-2 ">{{ $t('imageStatus.statusFinished') }}:</h6>
           <h1 class="px-2 py-0">{{ amountOfImagesFinished }}</h1>
           <h4 class="px-2 py-1">Images</h4>
         </div>

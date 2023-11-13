@@ -61,7 +61,7 @@
                       d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
                 <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
-                  Home
+                   Home
                 </router-link>
               </div>
             </li>
@@ -125,7 +125,7 @@
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
                 <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
-                  {{$t('navbar.finishedList')}}
+                    {{$t('navbar.finishedList')}}
                 </router-link>
               </div>
             </li>
@@ -201,18 +201,22 @@
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
           <h5 class="offcanvas-title">{{$t('navbar.adminTitle')}}</h5>
-          <div
-              :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                 :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
-              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-              <path
-                  d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
-            </svg>
-            <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
-              {{$t('navbar.allUsers')}}
-            </router-link>
-          </div>
+          <ul>
+            <li>
+              <div
+                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path
+                      d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
+                  {{$t('navbar.allUsers')}}
+                </router-link>
+              </div>
+            </li>
+          </ul>
         </div>
 
       </div>
@@ -429,7 +433,7 @@ export default {
 }
 
 li .bi {
-  margin: 0 0 5px 0 !important;
+  margin: 0 5px 5px 0 !important;
 }
 
 
@@ -456,7 +460,7 @@ li .bi {
 
 .sidebar {
   display: flex;
-  width: 300px;
+  width: 310px;
   overflow-y: auto;
   height: 100%;
   border-right: solid lightgrey 2px;
@@ -501,7 +505,7 @@ li a {
   padding-left: 10px;
   padding-top: 3px;
   background-color: #F5F5F5;
-  width: 160px;
+  width: 180px;
   height: 30px;
   border-radius: 5px;
 }
