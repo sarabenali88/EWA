@@ -39,7 +39,8 @@
         </svg>
 
         <!-- Admin icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock" :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}"
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock"
+             :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
              viewBox="0 0 16 16" @click="setCurrentContent('contentAdmin')">
           <path
               d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
@@ -152,7 +153,7 @@
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
           <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
-            <li>
+            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
               <div :class="{'active-route': $route.path === myAccountRoute}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
                      viewBox="0 0 16 16"
@@ -167,7 +168,7 @@
             </li>
             <li>
               <div
-                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': json.some(account => account.loggedIn) === true}">
+                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn === true)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -181,7 +182,7 @@
             </li>
           </ul>
           <ul>
-            <li :class="{'hiddenButton': json.some(account => account.loggedIn) === false}" @click="logOut">
+            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}" @click="logOut">
               <router-link to>
                 {{$t('navbar.logOut')}}
               </router-link>
@@ -201,18 +202,22 @@
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
           <h5 class="offcanvas-title">{{$t('navbar.adminTitle')}}</h5>
-          <div
-              :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                 :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
-              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-              <path
-                  d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
-            </svg>
-            <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
-              {{$t('navbar.allUsers')}}
-            </router-link>
-          </div>
+          <ul>
+            <li>
+              <div
+                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false|| this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                     :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
+                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                  <path
+                      d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
+                  {{$t('navbar.allUsers')}}
+                </router-link>
+              </div>
+            </li>
+          </ul>
         </div>
 
       </div>
@@ -222,11 +227,11 @@
 </template>
 
 <script>
-import json from "../account.json";
 import allImagesComponent from "@/frontend/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
+  inject: ["accountsService"],
   data() {
     return {
       homeRoute: '/',
@@ -240,13 +245,17 @@ export default {
       signInRoute: '/signIn',
       webScraperRoute: '/webScraper',
       allUsersRoute: '/allUsers',
-      json: json,
+      accounts: [],
 
       currentContent: 'contentImage'
     }
   },
   watch: {
-    '$route'() {
+    async '$route'() {
+      if (this.$route.path.match(this.homeRoute)) {
+        this.accounts = await this.accountsService.asyncFindAll();
+        this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      }
       if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
@@ -266,16 +275,16 @@ export default {
     }
   },
   methods: {
-    logOut() {
-      json.forEach(account => {
-        account.loggedIn = false;
-        this.$router.push(this.signInRoute);
-      })
+    async logOut() {
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn === true);
+      this.loggedInAccount.loggedIn = false;
+      await this.accountsService.asyncSave(this.loggedInAccount);
+      this.$router.push(this.signInRoute);
     },
 
     setCurrentContent(contentId) {
       this.currentContent = contentId;
-    }
+    },
   }
 }
 </script>
