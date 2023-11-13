@@ -1,0 +1,97 @@
+{
+  "addImage": {
+    "eanNumber": "EAN Code",
+    "ReadyToUseVersion": "Ready To Use Version",
+    "imageName": "Image Name",
+    "imageLocation": "Image Location",
+    "status": "Status",
+    "statusToDo": "To Do",
+    "statusOngoing": "Ongoing",
+    "statusFinished": "Finished",
+    "date": "Date",
+    "week": "Week",
+    "alertEmpty": "This field is required",
+    "alertEan": "EAN code may not be less than 0",
+    "buttonSave": "Save",
+    "buttonAdd": "Add image",
+    "buttonCancel": "Cancel",
+    "cancelMessage": "Are you sure you want to cancel?"
+
+  },
+  "allImages": {
+    "titleName": "All Images",
+    "ean": "EAN",
+    "imageName": "Image Name",
+    "employeeName": "Employee",
+    "location": "Location",
+    "status" : "Status",
+    "date" : "Date"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "ITEM No",
+    "status": "Status",
+    "employee": "Employee",
+    "date": "Datum",
+    "comment": "Comments",
+    "description": "Description",
+    "os": "OS",
+    "ReadyToUseVersion": "Ready To Use Version",
+    "newUpdate": "New/Update",
+    "location": "Location",
+    "placeholder": "No comments yet",
+    "deleteButton": "Delete",
+    "editButton": "Edit",
+    "unassigned": "Unassigned",
+    "saveButton": "Save",
+    "closeButton": "Close"
+  },
+  "adminPanel" : {
+    "headTitle": "User List",
+    "title": "Account Details",
+    "name": "Name",
+    "email": "Email",
+    "employeeNumber": "Employee number",
+    "role": "Role",
+    "cancelButton": "Cancel",
+    "editButton": "Edit",
+    "cancelMessage": "Are you sure you want to cancel?",
+    "editMessage": "Are you sure you want to change?"
+  },
+  "imageStatus": {
+    "toDoTitle" : "Status To Do Images",
+    "ongoingTitle" : "Status Ongoing Images",
+    "finishedTitle" : "Status Finished Images",
+    "overDateTitle" : "Status Over Date Images",
+    "statusToDo": "To Do",
+    "statusOngoing": "Ongoing",
+    "statusFinished": "Finished",
+    "statusOverDate": "Over Date"
+  },
+  "signIn": {
+    "title": "Log In",
+    "personalNumber": "Personal number",
+    "password": "Password",
+    "remember": "Remember password",
+    "logInButton": "Log in",
+    "loggedInMessage": "Logged In",
+    "wrongPassMessage": "Wrong password"
+  },
+  "header":{
+    "placeholder": "Search for image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "All Images",
+    "toDoList": "Todo List",
+    "ongoingList": "Ongoing List",
+    "finishedList": "Finished List",
+    "overDateList": "Overdate List",
+    "myAccount": "My Account",
+    "logIn": "Sign in",
+    "logOut": "Log out",
+    "allUsers": "All users",
+    "profileTitle": "Profile",
+    "adminTitle": "Admin"
+  }
+}

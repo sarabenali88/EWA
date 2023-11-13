@@ -1,44 +1,51 @@
 <template>
   <h1 class="mx-3">
-    Status Over Date Images
+    {{ $t('imageStatus.overDateTitle') }}
   </h1>
-  <div class="container-fluid p-3">
-    <div v-if="selectedImage">
-      <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
-
-        </router-view>
-      </div>
-    </div>
-    <table class="table table-sm">
-      <thead>
-      <tr>
-        <th scope="col">EAN</th>
-        <th scope="col">Laptop naam</th>
-        <th scope="col">Medewerker</th>
-        <th scope="col">Vestiging</th>
-        <th scope="col">Status</th>
-        <th scope="col">Datum</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div :class="{'hiddenPage': json.some(account => account.loggedIn && account.role === 'admin')}">
+    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
   </div>
+  <div :class="{'hiddenPage': json.some(account => account.loggedIn) === false ||
+   json.some(account => account.loggedIn && account.role !== 'admin')}">
+    <div class="container-fluid p-3">
+      <div v-if="selectedImage">
+        <div class="card card-body">
+          <router-view v-bind:currentImage="selectedImage"
+                       @delete-image="deleteImage()" @save-image="saveImage">
 
+          </router-view>
+        </div>
+      </div>
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th scope="col">{{ $t('allImages.ean') }}</th>
+          <th scope="col">{{ $t('allImages.imageName') }}</th>
+          <th scope="col">{{ $t('allImages.employeeName') }}</th>
+          <th scope="col">{{ $t('allImages.location') }}</th>
+          <th scope="col">{{ $t('allImages.status') }}</th>
+          <th scope="col">{{ $t('allImages.date') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+          <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
 import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import accountData from '@/account.json';
 
 export default {
   name: "imageStatusOverDateComponent",
@@ -46,7 +53,8 @@ export default {
   data() {
     return {
       images: [],
-      selectedImage: null
+      selectedImage: null,
+      json: accountData
     }
   },
   created() {
@@ -79,6 +87,28 @@ export default {
         this.$router.push(parentPath + "/" + image.laptop[0].ean);
       }
       console.log(this.selectedImage)
+    },
+    deleteImage() {
+      const index = this.images.indexOf(this.selectedImage);
+      this.images.splice(index, 1);
+      this.selectedImage = null;
+    },
+    saveImage(image) {
+      const index = this.images.indexOf(this.selectedImage);
+      this.images[index] = image;
+      this.setImage(image);
+    },
+    dateConverter(givenDate){
+      let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
+      return new Date(date[2], date[1], date[0]);
+    }
+  },
+  computed: {
+    sortedItems() {
+      // Create a shallow copy of the images array
+      let imagesCopy = [...this.images];
+      // Sort the copy
+      return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
     }
   }
 }
@@ -89,4 +119,9 @@ export default {
 .statusButtonsStyling {
   height: 100px;
 }
+
+.hiddenPage{
+  display: none;
+}
+
 </style>

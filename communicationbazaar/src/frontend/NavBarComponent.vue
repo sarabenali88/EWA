@@ -74,7 +74,7 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="allImagesRoute" :class="{'active-tab': $route.path === allImagesRoute}">
-                  All Images
+                  {{$t('navbar.allImages')}}
                 </router-link>
               </div>
             </li>
@@ -91,7 +91,7 @@
                       d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
                 </svg>
                 <router-link :to="statusTodo" :class="{'active-tab': $route.path === statusTodo}">
-                  Todo List
+                  {{$t('navbar.toDoList')}}
                 </router-link>
               </div>
             </li>
@@ -108,7 +108,7 @@
                         d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                 </svg>
                 <router-link :to="statusOnGoing" :class="{'active-tab': $route.path === statusOnGoing}">
-                  On Going List
+                  {{$t('navbar.ongoingList')}}
                 </router-link>
               </div>
             </li>
@@ -125,7 +125,7 @@
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
                 <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
-                  Finished List
+                  {{$t('navbar.finishedList')}}
                 </router-link>
               </div>
             </li>
@@ -142,7 +142,7 @@
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
                 <router-link :to="statusOverDate" :class="{'active-tab': $route.path === statusOverDate}">
-                  OverDate List
+                  {{$t('navbar.overDateList')}}
                 </router-link>
               </div>
             </li>
@@ -150,7 +150,7 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
-          <h5 class="offcanvas-title">Profile</h5>
+          <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === myAccountRoute}">
@@ -161,7 +161,7 @@
                       d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
                 <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
-                  My Account
+                  {{$t('navbar.myAccount')}}
                 </router-link>
               </div>
             </li>
@@ -175,7 +175,7 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
-                  Sign In
+                  {{$t('navbar.logIn')}}
                 </router-link>
               </div>
             </li>
@@ -183,7 +183,7 @@
           <ul>
             <li :class="{'hiddenButton': json.some(account => account.loggedIn) === false}" @click="logOut">
               <router-link to>
-                Log out
+                {{$t('navbar.logOut')}}
               </router-link>
             </li>
           </ul>
@@ -200,23 +200,19 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
-          <h5 class="offcanvas-title">Admin</h5>
-          <ul>
-            <li>
-              <div
-                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                     :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
-                  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                  <path
-                      d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
-                </svg>
-                <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
-                  All users
-                </router-link>
-              </div>
-            </li>
-          </ul>
+          <h5 class="offcanvas-title">{{$t('navbar.adminTitle')}}</h5>
+          <div
+              :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
+                 :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
+              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              <path
+                  d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+            <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
+              {{$t('navbar.allUsers')}}
+            </router-link>
+          </div>
         </div>
 
       </div>
