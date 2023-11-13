@@ -13,7 +13,7 @@
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
               <input v-model="personalNumber" @keyup.enter="checkInput" type="text" class="form-control form-control-lg"/>
-              <label class="form-label" for="typeEmailX-2">{{ $t('signIn.personalNumber') }}</label>
+              <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
             <div class="form-outline mb-4">
@@ -60,7 +60,7 @@ export default {
   methods: {
     async checkInput() {
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
-        this.displayAlert("Personeelsnummer is verkeerd")
+        this.displayAlert(this.$t('signIn.wrongPersMessage'))
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
         if (this.account.password !== this.password) {

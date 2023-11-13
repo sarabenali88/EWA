@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-danger">Account Toevoegen</h6>
+          <h6 class="mb-2 text-danger">{{$t('adminPanel.addAccount')}}</h6>
         </div>
         <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ alertMessage }}
@@ -11,35 +11,35 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !name }">
-            <label for="fullName">Naam</label>
+            <label for="fullName">{{$t('adminPanel.name')}}</label>
             <input v-model="name" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !email }">
-            <label for="eMail">Email</label>
+            <label for="eMail">{{$t('adminPanel.email')}}</label>
             <input v-model="email" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !password }">
-            <label for="website">Wachtwoord</label>
+            <label for="website">{{$t('adminPanel.password')}}</label>
             <input v-model="password" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !role }">
-            <label for="zIp">Rol</label>
+            <label for="zIp">{{$t('adminPanel.role')}}</label>
             <select v-model="role" class="form-select" aria-label="Default select example">
-              <option value="" disabled selected>Selecteer</option>
-              <option value="ImageMaker">ImageMaker</option>
-              <option value="admin">admin</option>
+              <option value="" disabled selected>{{$t('adminPanel.select')}}</option>
+              <option value="ImageMaker">{{$t('adminPanel.optionOne')}}</option>
+              <option value="admin">{{$t('adminPanel.optionTwo')}}</option>
             </select>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !location }">
-            <label for="website">Locatie</label>
+            <label for="website">{{$t('adminPanel.location')}}</label>
             <input v-model="location" class="form-control">
           </div>
         </div>
@@ -47,8 +47,8 @@
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
-            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">Annuleren</button>
-            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">OK</button>
+            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">{{$t('adminPanel.cancelButton')}}</button>
+            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">{{$t('adminPanel.okButton')}}</button>
           </div>
         </div>
       </div>
@@ -59,15 +59,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmatie</h5>
+          <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Weet u zeker dat u door wilt gaan?</p>
+          <p>{{$t('adminPanel.confirmMessage')}}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cancelAction()">Annuleren</button>
-          <button type="button" class="btn btn-success" @click="performAction()">OK</button>
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
+          <button type="button" class="btn btn-success" @click="performAction()">{{$t('adminPanel.okButton')}}</button>
         </div>
       </div>
     </div>
@@ -107,7 +107,7 @@ export default {
     },
     fieldsFilledCheck() {
       if (!this.name || !this.email || !this.role || !this.password || !this.location) {
-        this.displayAlert("Niet elk veld is ingevuld!")
+        this.displayAlert(this.$t('adminPanel.errorMessage'))
         return false;
       } else {
         return true;

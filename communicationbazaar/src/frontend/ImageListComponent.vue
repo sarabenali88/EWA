@@ -57,7 +57,7 @@
           </svg>
         </div>
         <div class="col">
-          <h6>Finished:</h6>
+          <h6>{{$t('imageStatus.statusFinished')}}:</h6>
           <div>
             <h1>{{ amountOfImagesFinished }}</h1>
             <h4>images</h4>
