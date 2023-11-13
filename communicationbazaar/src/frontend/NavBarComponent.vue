@@ -232,6 +232,8 @@ export default {
       statusFinished: '/imageListRoute/statusFinished',
       statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',
+      myProfileRoute: '/myProfileRoute',
+      claimedImageRoute: '/claimedImageRoute',
       signInRoute: '/signIn',
       webScraperRoute: '/webScraper',
       allUsersRoute: '/allUsers',

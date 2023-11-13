@@ -5,7 +5,7 @@
   <div class="container-fluid p-3">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view v-if="!isImageClaimed(selectedImage)" v-bind:currentImage="selectedImage">
 
         </router-view>
       </div>
@@ -29,6 +29,11 @@
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+        <td v-if="isCorrespondingStatus(image)">
+          <button type="button" class="btn btn-success" @click="claimImage(image)">
+            Claim Image
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -78,7 +83,18 @@ export default {
         this.$router.push(parentPath + "/" + image.laptop[0].ean);
       }
       console.log(this.selectedImage)
-    }
+    },
+    isImageClaimed(image) {
+      return image.isClaimed === true;
+    },
+
+    claimImage(image) {
+      if (image) {
+        image.isClaimed = true;
+        this.selectedImage = image;
+        this.$router.push({ name: 'claimedImageRoute' });
+      }
+    },
   }
 }
 </script>

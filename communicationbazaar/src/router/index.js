@@ -17,7 +17,7 @@ import WebScraperComponent from "@/frontend/WebScraperComponent";
 import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
-import imageStatusMyImagesComponent from "@/frontend/imageStatusMyImagesComponent";
+import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
 
 
 export const router = createRouter({
@@ -90,11 +90,20 @@ export const router = createRouter({
             }
         },
         {
-            path: '/profilePage', component: ProfilePageComponent, children: [
-                {path: "", component: imageStatusMyImagesComponent}
+            path: NavBar.data().myProfileRoute,
+            name: 'myProfileRoute',
+            component: ProfilePageComponent,
+            children: [
+                {
+                    path: 'claimedImageRoute',
+                    name: 'claimedImageRoute',
+                    component: ClaimedImageComponent,
+                },
             ]
         },
-        { path: '/:pathMatch(.*)', component: UnknownRoute },
-        { path: '/addImage', component: addImageComponent}
+
+
+        {path: '/:pathMatch(.*)', component: UnknownRoute},
+        {path: '/addImage', component: addImageComponent}
     ]
 })

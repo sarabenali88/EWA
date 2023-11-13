@@ -11,6 +11,17 @@
         <input type="text" placeholder="Zoek voor image" class="input form-control">
 
       </div>
+      <!-- button for QR code-->
+      <button  type="button" class="btn btn-danger m-lg-3" @click="toggleQRCodeStream">Scan for an image</button>
+      <!-- QR code in modal pop up-->
+      <div v-if="showModal" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="toggleQRCodeStream">&times;</span>
+          <div class="qrcode-container">
+          <qrcode-stream @init="onInit" class="qrcode-stream"></qrcode-stream>
+          </div>
+        </div>
+      </div>
       <!-- Alert button-->
       <div class="bell">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-bell" viewBox="0 0 16 16">
@@ -23,16 +34,51 @@
 </template>
 
 <script>
+import { QrcodeStream } from 'vue3-qrcode-reader'
 export default {
   name: 'HeaderComponent',
+  components: {
+    QrcodeStream
+  },
   data () {
     return {
-      mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png')
+      mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
+      showQRCodeStream: false,
+      error: '',
+      showModal: false,
     }
   },
   watch: {},
   computed: {},
-  methods: {}
+  methods: {
+    toggleQRCodeStream() {
+      this.showModal = !this.showModal;
+    },
+    async onInit( promise ) {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const { capabilities } = await promise
+
+        // successfully initialized
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          this.error = "user denied camera access permisson"
+        } else if (error.name === 'NotFoundError') {
+          this.error = "no suitable camera device installed"
+        } else if (error.name === 'NotSupportedError') {
+          this.error = "is not served over HTTPS (or localhost)"
+        } else if (error.name === 'NotReadableError') {
+          this.error = "camera is already in use"
+        } else if (error.name === 'OverconstrainedError') {
+          this.error = "did you requested the front camera although there is none?"
+        } else if (error.name === 'StreamApiNotSupportedError') {
+          this.error = "browser seems to be lacking features"
+        }
+      } finally {
+        // hide loading indicator
+      }
+    },
+  }
 }
 </script>
 
@@ -94,6 +140,54 @@ export default {
   position: relative;
 }
 
+/*QR code*/
+.qrcode-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 
+
+
+/*modal*/
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
 
 </style>
