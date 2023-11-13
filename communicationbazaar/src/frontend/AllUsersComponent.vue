@@ -1,11 +1,9 @@
 <template>
-  <h1>Gebruikerslijst</h1>
-
+  <h1>{{$t('adminPanel.headTitle')}}</h1>
   <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
     {{ alertMessage }}
     <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
   </div>
-  <h1>{{$t('adminPanel.headTitle')}}</h1>
 
   <div class="container-fluid px-5">
     <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
@@ -32,8 +30,7 @@
                   <p class="job_post">{{ account.email }}</p>
                   <p class="job_post">{{ account.location }}</p>
                   <div>
-                    <button class="btn btn-danger btn-round" @click="setAccount(account)">{{$t('adminPanel.editButton')}}</button>
-                    <button class="btn btn-secondary btn-round" @click="updateAccount(account)">Wijzigen</button>
+                    <button class="btn btn-secondary btn-round" @click="updateAccount(account)">{{$t('adminPanel.editButton')}}</button>
                     <button class="btn btn-danger btn-round" @click="deleteAccount(account)">Verwijderen</button>
                   </div>
                 </div>
