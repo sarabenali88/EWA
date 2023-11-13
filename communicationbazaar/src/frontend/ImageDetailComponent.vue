@@ -1,14 +1,28 @@
 <template>
 <div>
-  <h3>
-    {{currentImage.laptop[0].brand}} {{currentImage.laptop[0].description}}
-  </h3>
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <h3>
+        {{imageCopy.laptop[0].brand}} {{imageCopy.laptop[0].description}}
+      </h3>
+    </div>
+    <div class="col-4">
+      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}"
+                     type="button" class="btn btn-danger m-2">
+        Verwijderen
+      </button>
+      <button :class="{'hiddenButton': json.some(account => account.loggedIn) === false}"
+                     type="button" class="btn btn-outline-secondary" @click="onChange()">
+        Bewerken
+      </button>
+    </div>
+  </div>
   <div class="row justify-content-md-left">
     <div class="col col-sm-3">
-      EAN: {{currentImage.laptop[0].ean}}
+      EAN: {{imageCopy.laptop[0].ean}}
     </div>
     <div class="col-md-auto">
-      ART NR: {{currentImage.laptop[0].articleNumber}}
+      ART NR: {{imageCopy.laptop[0].articleNumber}}
     </div>
   </div>
   <div class="pt-4 m-sm-1">
@@ -20,8 +34,13 @@
         </svg>
         Status:
       </div>
-      <div class="col-sm-auto">
-        {{currentImage.status}}
+      <div v-if="editComment === false" class="col-sm-auto">
+        {{imageCopy.status}}
+      </div>
+      <div v-else class="col-sm-auto">
+        <select class="form-select" v-model="imageCopy.status">
+          <option v-for="(value, key) in statuses" :value="value" :key="key">{{ value }}</option>
+        </select>
       </div>
     </div>
     <div class="row justify-content-md-left">
@@ -32,8 +51,8 @@
         </svg>
         Medewerker:
       </div>
-      <div v-if="currentImage.imageMaker !== ''">
-        {{currentImage.imageMaker}}
+      <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
+        {{imageCopy.imageMaker}}
       </div>
       <div v-else class="col-sm-auto text-body-secondary" >
         Niet toegewezen
@@ -48,7 +67,7 @@
         Datum:
       </div>
       <div class="col-sm-auto">
-        {{currentImage.upDateDate}}
+        {{imageCopy.upDateDate}}
       </div>
     </div>
   </div>
@@ -63,12 +82,12 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div v-if="showDesc" class="m-2">
-        <div v-if="currentImage.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
+        <div v-if="imageCopy.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             OS:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.laptop[0].os}}
+            {{imageCopy.laptop[0].os}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -76,7 +95,7 @@
             Startklaar versie:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.version}}
+            {{imageCopy.version}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -84,7 +103,7 @@
             Nieuw/Update:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.release}}
+            {{imageCopy.release}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -92,13 +111,25 @@
             Locatie:
           </div>
           <div class="col-sm-auto">
-            {{currentImage.store}}
+            {{imageCopy.store}}
           </div>
         </div>
       </div>
-      <div v-else >
+      <div v-else-if="editComment === true && !showDesc" >
+        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
+                  v-model="imageCopy.comment"></textarea>
+        <div class="row justify-content-between">
+          <div class="col-auto">
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">Opslaan</button>
+            <button type="button" class="btn btn-outline-danger" @click="onChange()">Afsluiten</button>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!showDesc">
         <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
-                  :value="currentImage.comment" readonly></textarea>
+                  v-model="imageCopy.comment" readonly></textarea>
       </div>
     </div>
   </div>
@@ -106,14 +137,35 @@
 </template>
 
 <script>
+import {LaptopImage} from "@/models/image";
+import json from "../account.json";
+
 export default {
   name: "ImageDetailComponent",
   props: [
     'currentImage'
   ],
+  emits: ['delete-image', 'save-image'],
+  created() {
+    this.copyImage(this.currentImage);
+  },
+  watch: {
+    currentImage: {
+      handler(newImage) {
+        if (newImage !== null) {
+          this.copyImage(newImage);
+        }
+      },
+      deep: true,
+    }
+  },
   data(){
     return {
-      showDesc: false
+      statuses: LaptopImage.Status,
+      showDesc: false,
+      editComment: false,
+      imageCopy: null,
+      json: json
     }
   },
   methods: {
@@ -124,11 +176,30 @@ export default {
       if (word === 'desc'){
         this.showDesc = true;
       }
-    }
+    },
+    onChange(){
+      if (this.editComment === true){
+        this.editComment = false;
+      } else {
+        this.editComment = true;
+      }
+    },
+    saveChanges(){
+      if (this.imageCopy.status === "Te doen"){
+        this.imageCopy.imageMaker = ""
+      }
+      this.$emit('save-image', this.imageCopy);
+      this.editComment = false;
+    },
+    copyImage(currentImage) {
+      this.imageCopy = JSON.parse(JSON.stringify(currentImage));
+    },
   }
 }
 </script>
 
 <style scoped>
-
+.hiddenButton {
+  display: none;
+}
 </style>
