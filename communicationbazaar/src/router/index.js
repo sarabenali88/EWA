@@ -15,6 +15,9 @@ import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponen
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 import WebScraperComponent from "@/frontend/WebScraperComponent";
 import ProfilePageComponent from "@/frontend/ProfilePageComponent";
+import AllUsersComponent from "@/frontend/AllUsersComponent";
+import UserDetailComponent from "@/frontend/UserDetailComponent";
+import StatisticsPageComponent from "@/frontend/StatisticsPageComponent.vue";
 
 
 export const router = createRouter({
@@ -73,6 +76,22 @@ export const router = createRouter({
         {
             path: NavBar.data().webScraperRoute,
             component: WebScraperComponent
+        },
+        {
+            path: NavBar.data().statisticsRoute,
+            component: StatisticsPageComponent
+        },
+        {
+            path: NavBar.data().allUsersRoute,
+            component: AllUsersComponent,
+            children: [{path: ':id', component: UserDetailComponent}],
+            beforeEnter: (to, from, next) => {
+                if (json.some(account => account.loggedIn && account.role === 'admin')) {
+                    next();
+                } else {
+                    next(NavBar.data().homeRoute)
+                }
+            }
         },
         {
             path: '/profilePage', component: ProfilePageComponent
