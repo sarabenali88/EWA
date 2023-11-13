@@ -43,6 +43,12 @@
             </select>
           </div>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="website">Locatie</label>
+            <input v-model="accountCopy.location" class="form-control">
+          </div>
+        </div>
       </div>
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -124,10 +130,11 @@ export default {
           accountCopy.password === currentAccount.password &&
           accountCopy.name === currentAccount.name &&
           accountCopy.email === currentAccount.email &&
-          accountCopy.role === currentAccount.role;
+          accountCopy.role === currentAccount.role &&
+          accountCopy.location === currentAccount.location;
     },
     fieldsFilledCheck(accountCopy) {
-      if (!accountCopy.name || !accountCopy.email || !accountCopy.role) {
+      if (!accountCopy.name || !accountCopy.email || !accountCopy.role || !accountCopy.location) {
         this.displayAlert("Niet elk veld is ingevuld!");
         return false;
       } else {

@@ -41,6 +41,7 @@ export class AccountsAdaptor {
                         name: account.name,
                         email: account.email,
                         role: account.role,
+                        location: account.location,
                         imagesOnGoing: account.imagesOnGoing,
                         imagesDone: account.imagesDone,
                         loggedIn: account.loggedIn,

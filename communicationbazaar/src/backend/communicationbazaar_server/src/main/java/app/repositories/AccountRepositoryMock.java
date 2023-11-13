@@ -33,6 +33,7 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "Pieter van de Broek",
                 "pietervdbroek@gmail.com",
                 "ImageMaker",
+                "Amsterdam",
                 onGoingImages,
                 doneImages,
                 Account.LOGGEDIN.FALSE));
@@ -41,6 +42,7 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "Julia Beekman",
                 "juliabeekman@gmail.com",
                 "admin",
+                "Amsterdam",
                 onGoingImages,
                 doneImages,
                 Account.LOGGEDIN.FALSE));
@@ -49,6 +51,7 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "Guus de Jong",
                 "guusdejong@gmail.com",
                 "admin",
+                "Apeldoorn",
                 onGoingImages,
                 doneImages,
                 Account.LOGGEDIN.FALSE));

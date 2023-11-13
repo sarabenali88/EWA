@@ -25,6 +25,10 @@
                     <h6>Role</h6>
                     <p class="text-muted">{{ role }}</p>
                   </div>
+                  <div class="col-6 mb-3">
+                    <h6>Location</h6>
+                    <p class="text-muted">{{ location }}</p>
+                  </div>
                 </div>
                 <h6>Projects</h6>
                 <hr class="mt-0 mb-4">
@@ -72,6 +76,7 @@ export default {
       name: '',
       email: '',
       role: '',
+      location: '',
       imagesOnGoing: [],
       imagesDone: [],
       accounts: [],
@@ -107,6 +112,7 @@ export default {
       this.role = this.loggedInAccount.role;
       this.imagesOnGoing = this.loggedInAccount.imagesOnGoing;
       this.imagesDone = this.loggedInAccount.imagesDone;
+      this.location = this.loggedInAccount.location;
     }
   },
 }

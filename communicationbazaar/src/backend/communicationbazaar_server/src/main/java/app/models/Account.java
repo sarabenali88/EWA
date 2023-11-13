@@ -15,6 +15,7 @@ public class Account {
     @JsonView(ViewClasses.Summary.class)
     private String email;
     private String role;
+    private String location;
     private ArrayList<Image> imagesOnGoing;
     private ArrayList<Image> imagesDone;
     private boolean loggedIn;
@@ -40,12 +41,13 @@ public class Account {
         }
     }
 
-    public Account(int personalNumber, String password, String name, String email, String role, ArrayList<Image> imagesOnGoing, ArrayList<Image> imagesDone, LOGGEDIN loggedIn) {
+    public Account(int personalNumber, String password, String name, String email, String role, String location, ArrayList<Image> imagesOnGoing, ArrayList<Image> imagesDone, LOGGEDIN loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.location = location;
         this.imagesOnGoing = imagesOnGoing;
         this.imagesDone = imagesDone;
         this.loggedIn = loggedIn.getValue();
@@ -71,6 +73,7 @@ public class Account {
                 "name",
                 "email",
                 "role",
+                "Amsterdam",
                 onGoingImages,
                 doneImages,
                 LOGGEDIN.values()[0]
@@ -99,6 +102,10 @@ public class Account {
 
     public String getRole() {
         return role;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public ArrayList<Image> getImagesOnGoing() {

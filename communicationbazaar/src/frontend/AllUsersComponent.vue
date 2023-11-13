@@ -27,8 +27,9 @@
                 </div>
                 <div class="col-lg-8 col-md-8 col-12">
                   <h4 class="m-t-0 m-b-0"><strong>{{ account.name }}</strong></h4>
-                  <span class="job_post">{{ account.role }}</span>
-                  <p>{{ account.email }}</p>
+                  <p class="job_post">{{ account.role }}</p>
+                  <p class="job_post">{{ account.email }}</p>
+                  <p class="job_post">{{ account.location }}</p>
                   <div>
                     <button class="btn btn-secondary btn-round" @click="updateAccount(account)">Wijzigen</button>
                     <button class="btn btn-danger btn-round" @click="deleteAccount(account)">Verwijderen</button>
@@ -252,5 +253,9 @@ li {
 
 .modal {
   margin-top: -20px;
+}
+
+p {
+  margin-bottom: 0px;
 }
 </style>

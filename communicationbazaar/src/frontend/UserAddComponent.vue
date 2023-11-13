@@ -37,6 +37,12 @@
             </select>
           </div>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group" :class="{ 'has-error': !location }">
+            <label for="website">Locatie</label>
+            <input v-model="location" class="form-control">
+          </div>
+        </div>
       </div>
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -82,6 +88,7 @@ export default {
       email: "",
       password: "",
       role: "",
+      location: "",
       showAlert: false,
       alertMessage: '',
       showModal: false,
@@ -95,11 +102,11 @@ export default {
       this.$emit('cancelEvent', null);
     },
     saveEvent() {
-      this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, [], [], false)
+      this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, this.location,[], [], false)
       this.$emit('saveEvent', this.account);
     },
     fieldsFilledCheck() {
-      if (!this.name || !this.email || !this.role || !this.password) {
+      if (!this.name || !this.email || !this.role || !this.password || !this.location) {
         this.displayAlert("Niet elk veld is ingevuld!")
         return false;
       } else {
