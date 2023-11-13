@@ -1,5 +1,4 @@
 <template>
-  <div class="header">
     <div class="headerContent">
       <!-- Mediamarkt logo-->
       <img class="logo" :src="mediaMarktLogo" alt="">
@@ -8,8 +7,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg>
-        <input type="text" placeholder="Zoek voor image" class="input form-control">
-
+        <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+      </div>
+      <!--Translation select-->
+      <div>
+        <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
+          <option value="nl">Nederlands</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
       </div>
       <!-- button for QR code-->
       <button  type="button" class="btn btn-danger m-lg-3" @click="toggleQRCodeStream">Scan for an image</button>
@@ -30,7 +36,6 @@
       </div>
     </div>
 
-  </div>
 </template>
 
 <script>
@@ -51,6 +56,17 @@ export default {
   watch: {},
   computed: {},
   methods: {
+    updateLocale() {
+      // update the i18n locale when the user selects a different language
+      if (this.$i18n.locale === 'nl') {
+        this.$i18n.locale = 'nl';
+      } else if (this.$i18n.locale === 'en') {
+        this.$i18n.locale = 'en';
+      } else {
+        this.$i18n.locale = 'fr';
+      }
+    },
+    },
     toggleQRCodeStream() {
       this.showModal = !this.showModal;
     },
@@ -86,7 +102,7 @@ export default {
 
 .logo {
   width: 400px;
-  z-index: -2;
+  /*z-index: 0;*/
 }
 
 .input-group-lg {
@@ -125,20 +141,24 @@ export default {
   box-shadow: 0 0 0 0.15rem rgba(218, 28, 37, 0.25);
 }
 
-.header {
-  position: relative;
-  color: salmon;
-  height: 100px;
-  border-bottom: solid lightgrey 2px;
-}
-
 .headerContent {
+  position: absolute;
+  background-color: white;
+  width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
   padding: 20px;
-  position: relative;
+  border-bottom: solid lightgrey 2px;
+  overflow-y: hidden;
 }
+.language{
+  margin-left: 50px
+}
+.language:hover{
+  border-color: salmon;
+}
+</style>
 
 /*QR code*/
 .qrcode-container {
