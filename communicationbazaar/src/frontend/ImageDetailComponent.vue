@@ -54,7 +54,13 @@
       <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
         {{imageCopy.imageMaker}}
       </div>
-      <div v-else class="col-sm-auto text-body-secondary" >
+      <div v-else-if="imageCopy.imageMaker === '' && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
+        Claim
+      </div>
+      <div v-if="imageClaimed === true" class="col-sm-auto">
+        dit doet het
+      </div>
+      <div v-if="imageCopy.imageMaker === '' && editComment === false" class="col-sm-auto text-body-secondary" >
         Niet toegewezen
       </div>
     </div>
@@ -165,7 +171,8 @@ export default {
       showDesc: false,
       editComment: false,
       imageCopy: null,
-      json: json
+      json: json,
+      imageClaimed: false
     }
   },
   methods: {
@@ -190,10 +197,15 @@ export default {
       }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
+      this.imageClaimed = false;
     },
     copyImage(currentImage) {
       this.imageCopy = JSON.parse(JSON.stringify(currentImage));
     },
+    claimImage(){
+      this.imageClaimed = true;
+
+    }
   }
 }
 </script>
