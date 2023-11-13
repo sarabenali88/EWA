@@ -33,7 +33,7 @@ export default {
   max-height: calc(100vh + 100px);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 700px) {
   #mainContent {
     margin-top: -50px;
     margin-left: 300px;
@@ -42,7 +42,7 @@ export default {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   #mainContent {
     overflow: auto;
     padding-bottom: 200px;

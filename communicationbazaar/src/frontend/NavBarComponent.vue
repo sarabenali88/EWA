@@ -225,7 +225,7 @@
   </div>
 
   <!-- Mobile navbar -->
-  <nav class="navbar fixed-bottom bg-body-tertiary" >
+  <nav class="navbar fixed-bottom bg-body-tertiary" :class="{active: fulNavActive}" >
     <div class="image-active-line" :class="{'all-active': currentImageList === 'allImages', 'todo-active': currentImageList === 'statusTodo', 'ongoing-active': currentImageList === 'statusOnGoing', 'finished-active' : currentImageList === 'statusFinished' }"></div>
     <div class="container-fluid">
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-image"
@@ -263,11 +263,25 @@
       </svg>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black"  class="bi bi-list-2"
-           viewBox="0 0 16 16">
+           viewBox="0 0 16 16" @click="showFullNav()">
         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1
            .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
       </svg>
     </div>
+
+    <div class="container-fluid" v-if="this.fulNavActive" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-person"
+           viewBox="0 0 16 16" @click="setPageContent(myAccountRoute)">
+        <path
+            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+      </svg>
+
+
+
+
+
+    </div>
+
   </nav>
 
 </template>
@@ -294,7 +308,8 @@ export default {
       json: json,
 
       currentContent: 'contentImage',
-      currentImageList: 'allImages'
+      currentImageList: 'allImages',
+      fulNavActive: false
     }
   },
   watch: {
@@ -350,6 +365,12 @@ export default {
           this.$router.push(this.allImagesRoute);
           this.currentImageList = 'allImages';
       }
+    },
+    showFullNav() {
+      this.fulNavActive = !this.fulNavActive;
+    },
+    setPageContent(route) {
+      this.$router.push(route);
     }
   }
 }
@@ -499,7 +520,7 @@ li a {
 }
 
 
-@media (min-width: 992px) {
+@media (min-width: 700px) {
   .sidebar-nav {
     transform: none !important;
     visibility: visible !important;
@@ -520,7 +541,7 @@ li a {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .sidebar-nav {
     display: none;
   }
@@ -549,19 +570,24 @@ li a {
   }
 
   .all-active {
-    left: 23px;
+    left: 4.5%;
   }
 
   .todo-active {
-    left: 117px;
+    left: 24%;
   }
 
   .ongoing-active {
-    left: 211px;
+    left: 44%;
   }
 
   .finished-active {
-    left: 305px;
+    left: 63.5%;
+  }
+
+  .active {
+    height: 180px;
+    transition: 250ms ease-in-out;
   }
 
 }
