@@ -28,5 +28,15 @@
     "imagesOnGoing": [],
     "imagesDone": [],
     "loggedIn": false
+  },
+  {
+    "personalNumber": "5609844",
+    "password": "Stalenbeker04!",
+    "name": "John de Groot",
+    "email": "johngroot49@gmail.com",
+    "role": "coworker",
+    "imagesOnGoing": [],
+    "imagesDone": [],
+    "loggedIn": false
   }
 ]
