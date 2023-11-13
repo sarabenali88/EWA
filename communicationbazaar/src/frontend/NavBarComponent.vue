@@ -39,7 +39,8 @@
         </svg>
 
         <!-- Admin icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock" :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account => account.loggedIn && account.role !== 'admin')}"
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock"
+             :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
              viewBox="0 0 16 16" @click="setCurrentContent('contentAdmin')">
           <path
               d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
@@ -61,7 +62,7 @@
                       d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
                 <router-link :to="homeRoute" :class="{'active-tab': $route.path === homeRoute}">
-                   Home
+                  Home
                 </router-link>
               </div>
             </li>
@@ -125,7 +126,7 @@
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
                 <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
-                    {{$t('navbar.finishedList')}}
+                  {{$t('navbar.finishedList')}}
                 </router-link>
               </div>
             </li>
@@ -152,7 +153,7 @@
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
           <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
-            <li>
+            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
               <div :class="{'active-route': $route.path === myAccountRoute}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
                      viewBox="0 0 16 16"
@@ -167,7 +168,7 @@
             </li>
             <li>
               <div
-                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': json.some(account => account.loggedIn) === true}">
+                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn === true)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -181,7 +182,7 @@
             </li>
           </ul>
           <ul>
-            <li :class="{'hiddenButton': json.some(account => account.loggedIn) === false}" @click="logOut">
+            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}" @click="logOut">
               <router-link to>
                 {{$t('navbar.logOut')}}
               </router-link>
@@ -218,8 +219,6 @@
             </li>
           </ul>
         </div>
-
-      </div>
 
     </div>
   </div>
@@ -291,11 +290,11 @@
 </template>
 
 <script>
-import json from "../account.json";
 import allImagesComponent from "@/frontend/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
+  inject: ["accountsService"],
   data() {
     return {
       homeRoute: '/',
@@ -309,7 +308,7 @@ export default {
       signInRoute: '/signIn',
       webScraperRoute: '/webScraper',
       allUsersRoute: '/allUsers',
-      json: json,
+      accounts: [],
 
       currentContent: 'contentImage',
       currentImageList: 'allImages',
@@ -317,7 +316,11 @@ export default {
     }
   },
   watch: {
-    '$route'() {
+    async '$route'() {
+      if (this.$route.path.match(this.homeRoute)) {
+        this.accounts = await this.accountsService.asyncFindAll();
+        this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      }
       if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
@@ -337,11 +340,11 @@ export default {
     }
   },
   methods: {
-    logOut() {
-      json.forEach(account => {
-        account.loggedIn = false;
-        this.$router.push(this.signInRoute);
-      })
+    async logOut() {
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn === true);
+      this.loggedInAccount.loggedIn = false;
+      await this.accountsService.asyncSave(this.loggedInAccount);
+      this.$router.push(this.signInRoute);
     },
 
     setCurrentContent(contentId) {

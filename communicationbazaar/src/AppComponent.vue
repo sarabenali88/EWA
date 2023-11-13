@@ -13,12 +13,24 @@
 
 import HeaderComponent from "@/frontend/HeaderComponent";
 import NavBarComponent from "@/frontend/NavBarComponent";
+import CONFIG from "@/app-config";
+import { ImagesAdaptor } from "@/services/ImagesAdaptor";
+import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";
+import { AccountsAdaptor } from "@/services/AccountsAdaptor";
+
 import "./main.css"
 export default {
   name: 'App',
   components: {
     NavBarComponent,
     HeaderComponent,
+  },
+  provide() {
+    return {
+      imagesService: new ImagesAdaptor(CONFIG.BACKEND_URL + '/images'),
+      laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
+      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts')
+    }
   }
 }
 </script>

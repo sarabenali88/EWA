@@ -25,17 +25,29 @@
                     <h6>Role</h6>
                     <p class="text-muted">{{ role }}</p>
                   </div>
+                  <div class="col-6 mb-3">
+                    <h6>Location</h6>
+                    <p class="text-muted">{{ location }}</p>
+                  </div>
                 </div>
                 <h6>Projects</h6>
                 <hr class="mt-0 mb-4">
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h6>On going</h6>
-                    <p class="text-muted">Lorem ipsum</p>
+                    <ul>
+                      <li v-for="image in imagesOnGoing" :key="image.laptop.ean">
+                        <p>{{ image.laptop.ean }}</p>
+                      </li>
+                    </ul>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Done</h6>
-                    <p class="text-muted">Dolor sit amet</p>
+                    <ul>
+                      <li v-for="image in imagesDone" :key="image.laptop.ean">
+                        <p>{{ image.laptop.ean }}</p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -49,31 +61,60 @@
 
 <script>
 
-import json from "@/account.json";
+import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "AccountComponent",
-
+  inject: ["accountsService"],
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.createInformation();
+    });
+  },
   data() {
     return {
       name: '',
       email: '',
       role: '',
-      array: [],
+      location: '',
+      imagesOnGoing: [],
+      imagesDone: [],
+      accounts: [],
+      loggedInAccount: undefined
     }
   },
   created() {
     this.createInformation();
   },
-  methods: {
-    createInformation() {
-
-      const user = json.find(account => account.loggedIn);
-      this.name = user.name;
-      this.role = user.role;
-      this.email = user.email;
+  watch: {
+    loggedInAccount: {
+      handler: function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.setInformation();
+        }
+      },
+      deep: true
     }
-  }
+  },
+  methods: {
+    async createInformation() {
+      this.accounts = await this.accountsService.asyncFindAll();
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn) {
+        this.$router.push(NavBar.data().signInRoute);
+      } else {
+        this.setInformation();
+      }
+    },
+    setInformation() {
+      this.name = this.loggedInAccount.name;
+      this.email = this.loggedInAccount.email;
+      this.role = this.loggedInAccount.role;
+      this.imagesOnGoing = this.loggedInAccount.imagesOnGoing;
+      this.imagesDone = this.loggedInAccount.imagesDone;
+      this.location = this.loggedInAccount.location;
+    }
+  },
 }
 </script>
 
@@ -81,5 +122,9 @@ export default {
 
 #profilePicture {
   width: 80px;
+}
+
+li {
+  list-style: none;
 }
 </style>
