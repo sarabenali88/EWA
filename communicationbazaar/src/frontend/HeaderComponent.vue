@@ -114,7 +114,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
 
   .headerContent {
     height: 75px;
