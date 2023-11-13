@@ -95,7 +95,7 @@ export default {
       }
     },
   }
-}
+
 </script>
 
 <style scoped>
@@ -158,7 +158,7 @@ export default {
 .language:hover{
   border-color: salmon;
 }
-</style>
+
 
 /*QR code*/
 .qrcode-container {

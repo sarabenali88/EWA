@@ -13,7 +13,7 @@
         <div class="card card-body">
           <router-view v-bind:currentImage="selectedImage"
                        @delete-image="deleteImage()" @save-image="saveImage">
-          <router-view v-if="!isImageClaimed(selectedImage)" v-bind:currentImage="selectedImage">
+          <router-view v-bind:currentImage="selectedImage"></router-view>
 
           </router-view>
         </div>
@@ -38,11 +38,6 @@
           <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-          <td v-if="isCorrespondingStatus(image)">
-            <button type="button" class="btn btn-success" @click="claimImage(image)">
-              Claim Image
-            </button>
-          </td>
         </tr>
         </tbody>
       </table>
@@ -118,17 +113,6 @@ export default {
       let imagesCopy = [...this.images];
       // Sort the copy
       return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
-    }
-    isImageClaimed(image) {
-      return image.isClaimed === true;
-    },
-
-    claimImage(image) {
-      if (image) {
-        image.isClaimed = true;
-        this.selectedImage = image;
-        this.$router.push({ name: 'claimedImageRoute' });
-      }
     },
   }
 }
@@ -144,4 +128,4 @@ export default {
   display: none;
 }
 </style>
-</style>
+
