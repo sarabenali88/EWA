@@ -108,6 +108,7 @@ export default {
   align-items: center;
   padding: 20px;
   overflow-y: hidden;
+  border-bottom: solid lightgrey 2px;
 }
 
 .mobile {
@@ -118,6 +119,7 @@ export default {
 
   .headerContent {
     height: 75px;
+    border-bottom: none;
   }
 
   .logo {

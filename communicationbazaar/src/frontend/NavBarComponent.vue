@@ -321,7 +321,7 @@ export default {
       if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
-      if (this.$route.path.match(this.signInRoute)) {
+      if (this.$route.path.match(this.signInRoute) || this.$route.path.match(this.myAccountRoute)) {
         this.setCurrentContent('contentProfile')
       }
       if (this.$route.path.match(this.allUsersRoute)) {
