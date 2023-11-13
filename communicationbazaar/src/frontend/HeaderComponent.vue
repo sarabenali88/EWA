@@ -15,11 +15,18 @@
         <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
       </div>
       <!--Translation select-->
-      <div>
+      <div class="translation" v-if="checkScreenWidth">
         <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
           <option value="fr">Français</option>
+        </select>
+      </div>
+      <div class="translation-mobile" v-if="checkScreenWidth">
+        <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
+          <option value="nl">NL</option>
+          <option value="en">ENG</option>
+          <option value="fr">FR</option>
         </select>
       </div>
       <!-- Alert button-->
@@ -51,7 +58,8 @@ export default {
   data () {
     return {
       mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
-      expanded: false
+      expanded: false,
+      mobile: false
     }
   },
   watch: {},
@@ -68,6 +76,11 @@ export default {
         this.$i18n.locale = 'en';
       } else {
         this.$i18n.locale = 'fr';
+      }
+    },
+    checkScreenWidth() {
+      if(window.innerWidth < 600) {
+        this.mobile = !this.mobile;
       }
     }
     }
@@ -88,14 +101,14 @@ export default {
 }
 
 .bi-search {
-  margin-right: 20px;
+  margin-right: 5px;
   margin-top: 5px;
 }
 
 .bell {
   padding: 5px;
   position: absolute;
-  right: 40px;
+  right: 5%;
 }
 
 .bell:hover {
@@ -127,14 +140,29 @@ export default {
   padding: 20px;
   overflow-y: hidden;
   border-bottom: solid lightgrey 2px;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .mobile {
   display: none;
 }
 
+.translation-mobile {
+  display: none;
+}
+
+
 @media (max-width: 700px) {
+
+  .translation-mobile {
+    display: inherit;
+    width: 145px;
+    margin-left: -40px;
+  }
+
+  .translation {
+    display: none;
+  }
 
   .headerContent {
     height: 75px;
@@ -142,7 +170,7 @@ export default {
   }
 
   .logo {
-    width: 200px;
+    width: 150px;
     position: static;
     top: 10px;
   }
