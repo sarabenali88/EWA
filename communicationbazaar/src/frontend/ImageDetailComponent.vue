@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import {LaptopImage} from "@/models/image";
+import {Image} from "@/models/Image";
 import json from "../account.json";
 
 export default {
@@ -161,7 +161,7 @@ export default {
   },
   data(){
     return {
-      statuses: LaptopImage.Status,
+      statuses: Image.Status,
       showDesc: false,
       editComment: false,
       imageCopy: null,

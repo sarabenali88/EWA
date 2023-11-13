@@ -26,4 +26,10 @@ export class Laptop {
         this.os = os;
         this.prize = prize;
     }
+
+    static copyConstructor (laptop, id) {
+        if (laptop == null) return null;
+
+        return Object.assign(new Laptop(id), laptop);
+    }
 }
