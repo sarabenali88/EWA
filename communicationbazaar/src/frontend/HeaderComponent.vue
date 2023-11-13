@@ -7,8 +7,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg>
-        <input type="text" placeholder="Zoek voor image" class="input form-control">
-
+        <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+      </div>
+      <!--Translation select-->
+      <div>
+        <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
+          <option value="nl">Nederlands</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
       </div>
       <!-- Alert button-->
       <div class="bell">
@@ -30,7 +37,18 @@ export default {
   },
   watch: {},
   computed: {},
-  methods: {}
+  methods: {
+    updateLocale() {
+      // update the i18n locale when the user selects a different language
+      if (this.$i18n.locale === 'nl') {
+        this.$i18n.locale = 'nl';
+      } else if (this.$i18n.locale === 'en') {
+        this.$i18n.locale = 'en';
+      } else {
+        this.$i18n.locale = 'fr';
+      }
+    },
+    },
 }
 </script>
 
@@ -88,7 +106,10 @@ export default {
   border-bottom: solid lightgrey 2px;
   overflow-y: hidden;
 }
-
-
-
+.language{
+  margin-left: 50px
+}
+.language:hover{
+  border-color: salmon;
+}
 </style>

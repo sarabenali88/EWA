@@ -1,7 +1,7 @@
 <template>
-  <h1>
-    Status Todo Images
-  </h1>
+    <h1>
+      {{ $t('imageStatus.toDoTitle') }}
+    </h1>
   <div :class="{'hiddenPage': json.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    json.some(account => account.loggedIn && account.role === 'admin')}">
     <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
@@ -20,12 +20,12 @@
       <table class="table table-sm">
         <thead>
         <tr>
-          <th scope="col">EAN</th>
-          <th scope="col">Laptop naam</th>
-          <th scope="col">Medewerker</th>
-          <th scope="col">Vestiging</th>
-          <th scope="col">Status</th>
-          <th scope="col">Datum</th>
+          <th scope="col">{{$t('allImages.ean')}}</th>
+          <th scope="col">{{$t('allImages.imageName')}}</th>
+          <th scope="col">{{$t('allImages.employeeName')}}</th>
+          <th scope="col">{{$t('allImages.location')}}</th>
+          <th scope="col">{{$t('allImages.status')}}</th>
+          <th scope="col">{{$t('allImages.date')}}</th>
         </tr>
         </thead>
         <tbody>

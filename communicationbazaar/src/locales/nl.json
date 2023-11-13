@@ -1,0 +1,96 @@
+{
+  "addImage": {
+    "eanNumber": "EAN Code",
+    "ReadyToUseVersion": "Startklaar Versie",
+    "imageName": "Image Naam",
+    "imageLocation": "Image Locatie",
+    "status": "Status",
+    "statusToDo": "Te doen",
+    "statusOngoing": "Mee bezig",
+    "statusFinished": "Afgerond",
+    "date": "Datum",
+    "week": "Week",
+    "alertEmpty": "Dit veld is verplicht",
+    "alertEan": "EAN code mag niet kleiner dan 0 zijn",
+    "buttonSave": "Opslaan",
+    "buttonAdd": "Image toevoegen",
+    "buttonCancel": "Annuleren",
+    "cancelMessage": "Weet je zeker dat je wilt cancelen?"
+  },
+  "allImages": {
+    "titleName": "Alle Images",
+    "ean": "EAN",
+    "imageName": "Image Naam",
+    "employeeName": "Medewerker",
+    "location": "Vestiging",
+    "status" : "Status",
+    "date" : "Datum"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "ART NR",
+    "status": "Status",
+    "employee": "Medewerker",
+    "date": "Datum",
+    "comment": "Commentaar",
+    "description": "Beschrijving",
+    "os": "OS",
+    "ReadyToUseVersion": "Startklaar Versie",
+    "newUpdate": "Nieuw/Update",
+    "location": "Locatie",
+    "placeholder": "Nog geen comments",
+    "deleteButton": "Verwijderen",
+    "editButton": "Bewerken",
+    "unassigned": "Niet toegewezen",
+    "saveButton": "Opslaan",
+    "closeButton": "Afsluiten"
+  },
+  "adminPanel" : {
+    "headTitle": "Gebruikerslijst",
+    "title": "Accountgegevens",
+    "name": "Naam",
+    "email": "E-mail",
+    "employeeNumber": "Personeelsnummer",
+    "role": "Functie",
+    "cancelButton": "Annuleren",
+    "editButton": "Wijzigen",
+    "cancelMessage": "Weet je zeker dat je wilt annuleren?",
+    "editMessage": "Weet je zeker dat je wilt wijzigen?"
+  },
+  "imageStatus": {
+    "toDoTitle" : "Status Te doen Images",
+    "ongoingTitle" : "Status Mee bezig Images",
+    "finishedTitle" : "Status Afgeronde Images",
+    "overDateTitle" : "Status Over Datum Images",
+    "statusToDo": "Te doen",
+    "statusOngoing": "Mee bezig",
+    "statusFinished": "Afgerond",
+    "statusOverDate": "Over Datum"
+  },
+  "signIn": {
+    "title": "Inloggen",
+    "personalNumber": "Persoonlijk nummer",
+    "password": "Wachtwoord",
+    "remember": "Onthoud wachtwoord",
+    "logInButton": "Inloggen",
+    "loggedInMessage": "Ingelogd",
+    "wrongPassMessage": "Verkeerd wachtwoord"
+  },
+  "header":{
+    "placeholder": "Zoek voor image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "Alle Images",
+    "toDoList": "Te doen Lijst",
+    "ongoingList": "In ontwikkeling Lijst",
+    "finishedList": "Afgerond Lijst",
+    "overDateList": "Over datum Lijst",
+    "myAccount": "Mijn account",
+    "logIn": "Log in",
+    "logOut": "Log uit",
+    "allUsers": "Alle gebruikers",
+    "profileTitle": "Profiel",
+    "adminTitle": "Admin"
+  }
+}

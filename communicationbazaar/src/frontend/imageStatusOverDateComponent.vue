@@ -1,6 +1,6 @@
 <template>
   <h1>
-    Status Over Date Images
+    {{ $t('imageStatus.overDateTitle') }}
   </h1>
   <div :class="{'hiddenPage': json.some(account => account.loggedIn && account.role === 'admin')}">
     <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
@@ -19,12 +19,12 @@
       <table class="table table-sm">
         <thead>
         <tr>
-          <th scope="col">EAN</th>
-          <th scope="col">Laptop naam</th>
-          <th scope="col">Medewerker</th>
-          <th scope="col">Vestiging</th>
-          <th scope="col">Status</th>
-          <th scope="col">Datum</th>
+          <th scope="col">{{ $t('allImages.ean') }}</th>
+          <th scope="col">{{ $t('allImages.imageName') }}</th>
+          <th scope="col">{{ $t('allImages.employeeName') }}</th>
+          <th scope="col">{{ $t('allImages.location') }}</th>
+          <th scope="col">{{ $t('allImages.status') }}</th>
+          <th scope="col">{{ $t('allImages.date') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -40,7 +40,6 @@
       </table>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -94,7 +93,7 @@ export default {
       this.images.splice(index, 1);
       this.selectedImage = null;
     },
-    saveImage(image){
+    saveImage(image) {
       const index = this.images.indexOf(this.selectedImage);
       this.images[index] = image;
       this.setImage(image);
