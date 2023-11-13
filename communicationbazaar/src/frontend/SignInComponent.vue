@@ -60,7 +60,7 @@ export default {
   methods: {
     async checkInput() {
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
-        this.displayAlert(this.$t('signIn.loggedInMessage'))
+        this.displayAlert("Personeelsnummer is verkeerd")
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
         if (this.account.password !== this.password) {
