@@ -114,7 +114,7 @@ export default {
 <style scoped>
 
 h1 {
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 .card {

@@ -196,12 +196,12 @@ export default {
   }
 
   .expanded {
-    height: 120px !important;
+    height: 130px !important;
     transition: 250ms ease-in-out;
   }
 
   .input-expanded {
-    margin-top: 70px;
+    margin-top: 80px;
     width: 80%;
     margin-left: 15%;
   }
