@@ -90,8 +90,8 @@
   <div class="ms-lg-5">
     <router-view></router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
-            :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account =>
-            account.loggedIn && account.role !== 'ImageMaker')}">
+            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
+            accounts.some(account => account.loggedIn === true && account.role !== 'ImageMaker')}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
@@ -99,13 +99,11 @@
 
 <script>
 import imageData from '@/image.json';
-import json from "@/account.json";
-
-
 export default {
   name: "ImageListComponent",
+  inject: ["accountsService"],
   components: {},
-  created() {
+  async created() {
     this.$router.push("/imageListRoute/allImages");
 
     for (let i in imageData) {
@@ -113,6 +111,8 @@ export default {
     }
 
     this.amountOfImages();
+    this.accounts = await this.accountsService.asyncFindAll();
+    this.account = this.accounts.find(account => account.loggedIn)
   },
   data() {
     return {
@@ -127,7 +127,8 @@ export default {
       overDateStatus: "overDateStatus",
       allImagesStatus: "allImages",
       selectedStatus: this.allImagesStatus,
-      json: json,
+      accounts: [],
+      account: null,
     }
   },
   methods: {
