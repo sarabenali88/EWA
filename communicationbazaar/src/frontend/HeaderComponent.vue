@@ -140,7 +140,6 @@ export default {
     position: absolute;
     width: 100%;
     height: 75px;
-    top: 5px;
     background-color: white;
     border-bottom: solid lightgrey 2px;
     transition: 250ms ease-in-out;

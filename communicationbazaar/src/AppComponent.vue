@@ -25,8 +25,12 @@ export default {
 
 <style scoped>
 
+
+
 .all {
   overflow: hidden;
+  font-family: Inter, sans-serif;
+  font-weight: lighter;
 }
 #mainContent {
   margin-left: 0;
