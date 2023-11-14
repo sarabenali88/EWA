@@ -18,7 +18,7 @@
         </select>
       </div>
       <!-- button for QR code-->
-      <button  type="button" class="btn btn-danger m-lg-3" @click="toggleQRCodeStream">Scan for an image</button>
+      <button type="button" class="btn btn-danger m-lg-3" @click="toggleQRCodeStream">Scan for an image</button>
       <!-- QR code in modal pop up-->
       <div v-if="showModal" class="modal">
         <div class="modal-content">
@@ -51,6 +51,15 @@ export default {
       showQRCodeStream: false,
       error: '',
       showModal: false,
+      selected: { text: 'outline', value: undefined },
+      options: [
+        { text: 'nothing (default)', value: undefined },
+        { text: 'outline', value: this.paintOutline },
+        { text: 'centered text', value: this.paintCenterText },
+        { text: 'bounding box', value: this.paintBoundingBox },
+      ],
+      barcodeTypes: ["aztec", "code_128", "code_39", "code_93", "codabar", "data_matrix", "ean_13", "ean_8", "itf", "pdf417", "qr_code", "upc_a", "upc_e"],
+      selectedBarcodeTypes: ["qr_code"],
     }
   },
   watch: {},
@@ -65,7 +74,6 @@ export default {
       } else {
         this.$i18n.locale = 'fr';
       }
-    },
     },
     toggleQRCodeStream() {
       this.showModal = !this.showModal;
@@ -93,6 +101,7 @@ export default {
       } finally {
         // hide loading indicator
       }
+    },
     },
   }
 

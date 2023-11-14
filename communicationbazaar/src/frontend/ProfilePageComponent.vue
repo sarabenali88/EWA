@@ -2,15 +2,15 @@
   <div class="container">
     <div class="row mt-5 border border-secondary rounded py-4">
       <div class="col-md-2 how-img">
-        <img src="../assets/Cindy.jpg" class="rounded-circle img-fluid size_picture border border-danger border-3"
+        <img src="../assets/Portrait_Placeholder.png" class="rounded-circle img-fluid size_picture border border-danger border-3"
              alt=""/>
       </div>
       <div class="col-md-8 py-5">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <h3 v-for="item in data" :key="item.id" class="mb-0">
-                  {{item.firstName}} {{item.lastName}}
+                <h3 class="mb-0">
+                  {{ name }}
                 </h3>
               </div>
             </div>
@@ -18,42 +18,106 @@
               <div class="col-sm-3">
                 <h6 class="mb-0 text-secondary">Functie</h6>
               </div>
-              <div v-for="item in data" :key="item.id" class="col-sm-9">
-                {{item.function}}
+              <div class="col-sm-9">
+                {{ role }}
               </div>
             </div>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0 text-secondary">Werknemer nr.</h6>
               </div>
-              <div v-for="item in data" :key="item.id" class="col-sm-9">
-                {{item.employeeNumber}}
+              <div class="col-sm-9">
+                {{ personalNumber }}
               </div>
             </div>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0 text-secondary">Locatie</h6>
               </div>
-              <div v-for="item in data" :key="item.id" class="col-sm-9">
-                {{item.address}}
+              <div class="col-sm-9">
+                {{ location }}
               </div>
             </div>
           </div>
       </div>
     </div>
-    <router-view></router-view>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">EAN</th>
+        <th scope="col">Laptop naam</th>
+        <th scope="col">Medewerker</th>
+        <th scope="col">Vestiging</th>
+        <th scope="col">Status</th>
+        <th scope="col">Datum</th>
+      </tr>
+      </thead>
+      <tbody>
+
+
+      
+      </tbody>
+    </table>
+
   </div>
 </template>
 
 <script>
-import account from '@/profile.json';
+import NavBar from "@/frontend/NavBarComponent";
 
 export default {
   name: "ProfilePageComponent",
 
+  inject: ["accountsService"],
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.createInformation();
+    });
+  },
   data() {
     return {
-      data: account
+      personalNumber: '',
+      name: '',
+      email: '',
+      role: '',
+      location: '',
+      imagesOnGoing: [],
+      imagesDone: [],
+      accounts: [],
+      loggedInAccount: undefined
+    }
+  },
+  created() {
+    this.createInformation();
+  },
+  watch: {
+    loggedInAccount: {
+      handler: function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.setInformation();
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    async createInformation() {
+      this.accounts = await this.accountsService.asyncFindAll();
+      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
+      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn) {
+        this.$router.push(NavBar.data().signInRoute);
+      } else {
+        this.setInformation();
+      }
+    },
+    setInformation() {
+      this.personalNumber = this.loggedInAccount.personalNumber;
+      this.name = this.loggedInAccount.name;
+      this.email = this.loggedInAccount.email;
+      this.role = this.loggedInAccount.role;
+      this.imagesOnGoing = this.loggedInAccount.imagesOnGoing;
+      this.imagesDone = this.loggedInAccount.imagesDone;
+      this.location = this.loggedInAccount.location;
     }
   },
 }
