@@ -13,10 +13,7 @@
     "alertEmpty": "This field is required",
     "alertEan": "EAN code may not be less than 0",
     "buttonSave": "Save",
-    "buttonAdd": "Add image",
-    "buttonCancel": "Cancel",
-    "cancelMessage": "Are you sure you want to cancel?"
-
+    "buttonAdd": "Add image"
   },
   "allImages": {
     "titleName": "All Images",
@@ -44,19 +41,32 @@
     "editButton": "Edit",
     "unassigned": "Unassigned",
     "saveButton": "Save",
-    "closeButton": "Close"
+    "closeButton": "Close",
+    "claimButton": "Claim"
   },
   "adminPanel" : {
     "headTitle": "User List",
+    "addAccount": "Add account",
     "title": "Account Details",
+    "addUser": "Add user",
     "name": "Name",
     "email": "Email",
     "employeeNumber": "Employee number",
     "role": "Role",
+    "password": "Password",
+    "location": "Location",
+    "select": "Select",
+    "optionOne": "ImageMaker",
+    "optionTwo": "Admin",
+    "confirmation": "Confirmation",
     "cancelButton": "Cancel",
     "editButton": "Edit",
-    "cancelMessage": "Are you sure you want to cancel?",
-    "editMessage": "Are you sure you want to change?"
+    "okButton": "OK",
+    "deleteButton": "Delete",
+    "errorMessage": "Not all fields are filled in!",
+    "confirmMessage": "Are you sure you want to continue?",
+    "newAccount": "New account for {name} has been created with employee number {employeeNumber}",
+    "deleteUser": "User {name} has been successfully deleted"
   },
   "imageStatus": {
     "toDoTitle" : "Status To Do Images",
@@ -66,16 +76,23 @@
     "statusToDo": "To Do",
     "statusOngoing": "Ongoing",
     "statusFinished": "Finished",
-    "statusOverDate": "Over Date"
+    "statusOverDate": "Over Date",
+    "noAccessMessage": "You do not have the authority to see this data"
   },
   "signIn": {
     "title": "Log In",
-    "personalNumber": "Personal number",
+    "employeeNumber": "Employee number",
     "password": "Password",
     "remember": "Remember password",
     "logInButton": "Log in",
     "loggedInMessage": "Logged In",
-    "wrongPassMessage": "Wrong password"
+    "wrongPassMessage": "Wrong password",
+    "wrongPersMessage": "The employee number is wrong"
+  },
+  "profilePage": {
+    "role": "Role",
+    "employeeNumber": "Employee nr.",
+    "location": "Location"
   },
   "header":{
     "placeholder": "Search for image"
@@ -94,5 +111,8 @@
     "allUsers": "All users",
     "profileTitle": "Profile",
     "adminTitle": "Admin"
+  },
+  "home": {
+    "welcomeMessage": "Welcome"
   }
 }

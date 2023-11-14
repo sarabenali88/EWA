@@ -13,9 +13,7 @@
     "alertEmpty": "Dit veld is verplicht",
     "alertEan": "EAN code mag niet kleiner dan 0 zijn",
     "buttonSave": "Opslaan",
-    "buttonAdd": "Image toevoegen",
-    "buttonCancel": "Annuleren",
-    "cancelMessage": "Weet je zeker dat je wilt cancelen?"
+    "buttonAdd": "Image toevoegen"
   },
   "allImages": {
     "titleName": "Alle Images",
@@ -43,19 +41,33 @@
     "editButton": "Bewerken",
     "unassigned": "Niet toegewezen",
     "saveButton": "Opslaan",
-    "closeButton": "Afsluiten"
+    "closeButton": "Afsluiten",
+    "claimButton": "Claim"
   },
   "adminPanel" : {
     "headTitle": "Gebruikerslijst",
     "title": "Accountgegevens",
+    "addAccount": "Account toevoegen",
+    "addUser": "Gebruiker toevoegen",
     "name": "Naam",
     "email": "E-mail",
-    "employeeNumber": "Personeelsnummer",
+    "employeeNumber": "Pesoneelsnummer",
     "role": "Functie",
+    "password": "Wachtwoord",
+    "location": "Locatie",
+    "select": "Selecteer",
+    "optionOne": "ImageMaker",
+    "optionTwo": "Admin",
+    "confirmation": "Confirmatie",
     "cancelButton": "Annuleren",
     "editButton": "Wijzigen",
-    "cancelMessage": "Weet je zeker dat je wilt annuleren?",
-    "editMessage": "Weet je zeker dat je wilt wijzigen?"
+    "okButton": "OK",
+    "deleteButton" : "Verwijderen",
+    "errorMessage": "Niet alle velden zijn ingevuld!",
+    "confirmMessage": "Weet u zeker dat u door wilt gaan?",
+    "newAccount": "Nieuw account voor {name} is aangemaakt met personeelsnummer {employeeNumber}",
+    "deleteUser": "Gebruiker {name} is succesvol verwijderd"
+
   },
   "imageStatus": {
     "toDoTitle" : "Status Te doen Images",
@@ -65,16 +77,23 @@
     "statusToDo": "Te doen",
     "statusOngoing": "Mee bezig",
     "statusFinished": "Afgerond",
-    "statusOverDate": "Over Datum"
+    "statusOverDate": "Over Datum",
+    "noAccessMessage": "U heeft niet de bevoegdheden om deze data te zien"
   },
   "signIn": {
     "title": "Inloggen",
-    "personalNumber": "Persoonlijk nummer",
+    "employeeNumber": "Personeelsnummer",
     "password": "Wachtwoord",
     "remember": "Onthoud wachtwoord",
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
-    "wrongPassMessage": "Verkeerd wachtwoord"
+    "wrongPassMessage": "Verkeerd wachtwoord",
+    "wrongPersMessage": "Personeelsnummer is verkeerd"
+  },
+  "profilePage": {
+    "role": "Functie",
+    "employeeNumber": "Werknemer nr.",
+    "location": "Locatie"
   },
   "header":{
     "placeholder": "Zoek voor image"
@@ -93,5 +112,8 @@
     "allUsers": "Alle gebruikers",
     "profileTitle": "Profiel",
     "adminTitle": "Admin"
+  },
+  "home": {
+    "welcomeMessage": "Welkom"
   }
 }

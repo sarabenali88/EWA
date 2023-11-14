@@ -218,7 +218,7 @@
           <ul>
             <li>
               <div
-                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false|| this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}">
+                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -233,10 +233,69 @@
           </ul>
         </div>
 
-      </div>
-
     </div>
   </div>
+  </div>
+
+  <!-- Mobile navbar -->
+  <nav class="navbar fixed-bottom bg-body-tertiary" :class="{active: fulNavActive}" >
+    <div class="image-active-line" :class="{'all-active': currentImageList === 'allImages', 'todo-active': currentImageList === 'statusTodo', 'ongoing-active': currentImageList === 'statusOnGoing', 'finished-active' : currentImageList === 'statusFinished' }"></div>
+    <div class="container-fluid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-image"
+            viewBox="0 0 16 16" @click="setImageList(this.allImagesRoute)">
+        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        <path
+            d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
+           class="bi bi-card-checklist"
+           viewBox="0 0 16 16" @click="setImageList(this.statusTodo)">
+        <path
+            d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+        <path
+            d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
+           class="bi bi-arrow-repeat"
+           viewBox="0 0 16 16" @click="setImageList(this.statusOnGoing)">
+        <path
+            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+        <path fill-rule="evenodd"
+              d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
+           class="bi bi-calendar-check "
+           viewBox="0 0 16 16" @click="setImageList(this.statusFinished)">
+        <path
+            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+        <path
+            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black"  class="bi bi-list-2"
+           viewBox="0 0 16 16" @click="showFullNav()">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1
+           .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+    </div>
+
+    <div class="container-fluid" v-if="this.fulNavActive" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-person"
+           viewBox="0 0 16 16" @click="setPageContent(myAccountRoute)">
+        <path
+            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-person-lock" :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}"
+           viewBox="0 0 16 16" @click="setPageContent(allUsersRoute)">
+        <path
+            d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+      </svg>
+    </div>
+  </nav>
+
 </template>
 
 <script>
@@ -262,7 +321,9 @@ export default {
       allUsersRoute: '/allUsers',
       accounts: [],
 
-      currentContent: 'contentImage'
+      currentContent: 'contentImage',
+      currentImageList: 'allImages',
+      fulNavActive: false
     }
   },
   watch: {
@@ -274,7 +335,7 @@ export default {
       if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
-      if (this.$route.path.match(this.signInRoute)) {
+      if (this.$route.path.match(this.signInRoute) || this.$route.path.match(this.myAccountRoute)) {
         this.setCurrentContent('contentProfile')
       }
       if (this.$route.path.match(this.allUsersRoute)) {
@@ -300,6 +361,35 @@ export default {
     setCurrentContent(contentId) {
       this.currentContent = contentId;
     },
+    setImageList(status) {
+      switch (status) {
+        case this.allImagesRoute:
+          this.$router.push(this.allImagesRoute);
+          this.currentImageList = 'allImages';
+          break;
+        case this.statusTodo:
+          this.$router.push(this.statusTodo);
+          this.currentImageList = 'statusTodo';
+          break;
+        case this.statusOnGoing:
+          this.$router.push(this.statusOnGoing);
+          this.currentImageList = 'statusOnGoing';
+          break;
+        case this.statusFinished:
+          this.$router.push(this.statusFinished);
+          this.currentImageList = 'statusFinished';
+          break;
+        default:
+          this.$router.push(this.allImagesRoute);
+          this.currentImageList = 'allImages';
+      }
+    },
+    showFullNav() {
+      this.fulNavActive = !this.fulNavActive;
+    },
+    setPageContent(route) {
+      this.$router.push(route);
+    }
   }
 }
 </script>
@@ -357,7 +447,7 @@ export default {
 }
 
 li .bi {
-  margin: 0 0 5px 0 !important;
+  margin: 0 5px 5px 0 !important;
 }
 
 
@@ -384,7 +474,7 @@ li .bi {
 
 .sidebar {
   display: flex;
-  width: 300px;
+  width: 330px;
   overflow-y: auto;
   height: 100%;
   border-right: solid lightgrey 2px;
@@ -429,7 +519,7 @@ li a {
   padding-left: 10px;
   padding-top: 3px;
   background-color: #F5F5F5;
-  width: 160px;
+  width: 205px;
   height: 30px;
   border-radius: 5px;
 }
@@ -447,12 +537,8 @@ li a {
   display: none;
 }
 
-.showButton {
 
-}
-
-
-@media (min-width: 992px) {
+@media (min-width: 700px) {
   .sidebar-nav {
     transform: none !important;
     visibility: visible !important;
@@ -463,9 +549,65 @@ li a {
     visibility: visible;
   }
 
+  .fixed-bottom {
+    display: none;
+  }
+
 
   #sideBarButton {
     visibility: hidden;
   }
 }
+
+@media (max-width: 700px) {
+  .sidebar-nav {
+    display: none;
+  }
+
+  .bi-list {
+    display: none;
+  }
+
+
+  .fixed-bottom {
+    z-index: 1;
+    border-top: solid lightgrey 2px;
+    height: 90px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+  }
+
+  .image-active-line {
+    border-top: #DA1C25 solid 2px;
+    width: 60px;
+    position: absolute;
+    transition: 250ms ease-in-out;
+    top: 0;
+    left: 23px;
+  }
+
+  .all-active {
+    left: 4.5%;
+  }
+
+  .todo-active {
+    left: 24%;
+  }
+
+  .ongoing-active {
+    left: 44%;
+  }
+
+  .finished-active {
+    left: 63.5%;
+  }
+
+  .active {
+    height: 180px;
+    transition: 250ms ease-in-out;
+  }
+
+}
+
 </style>

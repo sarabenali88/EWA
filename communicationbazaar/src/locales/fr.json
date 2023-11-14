@@ -7,15 +7,13 @@
     "status": "Statut",
     "statusToDo": "À faire",
     "statusOngoing": "En cours d'élaboration",
-    "statusFinished": "Terminé",
+    "statusFinished": "Finie",
     "date": "Date",
     "week": "Semaine",
     "alertEmpty": "Ce champ est obligatoire",
     "alertEan": "Le code EAN ne peut pas être inférieur à 0",
     "buttonSave": "Sauvegarder",
-    "buttonAdd": "Ajouter une image",
-    "buttonCancel": "Annuler",
-    "cancelMessage": "Êtes-vous sûr de vouloir annuler?"
+    "buttonAdd": "Ajouter une image"
   },
   "allImages": {
     "titleName": "Toutes les Images",
@@ -43,20 +41,32 @@
     "editButton": "Editer",
     "unassigned": "Non alloué",
     "saveButton": "Sauvegarder",
-    "closeButton": "Fermer"
+    "closeButton": "Fermer",
+    "claimButton": "Revendication"
   },
   "adminPanel" : {
     "headTitle": "Liste des utilisateurs",
     "title": "Détails du compte",
+    "addAccount": "Ajouter un compte",
+    "addUser": "Ajouter un utilisateur",
     "name": "Nom",
     "email": "Courriel",
-    "employeeNumber": "Numéro de personnel",
+    "employeeNumber": "Numéro de l'employé",
     "role": "Rôle",
+    "password": "Mot de passe",
+    "location": "Localisation",
+    "select": "Sélectionner",
+    "optionOne": "Créateur d'images",
+    "optionTwo": "Admin.",
+    "confirmation": "Confirmation",
     "cancelButton": "Annuler",
     "editButton": "Changer",
-    "cancelMessage": "Êtes-vous sûr de vouloir annuler?",
-    "editMessage": "Êtes-vous sûr de vouloir changer?"
-
+    "okButton": "OK",
+    "deleteButton": "Supprimer",
+    "errorMessage": "Tous les champs ne sont pas remplis!",
+    "confirmMessage": "Êtes-vous sûr de vouloir changer?",
+    "newAccount": "Nouveau compte pour {name} a été créé avec le numéro d'employé {employeeNumber}",
+    "deleteUser": "L'utilisateur {name} a été supprimé avec succès"
   },
   "imageStatus": {
     "toDoTitle" : "Statut Images à faire",
@@ -65,17 +75,24 @@
     "overDateTitle" : "Statut obsolète Images",
     "statusToDo": "À faire",
     "statusOngoing": "En cours",
-    "statusFinished": "Terminé",
-    "statusOverDate": "Surdate"
+    "statusFinished": "Finie",
+    "statusOverDate": "Surdate",
+    "noAccessMessage": "Vous n'avez pas le pouvoir de consulter ces données"
   },
   "signIn": {
     "title": "Se connecter",
-    "personalNumber": "Numéro personnel",
+    "employeeNumber": "Numéro de l'employé",
     "password": "Mot de passe",
     "remember": "Mémoriser le mot de passe",
     "logInButton": "Se connecter",
     "loggedInMessage": "Connecté",
-    "wrongPassMessage": "Mot de passe erroné"
+    "wrongPassMessage": "Mot de passe erroné",
+    "wrongPersMessage": "Le numéro de personnel est erroné"
+  },
+  "profilePage": {
+    "role": "Rôle",
+    "employeeNumber": "Numéro de l'employé",
+    "location": "Localisation"
   },
   "header":{
     "placeholder": "Recherche par image"
@@ -94,5 +111,8 @@
     "allUsers": "Tous les utilisateurs",
     "profileTitle": "Profil",
     "adminTitle": "Admin."
+  },
+  "home": {
+    "welcomeMessage": "Bienvenue"
   }
 }

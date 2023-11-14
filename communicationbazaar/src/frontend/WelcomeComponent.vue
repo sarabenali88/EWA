@@ -1,6 +1,6 @@
 <template>
   <h1>
-    Welcome
+    {{$t('home.welcomeMessage')}}
   </h1>
 
 

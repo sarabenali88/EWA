@@ -9,11 +9,11 @@
     <div class="col-4">
       <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false || accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
                      type="button" class="btn btn-danger m-2">
-        Verwijderen
+        {{$t('imageDetail.deleteButton')}}
       </button>
       <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}"
                      type="button" class="btn btn-outline-secondary" @click="onChange()">
-        Bewerken
+        {{$t('imageDetail.editButton')}}
       </button>
     </div>
   </div>
@@ -55,10 +55,10 @@
         {{imageCopy.imageMaker}}
       </div>
       <div v-else-if="imageCopy.imageMaker === '' && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
-        Claim
+        {{$t('imageDetail.claimButton')}}
       </div>
       <div v-if="imageCopy.imageMaker === '' && editComment === false" class="col-sm-auto text-body-secondary" >
-        Niet toegewezen
+        {{$t('imageDetail.unassigned')}}
       </div>
     </div>
     <div class="row justify-content-md-left">
@@ -119,19 +119,21 @@
         </div>
       </div>
       <div v-else-if="editComment === true && !showDesc" >
-        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
+        <textarea class="row justify-content-center m-3 p-3 text" rows="5"
                   v-model="imageCopy.comment"></textarea>
         <div class="row justify-content-between">
           <div class="col-auto">
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">Opslaan</button>
-            <button type="button" class="btn btn-outline-danger" @click="onChange()">Afsluiten</button>
+            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
+            </button>
+            <button type="button" class="btn btn-outline-danger" @click="onChange()">{{$t('imageDetail.closeButton')}}
+            </button>
           </div>
         </div>
       </div>
       <div v-else-if="!showDesc">
-        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" placeholder="Nog geen comments"
+        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" :placeholder="$t('imageDetail.placeholder')"
                   v-model="imageCopy.comment" readonly></textarea>
       </div>
     </div>
@@ -192,14 +194,11 @@ export default {
       }
     },
     saveChanges(){
-      if (this.imageCopy.status === "Te doen"){
-        this.imageCopy.imageMaker = ""
-      }
-      if (this.imageCopy.status !== "Te doen"){
+      if (this.imageCopy.status !== "Te doen" && this.imageCopy.imageMaker === ""){
         this.imageCopy.imageMaker = this.account.name
       }
-      if (this.imageCopy.imageCopy !== '' && this.imageCopy.status === "Te doen"){
-        this.imageCopy.status = "Mee bezig"
+      if (this.imageCopy.status === "Te doen"){
+        this.imageCopy.imageMaker = ""
       }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
@@ -219,5 +218,8 @@ export default {
 <style scoped>
 .hiddenButton {
   display: none;
+}
+.text {
+  width: 90%;
 }
 </style>
