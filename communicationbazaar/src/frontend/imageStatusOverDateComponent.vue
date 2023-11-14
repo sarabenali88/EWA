@@ -1,9 +1,9 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
     {{ $t('imageStatus.overDateTitle') }}
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'admin')}">
-    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
+    <h3>{{$t('imageStatus.noAccessMessage')}}</h3>
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role !== 'admin')}">

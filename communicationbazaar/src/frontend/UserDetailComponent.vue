@@ -29,7 +29,7 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="website">Wachtwoord</label>
+            <label for="website">{{$t('adminPanel.password')}}</label>
             <input v-model="accountCopy.password" class="form-control" type="password" readonly>
           </div>
         </div>
@@ -37,15 +37,15 @@
           <div class="form-group" :class="{ 'has-error': !accountCopy.role }">
             <label for="zIp">{{$t('adminPanel.role')}}</label>
             <select v-model="accountCopy.role" class="form-select" aria-label="Default select example">
-              <option value="" disabled selected>Selecteer</option>
-              <option value="ImageMaker">ImageMaker</option>
-              <option value="admin">admin</option>
+              <option value="" disabled selected>{{$t('adminPanel.select')}}</option>
+              <option value="ImageMaker">{{$t('adminPanel.optionOne')}}</option>
+              <option value="admin">{{$t('adminPanel.optionTwo')}}</option>
             </select>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="website">Locatie</label>
+            <label for="website">{{$t('adminPanel.location')}}</label>
             <input v-model="accountCopy.location" class="form-control">
           </div>
         </div>
@@ -65,11 +65,11 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmatie</h5>
+          <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Weet u zeker dat u door wilt gaan?</p>
+          <p>{{$t('adminPanel.confirmMessage')}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
@@ -135,7 +135,7 @@ export default {
     },
     fieldsFilledCheck(accountCopy) {
       if (!accountCopy.name || !accountCopy.email || !accountCopy.role || !accountCopy.location) {
-        this.displayAlert("Niet elk veld is ingevuld!");
+        this.displayAlert(this.$t('adminPanel.errorMessage'));
         return false;
       } else {
         return true;

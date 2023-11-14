@@ -1,17 +1,18 @@
 <template>
-  <h1>{{$t('adminPanel.headTitle')}}</h1>
-  <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
-    {{ alertMessage }}
-    <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
-  </div>
+  <div class="all">
+    <h1>{{$t('adminPanel.headTitle')}}</h1>
+    <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+      {{ alertMessage }}
+      <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+    </div>
 
-  <div class="container-fluid px-5">
-    <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
+    <div class="container-fluid px-5">
+      <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
 
-    </router-view>
-  </div>
+      </router-view>
+    </div>
 
-  <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">Gebruiker toevoegen</button>
+  <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">{{$t('adminPanel.addUser')}}</button>
 
   <div class="container-fluid p-3">
     <ul>
@@ -31,7 +32,7 @@
                   <p class="job_post">{{ account.location }}</p>
                   <div>
                     <button class="btn btn-secondary btn-round" @click="updateAccount(account)">{{$t('adminPanel.editButton')}}</button>
-                    <button class="btn btn-danger btn-round" @click="deleteAccount(account)">Verwijderen</button>
+                    <button class="btn btn-danger btn-round" @click="deleteAccount(account)">{{$t('adminPanel.deleteButton')}}</button>
                   </div>
                 </div>
               </div>
@@ -46,18 +47,19 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmatie</h5>
+          <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Weet u zeker dat u door wilt gaan?</p>
+          <p>{{$t('adminPanel.confirmMessage')}}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cancelAction()">Annuleren</button>
-          <button type="button" class="btn btn-success" @click="performAction()">OK</button>
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
+          <button type="button" class="btn btn-success" @click="performAction()">{{$t('adminPanel.okButton')}}</button>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -146,7 +148,7 @@ export default {
       if (account.personalNumber === 0) {
         const newAccount = await this.accountsService.asyncSave(account);
         this.accounts.push(newAccount);
-        this.displayAlert("Nieuw account voor " + newAccount.name + " is aangemaakt met personeelsnummer " + newAccount.personalNumber);
+        this.displayAlert(this.$t('adminPanel.newAccount', { name: newAccount.name, employeeNumber: newAccount.personalNumber }));
         this.$router.push(NavBarComponent.data().allUsersRoute);
       } else {
         const updatedData = JSON.parse(JSON.stringify(account));
@@ -208,7 +210,7 @@ export default {
         const indexToDelete = this.accounts.indexOf(this.accounts.find((account) => account.personalNumber === this.confirmAccount.personalNumber));
         this.accounts.splice(indexToDelete, 1);
         await this.accountsService.asyncDeleteById(this.confirmAccount.personalNumber);
-        this.displayAlert("Gebruiker " + this.confirmAccount.name + " is succesvol verwijderd");
+        this.displayAlert(this.$t('adminPanel.deleteUser', {name :this.confirmAccount.name}));
         this.closeModal();
       }
     },
@@ -222,7 +224,7 @@ export default {
 <style scoped>
 
 h1, #addButton {
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 #addButton {
@@ -245,6 +247,13 @@ li {
   list-style: none;
 }
 
+@media (max-width: 700px) {
+  .all {
+    margin-top: 10px;
+    margin-left: -35px;
+  }
+
+}
 #alert {
   margin-left: 40px;
   margin-right: 30px;

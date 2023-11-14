@@ -1,10 +1,10 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    accounts.some(account => account.loggedIn && account.role === 'admin')}">
-    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
+    <h3>{{$t('imageStatus.noAccessMessage')}}</h3>
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role === 'coworker')}">
@@ -13,6 +13,14 @@
         <div class="card card-body">
           <router-view v-bind:currentImage="selectedImage"
                        @delete-image="deleteImage()" @save-image="saveImage">
+          </router-view>
+        </div>
+      </div>
+    </div>
+  <div class="container-fluid p-3">
+    <div v-if="selectedImage">
+      <div class="card card-body">
+        <router-view  v-bind:currentImage="selectedImage">
 
           </router-view>
         </div>
@@ -40,6 +48,57 @@
         </tbody>
       </table>
     </div>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">EAN</th>
+        <th scope="col">Laptop naam</th>
+        <th scope="col">Medewerker</th>
+        <th scope="col">Vestiging</th>
+        <th scope="col">Status</th>
+        <th scope="col">Datum</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- mobile view -->
+  <div class="container-fluid p-3 mobile">
+    <div v-if="selectedImage">
+      <div class="card card-body">
+        <router-view v-bind:currentImage="selectedImage">
+
+        </router-view>
+      </div>
+    </div>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">{{ $t('allImages.ean') }}</th>
+        <th scope="col">{{ $t('allImages.employeeName') }}</th>
+        <th scope="col">{{ $t('allImages.status') }}</th>
+        <th scope="col">{{ $t('allImages.date') }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -113,7 +172,7 @@ export default {
       let imagesCopy = [...this.images];
       // Sort the copy
       return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
-    }
+    },
   }
 }
 </script>
@@ -122,6 +181,19 @@ export default {
 
 .statusButtonsStyling {
   height: 100px;
+}
+.mobile {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .mobile {
+    display: inherit;
+  }
+
+  .normal {
+    display: none;
+  }
 }
 
 .hiddenPage{

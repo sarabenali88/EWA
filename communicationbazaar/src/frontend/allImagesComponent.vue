@@ -1,8 +1,8 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
    {{$t('allImages.titleName')}}
   </h1>
-  <div class="container-fluid p-3">
+  <div class="container-fluid p-3 overflow-auto normal" >
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view v-bind:currentImage="selectedImage"
@@ -26,7 +26,7 @@
         <td>{{ image.laptop[0].ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else class="text-secondary">Niet toegewezen</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{ image.store }}</td>
         <td>{{ image.status }}</td>
         <td>{{ image.upDateDate }}</td>
@@ -34,6 +34,37 @@
       </tbody>
     </table>
   </div>
+
+  <!--  mobile view -->
+  <div class="container-fluid p-3 overflow-auto mobile" >
+    <div v-if="selectedImage">
+      <div class="card card-body">
+        <router-view v-bind:currentImage="selectedImage" >
+
+        </router-view>
+      </div>
+    </div>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">{{$t('allImages.ean')}}</th>
+        <th scope="col">{{$t('allImages.employeeName')}}</th>
+        <th scope="col">{{$t('allImages.status')}}</th>
+        <th scope="col">{{$t('allImages.date')}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+        <td>{{ image.laptop[0].ean }}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-else class="text-secondary">Niet toegewezen</td>
+        <td>{{ image.status }}</td>
+        <td>{{ image.upDateDate }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </template>
 
 <script>
@@ -105,5 +136,19 @@ export default {
 
 .statusButtonsStyling {
   height: 100px;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .mobile {
+    display: inherit;
+  }
+
+  .normal {
+    display: none;
+  }
 }
 </style>
