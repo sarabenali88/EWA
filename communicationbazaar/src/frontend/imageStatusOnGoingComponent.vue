@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
@@ -40,6 +40,35 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+  <!-- mobile view -->
+  <div class="container-fluid p-3 mobile">
+    <div v-if="selectedImage">
+      <div class="card card-body">
+        <router-view v-bind:currentImage="selectedImage">
+
+        </router-view>
+      </div>
+    </div>
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">{{ $t('allImages.ean') }}</th>
+        <th scope="col">{{ $t('allImages.employeeName') }}</th>
+        <th scope="col">{{ $t('allImages.status') }}</th>
+        <th scope="col">{{ $t('allImages.date') }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -122,6 +151,19 @@ export default {
 
 .statusButtonsStyling {
   height: 100px;
+}
+.mobile {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .mobile {
+    display: inherit;
+  }
+
+  .normal {
+    display: none;
+  }
 }
 
 .hiddenPage{

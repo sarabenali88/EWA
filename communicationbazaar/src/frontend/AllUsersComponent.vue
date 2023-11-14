@@ -1,15 +1,16 @@
 <template>
-  <h1>{{$t('adminPanel.headTitle')}}</h1>
-  <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
-    {{ alertMessage }}
-    <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
-  </div>
+  <div class="all">
+    <h1>{{$t('adminPanel.headTitle')}}</h1>
+    <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+      {{ alertMessage }}
+      <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
+    </div>
 
-  <div class="container-fluid px-5">
-    <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
+    <div class="container-fluid px-5">
+      <router-view :currentAccount="getCurrentAccount()" @cancelEvent="cancelEvent" @saveEvent="saveEvent">
 
-    </router-view>
-  </div>
+      </router-view>
+    </div>
 
   <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">{{$t('adminPanel.addUser')}}</button>
 
@@ -58,6 +59,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -222,7 +224,7 @@ export default {
 <style scoped>
 
 h1, #addButton {
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 #addButton {
@@ -245,6 +247,13 @@ li {
   list-style: none;
 }
 
+@media (max-width: 700px) {
+  .all {
+    margin-top: 10px;
+    margin-left: -35px;
+  }
+
+}
 #alert {
   margin-left: 40px;
   margin-right: 30px;

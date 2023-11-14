@@ -1,8 +1,13 @@
 <template>
-    <div class="headerContent">
+  <div class="page" :class="{expanded: this.expanded}">
+    <div class="headerContent" >
       <!-- Mediamarkt logo-->
       <img class="logo" :src="mediaMarktLogo" alt="">
       <!-- Input Search Image-->
+      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="lightgrey" class="bi bi-search mobile"
+           viewBox="0 0 16 16" @click="expandSearch()">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg>
       <div class="input-group-lg">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -10,11 +15,18 @@
         <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
       </div>
       <!--Translation select-->
-      <div>
+      <div class="translation" v-if="checkScreenWidth">
         <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
           <option value="fr">Français</option>
+        </select>
+      </div>
+      <div class="translation-mobile" v-if="checkScreenWidth">
+        <select class="form-select language" v-model="$i18n.locale" @change="updateLocale">
+          <option value="nl">NL</option>
+          <option value="en">ENG</option>
+          <option value="fr">FR</option>
         </select>
       </div>
       <!-- Alert button-->
@@ -24,7 +36,20 @@
         </svg>
       </div>
     </div>
+    <Transition>
+      <div v-if="expanded" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="grey" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+          <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z"/>
+          <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z"/>
+          <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z"/>
+          <path d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z"/>
+          <path d="M12 9h2V8h-2v1Z"/>
+        </svg>
+        <input type="text" :placeholder="$t('header.placeholder')" class="input form-control input-expanded">
+      </div>
+    </Transition>
 
+  </div>
 </template>
 
 <script>
@@ -32,12 +57,17 @@ export default {
   name: 'HeaderComponent',
   data () {
     return {
-      mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png')
+      mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
+      expanded: false,
+      mobile: false
     }
   },
   watch: {},
   computed: {},
   methods: {
+    expandSearch(){
+      this.expanded = !this.expanded;
+    },
     updateLocale() {
       // update the i18n locale when the user selects a different language
       if (this.$i18n.locale === 'nl') {
@@ -48,7 +78,12 @@ export default {
         this.$i18n.locale = 'fr';
       }
     },
-    },
+    checkScreenWidth() {
+      if(window.innerWidth < 600) {
+        this.mobile = !this.mobile;
+      }
+    }
+    }
 }
 </script>
 
@@ -66,14 +101,14 @@ export default {
 }
 
 .bi-search {
-  margin-right: 20px;
+  margin-right: 5px;
   margin-top: 5px;
 }
 
 .bell {
   padding: 5px;
   position: absolute;
-  right: 40px;
+  right: 5%;
 }
 
 .bell:hover {
@@ -103,9 +138,92 @@ export default {
   display: flex;
   align-items: center;
   padding: 20px;
-  border-bottom: solid lightgrey 2px;
   overflow-y: hidden;
+  border-bottom: solid lightgrey 2px;
+  overflow-x: hidden;
 }
+
+.mobile {
+  display: none;
+}
+
+.translation-mobile {
+  display: none;
+}
+
+
+@media (max-width: 700px) {
+
+  .translation-mobile {
+    display: inherit;
+    width: 145px;
+    margin-left: -40px;
+  }
+
+  .translation {
+    display: none;
+  }
+
+  .headerContent {
+    height: 75px;
+    border-bottom: none;
+  }
+
+  .logo {
+    width: 150px;
+    position: static;
+    top: 10px;
+  }
+
+  .input-group-lg {
+    display: none;
+  }
+
+  .mobile {
+    display: inherit;
+    position: absolute;
+    right: 15%;
+  }
+
+  .page {
+    position: absolute;
+    width: 100%;
+    height: 76px;
+    background-color: white;
+    border-bottom: solid lightgrey 2px;
+    transition: 250ms ease-in-out;
+    z-index: 1;
+  }
+
+  .expanded {
+    height: 130px !important;
+    transition: 250ms ease-in-out;
+  }
+
+  .input-expanded {
+    margin-top: 80px;
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  .bi-qr-code-scan {
+    position: absolute;
+    margin-left: 20px;
+    transition: 250ms ease-in-out;
+  }
+}
+.v-enter-active {
+  transition: opacity 1s ease;
+}
+.v-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 .language{
   margin-left: 50px
 }

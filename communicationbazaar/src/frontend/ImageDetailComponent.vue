@@ -119,7 +119,7 @@
         </div>
       </div>
       <div v-else-if="editComment === true && !showDesc" >
-        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115"
+        <textarea class="row justify-content-center m-3 p-3 text" rows="5"
                   v-model="imageCopy.comment"></textarea>
         <div class="row justify-content-between">
           <div class="col-auto">
@@ -218,5 +218,8 @@ export default {
 <style scoped>
 .hiddenButton {
   display: none;
+}
+.text {
+  width: 90%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="mx-3">
     {{ $t('imageStatus.overDateTitle') }}
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'admin')}">
