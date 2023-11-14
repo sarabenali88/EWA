@@ -21,11 +21,6 @@
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
-            <div class="form-check d-flex justify-content-start mb-4">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3"/>
-              <label class="form-check-label" for="form1Example3">{{ $t('signIn.remember') }} </label>
-            </div>
-
             <button @click="checkInput" class="btn btn-danger btn-lg btn-block" type="submit">
               {{ $t('signIn.logInButton') }}</button>
 
@@ -88,5 +83,9 @@ export default {
 </script>
 
 <style scoped>
+
+.hidden {
+  display: none
+}
 
 </style>
