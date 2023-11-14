@@ -459,7 +459,7 @@ li .bi {
 
 .sidebar {
   display: flex;
-  width: 310px;
+  width: 330px;
   overflow-y: auto;
   height: 100%;
   border-right: solid lightgrey 2px;
@@ -504,7 +504,7 @@ li a {
   padding-left: 10px;
   padding-top: 3px;
   background-color: #F5F5F5;
-  width: 180px;
+  width: 205px;
   height: 30px;
   border-radius: 5px;
 }
