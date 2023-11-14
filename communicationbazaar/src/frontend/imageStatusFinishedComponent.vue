@@ -8,6 +8,9 @@
         <router-view v-bind:currentImage="selectedImage"
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
+        <router-view v-bind:currentImage="selectedImage">
+
+        </router-view>
       </div>
     </div>
     <table class="table table-sm">
@@ -130,7 +133,7 @@ export default {
       let imagesCopy = [...this.images];
       // Sort the copy
       return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
-    }
+    },
   }
 }
 </script>

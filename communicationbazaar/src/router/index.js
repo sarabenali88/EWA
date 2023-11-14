@@ -17,6 +17,8 @@ import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import UserAddComponent from "@/frontend/UserAddComponent";
+import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
+
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -76,8 +78,19 @@ export const router = createRouter({
                 {path: 'userAdd', component: UserAddComponent}],
         },
         {
-            path: '/profilePage', component: ProfilePageComponent
+            path: NavBar.data().myProfileRoute,
+            name: 'myProfileRoute',
+            component: ProfilePageComponent,
+            children: [
+                {
+                    path: 'claimedImageRoute',
+                    name: 'claimedImageRoute',
+                    component: ClaimedImageComponent,
+                },
+            ]
         },
+
+
         {path: '/:pathMatch(.*)', component: UnknownRoute},
         {path: '/addImage', component: addImageComponent}
     ]
