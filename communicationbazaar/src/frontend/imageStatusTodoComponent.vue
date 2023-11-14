@@ -4,7 +4,7 @@
     </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    accounts.some(account => account.loggedIn && account.role === 'admin')}">
-    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
+    <h3>{{$t('imageStatus.noAccessMessage')}}</h3>
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role === 'coworker')}">
@@ -33,7 +33,7 @@
           <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
-          <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">Niet toegewezen</td>
+          <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>

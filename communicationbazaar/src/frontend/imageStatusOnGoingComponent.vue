@@ -4,7 +4,7 @@
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    accounts.some(account => account.loggedIn && account.role === 'admin')}">
-    <h3>U heeft niet de bevoegdheden om deze data te zien</h3>
+    <h3>{{$t('imageStatus.noAccessMessage')}}</h3>
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role === 'coworker')}">
