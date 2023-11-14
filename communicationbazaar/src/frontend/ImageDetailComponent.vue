@@ -192,14 +192,10 @@ export default {
       }
     },
     saveChanges(){
-      if (this.imageCopy.status === "Te doen"){
-        this.imageCopy.imageMaker = ""
-      }
       if (this.imageCopy.status !== "Te doen"){
         this.imageCopy.imageMaker = this.account.name
-      }
-      if (this.imageCopy.imageCopy !== '' && this.imageCopy.status === "Te doen"){
-        this.imageCopy.status = "Mee bezig"
+      } else {
+        this.imageCopy.imageMaker = ""
       }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
