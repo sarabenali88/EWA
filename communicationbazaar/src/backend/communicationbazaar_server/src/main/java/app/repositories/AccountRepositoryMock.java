@@ -55,6 +55,15 @@ public class AccountRepositoryMock implements Repository<Account> {
                 onGoingImages,
                 doneImages,
                 Account.LOGGEDIN.FALSE));
+        accounts.add(new Account(2130901,
+                "IloveBazary4%",
+                "Cindy Visser",
+                "cindyvisser@mm.nl",
+                "ImageMaker",
+                "Hoorn",
+                onGoingImages,
+                doneImages,
+                Account.LOGGEDIN.FALSE));
     }
 
     @Override

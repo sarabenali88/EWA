@@ -38,5 +38,16 @@
     "imagesOnGoing": [],
     "imagesDone": [],
     "loggedIn": false
+  },
+  {
+    "personalNumber": 2130901,
+    "password": "IloveBazary4%",
+    "name": "Cindy Visser",
+    "email": "cindyvisser@mm.nl",
+    "role": "ImageMaker",
+    "location": "Hoorn",
+    "imagesOnGoing": [],
+    "imagesDone": [],
+    "loggedIn": false
   }
 ]
