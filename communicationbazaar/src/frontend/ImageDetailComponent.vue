@@ -192,9 +192,10 @@ export default {
       }
     },
     saveChanges(){
-      if (this.imageCopy.status !== "Te doen"){
+      if (this.imageCopy.status !== "Te doen" && this.imageCopy.imageMaker === ""){
         this.imageCopy.imageMaker = this.account.name
-      } else {
+      }
+      if (this.imageCopy.status === "Te doen"){
         this.imageCopy.imageMaker = ""
       }
       this.$emit('save-image', this.imageCopy);
