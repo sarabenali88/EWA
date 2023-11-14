@@ -1,6 +1,6 @@
 import {Laptop} from "@/models/laptop.js";
 
-export class LaptopImage{
+export class Image{
     laptop;
     version;
     store;
@@ -44,5 +44,11 @@ export class LaptopImage{
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;
+    }
+
+    static copyConstructor (image, id) {
+        if (image == null) return null;
+
+        return Object.assign(new Image(id), image);
     }
 }

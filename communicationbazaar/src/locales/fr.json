@@ -1,0 +1,97 @@
+{
+  "addImage": {
+    "eanNumber": "Code EAN",
+    "ReadyToUseVersion": "Version prête à l'emploi",
+    "imageName": "Nom de l'image",
+    "imageLocation": "Emplacement de l'image",
+    "status": "Statut",
+    "statusToDo": "À faire",
+    "statusOngoing": "En cours d'élaboration",
+    "statusFinished": "Terminé",
+    "date": "Date",
+    "week": "Semaine",
+    "alertEmpty": "Ce champ est obligatoire",
+    "alertEan": "Le code EAN ne peut pas être inférieur à 0",
+    "buttonSave": "Sauvegarder",
+    "buttonAdd": "Ajouter une image",
+    "buttonCancel": "Annuler",
+    "cancelMessage": "Êtes-vous sûr de vouloir annuler?"
+  },
+  "allImages": {
+    "titleName": "Toutes les Images",
+    "ean": "EAN",
+    "imageName": "Nom de l'image",
+    "employeeName": "Employé",
+    "location": "Localisation",
+    "status" : "Statut",
+    "date" : "Date"
+  },
+  "imageDetail": {
+    "ean": "EAN",
+    "articleNumber": "Réf. ART",
+    "status": "Statut",
+    "employee": "Employé",
+    "date": "Date",
+    "comment": "Commentaire",
+    "description": "Description",
+    "os": "OS",
+    "ReadyToUseVersion": "Version prête à l'emploi",
+    "newUpdate": "Nouveau/Mise à jour",
+    "location": "Localisation",
+    "placeholder": "Pas encore de commentaires",
+    "deleteButton": "Supprimer",
+    "editButton": "Editer",
+    "unassigned": "Non alloué",
+    "saveButton": "Sauvegarder",
+    "closeButton": "Fermer"
+  },
+  "adminPanel" : {
+    "headTitle": "Liste des utilisateurs",
+    "title": "Détails du compte",
+    "name": "Nom",
+    "email": "Courriel",
+    "employeeNumber": "Numéro de personnel",
+    "role": "Rôle",
+    "cancelButton": "Annuler",
+    "editButton": "Changer",
+    "cancelMessage": "Êtes-vous sûr de vouloir annuler?",
+    "editMessage": "Êtes-vous sûr de vouloir changer?"
+
+  },
+  "imageStatus": {
+    "toDoTitle" : "Statut Images à faire",
+    "ongoingTitle" : "Statut En Cours Images",
+    "finishedTitle" : "Statut Images complétées",
+    "overDateTitle" : "Statut obsolète Images",
+    "statusToDo": "À faire",
+    "statusOngoing": "En cours",
+    "statusFinished": "Terminé",
+    "statusOverDate": "Surdate"
+  },
+  "signIn": {
+    "title": "Se connecter",
+    "personalNumber": "Numéro personnel",
+    "password": "Mot de passe",
+    "remember": "Mémoriser le mot de passe",
+    "logInButton": "Se connecter",
+    "loggedInMessage": "Connecté",
+    "wrongPassMessage": "Mot de passe erroné"
+  },
+  "header":{
+    "placeholder": "Recherche par image"
+  },
+  "navbar": {
+    "home": "Home",
+    "allImages": "Toutes les Images",
+    "toDoList": "Liste de tâches",
+    "ongoingList": "Liste en cours",
+    "finishedList": "Liste finie",
+    "overDateList": "Liste obsolète",
+    "myAccount": "Mon compte",
+    "logIn": "Se connecter",
+    "logOut": "Se déconnecter",
+    "allUsers": "Tous les utilisateurs",
+    "profileTitle": "Profil",
+    "adminTitle": "Admin."
+  }
+}
