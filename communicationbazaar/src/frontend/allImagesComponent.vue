@@ -26,7 +26,7 @@
         <td>{{ image.laptop[0].ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else class="text-secondary">Niet toegewezen</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{ image.store }}</td>
         <td>{{ image.status }}</td>
         <td>{{ image.upDateDate }}</td>

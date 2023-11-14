@@ -57,7 +57,7 @@
           </svg>
         </div>
         <div class="col">
-          <h6>Finished:</h6>
+          <h6>{{$t('imageStatus.statusFinished')}}:</h6>
           <div>
             <h1>{{ amountOfImagesFinished }}</h1>
             <h4>images</h4>
@@ -154,9 +154,9 @@
 
   <div class="ms-lg-5">
     <router-view></router-view>
-    <button type="button" class="btn btn-danger mx-3" @click="$router.push('/addImage')"
-            :class="{'hiddenButton': json.some(account => account.loggedIn) === false || json.some(account =>
-            account.loggedIn && account.role !== 'ImageMaker')}">
+    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
+            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
+            accounts.some(account => account.loggedIn === true && account.role !== 'ImageMaker')}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
@@ -164,13 +164,11 @@
 
 <script>
 import imageData from '@/image.json';
-import json from "@/account.json";
-
-
 export default {
   name: "ImageListComponent",
+  inject: ["accountsService"],
   components: {},
-  created() {
+  async created() {
     this.$router.push("/imageListRoute/allImages");
 
     for (let i in imageData) {
@@ -178,6 +176,8 @@ export default {
     }
 
     this.amountOfImages();
+    this.accounts = await this.accountsService.asyncFindAll();
+    this.account = this.accounts.find(account => account.loggedIn)
   },
   data() {
     return {
@@ -192,7 +192,8 @@ export default {
       overDateStatus: "overDateStatus",
       allImagesStatus: "allImages",
       selectedStatus: this.allImagesStatus,
-      json: json,
+      accounts: [],
+      account: null,
     }
   },
   methods: {
