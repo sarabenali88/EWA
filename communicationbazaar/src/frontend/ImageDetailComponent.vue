@@ -210,6 +210,7 @@ export default {
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.account.name;
+      this.imageCopy.status = "Mee bezig"
     }
   }
 }

@@ -13,8 +13,6 @@
         <div class="card card-body">
           <router-view v-bind:currentImage="selectedImage"
                        @delete-image="deleteImage()" @save-image="saveImage">
-          <router-view v-bind:currentImage="selectedImage"></router-view>
-
           </router-view>
         </div>
       </div>

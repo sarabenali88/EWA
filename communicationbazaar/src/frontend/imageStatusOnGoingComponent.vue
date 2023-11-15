@@ -8,6 +8,7 @@
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role === 'coworker')}">
+  <div class="container-fluid p-3">
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
@@ -17,14 +18,6 @@
         </div>
       </div>
     </div>
-  <div class="container-fluid p-3">
-    <div v-if="selectedImage">
-      <div class="card card-body">
-        <router-view  v-bind:currentImage="selectedImage">
-
-          </router-view>
-        </div>
-      </div>
       <table class="table table-sm">
         <thead>
         <tr>
@@ -48,36 +41,14 @@
         </tbody>
       </table>
     </div>
-    <table class="table table-sm">
-      <thead>
-      <tr>
-        <th scope="col">EAN</th>
-        <th scope="col">Laptop naam</th>
-        <th scope="col">Medewerker</th>
-        <th scope="col">Vestiging</th>
-        <th scope="col">Status</th>
-        <th scope="col">Datum</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 
   <!-- mobile view -->
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
-
+        <router-view v-bind:currentImage="selectedImage"
+               @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
     </div>
