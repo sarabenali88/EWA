@@ -354,7 +354,7 @@ export default {
       if (this.$route.path.match(this.signInRoute) || this.$route.path.match(this.myAccountRoute)) {
         this.setCurrentContent('contentProfile')
       }
-      if (this.$route.path.match(this.allUsersRoute)) {
+      if (this.$route.path.match(this.allUsersRoute) || this.$route.path.match(this.statisticsRoute)) {
         this.setCurrentContent('contentAdmin')
       }
     }

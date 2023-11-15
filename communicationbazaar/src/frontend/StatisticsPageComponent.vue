@@ -16,12 +16,17 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
   name: 'StatisticsPageComponent',
   components: {Bar},
+
+  // inject: ["imagesService"],
   data() {
     return {
       images: [],
       chartData: {
-        labels: ['laatste maand', 'laatste kwartaal', 'laatste half jaar'],
-        datasets: [{data: this.getData()}]
+        labels: this.getData().map(row => row.time),
+        datasets: [{
+          label: 'amount of images',
+          data: this.getData().map(row => row.amountOfImages)
+        }]
       }
       ,
       chartOptions: {
@@ -30,11 +35,18 @@ export default {
     }
   },
   created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
+    // this.getImages()
+
+    for(const image in imageData){
+      this.images.push(image);
     }
+
+    console.log(this.images)
   },
   methods: {
+    // async getImages() {
+    //   this.images = await this.imagesService.asyncFindAll();
+    // },
     dateMinusMonths(date, months) {
       date.setMonth(date.getMonth() - months);
       return date;
@@ -42,32 +54,35 @@ export default {
     getDataOfLastMonth() {
       let amountOfImages = 0;
       for (const image in this.images) {
-        if (image.upDateDate < this.dateMinusMonths(Date.now(), 1)) {
+        if (image.upDateDate > this.dateMinusMonths(new Date(), 1)) {
           amountOfImages += 1;
         }
-        return amountOfImages;
       }
+      console.log(amountOfImages)
+      return amountOfImages;
     },
     getDataOfLastQuarter() {
       let amountOfImages = 0;
       for (const image in this.images) {
-        if (image.upDateDate < this.dateMinusMonths(Date.now(), 3)) {
+        if (image.upDateDate > this.dateMinusMonths(new Date(), 3)) {
           amountOfImages += 1;
         }
-        return amountOfImages;
       }
+      console.log(amountOfImages)
+      return amountOfImages;
     },
     getDataOfLastHalfYear() {
       let amountOfImages = 0;
       for (const image in this.images) {
-        if (image.upDateDate < this.dateMinusMonths(Date.now(), 6)) {
+        if (image.upDateDate > this.dateMinusMonths(new Date(), 6)) {
           amountOfImages += 1;
         }
-        return amountOfImages;
       }
+      console.log(amountOfImages)
+      return amountOfImages;
     },
     getData(){
-      return [this.getDataOfLastMonth(), this.getDataOfLastQuarter(), this.getDataOfLastHalfYear() ]
+      return [{time : 'laatste maand', amountOfImages: this.getDataOfLastMonth()}, {time : 'laatste kwartaal', amountOfImages: this.getDataOfLastQuarter()}, {time : 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
     }
   }
 }
