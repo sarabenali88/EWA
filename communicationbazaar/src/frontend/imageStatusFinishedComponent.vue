@@ -8,9 +8,6 @@
         <router-view v-bind:currentImage="selectedImage"
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
-        <router-view v-bind:currentImage="selectedImage">
-
-        </router-view>
       </div>
     </div>
     <table class="table table-sm">
