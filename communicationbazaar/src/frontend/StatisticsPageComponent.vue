@@ -17,72 +17,71 @@ export default {
   name: 'StatisticsPageComponent',
   components: {Bar},
 
-  // inject: ["imagesService"],
   data() {
     return {
       images: [],
       chartData: {
-        labels: this.getData().map(row => row.time),
+        labels: [],
         datasets: [{
           label: 'amount of images',
-          data: this.getData().map(row => row.amountOfImages)
+          data: []
         }]
-      }
-      ,
+      },
       chartOptions: {
         responsive: true
       }
     }
   },
   created() {
-    // this.getImages()
 
-    for(const image in imageData){
-      this.images.push(image);
+    for (const image of imageData) {
+      let data = image.upDateDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
+      let newData = new Date(data[2], data[1] - 1, data[0]);
+      this.images.push(newData);
     }
+    this.chartData.labels = this.getData().map(row => row.time);
+    this.chartData.datasets[0].data = this.getData().map(row => row.amountOfImages);
 
-    console.log(this.images)
+
   },
   methods: {
-    // async getImages() {
-    //   this.images = await this.imagesService.asyncFindAll();
-    // },
     dateMinusMonths(date, months) {
       date.setMonth(date.getMonth() - months);
       return date;
     },
     getDataOfLastMonth() {
       let amountOfImages = 0;
-      for (const image in this.images) {
-        if (image.upDateDate > this.dateMinusMonths(new Date(), 1)) {
+      for (const image of this.images) {
+        if (new Date(image) > this.dateMinusMonths(new Date(), 1)) {
           amountOfImages += 1;
         }
       }
-      console.log(amountOfImages)
       return amountOfImages;
     },
     getDataOfLastQuarter() {
       let amountOfImages = 0;
-      for (const image in this.images) {
-        if (image.upDateDate > this.dateMinusMonths(new Date(), 3)) {
+      for (const image of this.images) {
+        if (image > this.dateMinusMonths(new Date(), 3)) {
           amountOfImages += 1;
         }
       }
-      console.log(amountOfImages)
       return amountOfImages;
     },
+
     getDataOfLastHalfYear() {
       let amountOfImages = 0;
-      for (const image in this.images) {
-        if (image.upDateDate > this.dateMinusMonths(new Date(), 6)) {
+      for (const image of this.images) {
+        if (image > this.dateMinusMonths(new Date(), 6)) {
           amountOfImages += 1;
         }
       }
-      console.log(amountOfImages)
       return amountOfImages;
     },
-    getData(){
-      return [{time : 'laatste maand', amountOfImages: this.getDataOfLastMonth()}, {time : 'laatste kwartaal', amountOfImages: this.getDataOfLastQuarter()}, {time : 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
+    getData() {
+      return [{time: 'laatste maand', amountOfImages: this.getDataOfLastMonth()}, {
+        time: 'laatste kwartaal',
+        amountOfImages: this.getDataOfLastQuarter()
+      }, {time: 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
     }
   }
 }
