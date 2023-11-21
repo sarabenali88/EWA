@@ -1,3 +1,8 @@
+/**
+ * This is a model for a laptop that will be created in the back end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -33,6 +38,12 @@ public class Laptop {
         this.prize = prize;
     }
 
+    /**
+     * This is a function that will create a sample laptop for test functionalities.
+     *
+     * @author Jasper Fernhout
+     * @return gives back a sample account.
+     */
     public static Laptop createSampleLaptop() {
         int randomNumber10000 = (int) Math.floor(Math.random() * 10000);
         int randomNumber1000 = (int) Math.floor(Math.random() * 1000);

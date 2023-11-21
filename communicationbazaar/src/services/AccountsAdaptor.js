@@ -1,3 +1,8 @@
+/**
+ * This is a class that will fetch the data for the accounts from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 import {Account} from '@/models/Account'
 
 export class AccountsAdaptor {

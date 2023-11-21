@@ -94,6 +94,11 @@
 </template>
 
 <script>
+/**
+ * This is a testcomponent for all the experiments.
+ *
+ * @author Jasper Fernhout
+ */
 
 export default {
   name: "WebScraperComponent",

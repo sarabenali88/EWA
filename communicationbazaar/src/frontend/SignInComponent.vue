@@ -33,6 +33,11 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of signing in.
+ *
+ * @author Jasper Fernhout
+ */
 
 import NavBar from "@/frontend/NavBarComponent";
 

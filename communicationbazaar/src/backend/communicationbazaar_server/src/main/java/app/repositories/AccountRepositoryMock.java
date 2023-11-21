@@ -1,3 +1,8 @@
+/**
+ * This is a class that will give the repository functions an action for the accounts.
+ *
+ * @author Jasper Fernhout
+ */
 package app.repositories;
 
 import app.models.Account;
@@ -81,7 +86,7 @@ public class AccountRepositoryMock implements Repository<Account> {
         if (this.findById(model.getPersonalNumber()) != null) {
             int modelIndex = this.accounts.indexOf(this.findById(model.getPersonalNumber()));
             this.accounts.set(modelIndex, model);
-        } else if (model.getPersonalNumber() == 0){
+        } else if (model.getPersonalNumber() == 0) {
             model.setPersonalNumber(this.personalNuberCreate);
             this.personalNuberCreate++;
             this.accounts.add(model);

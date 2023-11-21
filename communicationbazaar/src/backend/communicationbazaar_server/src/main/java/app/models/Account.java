@@ -1,3 +1,8 @@
+/**
+ * This is the model for an account that will be created in the back end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -53,6 +58,12 @@ public class Account {
         this.loggedIn = loggedIn.getValue();
     }
 
+    /**
+     * This is a function that will create a sample account for test functionalities.
+     *
+     * @return gives back a sample account.
+     * @author Jasper Fernhout
+     */
     public static Account createSampleAccount() {
         ArrayList<Image> onGoingImages = new ArrayList<>();
         ArrayList<Image> doneImages = new ArrayList<>();
