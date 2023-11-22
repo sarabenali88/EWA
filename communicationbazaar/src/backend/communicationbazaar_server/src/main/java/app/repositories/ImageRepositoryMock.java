@@ -28,7 +28,12 @@ public class ImageRepositoryMock implements Repository<Image> {
 
     @Override
     public Image save(Image model) {
-
+        if (this.findById(model.getLaptop().getEan()) != null) {
+            int modelIndex = this.images.indexOf(this.findById(model.getLaptop().getEan()));
+            this.images.set(modelIndex, model);
+        } else {
+            this.images.add(model);
+        }
         return model;
     }
 

@@ -31,7 +31,7 @@
         </thead>
         <tbody>
         <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
@@ -63,7 +63,7 @@
       </thead>
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
@@ -74,12 +74,11 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "imageStatusOnGoingComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -90,11 +89,9 @@ export default {
     }
   },
   async created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
+    this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
+
     this.account = this.accounts.find(account => account.loggedIn)
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
@@ -107,7 +104,7 @@ export default {
       return null;
     },
     isCorrespondingStatus(image) {
-      if (image.status === "Mee bezig") {
+      if (image.status === "ONGOING") {
         return true;
       } else return false;
     },

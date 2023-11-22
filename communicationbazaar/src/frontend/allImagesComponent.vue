@@ -23,7 +23,7 @@
       </thead>
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td>{{ image.laptop[0].ean }}</td>
+        <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
@@ -55,7 +55,7 @@
       </thead>
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td>{{ image.laptop[0].ean }}</td>
+        <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">Niet toegewezen</td>
         <td>{{ image.status }}</td>
@@ -68,11 +68,11 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "allImagesComponent",
+  inject: ["imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -80,11 +80,8 @@ export default {
       selectedImage: null
     }
   },
-  created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {

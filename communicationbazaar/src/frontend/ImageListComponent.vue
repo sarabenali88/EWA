@@ -163,21 +163,18 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 export default {
   name: "ImageListComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "imagesService"],
   components: {},
   async created() {
     this.$router.push("/imageListRoute/allImages");
 
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
-    this.amountOfImages();
+    this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
     this.account = this.accounts.find(account => account.loggedIn)
+
+    this.amountOfImages();
   },
   data() {
     return {
@@ -223,16 +220,16 @@ export default {
     },
     amountOfImages() {
       for (const image of this.images) {
-        if (image.status === "Te doen") {
+        if (image.status === "TODO") {
           this.amountOfImagesToDo++;
         }
-        if (image.status === "Mee bezig") {
+        if (image.status === "ONGOING") {
           this.amountOfImagesOnGoing++;
         }
-        if (image.status === "Afgerond") {
+        if (image.status === "FINISHED") {
           this.amountOfImagesFinished++;
         }
-        if (image.status === "Verouderd") {
+        if (image.status === "OVERDATE") {
           this.amountOfImagesOverDate++;
         }
       }
