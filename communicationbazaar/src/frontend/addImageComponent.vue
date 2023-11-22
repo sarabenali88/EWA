@@ -4,7 +4,7 @@
       <label class="col-3" for="ean">{{$t('addImage.eanNumber')}}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="number" class="form-control" v-model.number="ean"/>
+          <input type="number" class="form-control" v-model.number="ean" @blur="validateInput"/>
         </div>
         <div class="error" v-if="invalid === true && ean === null">{{$t('addImage.alertEmpty')}}</div>
         <div class="error" v-if="invalidEan === true && ean < 0">{{$t('addImage.alertEan')}}</div>
@@ -88,6 +88,7 @@ import '../i18n.js'
 
 export default {
   name: "addImageComponent",
+  emits :['imageAdded'],
   data() {
     return {
       ean: null,
@@ -104,18 +105,28 @@ export default {
   methods: {
     validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
-          this.statusSelect === '' || this.date === ''|| this.week === ''){
+          this.statusSelect === '' || this.date === '' || this.week === '') {
         this.invalid = true;
-      }else{
+      } else {
         this.invalid = '';
       }
-      if (this.ean < 0){
+      if (this.ean < 0) {
         this.invalidEan = true;
-      }else{
+      } else {
         this.invalidEan = '';
       }
-      if (this.invalid === '' && this.invalidEan === ''){
+      if (this.invalid === '' && this.invalidEan === '') {
+        let newImage = {
+          ean: this.ean,
+          imageName: this.imageName,
+          locationImage: this.locationImage,
+          statusSelect: this.statusSelect,
+          date: this.date,
+        };
+        this.$emit('imageAdded', newImage);
+        // console.log('imageAdded geëmitteerd', newImage);
         this.$router.push('/imageListRoute');
+        // console.log('imageAdded geëmitteerd', newImage);
       }
     },
     getToday() {

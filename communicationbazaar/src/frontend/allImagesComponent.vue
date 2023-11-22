@@ -6,7 +6,7 @@
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view v-bind:currentImage="selectedImage"
-          @delete-image="deleteImage()" @save-image="saveImage">
+          @delete-image="deleteImage()" @save-image="saveImage" @imageAdded="addImageToList">
         </router-view>
       </div>
     </div>
@@ -70,22 +70,23 @@
 <script>
 import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import addImageComponent from "@/frontend/addImageComponent";
 
 export default {
-  name: "allImagesComponent",
-  components: imageDetailComponent,
-  data() {
-    return {
-      images: [],
-      selectedImage: null
-    }
-  },
-  created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
+      name: "allImagesComponent",
+          components: imageDetailComponent, addImageComponent,
+          data() {
+        return {
+          images: [],
+          selectedImage: null,
+        }
+      },
+      created() {
+        for (let i in imageData) {
+          this.images.push(imageData[i]);
+        }
 
-    this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
+        this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
     findSelectedFromRouteParams(id) {
@@ -95,6 +96,7 @@ export default {
       }
       return null;
     },
+
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
       if (this.selectedImage === image) {
@@ -105,6 +107,10 @@ export default {
         this.$router.push(parentPath + "/" + image.laptop[0].ean);
       }
       console.log(this.selectedImage)
+    },
+    addImageToList(newImage) {
+      console.log('imageAdded ontvangen', newImage);
+        this.images.push(newImage);
     },
     deleteImage() {
       const index = this.images.indexOf(this.selectedImage);
