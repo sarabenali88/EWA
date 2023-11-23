@@ -23,7 +23,7 @@
       </thead>
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
@@ -54,7 +54,7 @@
       </thead>
       <tbody>
       <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
@@ -66,11 +66,11 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "imageStatusFinishedComponent",
+  inject: ["imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -78,11 +78,8 @@ export default {
       selectedImage: null
     }
   },
-  created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
@@ -94,7 +91,7 @@ export default {
       return null;
     },
     isCorrespondingStatus(image) {
-      if (image.status === "Afgerond") {
+      if (image.status === "FINISHED") {
         return true;
       } else return false;
     },
