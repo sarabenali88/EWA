@@ -6,7 +6,7 @@
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view v-bind:currentImage="selectedImage"
-          @delete-image="deleteImage()" @save-image="saveImage" @imageAdded="addImageToList">
+          @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
     </div>
@@ -107,10 +107,6 @@ export default {
         this.$router.push(parentPath + "/" + image.laptop[0].ean);
       }
       console.log(this.selectedImage)
-    },
-    addImageToList(newImage) {
-      console.log('imageAdded ontvangen', newImage);
-        this.images.push(newImage);
     },
     deleteImage() {
       const index = this.images.indexOf(this.selectedImage);
