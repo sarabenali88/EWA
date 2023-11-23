@@ -84,11 +84,10 @@
 </template>
 
 <script>
-import '../i18n.js'
-
+import {Image} from "@/models/Image";
 export default {
   name: "addImageComponent",
-  emits: ['imageAdded'],
+  inject: ["imagesService"],
   data() {
     return {
       ean: null,
@@ -100,10 +99,11 @@ export default {
       week: '',
       invalid: null,
       invalidEan: null,
+      images: [],
     }
   },
   methods: {
-    validateInput() {
+    async validateInput() {
       if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
           this.statusSelect === '' || this.date === '' || this.week === '') {
         this.invalid = true;
@@ -116,15 +116,16 @@ export default {
         this.invalidEan = '';
       }
       if (this.invalid === '' && this.invalidEan === '') {
-        // let newImage = {
-        //   ean: this.ean,
-        //   imageName: this.imageName,
-        //   locationImage: this.locationImage,
-        //   statusSelect: this.statusSelect,
-        //   date: this.date,
-        // };
-
+        await this.saveImage();
+        this.$router.push('/imageListRoute');
       }
+    },
+    async saveImage() {
+        const newImage = new Image(null, this.startVersion, this.locationImage, this.date,
+            this.statusSelect, null, null, null, null, this.imageName, null, null);
+        const addImage = await this.imagesService.asyncSave(newImage);
+        this.images.push(addImage);
+
     },
     getToday() {
       return new Date().toISOString().split("T")[0];
