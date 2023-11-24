@@ -30,28 +30,28 @@ public class CommunicationbazaarServerApplication implements CommandLineRunner {
         List<Account> accounts =  accountRepository.findAll();
         if (!accounts.isEmpty()) return;
 
-        accountRepository.save(new Account(2130234,
+        accountRepository.save(new Account(0,
                 "IloveApples4%",
                 "Pieter van de Broek",
                 "pietervdbroek@gmail.com",
                 "ImageMaker",
                 "Amsterdam",
                 Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(2165954,
+        accountRepository.save(new Account(0,
                 "MacbookPro3$",
                 "Julia Beekman",
                 "juliabeekman@gmail.com",
                 "admin",
                 "Amsterdam",
                 Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(2121843,
+        accountRepository.save(new Account(0,
                 "GroteBeer9!",
                 "Guus de Jong",
                 "guusdejong@gmail.com",
                 "admin",
                 "Apeldoorn",
                 Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(2130901,
+        accountRepository.save(new Account(0,
                 "IloveBazary4%",
                 "Cindy Visser",
                 "cindyvisser@mm.nl",

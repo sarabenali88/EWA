@@ -72,4 +72,8 @@ export class AccountsAdaptor {
                 method: 'DELETE'
             });
     }
+
+    async verifyPassword(personalNumber, password) {
+        return await this.fetchJson(this.resourcesUrl + '/verifyPassword/' + personalNumber + "/" + password);
+    }
 }

@@ -84,4 +84,15 @@ public class AccountController {
 
         return targetAccount;
     }
+
+    @GetMapping(path = "/verifyPassword/{personalNumber}/{password}", produces = "application/json")
+    public boolean verifyPassword(@PathVariable() int personalNumber, @PathVariable() String password) {
+        Account account = this.accountList.findById(personalNumber);
+
+        if (account == null) {
+            return false;
+        } else {
+            return account.verifyPassword(password);
+        }
+    }
 }

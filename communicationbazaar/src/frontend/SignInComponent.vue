@@ -63,7 +63,7 @@ export default {
         this.displayAlert(this.$t('signIn.wrongPersMessage'))
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
-        if (this.account.password !== this.password) {
+        if (!await this.accountsService.verifyPassword(this.personalNumber, this.password)) {
           this.displayAlert(this.$t('signIn.wrongPassMessage'))
         } else {
           NavBar.methods.setCurrentContent('contentImage')

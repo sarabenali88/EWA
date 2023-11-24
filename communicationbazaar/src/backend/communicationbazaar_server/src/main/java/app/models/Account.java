@@ -6,21 +6,23 @@
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
 
     @Id
-    @SequenceGenerator(name="Account_ids", initialValue=1)
+    @SequenceGenerator(name="Account_ids", initialValue=10000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Account_ids")
-    private int id;
     @JsonView(ViewClasses.Summary.class)
     private int personalNumber;
     private String password;
+    private String hashedPassword = null;
     @JsonView(ViewClasses.Summary.class)
     private String name;
     @JsonView(ViewClasses.Summary.class)
@@ -65,6 +67,30 @@ public class Account {
     }
 
     /**
+     * Hash the given password in combination with the account identification (id)
+     * and some extra characters for extra security.
+     * Different accounts with the same password will deliver different hashes
+     * @param password
+     */
+    public String hashPassword(String password) {
+        return SecureHasher.secureHash("Id-" + this.getPersonalNumber() + ":" + password);
+    }
+    public void setPassword(String newPassword) {
+        this.setHashedPassword(this.hashPassword(newPassword));
+    }
+
+    /**
+     * Verify whether the hash of the given password
+     * matches the correct hash of the account's true password
+     * (without actually knowing the correct password: only its hash has been kept in store)
+     * @param password
+     * @return
+     */
+    public boolean verifyPassword(String password) {
+        return this.hashPassword(password).equals(this.getHashedPassword());
+    }
+
+    /**
      * This is a function that will create a sample account for test functionalities.
      *
      * @return gives back a sample account.
@@ -83,14 +109,6 @@ public class Account {
         );
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getPersonalNumber() {
         return personalNumber;
     }
@@ -101,6 +119,14 @@ public class Account {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getName() {
