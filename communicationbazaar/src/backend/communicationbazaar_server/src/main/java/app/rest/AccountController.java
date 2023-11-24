@@ -9,6 +9,7 @@ import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
 import app.models.Account;
 import app.models.ViewClasses;
+import app.repositories.AccountRepositoryJPA;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import java.util.List;
 public class AccountController {
     @Autowired
     Repository<Account> accountList;
+
+    @Autowired
+    AccountRepositoryJPA accountRepositoryJPA;
 
     @GetMapping(path = "", produces = "application/json")
     public List<Account> getAllAccounts() {

@@ -21,17 +21,7 @@ public class AccountRepositoryMock implements Repository<Account> {
 //        for (int i = 0; i < LISTLENGTH; i++) {
 //            accounts.add(Account.createSampleAccount());
 //        }
-        ArrayList<Image> onGoingImages = new ArrayList<>();
-        ArrayList<Image> doneImages = new ArrayList<>();
 
-        // Create and add some Image objects to the onGoingImages list
-        onGoingImages.add(Image.createSampleImage());
-        onGoingImages.add(Image.createSampleImage());
-        // Add more images as needed.
-
-        // Create and add some Image objects to the doneImages list
-        doneImages.add(Image.createSampleImage());
-        doneImages.add(Image.createSampleImage());
         // Add more images as needed.
         accounts.add(new Account(2130234,
                 "IloveApples4%",
@@ -39,8 +29,6 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "pietervdbroek@gmail.com",
                 "ImageMaker",
                 "Amsterdam",
-                onGoingImages,
-                doneImages,
                 Account.LOGGEDIN.FALSE));
         accounts.add(new Account(2165954,
                 "MacbookPro3$",
@@ -48,8 +36,6 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "juliabeekman@gmail.com",
                 "admin",
                 "Amsterdam",
-                onGoingImages,
-                doneImages,
                 Account.LOGGEDIN.FALSE));
         accounts.add(new Account(2121843,
                 "GroteBeer9!",
@@ -57,8 +43,6 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "guusdejong@gmail.com",
                 "admin",
                 "Apeldoorn",
-                onGoingImages,
-                doneImages,
                 Account.LOGGEDIN.FALSE));
         accounts.add(new Account(2130901,
                 "IloveBazary4%",
@@ -66,8 +50,6 @@ public class AccountRepositoryMock implements Repository<Account> {
                 "cindyvisser@mm.nl",
                 "ImageMaker",
                 "Hoorn",
-                onGoingImages,
-                doneImages,
                 Account.LOGGEDIN.FALSE));
     }
 

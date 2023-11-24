@@ -8,10 +8,16 @@ package app.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
 
+@Entity
 public class Account {
+
+    @Id
+    @SequenceGenerator(name="Account_ids", initialValue=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Account_ids")
+    private int id;
     @JsonView(ViewClasses.Summary.class)
     private int personalNumber;
     private String password;
@@ -21,9 +27,11 @@ public class Account {
     private String email;
     private String role;
     private String location;
-    private ArrayList<Image> imagesOnGoing;
-    private ArrayList<Image> imagesDone;
     private boolean loggedIn;
+
+    public Account() {
+
+    }
 
     public enum LOGGEDIN {
         TRUE(true),
@@ -46,15 +54,13 @@ public class Account {
         }
     }
 
-    public Account(int personalNumber, String password, String name, String email, String role, String location, ArrayList<Image> imagesOnGoing, ArrayList<Image> imagesDone, LOGGEDIN loggedIn) {
+    public Account(int personalNumber, String password, String name, String email, String role, String location, LOGGEDIN loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;
         this.name = name;
         this.email = email;
         this.role = role;
         this.location = location;
-        this.imagesOnGoing = imagesOnGoing;
-        this.imagesDone = imagesDone;
         this.loggedIn = loggedIn.getValue();
     }
 
@@ -65,18 +71,6 @@ public class Account {
      * @author Jasper Fernhout
      */
     public static Account createSampleAccount() {
-        ArrayList<Image> onGoingImages = new ArrayList<>();
-        ArrayList<Image> doneImages = new ArrayList<>();
-
-        // Create and add some Image objects to the onGoingImages list
-        onGoingImages.add(Image.createSampleImage());
-        onGoingImages.add(Image.createSampleImage());
-        // Add more images as needed.
-
-        // Create and add some Image objects to the doneImages list
-        doneImages.add(Image.createSampleImage());
-        doneImages.add(Image.createSampleImage());
-        // Add more images as needed.
 
         return new Account(
                 123142,
@@ -85,10 +79,16 @@ public class Account {
                 "email",
                 "role",
                 "Amsterdam",
-                onGoingImages,
-                doneImages,
                 LOGGEDIN.values()[0]
         );
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPersonalNumber() {
@@ -117,14 +117,6 @@ public class Account {
 
     public String getLocation() {
         return location;
-    }
-
-    public ArrayList<Image> getImagesOnGoing() {
-        return imagesOnGoing;
-    }
-
-    public ArrayList<Image> getImagesDone() {
-        return imagesDone;
     }
 
     public boolean isLoggedIn() {
