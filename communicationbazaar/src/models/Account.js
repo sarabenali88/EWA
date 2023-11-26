@@ -1,3 +1,8 @@
+/**
+ * This is a model for an account that will function in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 export class Account {
     personalNumber;
     password;

@@ -1,9 +1,15 @@
+/**
+ * This is a controller for the accounts that will catch the calls from the front end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.rest;
 
 import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
 import app.models.Account;
 import app.models.ViewClasses;
+import app.repositories.AccountRepositoryJPA;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,9 @@ import java.util.List;
 public class AccountController {
     @Autowired
     Repository<Account> accountList;
+
+    @Autowired
+    AccountRepositoryJPA accountRepositoryJPA;
 
     @GetMapping(path = "", produces = "application/json")
     public List<Account> getAllAccounts() {
@@ -74,5 +83,16 @@ public class AccountController {
         }
 
         return targetAccount;
+    }
+
+    @GetMapping(path = "/verifyPassword/{personalNumber}/{password}", produces = "application/json")
+    public boolean verifyPassword(@PathVariable() int personalNumber, @PathVariable() String password) {
+        Account account = this.accountList.findById(personalNumber);
+
+        if (account == null) {
+            return false;
+        } else {
+            return account.verifyPassword(password);
+        }
     }
 }

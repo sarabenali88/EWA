@@ -81,6 +81,12 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of changing the user's details.
+ *
+ * @author Jasper Fernhout
+ */
+
 export default {
   name: "UserDetailComponent",
   props: ['currentAccount'],

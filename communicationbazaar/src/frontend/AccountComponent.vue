@@ -60,6 +60,11 @@
 </template>
 
 <script>
+/**
+ * This is a component that shows of the functionality of an account.
+ *
+ * @author Jasper Fernhout
+ */
 
 import NavBar from "@/frontend/NavBarComponent";
 
