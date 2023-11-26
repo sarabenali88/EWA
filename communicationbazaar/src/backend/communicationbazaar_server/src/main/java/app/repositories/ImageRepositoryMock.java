@@ -1,3 +1,8 @@
+/**
+ * This is a class that will give the repository functions an action for the images.
+ *
+ * @author Jasper Fernhout
+ */
 package app.repositories;
 
 import app.models.Image;

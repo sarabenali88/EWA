@@ -1,3 +1,8 @@
+/**
+ * This is a class that will fetch the data for the images from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 import { Image } from '@/models/Image'
 
 export class ImagesAdaptor {

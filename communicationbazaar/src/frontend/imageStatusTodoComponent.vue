@@ -8,7 +8,7 @@
   </div>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
    accounts.some(account => account.loggedIn && account.role === 'coworker')}">
-    <div class="container-fluid p-3">
+    <div class="container-fluid p-3 normal">
       <div v-if="selectedImage">
         <div class="card card-body">
           <router-view v-bind:currentImage="selectedImage"

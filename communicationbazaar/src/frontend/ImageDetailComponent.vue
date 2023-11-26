@@ -133,7 +133,7 @@
         </div>
       </div>
       <div v-else-if="!showDesc">
-        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" :placeholder="$t('imageDetail.placeholder')"
+        <textarea class="row justify-content-center m-3 p-3 text" rows="5" :placeholder="$t('imageDetail.placeholder')"
                   v-model="imageCopy.comment" readonly></textarea>
       </div>
     </div>

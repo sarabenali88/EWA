@@ -1,3 +1,8 @@
+/**
+ * This is a controller for the laptops that will catch the calls from the front end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.rest;
 
 import app.exceptions.PreConditionFailedException;

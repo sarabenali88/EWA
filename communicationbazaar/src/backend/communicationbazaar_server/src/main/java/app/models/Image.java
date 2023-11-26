@@ -1,4 +1,10 @@
+/**
+ * This is the model for an Image that will be created in the back end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.models;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
@@ -82,6 +88,12 @@ public class Image {
         this.imageMaker = imageMaker;
     }
 
+    /**
+     * This is a function that will create a sample image for test functionalities.
+     *
+     * @return gives back a sample account.
+     * @author Jasper Fernhout
+     */
     public static Image createSampleImage() {
         int randomNumber3 = (int) Math.floor(Math.random() * 3);
         int randomNumber2 = (int) Math.floor(Math.random() * 2);
