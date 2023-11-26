@@ -88,18 +88,18 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.laptop.ean === id);
       }
       return null;
     },
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
       if (this.selectedImage === image) {
-        this.selectedImage = null
         this.$router.push(parentPath);
+        this.selectedImage = null;
       } else {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.selectedImage = image;
       }
       console.log(this.selectedImage)
     },

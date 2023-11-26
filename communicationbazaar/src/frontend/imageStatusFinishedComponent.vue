@@ -86,7 +86,7 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.laptop.ean === id);
       }
       return null;
     },
@@ -102,7 +102,7 @@ export default {
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean);
       }
       console.log(this.selectedImage)
     },

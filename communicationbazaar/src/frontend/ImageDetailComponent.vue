@@ -3,7 +3,7 @@
   <div class="row justify-content-between">
     <div class="col-auto">
       <h3>
-        {{imageCopy.laptop[0].brand}} {{imageCopy.laptop[0].description}}
+        {{imageCopy.laptop.brand}} {{imageCopy.laptop.description}}
       </h3>
     </div>
     <div class="col-4">
@@ -19,10 +19,10 @@
   </div>
   <div class="row justify-content-md-left">
     <div class="col col-sm-3">
-      {{ $t('imageDetail.ean') }}: {{currentImage.laptop[0].ean}}
+      {{ $t('imageDetail.ean') }}: {{imageCopy.laptop.ean}}
     </div>
     <div class="col-md-auto">
-      {{ $t('imageDetail.articleNumber') }}: {{currentImage.laptop[0].articleNumber}}
+      {{ $t('imageDetail.articleNumber') }}: {{imageCopy.laptop.articleNumber}}
     </div>
   </div>
   <div class="pt-4 m-sm-1">
@@ -146,21 +146,21 @@ import {Image} from "@/models/Image";
 
 export default {
   name: "ImageDetailComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "imagesService"],
   props: [
     'currentImage',
   ],
   emits: ['delete-image', 'save-image'],
   async created() {
-    this.copyImage(this.currentImage);
     this.accounts = await this.accountsService.asyncFindAll();
+    this.imageCopy = await this.imagesService.asyncFindById(this.$route?.params?.id)
     this.account = this.accounts.find(account => account.loggedIn)
   },
   watch: {
     currentImage: {
-      handler(newImage) {
+      async handler(newImage) {
         if (newImage !== null) {
-          this.copyImage(newImage);
+          this.imageCopy = await this.imagesService.asyncFindById(this.$route?.params?.id)
         }
       },
       deep: true,
@@ -203,9 +203,6 @@ export default {
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
       this.imageClaimed = false;
-    },
-    copyImage(currentImage) {
-      this.imageCopy = JSON.parse(JSON.stringify(currentImage));
     },
     claimImage(){
       this.imageClaimed = true;
