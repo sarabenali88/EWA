@@ -46,9 +46,9 @@
       <div class="col-5">
         <div class="input-group">
           <select class="form-control" v-model="statusSelect">
-            <option value="todo">{{ $t('addImage.statusToDo') }}</option>
-            <option value="ongoing">{{ $t('addImage.statusOngoing') }}</option>
-            <option value="finished">{{ $t('addImage.statusFinished') }}</option>
+            <option value="TODO">{{ $t('addImage.statusToDo') }}</option>
+            <option value="ONGOING">{{ $t('addImage.statusOngoing') }}</option>
+            <option value="FINISHED">{{ $t('addImage.statusFinished') }}</option>
           </select>
         </div>
         <div class="error" v-if="invalid === true && statusSelect === ''">{{ $t('addImage.alertEmpty') }}</div>
@@ -99,7 +99,8 @@ export default {
       week: '',
       invalid: null,
       invalidEan: null,
-      images: [],
+      image: null,
+      formattedDate: null,
     }
   },
   methods: {
@@ -116,16 +117,23 @@ export default {
         this.invalidEan = '';
       }
       if (this.invalid === '' && this.invalidEan === '') {
-        await this.saveImage();
-        this.$router.push('/imageListRoute');
+         await this.saveImage();
       }
     },
+    formatDate(inputDate) {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return new Date(inputDate).toLocaleDateString('nl-NL', options);
+    },
     async saveImage() {
-        const newImage = new Image(null, this.startVersion, this.locationImage, this.date,
-            this.statusSelect, null, null, null, null, this.imageName, null, null);
-        const addImage = await this.imagesService.asyncSave(newImage);
-        this.images.push(addImage);
-
+       this.formattedDate = this.formatDate(this.date);
+       this.image =  new Image(this.ean, this.startVersion, this.locationImage,
+            this.formattedDate, this.statusSelect, null, null, null, null,
+           this.imageName, null, null);
+       console.log(this.formattedDate);
+      this.$emit('addNewImage', this.image);
+      await this.imagesService.asyncSave(this.image);
+      await this.imagesService.asyncFindAll();
+      this.$router.push('/imageListRoute/allImages');
     },
     getToday() {
       return new Date().toISOString().split("T")[0];

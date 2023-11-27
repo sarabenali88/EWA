@@ -28,7 +28,9 @@ export class ImagesAdaptor {
     }
 
     async asyncSave(image) {
-        if (image.ean === 0) {
+        let checkEan = await this.asyncFindById(image.laptop.ean);
+        if (checkEan == null) {
+            // console.log(this.resourcesUrl + checkEan + "ghfghtghgtfhv");
             return await this.fetchJson(this.resourcesUrl, {
                 method: "POST",
                 headers: {
@@ -50,7 +52,7 @@ export class ImagesAdaptor {
                 })
             });
         } else {
-            return this.fetchJson(this.resourcesUrl + "/" + image.ean,
+            return this.fetchJson(this.resourcesUrl + "/" + image.laptop,
                 {
                     method: "PUT",
                     headers: {

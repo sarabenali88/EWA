@@ -53,13 +53,12 @@ public class ImageController {
 
     @PostMapping(path = "", produces = "application/json")
     public Image addOneImage(@RequestBody Image image) throws Exception {
-
         if (this.imageList.findById(image.getLaptop().getEan()) != null) {
             throw new Exception("Image already exist with ean= " + image.getLaptop().getEan());
         }
 
         image = this.imageList.save(image);
-
+        System.out.println(image);
         return image;
     }
 

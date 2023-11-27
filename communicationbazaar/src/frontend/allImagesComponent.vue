@@ -73,6 +73,7 @@ import imageDetailComponent from "@/frontend/ImageDetailComponent";
 export default {
   name: "allImagesComponent",
   inject: ["imagesService"],
+  emits: ['addNewImage'],
   components: imageDetailComponent,
   data() {
     return {
@@ -114,8 +115,15 @@ export default {
       this.setImage(image);
     },
     dateConverter(givenDate){
-      let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
-      return new Date(date[2], date[1], date[0]);
+      if (givenDate != null) {
+        let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
+
+        if (date[2].length < 4) {
+          return new Date(date[2], date[1], date[0]);
+        } else {
+          return givenDate
+        }
+      }
     }
   },
   computed: {
