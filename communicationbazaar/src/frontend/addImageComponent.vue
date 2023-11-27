@@ -121,7 +121,7 @@ export default {
       }
     },
     formatDate(inputDate) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       return new Date(inputDate).toLocaleDateString('nl-NL', options);
     },
     async saveImage() {
@@ -129,8 +129,6 @@ export default {
        this.image =  new Image(this.ean, this.startVersion, this.locationImage,
             this.formattedDate, this.statusSelect, null, null, null, null,
            this.imageName, null, null);
-       console.log(this.formattedDate);
-      this.$emit('addNewImage', this.image);
       await this.imagesService.asyncSave(this.image);
       await this.imagesService.asyncFindAll();
       this.$router.push('/imageListRoute/allImages');

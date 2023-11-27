@@ -40,7 +40,7 @@ export class ImagesAdaptor {
                     laptop: image.laptop,
                     version: image.version,
                     store: image.store,
-                    updateDate: image.updateDate,
+                    upDateDate: image.upDateDate,
                     status: image.status,
                     release: image.release,
                     problem: image.problem,
