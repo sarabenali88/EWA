@@ -45,7 +45,28 @@
           <path d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z"/>
           <path d="M12 9h2V8h-2v1Z"/>
         </svg>
-        <input type="text" :placeholder="$t('header.placeholder')" class="input form-control input-expanded">
+        <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control input-expanded">
+        <div class="search-result shadow-sm" v-if="searchQuery !== '' " >
+          <table class="table table-sm">
+            <thead>
+            <tr>
+              <th scope="col">{{$t('allImages.ean')}}</th>
+              <th scope="col">{{$t('allImages.employeeName')}}</th>
+              <th scope="col">{{$t('allImages.status')}}</th>
+              <th scope="col">{{$t('allImages.date')}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="image in this.filterImages" v-bind:key="image.ean">
+              <td>{{ image.laptop[0].ean }}</td>
+              <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+              <td v-else class="text-secondary">Niet toegewezen</td>
+              <td>{{ image.status }}</td>
+              <td>{{ image.upDateDate }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </Transition>
 
@@ -53,17 +74,42 @@
 </template>
 
 <script>
+import imageData from '@/image.json';
 export default {
   name: 'HeaderComponent',
   data () {
     return {
       mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
       expanded: false,
-      mobile: false
+      mobile: false,
+      images: [],
+      filteredImages: [],
+      searchQuery: ''
+    }
+  },
+  created() {
+    for (let i in imageData) {
+        this.images.push(imageData[i]);
+        this.filteredImages.push(imageData[i])
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    filterImages(){
+      if(this.searchQuery !== '') {
+        this.filteredImages.filter(image =>
+            image.laptop.ean.includes(this.searchQuery) ||
+            image.imageMaker.includes(this.searchQuery) ||
+            image.status.includes(this.searchQuery) ||
+            image.upDateDate.includes(this.searchQuery)
+        )
+        console.log(this.filteredImages);
+        return this.filteredImages
+      }
+
+      return this.filterImages()
+    }
+  },
   methods: {
     expandSearch(){
       this.expanded = !this.expanded;
@@ -153,6 +199,17 @@ export default {
 
 
 @media (max-width: 700px) {
+
+  .search-result {
+    font-size: x-small;
+    width: 80%;
+    margin-left: 15%;
+    margin-top: 10px;
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+  }
 
   .translation-mobile {
     display: inherit;
