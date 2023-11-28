@@ -15,10 +15,10 @@ import java.util.ArrayList;
 @Entity
 public class Image {
     @Id
-    private long id;
     @ManyToOne
     @JsonManagedReference
     private Laptop laptop;
+    @Id
     @JsonView(ViewClasses.Summary.class)
     private String version;
     private String store;
@@ -85,8 +85,7 @@ public class Image {
         }
     }
 
-    public Image(long id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
-        this.id = id;
+    public Image(Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
         this.laptop = laptop;
         this.version = version;
         this.store = store;
@@ -107,7 +106,7 @@ public class Image {
      * @return gives back a sample account.
      * @author Jasper Fernhout
      */
-    public static Image createSampleImage(long id) {
+    public static Image createSampleImage() {
         int randomNumber3 = (int) Math.floor(Math.random() * 3);
         int randomNumber2 = (int) Math.floor(Math.random() * 2);
         int randomNumber231 = (int) Math.floor(Math.random() * 231);
@@ -127,7 +126,6 @@ public class Image {
         imageMaker.add("Willem");
 
         return new Image(
-                id,
                 Laptop.createSampleLaptop(),
                 "MM V" + randomNumber231,
                 store.get(randomNumber3),
@@ -141,10 +139,6 @@ public class Image {
                 "",
                 imageMaker.get(randomNumber3)
         );
-    }
-
-    public long getId() {
-        return id;
     }
 
     public Laptop getLaptop() {
@@ -193,10 +187,6 @@ public class Image {
 
     public String getImageMaker() {
         return imageMaker;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setLaptop(Laptop laptop) {

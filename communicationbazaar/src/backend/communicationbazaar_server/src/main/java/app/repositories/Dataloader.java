@@ -114,16 +114,15 @@ public class Dataloader implements CommandLineRunner {
     }
 
     @Autowired
-    Repository<Image> imageRepository;
+    ImageRepository<Image> imageRepository;
     private void createInitialImage() {
-//        List<Image> images = imageRepository.findAll();
-//
-//        if (!images.isEmpty()) {
-//            return;
-//        }
-//
+        List<Image> images = imageRepository.findAll();
+
+        if (!images.isEmpty()) {
+            return;
+        }
+
         imageRepository.save(new Image(
-                1002,
                 this.laptopRepository.findById(47113),
                 "MM V4.0.3",
                 "Ede",
@@ -137,50 +136,47 @@ public class Dataloader implements CommandLineRunner {
                 "",
                 ""
         ));
-//        imageRepository.save(new Image(
-//                1003,
-//                this.laptopRepository.findById(19654),
-//                "MM V4.0.3",
-//                "Tilburg",
-//                "2-9-2023",
-//                Image.Status.ONGOING,
-//                Image.Release.NEW,
-//                Image.Problem.NO,
-//                35,
-//                2023,
-//                "ImageNaam3",
-//                "",
-//                "Pieter van de Broek"
-//        ));
-//        imageRepository.save(new Image(
-//                1004,
-//                this.laptopRepository.findById(47113),
-//                "MM V4.0",
-//                "Dordrecht",
-//                "11-6-2023",
-//                Image.Status.FINISHED,
-//                Image.Release.NEW,
-//                Image.Problem.NO,
-//                23,
-//                2023,
-//                "ImageNaam4",
-//                "",
-//                "Pieter van de Broek"
-//        ));
-//        imageRepository.save(new Image(
-//                1005,
-//                this.laptopRepository.findById(47101),
-//                "MM V4.0.1",
-//                "Hoorn",
-//                "10-5-2023",
-//                Image.Status.FINISHED,
-//                Image.Release.NEW,
-//                Image.Problem.NO,
-//                18,
-//                2023,
-//                "ImageNaam5",
-//                "",
-//                "Cindy Visser"
-//        ));
+        imageRepository.save(new Image(
+                this.laptopRepository.findById(19654),
+                "MM V4.0.3",
+                "Tilburg",
+                "2-9-2023",
+                Image.Status.ONGOING,
+                Image.Release.NEW,
+                Image.Problem.NO,
+                35,
+                2023,
+                "ImageNaam3",
+                "",
+                "Pieter van de Broek"
+        ));
+        imageRepository.save(new Image(
+                this.laptopRepository.findById(47113),
+                "MM V4.0",
+                "Dordrecht",
+                "11-6-2023",
+                Image.Status.FINISHED,
+                Image.Release.NEW,
+                Image.Problem.NO,
+                23,
+                2023,
+                "ImageNaam4",
+                "",
+                "Pieter van de Broek"
+        ));
+        imageRepository.save(new Image(
+                this.laptopRepository.findById(47101),
+                "MM V4.0.1",
+                "Hoorn",
+                "10-5-2023",
+                Image.Status.FINISHED,
+                Image.Release.NEW,
+                Image.Problem.NO,
+                18,
+                2023,
+                "ImageNaam5",
+                "",
+                "Cindy Visser"
+        ));
     }
 }
