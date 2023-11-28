@@ -34,17 +34,20 @@ export default {
   },
   created() {
 
-    for (const image of imageData) {
-      let data = image.upDateDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
-      let newData = new Date(data[2], data[1] - 1, data[0]);
-      this.images.push(newData);
+    for (let i in imageData) {
+      this.images.push(imageData[i]);
     }
+    console.log(this.images)
     this.chartData.labels = this.getData().map(row => row.time);
     this.chartData.datasets[0].data = this.getData().map(row => row.amountOfImages);
 
 
   },
   methods: {
+    dateConverter(date) {
+      let data = date.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
+      return new Date(data[2], data[1] - 1, data[0]);
+    },
     dateMinusMonths(date, months) {
       date.setMonth(date.getMonth() - months);
       return date;
@@ -52,7 +55,8 @@ export default {
     getDataOfLastMonth() {
       let amountOfImages = 0;
       for (const image of this.images) {
-        if (new Date(image) > this.dateMinusMonths(new Date(), 1)) {
+        let correctDate = this.dateConverter(image.upDateDate)
+        if (correctDate > this.dateMinusMonths(new Date(), 1)) {
           amountOfImages += 1;
         }
       }
@@ -61,7 +65,8 @@ export default {
     getDataOfLastQuarter() {
       let amountOfImages = 0;
       for (const image of this.images) {
-        if (image > this.dateMinusMonths(new Date(), 3)) {
+        let correctDate = this.dateConverter(image.upDateDate)
+        if (correctDate > this.dateMinusMonths(new Date(), 3)) {
           amountOfImages += 1;
         }
       }
@@ -71,17 +76,17 @@ export default {
     getDataOfLastHalfYear() {
       let amountOfImages = 0;
       for (const image of this.images) {
-        if (image > this.dateMinusMonths(new Date(), 6)) {
+        let correctDate = this.dateConverter(image.upDateDate)
+        if (correctDate > this.dateMinusMonths(new Date(), 6)) {
           amountOfImages += 1;
         }
       }
       return amountOfImages;
     },
     getData() {
-      return [{time: 'laatste maand', amountOfImages: this.getDataOfLastMonth()}, {
-        time: 'laatste kwartaal',
-        amountOfImages: this.getDataOfLastQuarter()
-      }, {time: 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
+      return [{time: 'laatste maand', amountOfImages: this.getDataOfLastMonth()},
+        {time: 'laatste kwartaal', amountOfImages: this.getDataOfLastQuarter()},
+        {time: 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
     }
   }
 }
