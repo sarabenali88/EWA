@@ -5,11 +5,20 @@
  */
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Laptop {
     @JsonView(ViewClasses.Summary.class)
     private int articleNumber;
+    @Id
     @JsonView(ViewClasses.Summary.class)
     private int ean;
     private String brand;
@@ -22,6 +31,9 @@ public class Laptop {
     private String sizeCm;
     private String os;
     private int prize;
+    @OneToMany(mappedBy = "laptop")
+    @JsonBackReference
+    private List<Image> images = new ArrayList<>();
 
     public Laptop(int articleNumber, int ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {
         this.articleNumber = articleNumber;
@@ -36,6 +48,10 @@ public class Laptop {
         this.sizeCm = sizeCm;
         this.os = os;
         this.prize = prize;
+    }
+
+    public Laptop() {
+
     }
 
     /**
@@ -63,6 +79,10 @@ public class Laptop {
                 "os",
                 randomNumber600
         );
+    }
+
+    public List<Image> getImages() {
+        return images;
     }
 
     public int getArticleNumber() {
@@ -115,6 +135,58 @@ public class Laptop {
 
     public int getPrize() {
         return prize;
+    }
+
+    public void setArticleNumber(int articleNumber) {
+        this.articleNumber = articleNumber;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
+
+    public void setGpu(String gpu) {
+        this.gpu = gpu;
+    }
+
+    public void setSizeInch(String sizeInch) {
+        this.sizeInch = sizeInch;
+    }
+
+    public void setSizeCm(String sizeCm) {
+        this.sizeCm = sizeCm;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
+    }
+
+    public void addImages(Image image) {
+        images.add(image);
+    }
+
+    public void removeImages(Image image) {
+        images.remove(image);
     }
 }
 

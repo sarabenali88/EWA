@@ -9,6 +9,7 @@ import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
 import app.models.Image;
 import app.models.ViewClasses;
+import app.repositories.ImageRepository;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/images")

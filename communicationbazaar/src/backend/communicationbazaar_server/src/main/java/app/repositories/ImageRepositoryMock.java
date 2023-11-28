@@ -17,7 +17,7 @@ public class ImageRepositoryMock implements Repository<Image> {
 
     public ImageRepositoryMock() {
         for (int i = 0; i < LISTLENGTH; i++) {
-            images.add(Image.createSampleImage());
+            images.add(Image.createSampleImage(100+i));
         }
     }
 
