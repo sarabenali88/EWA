@@ -122,10 +122,16 @@ export default {
       this.showModal = !this.showModal;
     },
     onDecode(code) {
-      barcode.value = code
-      setTimeout(() => {
+      if (code) {
+        barcode.value = code
+        setTimeout(() => {
+          this.showModal = false
+        }, 1500)
+      }
+      // Made to reset the scanner but not necessary anymore
+      /*setTimeout(() => {
         barcode.value = null
-      }, 500);
+      }, 500);*/
     },
   }
 }
