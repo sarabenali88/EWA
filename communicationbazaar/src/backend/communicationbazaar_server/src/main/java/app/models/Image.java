@@ -7,18 +7,18 @@ package app.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 @Entity
 public class Image {
     @Id
+    @SequenceGenerator(name="Image_ids", initialValue=1000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Image_ids")
+    private int id;
     @ManyToOne
     @JsonManagedReference
     private Laptop laptop;
-    @Id
     @JsonView(ViewClasses.Summary.class)
     private String version;
     private String store;
@@ -85,7 +85,8 @@ public class Image {
         }
     }
 
-    public Image(Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
+    public Image(int id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
+        this.id = id;
         this.laptop = laptop;
         this.version = version;
         this.store = store;
@@ -106,7 +107,7 @@ public class Image {
      * @return gives back a sample account.
      * @author Jasper Fernhout
      */
-    public static Image createSampleImage() {
+    public static Image createSampleImage(int id) {
         int randomNumber3 = (int) Math.floor(Math.random() * 3);
         int randomNumber2 = (int) Math.floor(Math.random() * 2);
         int randomNumber231 = (int) Math.floor(Math.random() * 231);
@@ -126,6 +127,7 @@ public class Image {
         imageMaker.add("Willem");
 
         return new Image(
+                id,
                 Laptop.createSampleLaptop(),
                 "MM V" + randomNumber231,
                 store.get(randomNumber3),
@@ -139,6 +141,10 @@ public class Image {
                 "",
                 imageMaker.get(randomNumber3)
         );
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Laptop getLaptop() {
@@ -187,6 +193,10 @@ public class Image {
 
     public String getImageMaker() {
         return imageMaker;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setLaptop(Laptop laptop) {

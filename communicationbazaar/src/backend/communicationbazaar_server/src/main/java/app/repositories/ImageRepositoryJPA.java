@@ -12,15 +12,13 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.NavigableMap;
 
 @Primary
-@Repository
+@org.springframework.stereotype.Repository
 @Transactional
-public class ImageRepositoryJPA implements ImageRepository<Image>{
+public class ImageRepositoryJPA implements Repository<Image>{
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -35,7 +33,7 @@ public class ImageRepositoryJPA implements ImageRepository<Image>{
     }
 
     @Override
-    public Image findById(int id, String version) {
+    public Image findById(int id) {
         return this.entityManager.find(Image.class, id);
     }
 
@@ -46,10 +44,10 @@ public class ImageRepositoryJPA implements ImageRepository<Image>{
     }
 
     @Override
-    public Image deleteById(int id, String version) {
-        Image image = findById(id, version);
+    public Image deleteById(int id) {
+        Image image = findById(id);
         if (image != null){
-            entityManager.remove(image);
+            entityManager.remove(id);
         }
         return image;
     }

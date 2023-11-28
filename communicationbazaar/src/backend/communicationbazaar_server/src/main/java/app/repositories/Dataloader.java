@@ -114,7 +114,7 @@ public class Dataloader implements CommandLineRunner {
     }
 
     @Autowired
-    ImageRepository<Image> imageRepository;
+    Repository<Image> imageRepository;
     private void createInitialImage() {
         List<Image> images = imageRepository.findAll();
 
@@ -123,6 +123,7 @@ public class Dataloader implements CommandLineRunner {
         }
 
         imageRepository.save(new Image(
+                1001,
                 this.laptopRepository.findById(47113),
                 "MM V4.0.3",
                 "Ede",
@@ -137,8 +138,9 @@ public class Dataloader implements CommandLineRunner {
                 ""
         ));
         imageRepository.save(new Image(
+                1002,
                 this.laptopRepository.findById(19654),
-                "MM V4.0.3",
+                "MM V4.0.4",
                 "Tilburg",
                 "2-9-2023",
                 Image.Status.ONGOING,
@@ -151,6 +153,7 @@ public class Dataloader implements CommandLineRunner {
                 "Pieter van de Broek"
         ));
         imageRepository.save(new Image(
+                1003,
                 this.laptopRepository.findById(47113),
                 "MM V4.0",
                 "Dordrecht",
@@ -165,6 +168,7 @@ public class Dataloader implements CommandLineRunner {
                 "Pieter van de Broek"
         ));
         imageRepository.save(new Image(
+                1004,
                 this.laptopRepository.findById(47101),
                 "MM V4.0.1",
                 "Hoorn",

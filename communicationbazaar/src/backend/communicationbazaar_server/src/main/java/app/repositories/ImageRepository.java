@@ -20,12 +20,11 @@ public interface ImageRepository<E> {
     /**
      * Function to find one specific item in an array.
      *
-     * @param id the id of the item.
      * @param version the version of the item
      * @return gives back the found item.
      * @author Seyma Kaya
      */
-    E findById(int id, String version);
+    E findById(String version);
 
     /**
      * Function to save a model in the array of items.
@@ -39,11 +38,10 @@ public interface ImageRepository<E> {
     /**
      * Function to delete one specific item in the array
      *
-     * @param id the id of the item.
      * @param version the version of the item
      * @return gives back the deleted item.
      * @author Seyma Kaya
      */
-    E deleteById(int id, String version);
+    E deleteById(String version);
 }
 
