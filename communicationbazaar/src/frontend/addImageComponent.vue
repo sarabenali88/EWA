@@ -32,16 +32,6 @@
     </div>
 
     <div class="row mb-3">
-      <label class="col-3" for="location">{{ $t('addImage.imageLocation') }}</label>
-      <div class="col-5">
-        <div class="input-group">
-          <input type="text" class="form-control" v-model.trim="locationImage"/>
-        </div>
-        <div class="error" v-if="invalid === true && locationImage === ''">{{ $t('addImage.alertEmpty') }}</div>
-      </div>
-    </div>
-
-    <div class="row mb-3">
       <label class="col-3" for="status">{{ $t('addImage.status') }}</label>
       <div class="col-5">
         <div class="input-group">
@@ -93,7 +83,6 @@ export default {
       ean: null,
       startVersion: '',
       imageName: '',
-      locationImage: '',
       statusSelect: '',
       date: '',
       week: '',
@@ -105,7 +94,7 @@ export default {
   },
   methods: {
     async validateInput() {
-      if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
+      if (this.ean === '' || this.startVersion === '' || this.imageName === '' ||
           this.statusSelect === '' || this.date === '' || this.week === '') {
         this.invalid = true;
       } else {
@@ -126,7 +115,7 @@ export default {
     },
     async saveImage() {
        this.formattedDate = this.formatDate(this.date);
-       this.image =  new Image(this.ean, this.startVersion, this.locationImage,
+       this.image =  new Image(this.ean, this.startVersion, null,
             this.formattedDate, this.statusSelect, null, null, null, null,
            this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);

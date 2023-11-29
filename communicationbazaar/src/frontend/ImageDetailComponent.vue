@@ -113,7 +113,7 @@
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
@@ -196,9 +196,11 @@ export default {
     saveChanges(){
       if (this.imageCopy.status !== "Te doen" && this.imageCopy.imageMaker === ""){
         this.imageCopy.imageMaker = this.account.name
+        this.imageCopy.store = this.account.location;
       }
       if (this.imageCopy.status === "Te doen"){
         this.imageCopy.imageMaker = ""
+        this.imageCopy.store = ""
       }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
@@ -207,7 +209,8 @@ export default {
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.account.name;
-      this.imageCopy.status = "Mee bezig"
+      this.imageCopy.status = "Mee bezig";
+      this.imageCopy.store = this.account.location;
     }
   }
 }

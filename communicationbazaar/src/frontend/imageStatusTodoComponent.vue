@@ -33,7 +33,8 @@
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
           <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-          <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
+          <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.store }}</td>
+          <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
         </tr>

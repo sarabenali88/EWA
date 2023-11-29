@@ -27,7 +27,8 @@
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td>{{ image.store }}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.store }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{image.status}}</td>
 <!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
         <td>{{ image.upDateDate }}</td>
@@ -58,8 +59,9 @@
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else class="text-secondary">Niet toegewezen</td>
-        <td>{{ image.status }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.store }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
