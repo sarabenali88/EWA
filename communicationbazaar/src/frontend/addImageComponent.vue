@@ -86,8 +86,8 @@ export default {
       statusSelect: '',
       date: '',
       week: '',
-      invalid: null,
-      invalidEan: null,
+      invalid: false,
+      invalidEan: false,
       image: null,
       formattedDate: null,
     }
@@ -98,15 +98,15 @@ export default {
           this.statusSelect === '' || this.date === '' || this.week === '') {
         this.invalid = true;
       } else {
-        this.invalid = '';
+        this.invalid = false;
       }
       if (this.ean < 0) {
         this.invalidEan = true;
       } else {
-        this.invalidEan = '';
+        this.invalidEan = false;
       }
-      if (this.invalid === '' && this.invalidEan === '') {
-         await this.saveImage();
+      if (this.invalid === false && this.invalidEan === false) {
+        await this.saveImage();
       }
     },
     formatDate(inputDate) {
