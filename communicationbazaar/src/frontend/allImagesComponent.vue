@@ -28,7 +28,8 @@
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{ image.store }}</td>
-        <td>{{ image.status }}</td>
+        <td>{{image.status}}</td>
+<!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>

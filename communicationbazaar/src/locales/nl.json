@@ -115,5 +115,10 @@
   },
   "home": {
     "welcomeMessage": "Welkom"
+  },
+  "status": {
+    "TODO": "Te doen",
+    "ONGOING": "Mee bezig",
+    "FINISHED": "Afgerond"
   }
 }

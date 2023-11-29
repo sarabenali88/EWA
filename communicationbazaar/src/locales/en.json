@@ -114,5 +114,10 @@
   },
   "home": {
     "welcomeMessage": "Welcome"
+  },
+  "status": {
+    "TODO": "TODO",
+    "ONGOING": "ONGOING",
+    "FINISHED": "FINISHED"
   }
 }
