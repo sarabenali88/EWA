@@ -15,7 +15,7 @@ public class Image {
     @Id
     @SequenceGenerator(name="Image_ids", initialValue=1000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Image_ids")
-    private int id;
+    private long id;
     @ManyToOne
     @JsonManagedReference
     private Laptop laptop;
@@ -85,7 +85,7 @@ public class Image {
         }
     }
 
-    public Image(int id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment, String imageMaker) {
+    public Image(long id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment, String imageMaker) {
         this.id = id;
         this.laptop = laptop;
         this.version = version;
@@ -107,7 +107,7 @@ public class Image {
      * @return gives back a sample account.
      * @author Jasper Fernhout
      */
-    public static Image createSampleImage(int id) {
+    public static Image createSampleImage(long id) {
         int randomNumber3 = (int) Math.floor(Math.random() * 3);
         int randomNumber2 = (int) Math.floor(Math.random() * 2);
         int randomNumber231 = (int) Math.floor(Math.random() * 231);
@@ -143,7 +143,7 @@ public class Image {
         );
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -195,7 +195,7 @@ public class Image {
         return imageMaker;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

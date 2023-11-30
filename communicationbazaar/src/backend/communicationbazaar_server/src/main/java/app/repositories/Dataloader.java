@@ -73,7 +73,7 @@ public class Dataloader implements CommandLineRunner {
 
         Laptop laptop1 = new Laptop(
                 1637763,
-                47101,
+                4710180623840L,
                 "ACER",
                 "SWIFT 5 SF515-51T-500N",
                 "Intel Core i5-8265U",
@@ -87,7 +87,7 @@ public class Dataloader implements CommandLineRunner {
         );
         Laptop laptop2 = new Laptop(
                 1770000,
-                47113,
+                4711387062937L,
                 "ASUS",
                 "TUF GAMING F15 FX507ZC4-HN002W",
                 "Intel Core i7-12700H",
@@ -101,7 +101,7 @@ public class Dataloader implements CommandLineRunner {
         );
         Laptop laptop3 = new Laptop(
                 1739480,
-                19654,
+                196548844210L,
                 "HP",
                 "VICTUS 16-E1430ND",
                 "AMD Ryzen 7 5800H",

@@ -15,11 +15,11 @@ import java.util.List;
 @Entity
 public class Laptop {
     @JsonView(ViewClasses.Summary.class)
-    private int articleNumber;
+    private long articleNumber;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Laptop_ids")
     @JsonView(ViewClasses.Summary.class)
-    private int ean;
+    private long ean;
     private String brand;
     private String description;
     private String processor;
@@ -34,7 +34,7 @@ public class Laptop {
     @JsonBackReference
     private List<Image> images = new ArrayList<>();
 
-    public Laptop(int articleNumber, int ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {
+    public Laptop(long articleNumber, long ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {
         this.articleNumber = articleNumber;
         this.ean = ean;
         this.brand = brand;
@@ -84,15 +84,15 @@ public class Laptop {
         return images;
     }
 
-    public int getArticleNumber() {
+    public long getArticleNumber() {
         return articleNumber;
     }
 
-    public int getEan() {
+    public long getEan() {
         return ean;
     }
 
-    public void setEan(int ean) {
+    public void setEan(long ean) {
         this.ean = ean;
     }
 
@@ -136,7 +136,7 @@ public class Laptop {
         return prize;
     }
 
-    public void setArticleNumber(int articleNumber) {
+    public void setArticleNumber(long articleNumber) {
         this.articleNumber = articleNumber;
     }
 

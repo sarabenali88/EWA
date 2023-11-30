@@ -33,7 +33,7 @@ public class ImageRepositoryJPA implements Repository<Image>{
     }
 
     @Override
-    public Image findById(int id) {
+    public Image findById(long id) {
         return this.entityManager.find(Image.class, id);
     }
 
@@ -44,7 +44,7 @@ public class ImageRepositoryJPA implements Repository<Image>{
     }
 
     @Override
-    public Image deleteById(int id) {
+    public Image deleteById(long id) {
         Image image = findById(id);
         if (image != null){
             entityManager.remove(id);

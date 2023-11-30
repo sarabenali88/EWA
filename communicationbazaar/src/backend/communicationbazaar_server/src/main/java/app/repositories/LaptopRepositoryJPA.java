@@ -33,7 +33,7 @@ public class LaptopRepositoryJPA implements Repository<Laptop>{
     }
 
     @Override
-    public Laptop findById(int id) {
+    public Laptop findById(long id) {
         return this.entityManager.find(Laptop.class, id);
     }
 
@@ -43,7 +43,7 @@ public class LaptopRepositoryJPA implements Repository<Laptop>{
     }
 
     @Override
-    public Laptop deleteById(int id) {
+    public Laptop deleteById(long id) {
         Laptop laptop = findById(id);
         if (laptop != null){
             entityManager.remove(laptop);

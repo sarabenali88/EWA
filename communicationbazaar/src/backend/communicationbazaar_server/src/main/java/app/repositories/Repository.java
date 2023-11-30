@@ -24,7 +24,7 @@ public interface Repository<E> {
      * @return gives back the found item.
      * @author Jasper Fernhout
      */
-    E findById(int id);
+    E findById(long id);
 
     /**
      * Function to save a model in the array of items.
@@ -42,5 +42,5 @@ public interface Repository<E> {
      * @return gives back the deleted item.
      * @author Jasper Fernhout
      */
-    E deleteById(int id);
+    E deleteById(long id);
 }

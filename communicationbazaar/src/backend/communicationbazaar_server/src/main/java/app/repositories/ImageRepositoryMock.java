@@ -27,7 +27,7 @@ public class ImageRepositoryMock implements Repository<Image> {
     }
 
     @Override
-    public Image findById(int id) {
+    public Image findById(long id) {
         return this.images.stream().filter(image -> image.getId() == id).findFirst().orElse(null);
     }
 
@@ -43,7 +43,7 @@ public class ImageRepositoryMock implements Repository<Image> {
     }
 
     @Override
-    public Image deleteById(int id) {
+    public Image deleteById(long id) {
         Image deleteImage = this.findById(id);
 
         if (deleteImage != null) {

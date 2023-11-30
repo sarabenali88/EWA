@@ -20,7 +20,7 @@ public class Account {
     @SequenceGenerator(name="Account_ids", initialValue=10000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Account_ids")
     @JsonView(ViewClasses.Summary.class)
-    private int personalNumber;
+    private long personalNumber;
     private String password;
     private String hashedPassword = null;
     @JsonView(ViewClasses.Summary.class)
@@ -56,7 +56,7 @@ public class Account {
         }
     }
 
-    public Account(int personalNumber, String password, String name, String email, String role, String location, LOGGEDIN loggedIn) {
+    public Account(long personalNumber, String password, String name, String email, String role, String location, LOGGEDIN loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;
         this.name = name;
@@ -109,7 +109,7 @@ public class Account {
         );
     }
 
-    public int getPersonalNumber() {
+    public long getPersonalNumber() {
         return personalNumber;
     }
 
