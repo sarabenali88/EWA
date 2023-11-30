@@ -8,8 +8,8 @@ export class Image{
     status;
     release;
     problem;
-    week;
-    year;
+    createdWeek;
+    createdYear;
     name;
     comment;
     imageMaker;
@@ -31,16 +31,17 @@ export class Image{
         REPORTED: "Ja, gemeld"
     }
 
-    constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
+    constructor(laptop, ean, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
         this.laptop = new Laptop();
+        this.laptop.ean = ean
         this.version = version;
         this.store = store;
         this.upDateDate = upDateDate;
         this.status = status;
         this.release = release;
         this.problem = problem;
-        this.week = week;
-        this.year = year;
+        this.createdWeek = week;
+        this.createdYear = year;
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;

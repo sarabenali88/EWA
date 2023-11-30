@@ -17,7 +17,7 @@ public class Laptop {
     @JsonView(ViewClasses.Summary.class)
     private long articleNumber;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Laptop_ids")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Laptop_ids")
     @JsonView(ViewClasses.Summary.class)
     private long ean;
     private String brand;

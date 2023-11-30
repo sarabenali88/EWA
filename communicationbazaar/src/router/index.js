@@ -34,27 +34,27 @@ export const router = createRouter({
                 {
                     path: 'allImages',
                     component: allImagesComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusTodo',
                     component: imageStatusTodoComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusOnGoing',
                     component: imageStatusOnGoingComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusFinished',
                     component: imageStatusFinishedComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusOverDate',
                     component: imageStatusOverDateComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 }
             ]
         },

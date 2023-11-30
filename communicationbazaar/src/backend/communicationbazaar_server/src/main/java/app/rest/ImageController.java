@@ -34,23 +34,23 @@ public class ImageController {
         return this.imageList.findAll();
     }
 
-    @GetMapping(path = "{ean}", produces = "application/json")
-    public ResponseEntity<Image> getOneImage(@PathVariable() int ean) throws ResourceNotFoundException {
-        Image image = this.imageList.findById(ean);
+    @GetMapping(path = "{id}", produces = "application/json")
+    public ResponseEntity<Image> getOneImage(@PathVariable() long id) throws ResourceNotFoundException {
+        Image image = this.imageList.findById(id);
 
         if (image == null) {
-            throw new ResourceNotFoundException("Cannot provide image with ean= " + ean);
+            throw new ResourceNotFoundException("Cannot provide image with ean= " + id);
         }
 
         return ResponseEntity.ok().body(image);
     }
 
-    @DeleteMapping(path = "{ean}", produces = "application/json")
-    public Image deleteOneImage(@PathVariable() int ean) throws ResourceNotFoundException {
-        Image image = this.imageList.deleteById(ean);
+    @DeleteMapping(path = "{id}", produces = "application/json")
+    public Image deleteOneImage(@PathVariable() long id) throws ResourceNotFoundException {
+        Image image = this.imageList.deleteById(id);
 
         if (image == null) {
-            throw new ResourceNotFoundException("Cannot delete a image with ean= " + ean);
+            throw new ResourceNotFoundException("Cannot delete a image with ean= " + id);
         }
 
         return image;
@@ -59,8 +59,8 @@ public class ImageController {
     @PostMapping(path = "", produces = "application/json")
     public Image addOneImage(@RequestBody Image image) throws Exception {
 
-        if (this.imageList.findById(image.getLaptop().getEan()) != null) {
-            throw new Exception("Image already exist with ean= " + image.getLaptop().getEan());
+        if (this.imageList.findById(image.getId()) != null){
+            throw new Exception("Image already exist with id= " + image.getId());
         }
 
         image = this.imageList.save(image);
@@ -68,11 +68,11 @@ public class ImageController {
         return image;
     }
 
-    @PutMapping(path = "{ean}", produces = "application/json")
-    public Image updateOneImage(@PathVariable() int ean, @RequestBody Image targetImage) throws PreConditionFailedException {
+    @PutMapping(path = "{id}", produces = "application/json")
+    public Image updateOneImage(@PathVariable() long id, @RequestBody Image targetImage) throws PreConditionFailedException {
 
-        if (ean != targetImage.getLaptop().getEan()) {
-            throw new PreConditionFailedException("Image-ean=" + targetImage.getLaptop().getEan() + " does not match path parameter=" + ean);
+        if (id != targetImage.getId()) {
+            throw new PreConditionFailedException("Image-id=" + targetImage.getId() + " does not match path parameter=" + id);
         } else {
             targetImage = this.imageList.save(targetImage);
         }

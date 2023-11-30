@@ -5,7 +5,7 @@
   <div class="container-fluid p-3 overflow-auto normal" >
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage"
+        <router-view
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
@@ -22,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
@@ -54,7 +54,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">Niet toegewezen</td>
@@ -88,17 +88,17 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop.ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.$router.push(parentPath);
         this.selectedImage = null;
       } else {
-        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
         this.selectedImage = image;
       }
       console.log(this.selectedImage)

@@ -116,7 +116,7 @@ export default {
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },
