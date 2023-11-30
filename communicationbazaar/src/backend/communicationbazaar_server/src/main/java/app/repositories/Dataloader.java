@@ -20,8 +20,7 @@ public class Dataloader implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         this.createInitialAccount();
-        this.createInitialLaptop();
-        this.createInitialImage();
+        this.createInitialImageAndLaptop();
     }
 
     @Autowired
@@ -62,14 +61,17 @@ public class Dataloader implements CommandLineRunner {
 
     @Autowired
     Repository<Laptop> laptopRepository;
-    private void createInitialLaptop() {
+    @Autowired
+    Repository<Image> imageRepository;
+    private void createInitialImageAndLaptop() {
         List<Laptop> laptops = laptopRepository.findAll();
+        List<Image> images = imageRepository.findAll();
 
-        if (!laptops.isEmpty()) {
+        if (!images.isEmpty() && !laptops.isEmpty()) {
             return;
         }
 
-        laptopRepository.save(new Laptop(
+        Laptop laptop1 = new Laptop(
                 1637763,
                 47101,
                 "ACER",
@@ -82,8 +84,8 @@ public class Dataloader implements CommandLineRunner {
                 "39.6 cm",
                 "WIN11",
                 500
-        ));
-        laptopRepository.save(new Laptop(
+        );
+        Laptop laptop2 = new Laptop(
                 1770000,
                 47113,
                 "ASUS",
@@ -96,8 +98,8 @@ public class Dataloader implements CommandLineRunner {
                 "39.6 cm",
                 "WIN11",
                 500
-        ));
-        laptopRepository.save(new Laptop(
+        );
+        Laptop laptop3 = new Laptop(
                 1739480,
                 19654,
                 "HP",
@@ -110,21 +112,15 @@ public class Dataloader implements CommandLineRunner {
                 "40.9 cm",
                 "WIN11",
                 500
-        ));
-    }
+        );
 
-    @Autowired
-    Repository<Image> imageRepository;
-    private void createInitialImage() {
-        List<Image> images = imageRepository.findAll();
-
-        if (!images.isEmpty()) {
-            return;
-        }
+        laptopRepository.save(laptop1);
+        laptopRepository.save(laptop2);
+        laptopRepository.save(laptop3);
 
         imageRepository.save(new Image(
                 1001,
-                this.laptopRepository.findById(47113),
+                laptop2,
                 "MM V4.0.3",
                 "Ede",
                 "27-7-2023",
@@ -139,7 +135,7 @@ public class Dataloader implements CommandLineRunner {
         ));
         imageRepository.save(new Image(
                 1002,
-                this.laptopRepository.findById(19654),
+                laptop3,
                 "MM V4.0.4",
                 "Tilburg",
                 "2-9-2023",
@@ -154,7 +150,7 @@ public class Dataloader implements CommandLineRunner {
         ));
         imageRepository.save(new Image(
                 1003,
-                this.laptopRepository.findById(47113),
+                laptop2,
                 "MM V4.0",
                 "Dordrecht",
                 "11-6-2023",
@@ -169,7 +165,7 @@ public class Dataloader implements CommandLineRunner {
         ));
         imageRepository.save(new Image(
                 1004,
-                this.laptopRepository.findById(47101),
+                laptop1,
                 "MM V4.0.1",
                 "Hoorn",
                 "10-5-2023",

@@ -7,9 +7,7 @@ package app.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,7 @@ public class Laptop {
     @JsonView(ViewClasses.Summary.class)
     private int articleNumber;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Laptop_ids")
     @JsonView(ViewClasses.Summary.class)
     private int ean;
     private String brand;

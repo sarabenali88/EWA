@@ -28,8 +28,8 @@ public class Image {
     private Status status;
     private Release release;
     private Problem problem;
-    private int week;
-    private int year;
+    private int createdWeek;
+    private int createdYear;
     private String name;
     private String comment;
     private String imageMaker;
@@ -85,7 +85,7 @@ public class Image {
         }
     }
 
-    public Image(int id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
+    public Image(int id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment, String imageMaker) {
         this.id = id;
         this.laptop = laptop;
         this.version = version;
@@ -94,8 +94,8 @@ public class Image {
         this.status = status;
         this.release = release;
         this.problem = problem;
-        this.week = week;
-        this.year = year;
+        this.createdWeek = createdWeek;
+        this.createdYear = createdYear;
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;
@@ -175,12 +175,12 @@ public class Image {
         return problem;
     }
 
-    public int getWeek() {
-        return week;
+    public int getCreatedWeek() {
+        return createdWeek;
     }
 
-    public int getYear() {
-        return year;
+    public int getCreatedYear() {
+        return createdYear;
     }
 
     public String getName() {
@@ -227,12 +227,12 @@ public class Image {
         this.problem = problem;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
+    public void setCreatedWeek(int week) {
+        this.createdWeek = week;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setCreatedYear(int year) {
+        this.createdYear = year;
     }
 
     public void setName(String name) {
