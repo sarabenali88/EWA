@@ -31,9 +31,8 @@ export class Image{
         REPORTED: "Ja, gemeld"
     }
 
-    constructor(laptop, ean, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
+    constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
         this.laptop = new Laptop();
-        this.laptop.ean = ean
         this.version = version;
         this.store = store;
         this.upDateDate = upDateDate;
