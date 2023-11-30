@@ -33,7 +33,7 @@ export class ImagesAdaptor {
     }
 
     async asyncSave(image) {
-        let checkEan = await this.asyncFindById(image.laptop.ean);
+        let checkEan = await this.asyncFindById(image.id);
         if (checkEan == null) {
             return await this.fetchJson(this.resourcesUrl, {
                 method: "POST",
@@ -48,8 +48,8 @@ export class ImagesAdaptor {
                     status: image.status,
                     release: image.release,
                     problem: image.problem,
-                    week: image.week,
-                    year: image.year,
+                    createdWeek: image.week,
+                    createdYear: image.year,
                     name: image.name,
                     comment: image.comment,
                     imageMaker: image.imageMaker
