@@ -9,9 +9,9 @@
 <script>
 // import imageData from '@/image.json';
 import {Bar} from 'vue-chartjs'
-import {Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale} from 'chart.js'
+import {Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors} from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors)
 
 export default {
   name: 'StatisticsPageComponent',
@@ -25,7 +25,8 @@ export default {
         labels: [],
         datasets: [{
           label: 'amount of images',
-          data: []
+          data: [],
+          backgroundColor: ['rgb(232, 44, 44)']
         }]
       },
       chartOptions: {
