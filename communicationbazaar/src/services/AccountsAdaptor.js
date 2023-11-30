@@ -3,7 +3,7 @@
  *
  * @author Jasper Fernhout
  */
-import {Account} from '@/models/Account'
+import { Account } from '@/models/Account'
 
 export class AccountsAdaptor {
     resourcesUrl;

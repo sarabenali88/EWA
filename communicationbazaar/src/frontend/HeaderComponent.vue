@@ -1,30 +1,34 @@
 <template>
-  <div class="page" :class="{expanded: this.expanded}">
+  <div class="page" :class="{ expanded: this.expanded }">
     <div class="headerContent">
       <!-- Mediamarkt logo-->
       <img class="logo" :src="mediaMarktLogo" alt="">
       <!-- Input Search Image-->
       <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="lightgrey" class="bi bi-search mobile"
-           viewBox="0 0 16 16" @click="expandSearch()">
+        viewBox="0 0 16 16" @click="expandSearch()">
         <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
       </svg>
       <div class="input-group-lg">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search"
-             viewBox="0 0 16 16">
+          viewBox="0 0 16 16">
           <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
         <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
       </div>
-      <!-- button for QR code-->
-      <button type="button" class="btn btn-danger m-lg-3" @click="toggleQRCodeStream">Scan for an image</button>
-      <!-- QR code in modal pop up-->
+      <!-- Test button since for devices with no camera's-->
+<!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('38000447')">Test Btn</button>-->
+      <!-- button for BarcodeScanner code-->
+      <button type="button" class="btn btn-danger m-lg-3" @click="toggleStreamBarcodeReader">Scan for an image</button>
+      <!-- BarcodeScanner in modal pop up-->
       <div v-if="showModal" class="modal">
         <div class="modal-content">
-          <span class="close" @click="toggleQRCodeStream">&times;</span>
-          <div class="qrcode-container">
-            <qrcode-stream @init="onInit" class="qrcode-stream"></qrcode-stream>
+          <span class="close" @click="toggleStreamBarcodeReader">&times;</span>
+          <div class="barcodeScanner-container">
+            <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" class="qrcode-stream"></StreamBarcodeReader>
+      <!-- Seeing the value just for testing purpose-->
+<!--            <h1>{{ scannedBarcode }}</h1>-->
           </div>
         </div>
       </div>
@@ -45,25 +49,26 @@
         <!-- Alert button-->
         <div class="bell">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-bell"
-               viewBox="0 0 16 16">
+            viewBox="0 0 16 16">
             <path
-                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+              d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
           </svg>
         </div>
       </div>
       <Transition>
         <div v-if="expanded">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="grey" class="bi bi-qr-code-scan"
-               viewBox="0 0 16 16">
+            viewBox="0 0 16 16">
             <path
-                d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z"/>
-            <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z"/>
-            <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z"/>
+              d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z" />
+            <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z" />
+            <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z" />
             <path
-                d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z"/>
-            <path d="M12 9h2V8h-2v1Z"/>
+              d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z" />
+            <path d="M12 9h2V8h-2v1Z" />
           </svg>
-          <input type="text" :placeholder="$t('header.placeholder')" class="input form-control input-expanded">
+          <input type="text" :placeholder="$t('header.placeholder')"
+            class="input form-control input-expanded">
         </div>
       </Transition>
 
@@ -72,12 +77,15 @@
 </template>
 
 <script>
-import {QrcodeStream} from 'vue3-qrcode-reader'
+import { StreamBarcodeReader } from "vue-barcode-reader";
+import { ref } from 'vue';
+
+export const barcode = ref(null);
 
 export default {
   name: 'HeaderComponent',
   components: {
-    QrcodeStream
+    StreamBarcodeReader
   },
   data() {
     return {
@@ -87,15 +95,6 @@ export default {
       showQRCodeStream: false,
       error: '',
       showModal: false,
-      selected: {text: 'outline', value: undefined},
-      options: [
-        {text: 'nothing (default)', value: undefined},
-        {text: 'outline', value: this.paintOutline},
-        {text: 'centered text', value: this.paintCenterText},
-        {text: 'bounding box', value: this.paintBoundingBox},
-      ],
-      barcodeTypes: ["aztec", "code_128", "code_39", "code_93", "codabar", "data_matrix", "ean_13", "ean_8", "itf", "pdf417", "qr_code", "upc_a", "upc_e"],
-      selectedBarcodeTypes: ["qr_code"],
     }
   },
   watch: {},
@@ -119,32 +118,20 @@ export default {
         this.mobile = !this.mobile;
       }
     },
-    toggleQRCodeStream() {
+    toggleStreamBarcodeReader() {
       this.showModal = !this.showModal;
     },
-    async onInit(promise) {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        const {capabilities} = await promise
-
-        // successfully initialized
-      } catch (error) {
-        if (error.name === 'NotAllowedError') {
-          this.error = "user denied camera access permisson"
-        } else if (error.name === 'NotFoundError') {
-          this.error = "no suitable camera device installed"
-        } else if (error.name === 'NotSupportedError') {
-          this.error = "is not served over HTTPS (or localhost)"
-        } else if (error.name === 'NotReadableError') {
-          this.error = "camera is already in use"
-        } else if (error.name === 'OverconstrainedError') {
-          this.error = "did you requested the front camera although there is none?"
-        } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = "browser seems to be lacking features"
-        }
-      } finally {
-        // hide loading indicator
+    onDecode(code) {
+      if (code) {
+        barcode.value = code
+        setTimeout(() => {
+          this.showModal = false
+        }, 1500)
       }
+      // Made to reset the scanner but not necessary anymore
+      /*setTimeout(() => {
+        barcode.value = null
+      }, 500);*/
     },
   }
 }
@@ -153,7 +140,6 @@ export default {
 </script>
 
 <style scoped>
-
 .logo {
   width: 400px;
   /*z-index: 0;*/
@@ -300,8 +286,8 @@ export default {
 }
 
 
-/*QR code*/
-.qrcode-container {
+/*BarcodeScanner*/
+.barcodeScanner-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -348,5 +334,4 @@ export default {
   color: black;
   text-decoration: none;
 }
-
 </style>
