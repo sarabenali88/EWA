@@ -90,6 +90,7 @@ export default {
       invalidEan: false,
       image: null,
       formattedDate: null,
+      formattedWeek: null,
     }
   },
   methods: {
@@ -113,11 +114,17 @@ export default {
       const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       return new Date(inputDate).toLocaleDateString('nl-NL', options);
     },
+    splitWeek(){
+      return this.week.split('W')[1];
+    },
     async saveImage() {
        this.formattedDate = this.formatDate(this.date);
+       this.formattedWeek = this.splitWeek(this.week);
+
        this.image =  new Image(this.ean, this.startVersion, null,
-            this.formattedDate, this.statusSelect, null, null, null, null,
+            this.formattedDate, this.statusSelect, null, null, this.formattedWeek, null,
            this.imageName, null, null);
+       console.log(this.image);
       await this.imagesService.asyncSave(this.image);
       await this.imagesService.asyncFindAll();
       this.$router.push('/imageListRoute/allImages');
