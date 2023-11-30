@@ -4,10 +4,13 @@
       <label class="col-3" for="ean">{{ $t('addImage.eanNumber') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="number" class="form-control" v-model.number="ean" @blur="validateInput"/>
+          <select v-model="selectedLaptop" class="form-control">
+              <option v-for="laptop in laptops" :key="laptop.id" :value="laptop">
+             {{laptop.ean}}
+              </option>
+            </select>
         </div>
-        <div class="error" v-if="invalid === true && ean === null">{{ $t('addImage.alertEmpty') }}</div>
-        <div class="error" v-if="invalidEan === true && ean < 0">{{ $t('addImage.alertEan') }}</div>
+        <div class="error" v-if="invalid === true && selectedLaptop === null">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -77,10 +80,10 @@
 import {Image} from "@/models/Image";
 export default {
   name: "addImageComponent",
-  inject: ["imagesService"],
+  inject: ["imagesService", "laptopsService"],
   data() {
     return {
-      ean: null,
+      selectedLaptop: null,
       startVersion: '',
       imageName: '',
       statusSelect: '',
@@ -91,22 +94,21 @@ export default {
       image: null,
       formattedDate: null,
       formattedWeek: null,
+      laptops: [],
     }
+  },
+  async created() {
+    this.laptops = await this.laptopsService.asyncFindAll();
   },
   methods: {
     async validateInput() {
-      if (this.ean === '' || this.startVersion === '' || this.imageName === '' ||
+      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' ||
           this.statusSelect === '' || this.date === '' || this.week === '') {
         this.invalid = true;
       } else {
         this.invalid = false;
       }
-      if (this.ean < 0) {
-        this.invalidEan = true;
-      } else {
-        this.invalidEan = false;
-      }
-      if (this.invalid === false && this.invalidEan === false) {
+      if (this.invalid === false) {
         await this.saveImage();
       }
     },
@@ -121,9 +123,12 @@ export default {
        this.formattedDate = this.formatDate(this.date);
        this.formattedWeek = this.splitWeek(this.week);
 
-       this.image =  new Image(this.ean, this.startVersion, null,
+       this.image =  new Image(this.selectedLaptop, this.startVersion, null,
             this.formattedDate, this.statusSelect, null, null, this.formattedWeek, null,
            this.imageName, null, null);
+
+
+       console.log(this.selectedLaptop);
        console.log(this.image);
       await this.imagesService.asyncSave(this.image);
       await this.imagesService.asyncFindAll();

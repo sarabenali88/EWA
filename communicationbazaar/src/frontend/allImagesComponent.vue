@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       images: [],
-      selectedImage: null
+      selectedImage: null,
     }
   },
   async created() {
