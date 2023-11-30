@@ -4,42 +4,39 @@
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    accounts.some(account => account.loggedIn && account.role === 'admin')}">
-    <h3>{{$t('imageStatus.noAccessMessage')}}</h3>
+    <h3>{{ $t('imageStatus.noAccessMessage') }}</h3>
   </div>
-  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
-   accounts.some(account => account.loggedIn && account.role === 'coworker')}">
-  <div class="container-fluid p-3">
+  <div class="container-fluid p-3 normal">
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage"
-                       @delete-image="deleteImage()" @save-image="saveImage">
+          <router-view
+              @delete-image="deleteImage()" @save-image="saveImage">
           </router-view>
         </div>
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th scope="col">{{ $t('allImages.ean') }}</th>
+            <th scope="col">{{ $t('allImages.imageName') }}</th>
+            <th scope="col">{{ $t('allImages.employeeName') }}</th>
+            <th scope="col">{{ $t('allImages.location') }}</th>
+            <th scope="col">{{ $t('allImages.status') }}</th>
+            <th scope="col">{{ $t('allImages.date') }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+            <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
+            <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
+            <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+            <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
+            <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+            <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-      <table class="table table-sm">
-        <thead>
-        <tr>
-          <th scope="col">{{ $t('allImages.ean') }}</th>
-          <th scope="col">{{ $t('allImages.imageName') }}</th>
-          <th scope="col">{{ $t('allImages.employeeName') }}</th>
-          <th scope="col">{{ $t('allImages.location') }}</th>
-          <th scope="col">{{ $t('allImages.status') }}</th>
-          <th scope="col">{{ $t('allImages.date') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
@@ -47,8 +44,8 @@
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage"
-               @delete-image="deleteImage()" @save-image="saveImage">
+        <router-view
+            @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
     </div>
@@ -62,7 +59,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
@@ -99,7 +96,7 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop.ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
@@ -109,13 +106,13 @@ export default {
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },
@@ -129,7 +126,7 @@ export default {
       this.images[index] = image;
       this.setImage(image);
     },
-    dateConverter(givenDate){
+    dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
     }
@@ -150,6 +147,7 @@ export default {
 .statusButtonsStyling {
   height: 100px;
 }
+
 .mobile {
   display: none;
 }
@@ -164,7 +162,7 @@ export default {
   }
 }
 
-.hiddenPage{
+.hiddenPage {
   display: none;
 }
 </style>

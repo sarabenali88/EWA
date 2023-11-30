@@ -64,6 +64,11 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of the list with all users.
+ *
+ * @author Jasper Fernhout
+ */
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import NavBarComponent from "@/frontend/NavBarComponent";
 import NavBar from "@/frontend/NavBarComponent";
@@ -102,22 +107,23 @@ export default {
         this.selectedAccount = this.findSelectedFromRouteParams(this.$route.params.id);
       }
     },
-    loggedInAccount: {
-      handler: function (newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.setInformation();
-        }
-      },
-      deep: true
-    }
   },
   methods: {
+
+    //TODO deze methode werkt niet
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         return this.accounts.find(account => account.personalNumber === id);
       }
       return null;
     },
+
+    /**
+     * Method that will open the window to update the information of an account.
+     *
+     * @param account the account check if there is an account already selected.
+     * @author Jasper Fernhout
+     */
     updateAccount(account) {
       if (account === this.selectedAccount) {
         this.selectedAccount = null;
@@ -130,6 +136,12 @@ export default {
         this.$router.push(NavBarComponent.data().allUsersRoute + '/' + account.personalNumber);
       }
     },
+
+    /**
+     * method that will open the window to add an account.
+     *
+     * @author Jasper Fernhout
+     */
     addAccount() {
       if (this.selectedAccount === null) {
         this.$router.push(NavBarComponent.data().allUsersRoute + '/userAdd');
@@ -137,13 +149,35 @@ export default {
         this.showConfirmModal("fromAdd");
       }
     },
+
+    /**
+     * Method that gets the current account that is selected.
+     *
+     * @returns {null} Gives back the account that is selected.
+     * @author Jasper Fernhout
+     */
     getCurrentAccount() {
       return this.selectedAccount;
     },
+
+    /**
+     * An event that is called when a cancel button is pressed.
+     *
+     * @param selectedAccount will set the selectedAccount to null if the cancel event is activated.
+     * @author Jasper Fernhout
+     */
     cancelEvent(selectedAccount) {
       this.$router.push(NavBarComponent.data().allUsersRoute);
       this.selectedAccount = selectedAccount;
     },
+
+    /**
+     * A method that will give the needed information to the confimation modal to what action has to be done.
+     *
+     * @param account the account that has to be added or updated.
+     * @returns {Promise<void>} returns the added or updated account.
+     * @author Jasper Fernhout
+     */
     async saveEvent(account) {
       if (account.personalNumber === 0) {
         const newAccount = await this.accountsService.asyncSave(account);
@@ -159,29 +193,60 @@ export default {
         this.selectedAccount = null;
       }
     },
+
+    /**
+     * A method that will give the needed information to the confimation modal to what action has to be done.
+     *
+     * @param account the account that has to be deleted.
+     * @returns {Promise<void>} gives back the deleted account.
+     * @author Jasper Fernhout
+     */
     async deleteAccount(account) {
       this.confirmAccount = account;
       this.showConfirmModal("delete");
     },
+
+    /**
+     * A method that will create the needed information before the route will be entered.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async createInformation() {
       this.accounts = await this.accountsService.asyncFindAll();
       this.loggedInAccount = this.accounts.find(account => account.loggedIn);
-      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn && this.loggedInAccount.role !== "admin") {
+      if (!this.loggedInAccount || this.loggedInAccount.loggedIn && this.loggedInAccount.role === "ImageMaker") {
         this.$router.push(NavBar.data().homeRoute);
-      } else {
-        this.setInformation();
       }
     },
-    setInformation() {
-    },
+
+    /**
+     * A method for displaying an alert with the given message.
+     *
+     * @param message the message that will be shown.
+     * @author Jasper Fernhout
+     */
     displayAlert(message) {
       this.alertMessage = message;
       this.showAlert = true;
     },
+
+    /**
+     * A message to close an alert when it is open.
+     *
+     * @author Jasper Fernhout
+     */
     dismissAlert() {
       this.showAlert = false;
       this.alertMessage = '';
     },
+
+    /**
+     * A method that wil show the confirmation modal with the given action.
+     *
+     * @param confirmAction gives the action that needs to be done when the button is pressed in the modal.
+     * @author Jasper Fernhout
+     */
     showConfirmModal(confirmAction) {
       if (confirmAction === "fromUpdate") {
         this.action = "fromUpdate";
@@ -197,6 +262,15 @@ export default {
     closeModal() {
       this.showModal = false;
     },
+
+    /**
+     * An event that will save a newly added account to the list and will send a request to the back end to save.
+     * Also an event that will update an already existing account in the front end and will send a request to the back end.
+     * And a method that will delete an account in the front end and will send a delete request to the back end.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async performAction() {
       if (this.action === "fromUpdate") {
         this.selectedAccount = this.confirmAccount;
@@ -214,6 +288,12 @@ export default {
         this.closeModal();
       }
     },
+
+    /**
+     * Method that will close the confirmation modal when the close button is clicked.
+     *
+     * @author Jasper Fernhout
+     */
     cancelAction() {
       this.closeModal();
     }

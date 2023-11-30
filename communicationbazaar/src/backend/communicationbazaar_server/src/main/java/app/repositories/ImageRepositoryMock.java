@@ -1,3 +1,8 @@
+/**
+ * This is a class that will give the repository functions an action for the images.
+ *
+ * @author Jasper Fernhout
+ */
 package app.repositories;
 
 import app.models.Image;
@@ -12,7 +17,7 @@ public class ImageRepositoryMock implements Repository<Image> {
 
     public ImageRepositoryMock() {
         for (int i = 0; i < LISTLENGTH; i++) {
-            images.add(Image.createSampleImage());
+            images.add(Image.createSampleImage(1000+i));
         }
     }
 
@@ -22,14 +27,14 @@ public class ImageRepositoryMock implements Repository<Image> {
     }
 
     @Override
-    public Image findById(int id) {
-        return this.images.stream().filter(image -> image.getLaptop().getEan() == id).findFirst().orElse(null);
+    public Image findById(long id) {
+        return this.images.stream().filter(image -> image.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public Image save(Image model) {
-        if (this.findById(model.getLaptop().getEan()) != null) {
-            int modelIndex = this.images.indexOf(this.findById(model.getLaptop().getEan()));
+        if (this.findById(model.getId()) != null) {
+            int modelIndex = this.images.indexOf(this.findById(model.getId()));
             this.images.set(modelIndex, model);
         } else {
             this.images.add(model);
@@ -38,7 +43,7 @@ public class ImageRepositoryMock implements Repository<Image> {
     }
 
     @Override
-    public Image deleteById(int id) {
+    public Image deleteById(long id) {
         Image deleteImage = this.findById(id);
 
         if (deleteImage != null) {

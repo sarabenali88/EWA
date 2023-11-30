@@ -1,13 +1,18 @@
-import {Image} from '@/models/Image'
+/**
+ * This is a class that will fetch the data for the images from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
+import { Image } from '@/models/Image'
 
 export class ImagesAdaptor {
     resourcesUrl;
 
-    constructor(resourcesUrl) {
+    constructor (resourcesUrl) {
         this.resourcesUrl = resourcesUrl;
     }
 
-    async fetchJson(url, options = null) {
+    async fetchJson (url, options = null) {
         const response = await fetch(url, options);
         if (response.ok) {
             return await response.json();
@@ -17,13 +22,13 @@ export class ImagesAdaptor {
         }
     }
 
-    async asyncFindAll() {
+    async asyncFindAll () {
         const images = await this.fetchJson(this.resourcesUrl);
         return images?.map(image => Image.copyConstructor(image));
     }
 
-    async asyncFindById(ean) {
-        const imageData = await this.fetchJson(this.resourcesUrl + '/' + ean);
+    async asyncFindById (id) {
+        const imageData = await this.fetchJson(this.resourcesUrl + '/' + id);
         return Image.copyConstructor(imageData);
     }
 
@@ -65,7 +70,7 @@ export class ImagesAdaptor {
         }
     }
 
-    async asyncDeleteById(ean) {
+    async asyncDeleteById (ean) {
         return this.fetchJson(this.resourcesUrl + '/' + ean,
             {
                 method: 'DELETE'

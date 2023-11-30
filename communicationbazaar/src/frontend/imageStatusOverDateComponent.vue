@@ -10,7 +10,7 @@
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage"
+          <router-view
                        @delete-image="deleteImage()" @save-image="saveImage">
 
           </router-view>
@@ -68,7 +68,7 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop.ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
@@ -78,13 +78,13 @@ export default {
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },

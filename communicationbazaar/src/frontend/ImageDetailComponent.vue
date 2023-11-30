@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="imageCopy">
   <div class="row justify-content-between">
     <div class="col-auto">
       <h3>
@@ -85,12 +85,12 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div v-if="showDesc" class="m-2">
-        <div v-if="imageCopy.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
+        <div v-if="imageCopy.laptop.brand !== 'APPLE'" class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.os') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.laptop[0].os}}
+            {{imageCopy.laptop.os}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -133,7 +133,7 @@
         </div>
       </div>
       <div v-else-if="!showDesc">
-        <textarea class="row justify-content-center m-3 p-3" rows="5" cols="115" :placeholder="$t('imageDetail.placeholder')"
+        <textarea class="row justify-content-center m-3 p-3 text" rows="5" :placeholder="$t('imageDetail.placeholder')"
                   v-model="imageCopy.comment" readonly></textarea>
       </div>
     </div>
@@ -147,25 +147,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService"],
-  props: [
-    'currentImage',
-  ],
   emits: ['delete-image', 'save-image'],
-  async created() {
-    this.accounts = await this.accountsService.asyncFindAll();
-    this.imageCopy = await this.imagesService.asyncFindById(this.$route?.params?.id)
-    this.account = this.accounts.find(account => account.loggedIn)
-  },
-  watch: {
-    currentImage: {
-      async handler(newImage) {
-        if (newImage !== null) {
-          this.imageCopy = await this.imagesService.asyncFindById(this.$route?.params?.id)
-        }
-      },
-      deep: true,
-    }
-  },
   data(){
     return {
       statuses: Image.Status,
@@ -177,7 +159,21 @@ export default {
       account: null,
     }
   },
+  watch: {
+    '$route'(){
+      this.reInitialise();
+    }
+  },
+  async created() {
+    this.accounts = await this.accountsService.asyncFindAll();
+    await this.reInitialise();
+    this.account = this.accounts.find(account => account.loggedIn)
+  },
   methods: {
+    async reInitialise(){
+      this.imageCopy =
+          await this.imagesService.asyncFindById(this.$route?.params?.id)
+    },
     setNav(word){
       if (word === 'com'){
         this.showDesc = false;

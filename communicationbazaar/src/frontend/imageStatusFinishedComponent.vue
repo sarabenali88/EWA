@@ -5,7 +5,7 @@
   <div class="container-fluid p-3 normal">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage"
+        <router-view
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
@@ -22,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
@@ -38,7 +38,7 @@
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view>
 
         </router-view>
       </div>
@@ -53,7 +53,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
+      <tr v-for="image of images" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
@@ -86,7 +86,7 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop.ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
@@ -96,13 +96,13 @@ export default {
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop.ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },

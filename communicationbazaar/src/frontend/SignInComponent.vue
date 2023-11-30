@@ -21,11 +21,6 @@
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
-            <div class="form-check d-flex justify-content-start mb-4">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3"/>
-              <label class="form-check-label" for="form1Example3">{{ $t('signIn.remember') }} </label>
-            </div>
-
             <button @click="checkInput" class="btn btn-danger btn-lg btn-block" type="submit">
               {{ $t('signIn.logInButton') }}</button>
 
@@ -38,6 +33,11 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of signing in.
+ *
+ * @author Jasper Fernhout
+ */
 
 import NavBar from "@/frontend/NavBarComponent";
 
@@ -63,7 +63,7 @@ export default {
         this.displayAlert(this.$t('signIn.wrongPersMessage'))
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
-        if (this.account.password !== this.password) {
+        if (!await this.accountsService.verifyPassword(this.personalNumber, this.password)) {
           this.displayAlert(this.$t('signIn.wrongPassMessage'))
         } else {
           NavBar.methods.setCurrentContent('contentImage')
@@ -88,5 +88,9 @@ export default {
 </script>
 
 <style scoped>
+
+.hidden {
+  display: none
+}
 
 </style>

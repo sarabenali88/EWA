@@ -1,9 +1,15 @@
+/**
+ * This is a controller for the accounts that will catch the calls from the front end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.rest;
 
 import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
 import app.models.Account;
 import app.models.ViewClasses;
+import app.repositories.AccountRepositoryJPA;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,9 @@ public class AccountController {
     @Autowired
     Repository<Account> accountList;
 
+    @Autowired
+    AccountRepositoryJPA accountRepositoryJPA;
+
     @GetMapping(path = "", produces = "application/json")
     public List<Account> getAllAccounts() {
         return this.accountList.findAll();
@@ -30,7 +39,7 @@ public class AccountController {
     }
 
     @GetMapping(path = "{personalNumber}", produces = "application/json")
-    public ResponseEntity<Account> getOneAccount(@PathVariable() int personalNumber) throws ResourceNotFoundException {
+    public ResponseEntity<Account> getOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
         Account account = this.accountList.findById(personalNumber);
 
         if (account == null) {
@@ -41,7 +50,7 @@ public class AccountController {
     }
 
     @DeleteMapping(path = "{personalNumber}", produces = "application/json")
-    public Account deleteOneAccount(@PathVariable() int personalNumber) throws ResourceNotFoundException {
+    public Account deleteOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
         Account account = this.accountList.deleteById(personalNumber);
 
         if (account == null) {
@@ -65,7 +74,7 @@ public class AccountController {
 
 
     @PutMapping(path = "{personalNumber}", produces = "application/json")
-    public Account updateOneAccount(@PathVariable() int personalNumber, @RequestBody Account targetAccount) throws PreConditionFailedException {
+    public Account updateOneAccount(@PathVariable() long personalNumber, @RequestBody Account targetAccount) throws PreConditionFailedException {
 
         if (personalNumber != targetAccount.getPersonalNumber()) {
             throw new PreConditionFailedException("Account personalNumber=" + targetAccount.getPersonalNumber() + " does not match path parameter=" + personalNumber);
@@ -74,5 +83,16 @@ public class AccountController {
         }
 
         return targetAccount;
+    }
+
+    @GetMapping(path = "/verifyPassword/{personalNumber}/{password}", produces = "application/json")
+    public boolean verifyPassword(@PathVariable() long personalNumber, @PathVariable() String password) {
+        Account account = this.accountList.findById(personalNumber);
+
+        if (account == null) {
+            return false;
+        } else {
+            return account.verifyPassword(password);
+        }
     }
 }
