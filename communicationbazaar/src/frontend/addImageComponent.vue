@@ -122,12 +122,9 @@ export default {
     async saveImage() {
        this.formattedDate = this.formatDate(this.date);
        this.formattedWeek = this.splitWeek(this.week);
-
        this.image =  new Image(this.selectedLaptop, this.startVersion, null,
             this.formattedDate, this.statusSelect, null, null, this.formattedWeek, null,
            this.imageName, null, null);
-
-
        console.log(this.selectedLaptop);
        console.log(this.image);
       await this.imagesService.asyncSave(this.image);

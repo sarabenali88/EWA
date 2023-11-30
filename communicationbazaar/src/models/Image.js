@@ -33,7 +33,6 @@ export class Image{
 
     constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
         this.laptop = new Laptop();
-        this.laptop.ean = laptop;
         this.version = version;
         this.store = store;
         this.upDateDate = upDateDate;

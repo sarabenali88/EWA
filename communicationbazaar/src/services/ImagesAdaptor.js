@@ -33,9 +33,8 @@ export class ImagesAdaptor {
     }
 
     async asyncSave(image) {
-        let checkEan = await this.asyncFindById(image.id);
+        let checkEan = await this.asyncFindById(image.laptop.ean);
         if (checkEan == null) {
-            // console.log(this.resourcesUrl + checkEan + "ghfghtghgtfhv");
             return await this.fetchJson(this.resourcesUrl, {
                 method: "POST",
                 headers: {
