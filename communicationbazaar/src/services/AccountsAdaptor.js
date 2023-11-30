@@ -3,7 +3,7 @@
  *
  * @author Jasper Fernhout
  */
-import {Account} from '@/models/Account'
+import { Account } from '@/models/Account'
 
 export class AccountsAdaptor {
     resourcesUrl;
@@ -13,12 +13,17 @@ export class AccountsAdaptor {
     }
 
     async fetchJson(url, options = null) {
-        const response = await fetch(url, options);
-        if (response.ok) {
-            return await response.json();
-        } else {
-            // TODO hier moet nog een; response error die in de json body zit
-            return null;
+        try {
+            const response = await fetch(url, options);
+            if (response.ok) {
+                return await response.json();
+            } else {
+                // TODO hier moet nog een; response error die in de json body zit
+                return []
+            }
+
+        } catch (error) {
+            return []
         }
     }
 
