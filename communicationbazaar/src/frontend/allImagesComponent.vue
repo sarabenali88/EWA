@@ -39,7 +39,7 @@
   <div class="container-fluid p-3 overflow-auto mobile" >
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage" >
+        <router-view>
 
         </router-view>
       </div>

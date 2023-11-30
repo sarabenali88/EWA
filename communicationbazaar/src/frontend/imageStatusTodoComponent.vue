@@ -11,7 +11,7 @@
     <div class="container-fluid p-3 normal">
       <div v-if="selectedImage">
         <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage"
+          <router-view
                        @delete-image="deleteImage()" @save-image="saveImage">
           </router-view>
         </div>
@@ -46,7 +46,7 @@
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view>
 
         </router-view>
       </div>
@@ -100,7 +100,7 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop.ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
@@ -110,7 +110,7 @@ export default {
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
