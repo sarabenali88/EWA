@@ -5,31 +5,32 @@
   <div class="container-fluid p-3 overflow-auto normal">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage" @delete-image="deleteImage()" @save-image="saveImage">
+        <router-view
+          @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
     </div>
     <table class="table table-sm">
       <thead>
-        <tr>
-          <th scope="col">{{ $t('allImages.ean') }}</th>
-          <th scope="col">{{ $t('allImages.imageName') }}</th>
-          <th scope="col">{{ $t('allImages.employeeName') }}</th>
-          <th scope="col">{{ $t('allImages.location') }}</th>
-          <th scope="col">{{ $t('allImages.status') }}</th>
-          <th scope="col">{{ $t('allImages.date') }}</th>
-        </tr>
+      <tr>
+        <th scope="col">{{$t('allImages.ean')}}</th>
+        <th scope="col">{{$t('allImages.imageName')}}</th>
+        <th scope="col">{{$t('allImages.employeeName')}}</th>
+        <th scope="col">{{$t('allImages.location')}}</th>
+        <th scope="col">{{$t('allImages.status')}}</th>
+        <th scope="col">{{$t('allImages.date')}}</th>
+      </tr>
       </thead>
       <tbody>
-        <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td>{{ image.laptop[0].ean }}</td>
-          <td>{{ image.name }}</td>
-          <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-          <td v-else class="text-secondary">{{ $t('imageDetail.unassigned') }}</td>
-          <td>{{ image.store }}</td>
-          <td>{{ image.status }}</td>
-          <td>{{ image.upDateDate }}</td>
-        </tr>
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td>{{ image.laptop.ean }}</td>
+        <td>{{ image.name }}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td>{{ image.store }}</td>
+        <td>{{ image.status }}</td>
+        <td>{{ image.upDateDate }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -38,31 +39,32 @@
   <div class="container-fluid p-3 overflow-auto mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view>
 
         </router-view>
       </div>
     </div>
     <table class="table table-sm">
       <thead>
-        <tr>
-          <th scope="col">{{ $t('allImages.ean') }}</th>
-          <th scope="col">{{ $t('allImages.employeeName') }}</th>
-          <th scope="col">{{ $t('allImages.status') }}</th>
-          <th scope="col">{{ $t('allImages.date') }}</th>
-        </tr>
+      <tr>
+        <th scope="col">{{$t('allImages.ean')}}</th>
+        <th scope="col">{{$t('allImages.employeeName')}}</th>
+        <th scope="col">{{$t('allImages.status')}}</th>
+        <th scope="col">{{$t('allImages.date')}}</th>
+      </tr>
       </thead>
       <tbody>
-        <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td>{{ image.laptop[0].ean }}</td>
-          <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-          <td v-else class="text-secondary">Niet toegewezen</td>
-          <td>{{ image.status }}</td>
-          <td>{{ image.upDateDate }}</td>
-        </tr>
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td>{{ image.laptop.ean }}</td>
+        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-else class="text-secondary">Niet toegewezen</td>
+        <td>{{ image.status }}</td>
+        <td>{{ image.upDateDate }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
+
 </template>
 
 <script>
@@ -72,6 +74,7 @@ import { barcode } from './HeaderComponent.vue'
 
 export default {
   name: "allImagesComponent",
+  inject: ["imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -80,26 +83,26 @@ export default {
       barcode
     }
   },
-  created() {
-    this.images = [...imageData]
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
-        this.selectedImage = null
         this.$router.push(parentPath);
+        this.selectedImage = null;
       } else {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
+        this.selectedImage = image;
       }
       console.log(this.selectedImage)
     },

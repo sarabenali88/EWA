@@ -23,7 +23,7 @@ public class AccountRepositoryMock implements Repository<Account> {
     }
 
     @Override
-    public Account findById(int id) {
+    public Account findById(long id) {
         return this.accounts.stream().filter(account -> account.getPersonalNumber() == id).findFirst().orElse(null);
     }
 
@@ -41,7 +41,7 @@ public class AccountRepositoryMock implements Repository<Account> {
     }
 
     @Override
-    public Account deleteById(int id) {
+    public Account deleteById(long id) {
         Account deleteAccount = this.findById(id);
 
         if (deleteAccount != null) {

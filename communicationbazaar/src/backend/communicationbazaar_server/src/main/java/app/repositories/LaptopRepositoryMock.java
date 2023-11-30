@@ -29,7 +29,7 @@ public class LaptopRepositoryMock implements Repository<Laptop> {
     }
 
     @Override
-    public Laptop findById(int id) {
+    public Laptop findById(long id) {
         return this.laptops.stream().filter(laptop -> laptop.getEan() == id).findFirst().orElse(null);
     }
 
@@ -50,7 +50,7 @@ public class LaptopRepositoryMock implements Repository<Laptop> {
     }
 
     @Override
-    public Laptop deleteById(int id) {
+    public Laptop deleteById(long id) {
         Laptop deleteLaptop = this.findById(id);
 
         if (deleteLaptop != null) {

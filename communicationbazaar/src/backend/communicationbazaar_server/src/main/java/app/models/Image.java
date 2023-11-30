@@ -5,11 +5,19 @@
  */
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
-
+@Entity
 public class Image {
+    @Id
+    @SequenceGenerator(name="Image_ids", initialValue=1000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Image_ids")
+    private long id;
+    @ManyToOne
+    @JsonManagedReference
     private Laptop laptop;
     @JsonView(ViewClasses.Summary.class)
     private String version;
@@ -20,11 +28,15 @@ public class Image {
     private Status status;
     private Release release;
     private Problem problem;
-    private int week;
-    private int year;
+    private int createdWeek;
+    private int createdYear;
     private String name;
     private String comment;
     private String imageMaker;
+
+    public Image() {
+
+    }
 
     public enum Status {
         TODO("Te doen"),
@@ -73,7 +85,8 @@ public class Image {
         }
     }
 
-    public Image(Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int week, int year, String name, String comment, String imageMaker) {
+    public Image(long id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment, String imageMaker) {
+        this.id = id;
         this.laptop = laptop;
         this.version = version;
         this.store = store;
@@ -81,8 +94,8 @@ public class Image {
         this.status = status;
         this.release = release;
         this.problem = problem;
-        this.week = week;
-        this.year = year;
+        this.createdWeek = createdWeek;
+        this.createdYear = createdYear;
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;
@@ -94,7 +107,7 @@ public class Image {
      * @return gives back a sample account.
      * @author Jasper Fernhout
      */
-    public static Image createSampleImage() {
+    public static Image createSampleImage(long id) {
         int randomNumber3 = (int) Math.floor(Math.random() * 3);
         int randomNumber2 = (int) Math.floor(Math.random() * 2);
         int randomNumber231 = (int) Math.floor(Math.random() * 231);
@@ -114,6 +127,7 @@ public class Image {
         imageMaker.add("Willem");
 
         return new Image(
+                id,
                 Laptop.createSampleLaptop(),
                 "MM V" + randomNumber231,
                 store.get(randomNumber3),
@@ -127,6 +141,10 @@ public class Image {
                 "",
                 imageMaker.get(randomNumber3)
         );
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Laptop getLaptop() {
@@ -157,12 +175,12 @@ public class Image {
         return problem;
     }
 
-    public int getWeek() {
-        return week;
+    public int getCreatedWeek() {
+        return createdWeek;
     }
 
-    public int getYear() {
-        return year;
+    public int getCreatedYear() {
+        return createdYear;
     }
 
     public String getName() {
@@ -175,5 +193,57 @@ public class Image {
 
     public String getImageMaker() {
         return imageMaker;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public void setUpDateDate(String upDateDate) {
+        this.upDateDate = upDateDate;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+    }
+
+    public void setCreatedWeek(int week) {
+        this.createdWeek = week;
+    }
+
+    public void setCreatedYear(int year) {
+        this.createdYear = year;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setImageMaker(String imageMaker) {
+        this.imageMaker = imageMaker;
     }
 }

@@ -35,7 +35,7 @@ public class LaptopController {
     }
 
     @GetMapping(path = "{ean}", produces = "application/json")
-    public ResponseEntity<Laptop> getOneLaptop(@PathVariable() int ean) throws ResourceNotFoundException {
+    public ResponseEntity<Laptop> getOneLaptop(@PathVariable() long ean) throws ResourceNotFoundException {
         Laptop laptop = this.laptopList.findById(ean);
 
         if (laptop == null) {
@@ -46,7 +46,7 @@ public class LaptopController {
     }
 
     @DeleteMapping(path = "{ean}", produces = "application/json")
-    public Laptop deleteOneLaptop(@PathVariable() int ean) throws ResourceNotFoundException {
+    public Laptop deleteOneLaptop(@PathVariable() long ean) throws ResourceNotFoundException {
         Laptop laptop = this.laptopList.deleteById(ean);
 
         if (laptop == null) {
@@ -69,7 +69,7 @@ public class LaptopController {
     }
 
     @PutMapping(path = "{ean}", produces = "application/json")
-    public Laptop updateOneLaptop(@PathVariable() int ean, @RequestBody Laptop targetLaptop) throws PreConditionFailedException {
+    public Laptop updateOneLaptop(@PathVariable() long ean, @RequestBody Laptop targetLaptop) throws PreConditionFailedException {
 
         if (ean != targetLaptop.getEan()) {
             throw new PreConditionFailedException("Laptop-ean=" + targetLaptop.getEan() + " does not match path parameter=" + ean);
