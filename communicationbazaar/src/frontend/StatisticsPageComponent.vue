@@ -33,8 +33,8 @@ export default {
       }
     }
   },
-  created() {
-    this.createInformation();
+  async created() {
+    await this.createInformation();
     // for (let i in imageData) {
     //   this.images.push(imageData[i]);
     // }
@@ -64,6 +64,7 @@ export default {
           amountOfImages += 1;
         }
       }
+      console.log(amountOfImages)
       return amountOfImages;
     },
     getDataOfLastQuarter() {
@@ -74,6 +75,7 @@ export default {
           amountOfImages += 1;
         }
       }
+      console.log(amountOfImages)
       return amountOfImages;
     },
 
@@ -85,6 +87,7 @@ export default {
           amountOfImages += 1;
         }
       }
+      console.log(amountOfImages)
       return amountOfImages;
     },
     getData() {
