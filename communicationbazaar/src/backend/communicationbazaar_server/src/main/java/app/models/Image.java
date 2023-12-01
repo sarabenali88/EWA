@@ -17,14 +17,14 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Image_ids")
     private long id;
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference
     private Laptop laptop;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private String version;
     private String store;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private String upDateDate;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private Status status;
     private Release release;
     private Problem problem;

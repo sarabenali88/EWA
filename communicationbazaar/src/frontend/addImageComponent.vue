@@ -5,7 +5,7 @@
       <div class="col-5">
         <div class="input-group">
           <select v-model="selectedLaptop" class="form-control">
-              <option v-for="laptop in laptops" :key="laptop.id" :value="laptop">
+              <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
              {{laptop.ean}}
               </option>
             </select>
@@ -95,6 +95,7 @@ export default {
       formattedDate: null,
       formattedWeek: null,
       laptops: [],
+      defaultId: 0,
     }
   },
   async created() {
@@ -122,7 +123,7 @@ export default {
     async saveImage() {
        this.formattedDate = this.formatDate(this.date);
        this.formattedWeek = this.splitWeek(this.week);
-       this.image =  new Image(this.selectedLaptop, this.startVersion, null,
+       this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
             this.formattedDate, this.statusSelect, null, null, this.formattedWeek, null,
            this.imageName, null, null);
        console.log(this.selectedLaptop);
