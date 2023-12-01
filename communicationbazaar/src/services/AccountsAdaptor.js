@@ -1,4 +1,9 @@
-import {Account} from '@/models/Account'
+/**
+ * This is a class that will fetch the data for the accounts from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
+import { Account } from '@/models/Account'
 
 export class AccountsAdaptor {
     resourcesUrl;
@@ -8,12 +13,17 @@ export class AccountsAdaptor {
     }
 
     async fetchJson(url, options = null) {
-        const response = await fetch(url, options);
-        if (response.ok) {
-            return await response.json();
-        } else {
-            // TODO hier moet nog een; response error die in de json body zit
-            return null;
+        try {
+            const response = await fetch(url, options);
+            if (response.ok) {
+                return await response.json();
+            } else {
+                // TODO hier moet nog een; response error die in de json body zit
+                return []
+            }
+
+        } catch (error) {
+            return []
         }
     }
 
@@ -66,5 +76,9 @@ export class AccountsAdaptor {
             {
                 method: 'DELETE'
             });
+    }
+
+    async verifyPassword(personalNumber, password) {
+        return await this.fetchJson(this.resourcesUrl + '/verifyPassword/' + personalNumber + "/" + password);
     }
 }

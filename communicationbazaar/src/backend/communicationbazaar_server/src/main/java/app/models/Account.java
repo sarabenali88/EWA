@@ -1,24 +1,39 @@
+/**
+ * This is the model for an account that will be created in the back end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
 
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
+
+    @Id
+    @SequenceGenerator(name="Account_ids", initialValue=10000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Account_ids")
     @JsonView(ViewClasses.Summary.class)
-    private int personalNumber;
+    private long personalNumber;
     private String password;
+    private String hashedPassword = null;
     @JsonView(ViewClasses.Summary.class)
     private String name;
     @JsonView(ViewClasses.Summary.class)
     private String email;
     private String role;
     private String location;
-    private ArrayList<Image> imagesOnGoing;
-    private ArrayList<Image> imagesDone;
     private boolean loggedIn;
+
+    public Account() {
+
+    }
 
     public enum LOGGEDIN {
         TRUE(true),
@@ -41,31 +56,47 @@ public class Account {
         }
     }
 
-    public Account(int personalNumber, String password, String name, String email, String role, String location, ArrayList<Image> imagesOnGoing, ArrayList<Image> imagesDone, LOGGEDIN loggedIn) {
+    public Account(long personalNumber, String password, String name, String email, String role, String location, LOGGEDIN loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;
         this.name = name;
         this.email = email;
         this.role = role;
         this.location = location;
-        this.imagesOnGoing = imagesOnGoing;
-        this.imagesDone = imagesDone;
         this.loggedIn = loggedIn.getValue();
     }
 
+    /**
+     * Hash the given password in combination with the account identification (id)
+     * and some extra characters for extra security.
+     * Different accounts with the same password will deliver different hashes
+     * @param password
+     */
+    public String hashPassword(String password) {
+        return SecureHasher.secureHash("Id-" + this.getPersonalNumber() + ":" + password);
+    }
+    public void setPassword(String newPassword) {
+        this.setHashedPassword(this.hashPassword(newPassword));
+    }
+
+    /**
+     * Verify whether the hash of the given password
+     * matches the correct hash of the account's true password
+     * (without actually knowing the correct password: only its hash has been kept in store)
+     * @param password
+     * @return
+     */
+    public boolean verifyPassword(String password) {
+        return this.hashPassword(password).equals(this.getHashedPassword());
+    }
+
+    /**
+     * This is a function that will create a sample account for test functionalities.
+     *
+     * @return gives back a sample account.
+     * @author Jasper Fernhout
+     */
     public static Account createSampleAccount() {
-        ArrayList<Image> onGoingImages = new ArrayList<>();
-        ArrayList<Image> doneImages = new ArrayList<>();
-
-        // Create and add some Image objects to the onGoingImages list
-        onGoingImages.add(Image.createSampleImage());
-        onGoingImages.add(Image.createSampleImage());
-        // Add more images as needed.
-
-        // Create and add some Image objects to the doneImages list
-        doneImages.add(Image.createSampleImage());
-        doneImages.add(Image.createSampleImage());
-        // Add more images as needed.
 
         return new Account(
                 123142,
@@ -74,13 +105,11 @@ public class Account {
                 "email",
                 "role",
                 "Amsterdam",
-                onGoingImages,
-                doneImages,
                 LOGGEDIN.values()[0]
         );
     }
 
-    public int getPersonalNumber() {
+    public long getPersonalNumber() {
         return personalNumber;
     }
 
@@ -90,6 +119,14 @@ public class Account {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getName() {
@@ -106,14 +143,6 @@ public class Account {
 
     public String getLocation() {
         return location;
-    }
-
-    public ArrayList<Image> getImagesOnGoing() {
-        return imagesOnGoing;
-    }
-
-    public ArrayList<Image> getImagesDone() {
-        return imagesDone;
     }
 
     public boolean isLoggedIn() {

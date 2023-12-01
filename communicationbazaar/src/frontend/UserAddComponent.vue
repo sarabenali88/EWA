@@ -76,6 +76,11 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of adding a user.
+ *
+ * @author Jasper Fernhout
+ */
 import {Account} from "@/models/Account";
 
 export default {

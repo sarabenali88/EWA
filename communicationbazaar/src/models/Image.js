@@ -8,8 +8,8 @@ export class Image{
     status;
     release;
     problem;
-    week;
-    year;
+    createdWeek;
+    createdYear;
     name;
     comment;
     imageMaker;
@@ -39,8 +39,8 @@ export class Image{
         this.status = status;
         this.release = release;
         this.problem = problem;
-        this.week = week;
-        this.year = year;
+        this.createdWeek = week;
+        this.createdYear = year;
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;

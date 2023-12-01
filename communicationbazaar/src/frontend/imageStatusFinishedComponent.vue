@@ -5,7 +5,7 @@
   <div class="container-fluid p-3 normal">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage"
+        <router-view
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
@@ -22,8 +22,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
@@ -38,7 +38,7 @@
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage">
+        <router-view>
 
         </router-view>
       </div>
@@ -53,8 +53,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of images" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+      <tr v-for="image of images" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
@@ -66,11 +66,11 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "imageStatusFinishedComponent",
+  inject: ["imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -78,34 +78,31 @@ export default {
       selectedImage: null
     }
   },
-  created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
     isCorrespondingStatus(image) {
-      if (image.status === "Afgerond") {
+      if (image.status === "FINISHED") {
         return true;
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },
@@ -130,7 +127,7 @@ export default {
       let imagesCopy = [...this.images];
       // Sort the copy
       return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
-    }
+    },
   }
 }
 </script>

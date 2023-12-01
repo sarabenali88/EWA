@@ -14,10 +14,13 @@
     "bootstrap-vue": "^2.23.1",
     "cheerio": "^1.0.0-rc.12",
     "core-js": "^3.8.3",
+    "mitt": "^3.0.1",
     "vee-validate": "^4.11.7",
     "vue": "^3.3.4",
+    "vue-barcode-reader": "^1.0.3",
     "vue-i18n": "^9.6.2",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-qrcode-reader": "^0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

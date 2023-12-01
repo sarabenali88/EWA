@@ -17,6 +17,8 @@ import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import UserAddComponent from "@/frontend/UserAddComponent";
+import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
+
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -32,27 +34,27 @@ export const router = createRouter({
                 {
                     path: 'allImages',
                     component: allImagesComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusTodo',
                     component: imageStatusTodoComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusOnGoing',
                     component: imageStatusOnGoingComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusFinished',
                     component: imageStatusFinishedComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
                     path: 'statusOverDate',
                     component: imageStatusOverDateComponent,
-                    children: [{path: ':id', component: imageDetailComponent}]
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
                 }
             ]
         },
@@ -76,8 +78,19 @@ export const router = createRouter({
                 {path: 'userAdd', component: UserAddComponent}],
         },
         {
-            path: '/profilePage', component: ProfilePageComponent
+            path: NavBar.data().myProfileRoute,
+            name: 'myProfileRoute',
+            component: ProfilePageComponent,
+            children: [
+                {
+                    path: 'claimedImageRoute',
+                    name: 'claimedImageRoute',
+                    component: ClaimedImageComponent,
+                },
+            ]
         },
+
+
         {path: '/:pathMatch(.*)', component: UnknownRoute},
         {path: '/addImage', component: addImageComponent}
     ]

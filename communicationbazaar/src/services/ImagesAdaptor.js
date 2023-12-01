@@ -1,3 +1,8 @@
+/**
+ * This is a class that will fetch the data for the images from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 import { Image } from '@/models/Image'
 
 export class ImagesAdaptor {
@@ -22,8 +27,8 @@ export class ImagesAdaptor {
         return images?.map(image => Image.copyConstructor(image));
     }
 
-    async asyncFindById (ean) {
-        const imageData = await this.fetchJson(this.resourcesUrl + '/' + ean);
+    async asyncFindById (id) {
+        const imageData = await this.fetchJson(this.resourcesUrl + '/' + id);
         return Image.copyConstructor(imageData);
     }
 

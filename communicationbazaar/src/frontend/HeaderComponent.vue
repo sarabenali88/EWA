@@ -1,18 +1,36 @@
 <template>
-  <div class="page" :class="{expanded: this.expanded}">
-    <div class="headerContent" >
+  <div class="page" :class="{ expanded: this.expanded }">
+    <div class="headerContent">
       <!-- Mediamarkt logo-->
       <img class="logo" :src="mediaMarktLogo" alt="">
       <!-- Input Search Image-->
       <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="lightgrey" class="bi bi-search mobile"
-           viewBox="0 0 16 16" @click="expandSearch()">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        viewBox="0 0 16 16" @click="expandSearch()">
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
       </svg>
       <div class="input-group-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-search"
+          viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
         <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+      </div>
+      <!-- Test button since for devices with no camera's-->
+<!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('38000447')">Test Btn</button>-->
+      <!-- button for BarcodeScanner code-->
+      <button type="button" class="btn btn-danger m-lg-3" @click="toggleStreamBarcodeReader">Scan for an image</button>
+      <!-- BarcodeScanner in modal pop up-->
+      <div v-if="showModal" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="toggleStreamBarcodeReader">&times;</span>
+          <div class="barcodeScanner-container">
+            <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" class="qrcode-stream"></StreamBarcodeReader>
+      <!-- Seeing the value just for testing purpose-->
+<!--            <h1>{{ scannedBarcode }}</h1>-->
+          </div>
+        </div>
       </div>
       <!--Translation select-->
       <div class="translation" v-if="checkScreenWidth">
@@ -74,13 +92,24 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
+import { StreamBarcodeReader } from "vue-barcode-reader";
+import { ref } from 'vue';
+
+export const barcode = ref(null);
+
 export default {
   name: 'HeaderComponent',
-  data () {
+  components: {
+    StreamBarcodeReader
+  },
+  data() {
     return {
       mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
       expanded: false,
+      mobile: false,
+      showQRCodeStream: false,
+      error: '',
+      showModal: false,
       mobile: false,
       images: [],
       filteredImages: [],
@@ -111,7 +140,7 @@ export default {
     }
   },
   methods: {
-    expandSearch(){
+    expandSearch() {
       this.expanded = !this.expanded;
     },
     updateLocale() {
@@ -125,11 +154,26 @@ export default {
       }
     },
     checkScreenWidth() {
-      if(window.innerWidth < 600) {
+      if (window.innerWidth < 600) {
         this.mobile = !this.mobile;
       }
-    }
-    }
+    },
+    toggleStreamBarcodeReader() {
+      this.showModal = !this.showModal;
+    },
+    onDecode(code) {
+      if (code) {
+        barcode.value = code
+        setTimeout(() => {
+          this.showModal = false
+        }, 1500)
+      }
+      // Made to reset the scanner but not necessary anymore
+      /*setTimeout(() => {
+        barcode.value = null
+      }, 500);*/
+    },
+  }
 }
 </script>
 
@@ -281,10 +325,61 @@ export default {
   opacity: 0;
 }
 
-.language{
+.language {
   margin-left: 50px
 }
-.language:hover{
+
+.language:hover {
   border-color: salmon;
+}
+
+
+/*BarcodeScanner*/
+.barcodeScanner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+/*modal*/
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
 }
 </style>
