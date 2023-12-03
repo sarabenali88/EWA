@@ -47,6 +47,7 @@ export default {
 #mainContent {
   margin-left: 0;
   max-height: calc(100vh + 100px);
+  z-index: -10;
 }
 
 @media (min-width: 700px) {

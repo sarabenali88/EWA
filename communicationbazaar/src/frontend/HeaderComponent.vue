@@ -15,7 +15,28 @@
           <path
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
-        <input type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+        <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+      </div>
+      <div class="search-result-main shadow-sm" v-if="searchQuery !== '' " >
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th scope="col">{{$t('allImages.ean')}}</th>
+            <th scope="col">{{$t('allImages.employeeName')}}</th>
+            <th scope="col">{{$t('allImages.status')}}</th>
+            <th scope="col">{{$t('allImages.date')}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="image in this.filterImages" v-bind:key="image.ean">
+            <td>{{ image.laptop.ean }}</td>
+            <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+            <td v-else class="text-secondary">Niet toegewezen</td>
+            <td>{{ image.status }}</td>
+            <td>{{ image.upDateDate }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
       <!-- Test button since for devices with no camera's-->
 <!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('38000447')">Test Btn</button>-->
@@ -56,7 +77,7 @@
     </div>
     <Transition>
       <div v-if="expanded" >
-        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="grey" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+        <svg @click="toggleStreamBarcodeReader" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="grey" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
           <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z"/>
           <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z"/>
           <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z"/>
@@ -76,7 +97,7 @@
             </thead>
             <tbody>
             <tr v-for="image in this.filterImages" v-bind:key="image.ean">
-              <td>{{ image.laptop[0].ean }}</td>
+              <td>{{ image.laptop.ean }}</td>
               <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
               <td v-else class="text-secondary">Niet toegewezen</td>
               <td>{{ image.status }}</td>
@@ -99,6 +120,7 @@ export const barcode = ref(null);
 
 export default {
   name: 'HeaderComponent',
+  inject: ["imagesService"],
   components: {
     StreamBarcodeReader
   },
@@ -106,7 +128,6 @@ export default {
     return {
       mediaMarktLogo: require('../assets/mediamarkt-logo-png-transparent.png'),
       expanded: false,
-      mobile: false,
       showQRCodeStream: false,
       error: '',
       showModal: false,
@@ -116,27 +137,23 @@ export default {
       searchQuery: ''
     }
   },
-  created() {
-    for (let i in imageData) {
-        this.images.push(imageData[i]);
-        this.filteredImages.push(imageData[i])
-    }
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
   },
   watch: {},
   computed: {
     filterImages(){
-      if(this.searchQuery !== '') {
-        this.filteredImages.filter(image =>
-            image.laptop.ean.includes(this.searchQuery) ||
-            image.imageMaker.includes(this.searchQuery) ||
-            image.status.includes(this.searchQuery) ||
-            image.upDateDate.includes(this.searchQuery)
+      const query = this.searchQuery.toLowerCase().trim();
+      if(query !== '') {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        return this.filteredImages = this.images.filter(image =>
+            image.laptop.ean.toString().includes(query) ||
+            image.imageMaker.toLowerCase().includes(query) ||
+            image.status.toLowerCase().includes(query) ||
+            image.upDateDate.toLowerCase().includes(query)
         )
-        console.log(this.filteredImages);
-        return this.filteredImages
       }
-
-      return this.filterImages()
+      return this.filteredImages()
     }
   },
   methods: {
@@ -241,6 +258,18 @@ export default {
   display: none;
 }
 
+.search-result-main {
+
+  width: 30%;
+  margin-left: 600px;
+  margin-top: 10px;
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+}
+
 
 @media (max-width: 700px) {
 
@@ -261,6 +290,9 @@ export default {
     margin-left: -40px;
   }
 
+  .btn-danger {
+    display: none;
+  }
   .translation {
     display: none;
   }
@@ -349,7 +381,6 @@ export default {
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;

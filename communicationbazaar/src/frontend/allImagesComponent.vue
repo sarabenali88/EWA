@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 import { barcode } from './HeaderComponent.vue'
 
