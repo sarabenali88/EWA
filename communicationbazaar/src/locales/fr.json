@@ -92,7 +92,8 @@
     "loggedInMessage": "Connecté",
     "wrongPassMessage": "Mot de passe erroné",
     "wrongPersMessage": "Le numéro de personnel est erroné",
-    "newPassword": "Nouveau mot de passe"
+    "newPassword": "Nouveau mot de passe",
+    "roleChange": "Vous ne pouvez pas changer votre propre rôle"
   },
   "profilePage": {
     "role": "Rôle",

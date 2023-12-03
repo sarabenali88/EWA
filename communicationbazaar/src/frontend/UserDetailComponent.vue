@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-danger">{{$t('adminPanel.title')}}</h6>
+          <h6 class="mb-2 text-danger">{{ $t('adminPanel.title') }}</h6>
         </div>
         <div v-if="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ alertMessage }}
@@ -11,50 +11,60 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.name }">
-            <label for="fullName">{{$t('adminPanel.name')}}</label>
+            <label for="fullName">{{ $t('adminPanel.name') }}</label>
             <input v-model="accountCopy.name" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.email }">
-            <label for="eMail">{{$t('adminPanel.email')}}</label>
+            <label for="eMail">{{ $t('adminPanel.email') }}</label>
             <input v-model="accountCopy.email" class="form-control">
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="phone">{{$t('adminPanel.employeeNumber')}}</label>
+            <label for="phone">{{ $t('adminPanel.employeeNumber') }}</label>
             <input v-model="accountCopy.personalNumber" class="form-control" readonly>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="website">{{$t('adminPanel.password')}}</label>
+            <label for="website">{{ $t('adminPanel.password') }}</label>
             <input v-model="accountCopy.password" class="form-control" type="password" readonly>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.role }">
-            <label for="zIp">{{$t('adminPanel.role')}}</label>
+            <label for="zIp">{{ $t('adminPanel.role') }}</label>
             <select v-model="accountCopy.role" class="form-select" aria-label="Default select example">
-              <option value="" disabled selected>{{$t('adminPanel.select')}}</option>
-              <option value="ImageMaker">{{$t('adminPanel.optionOne')}}</option>
-              <option value="admin">{{$t('adminPanel.optionTwo')}}</option>
+              <option value="" disabled selected>{{ $t('adminPanel.select') }}</option>
+              <option value="ImageMaker">{{ $t('adminPanel.optionOne') }}</option>
+              <option value="admin">{{ $t('adminPanel.optionTwo') }}</option>
             </select>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group">
-            <label for="website">{{$t('adminPanel.location')}}</label>
-            <input v-model="accountCopy.location" class="form-control">
+            <label for="website">{{ $t('adminPanel.location') }}</label>
+            <select v-model="accountCopy.location" class="form-select" aria-label="Default select example">
+              <option value="" disabled selected>{{ $t('adminPanel.select') }}</option>
+              <option value="Hoorn">Hoorn</option>
+              <option value="Amsterdam">Amsterdam</option>
+              <option value="Apeldoorn">Apeldoorn</option>
+              <option value="Leeuwarden">Leeuwarden</option>
+              <option value="Groningen">Groningen</option>
+            </select>
           </div>
         </div>
       </div>
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-right">
-            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">{{$t('adminPanel.cancelButton')}}</button>
-            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">{{$t('adminPanel.editButton')}}</button>
+            <button @click="showConfirmModal(cancel)" class="btn btn-secondary">{{ $t('adminPanel.cancelButton') }}
+            </button>
+            <button @click="showConfirmModal(confirm)" class="btn btn-success m-lg-2">
+              {{ $t('adminPanel.editButton') }}
+            </button>
           </div>
         </div>
       </div>
@@ -65,15 +75,17 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
+          <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>{{$t('adminPanel.confirmMessage')}}</p>
+          <p>{{ $t('adminPanel.confirmMessage') }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
-          <button type="button" class="btn btn-success" @click="performAction()">{{$t('adminPanel.editButton')}}</button>
+          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{ $t('adminPanel.cancelButton') }}
+          </button>
+          <button type="button" class="btn btn-success" @click="performAction()">{{ $t('adminPanel.editButton') }}
+          </button>
         </div>
       </div>
     </div>
@@ -157,8 +169,12 @@ export default {
     },
     showConfirmModal(cancelOrConfirm) {
       if (cancelOrConfirm === "confirm") {
-        if (this.fieldsFilledCheck(this.accountCopy)) {
+        if (this.accountCopy.loggedIn === true && this.accountCopy.role === "ImageMaker" && this.currentAccount.role === "admin") {
+          this.displayAlert(this.$t('adminPanel.roleChange'));
+        } else if (this.fieldsFilledCheck(this.accountCopy)) {
           if (!this.hasChanged()) {
+            console.log(this.accountCopy.loggedIn)
+            console.log(this.currentAccount.role)
             this.dismissAlert();
             this.action = "confirm";
             this.showModal = true;
