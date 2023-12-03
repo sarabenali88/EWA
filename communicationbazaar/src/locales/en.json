@@ -65,7 +65,7 @@
     "deleteButton": "Delete",
     "errorMessage": "Not all fields are filled in!",
     "confirmMessage": "Are you sure you want to continue?",
-    "newAccount": "New account for {name} has been created with employee number {employeeNumber}",
+    "newAccount": "New account for {name} has been created with employee number {employeeNumber} and password welkom",
     "deleteUser": "User {name} has been successfully deleted"
   },
   "imageStatus": {
@@ -83,11 +83,16 @@
     "title": "Log In",
     "employeeNumber": "Employee number",
     "password": "Password",
+    "passwordRepeat": "Repeat password",
+    "passwordChange": "Edit password",
+    "passwordWrongRepeat": "Passwords are not the same",
+    "emailWrong": "E-mail is wrong",
     "remember": "Remember password",
     "logInButton": "Log in",
     "loggedInMessage": "Logged In",
     "wrongPassMessage": "Wrong password",
-    "wrongPersMessage": "The employee number is wrong"
+    "wrongPersMessage": "The employee number is wrong",
+    "newPassword": "New password"
   },
   "profilePage": {
     "role": "Role",

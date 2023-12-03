@@ -65,7 +65,7 @@
     "deleteButton" : "Verwijderen",
     "errorMessage": "Niet alle velden zijn ingevuld!",
     "confirmMessage": "Weet u zeker dat u door wilt gaan?",
-    "newAccount": "Nieuw account voor {name} is aangemaakt met personeelsnummer {employeeNumber}",
+    "newAccount": "Nieuw account voor {name} is aangemaakt met personeelsnummer {employeeNumber} en wachtwoord welkom",
     "deleteUser": "Gebruiker {name} is succesvol verwijderd"
 
   },
@@ -84,11 +84,16 @@
     "title": "Inloggen",
     "employeeNumber": "Personeelsnummer",
     "password": "Wachtwoord",
+    "passwordRepeat": "Herhaal wachtwoord",
+    "passwordChange": "Wijzig wachtwoord",
+    "passwordWrongRepeat": "Wachtwoorden komen niet overeen",
+    "emailWrong": "E-mail is fout",
     "remember": "Onthoud wachtwoord",
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
-    "wrongPersMessage": "Personeelsnummer is verkeerd"
+    "wrongPersMessage": "Personeelsnummer is verkeerd",
+    "newPassword": "Nieuw wachtwoord"
   },
   "profilePage": {
     "role": "Functie",

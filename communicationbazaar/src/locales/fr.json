@@ -65,7 +65,7 @@
     "deleteButton": "Supprimer",
     "errorMessage": "Tous les champs ne sont pas remplis!",
     "confirmMessage": "Êtes-vous sûr de vouloir changer?",
-    "newAccount": "Nouveau compte pour {name} a été créé avec le numéro d'employé {employeeNumber}",
+    "newAccount": "Nouveau compte pour {name} a été créé avec le numéro d'employé {employeeNumber} mot de passe welkom",
     "deleteUser": "L'utilisateur {name} a été supprimé avec succès"
   },
   "imageStatus": {
@@ -83,11 +83,16 @@
     "title": "Se connecter",
     "employeeNumber": "Numéro de l'employé",
     "password": "Mot de passe",
+    "passwordRepeat": "Répéter le mot de passe",
+    "passwordChange": "Changer le mot de passe",
+    "passwordWrongRepeat": "Les mots de passe ne correspondent pas",
+    "emailWrong": "L'e-mail est faux",
     "remember": "Mémoriser le mot de passe",
     "logInButton": "Se connecter",
     "loggedInMessage": "Connecté",
     "wrongPassMessage": "Mot de passe erroné",
-    "wrongPersMessage": "Le numéro de personnel est erroné"
+    "wrongPersMessage": "Le numéro de personnel est erroné",
+    "newPassword": "Nouveau mot de passe"
   },
   "profilePage": {
     "role": "Rôle",
