@@ -31,6 +31,9 @@ export default {
       laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
       accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts')
     }
+  },
+  created() {
+    this.$router.push("/imageListRoute/allImages");
   }
 }
 </script>

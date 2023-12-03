@@ -48,18 +48,38 @@
         </select>
       </div>
       <!-- Alert button-->
-      <div class="bell">
+      <div class="bell" @click="showNotifications">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-bell" viewBox="0 0 16 16">
           <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
         </svg>
       </div>
+    </div>
+    <div class="card shadow" v-if="showNotification">
+      <div class="card-header"><h5 class="card-title">Notificaties</h5></div>
+      <ul class="list-group list-group-flush shadow">
+        <li class="list-group-item ">
+          <p class="card-text">test image name etc</p>
+          <p class="card-text"><small class="text-body-secondary">20-12-2023</small></p>
+        </li>
+        <li class="list-group-item">
+          <p class="card-text">test image name etc</p>
+          <p class="card-text"><small class="text-body-secondary">20-12-2023</small></p>
+        </li>
+        <li class="list-group-item">
+          <p class="card-text">test image name etc</p>
+          <p class="card-text"><small class="text-body-secondary">20-12-2023</small></p>
+        </li>
+      </ul>
+      <div class="card-footer shadow"> Zie alle notificaties</div>
     </div>
     <div class="search-result-main shadow" v-if="searchQuery !== '' && !this.expanded"  >
       <table class="table table-sm">
         <thead>
         <tr>
           <th scope="col">{{$t('allImages.ean')}}</th>
+          <th scope="col">{{$t('allImages.imageName')}}</th>
           <th scope="col">{{$t('allImages.employeeName')}}</th>
+          <th scope="col">{{$t('allImages.location')}}</th>
           <th scope="col">{{$t('allImages.status')}}</th>
           <th scope="col">{{$t('allImages.date')}}</th>
         </tr>
@@ -67,8 +87,10 @@
         <tbody>
         <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
           <td>{{ image.laptop.ean }}</td>
+          <td>{{ image.name }}</td>
           <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-          <td v-else class="text-secondary">Niet toegewezen</td>
+          <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+          <td>{{ image.store }}</td>
           <td>{{ image.status }}</td>
           <td>{{ image.upDateDate }}</td>
         </tr>
@@ -132,6 +154,7 @@ export default {
       showQRCodeStream: false,
       error: '',
       showModal: false,
+      showNotification: false,
       mobile: false,
       images: [],
       filteredImages: [],
@@ -159,6 +182,9 @@ export default {
     }
   },
   methods: {
+    showNotifications() {
+      this.showNotification = !this.showNotification;
+    },
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
@@ -201,20 +227,47 @@ export default {
     },
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
+      console.log(parentPath)
       if (this.selectedImage === image) {
         this.$router.push(parentPath);
         this.selectedImage = null;
       } else {
-        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
+        this.$router.push("/imageListRoute/allImages/" + image.laptop.ean + "/" + image.id);
         this.selectedImage = image;
+        this.expanded = false;
+        this.searchQuery = '';
       }
-      console.log(this.selectedImage)
     }
   }
 }
 </script>
 
 <style scoped>
+
+.card {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  right: 5%;
+  top: 80px;
+}
+
+.card-footer {
+  background-color: #FAFAFA;
+}
+
+.card-header {
+  background-color: #FAFAFA;
+}
+
+.card-footer {
+  color: #DA1C25;
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #FFDCDC;
+}
 
 .logo {
   width: 400px;
@@ -280,7 +333,7 @@ export default {
 
 .search-result-main {
 
-  width: 30%;
+  width: 40%;
   margin-left: 600px;
   margin-top: 80px;
   display: flex;
@@ -292,6 +345,14 @@ export default {
 
 
 @media (max-width: 700px) {
+
+  .card {
+    position: absolute;
+    width: 70%;
+    height: 30%;
+    right: 5%;
+    top: 65px;
+  }
 
   .search-result {
     font-size: x-small;
