@@ -17,27 +17,6 @@
         </svg>
         <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control">
       </div>
-      <div class="search-result-main shadow-sm" v-if="searchQuery !== '' " >
-        <table class="table table-sm">
-          <thead>
-          <tr>
-            <th scope="col">{{$t('allImages.ean')}}</th>
-            <th scope="col">{{$t('allImages.employeeName')}}</th>
-            <th scope="col">{{$t('allImages.status')}}</th>
-            <th scope="col">{{$t('allImages.date')}}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="image in this.filterImages" v-bind:key="image.ean">
-            <td>{{ image.laptop.ean }}</td>
-            <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-            <td v-else class="text-secondary">Niet toegewezen</td>
-            <td>{{ image.status }}</td>
-            <td>{{ image.upDateDate }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
       <!-- Test button since for devices with no camera's-->
 <!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('38000447')">Test Btn</button>-->
       <!-- button for BarcodeScanner code-->
@@ -75,6 +54,28 @@
         </svg>
       </div>
     </div>
+    <div class="search-result-main shadow" v-if="searchQuery !== '' && !this.expanded"  >
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th scope="col">{{$t('allImages.ean')}}</th>
+          <th scope="col">{{$t('allImages.employeeName')}}</th>
+          <th scope="col">{{$t('allImages.status')}}</th>
+          <th scope="col">{{$t('allImages.date')}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
+          <td>{{ image.laptop.ean }}</td>
+          <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+          <td v-else class="text-secondary">Niet toegewezen</td>
+          <td>{{ image.status }}</td>
+          <td>{{ image.upDateDate }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
     <Transition>
       <div v-if="expanded" >
         <svg @click="toggleStreamBarcodeReader" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="grey" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
@@ -96,7 +97,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="image in this.filterImages" v-bind:key="image.ean">
+            <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
               <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
               <td v-else class="text-secondary">Niet toegewezen</td>
@@ -139,6 +140,7 @@ export default {
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
+    this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   watch: {},
   computed: {
@@ -157,6 +159,13 @@ export default {
     }
   },
   methods: {
+    findSelectedFromRouteParams(id) {
+      if (id > 0) {
+        id = parseInt(id)
+        return this.images.find(value => value.id === id);
+      }
+      return null;
+    },
     expandSearch() {
       this.expanded = !this.expanded;
     },
@@ -190,6 +199,17 @@ export default {
         barcode.value = null
       }, 500);*/
     },
+    setImage(image) {
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
+      if (this.selectedImage === image) {
+        this.$router.push(parentPath);
+        this.selectedImage = null;
+      } else {
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
+        this.selectedImage = image;
+      }
+      console.log(this.selectedImage)
+    }
   }
 }
 </script>
@@ -262,7 +282,7 @@ export default {
 
   width: 30%;
   margin-left: 600px;
-  margin-top: 10px;
+  margin-top: 80px;
   display: flex;
   background-color: white;
   border-radius: 5px;
