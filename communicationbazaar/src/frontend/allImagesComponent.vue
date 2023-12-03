@@ -137,6 +137,9 @@ export default {
           this.selectImageByEAN(code)
         }
       }
+    },
+    '$route'(){
+      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
     }
   },
   computed: {
