@@ -1,11 +1,11 @@
 <template>
   <h1 class="mx-3">
-   {{$t('allImages.titleName')}}
+    {{ $t('allImages.titleName') }}
   </h1>
-  <div class="container-fluid p-3 overflow-auto normal" >
+  <div class="container-fluid p-3 overflow-auto normal">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage"
+        <router-view
           @delete-image="deleteImage()" @save-image="saveImage">
         </router-view>
       </div>
@@ -22,8 +22,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td>{{ image.laptop[0].ean }}</td>
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
@@ -36,10 +36,10 @@
   </div>
 
   <!--  mobile view -->
-  <div class="container-fluid p-3 overflow-auto mobile" >
+  <div class="container-fluid p-3 overflow-auto mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view v-bind:currentImage="selectedImage" >
+        <router-view>
 
         </router-view>
       </div>
@@ -54,8 +54,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-        <td>{{ image.laptop[0].ean }}</td>
+      <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">Niet toegewezen</td>
         <td>{{ image.status }}</td>
@@ -70,39 +70,39 @@
 <script>
 import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import { barcode } from './HeaderComponent.vue'
 
 export default {
   name: "allImagesComponent",
+  inject: ["imagesService"],
   components: imageDetailComponent,
   data() {
     return {
       images: [],
-      selectedImage: null
+      selectedImage: null,
+      barcode
     }
   },
-  created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
-
+  async created() {
+    this.images = await this.imagesService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
-        this.selectedImage = null
         this.$router.push(parentPath);
+        this.selectedImage = null;
       } else {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
+        this.selectedImage = image;
       }
       console.log(this.selectedImage)
     },
@@ -111,14 +111,33 @@ export default {
       this.images.splice(index, 1);
       this.selectedImage = null;
     },
-    saveImage(image){
+    saveImage(image) {
       const index = this.images.indexOf(this.selectedImage);
       this.images[index] = image;
       this.setImage(image);
     },
-    dateConverter(givenDate){
+    dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
+    },
+    selectImageByEAN(ean) {
+      console.log('The EAN value: ', ean)
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      const image = this.images.find(image => image.laptop[0].ean == ean)
+      console.log(image)
+      if (image) {
+        this.selectedImage = image
+        this.$router.push(parentPath + "/" + ean);
+      }
+    }
+  },
+  watch: {
+    barcode: {
+      handler(code) {
+        if (code) {
+          this.selectImageByEAN(code)
+        }
+      }
     }
   },
   computed: {
@@ -133,7 +152,6 @@ export default {
 </script>
 
 <style scoped>
-
 .statusButtonsStyling {
   height: 100px;
 }

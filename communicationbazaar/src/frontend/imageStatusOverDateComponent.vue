@@ -10,7 +10,7 @@
     <div class="container-fluid p-3">
       <div v-if="selectedImage">
         <div class="card card-body">
-          <router-view v-bind:currentImage="selectedImage"
+          <router-view
                        @delete-image="deleteImage()" @save-image="saveImage">
 
           </router-view>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td v-if="isCorrespondingStatus(image)">{{ image.laptop[0].ean }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
@@ -43,12 +43,11 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 
 export default {
   name: "imageStatusOverDateComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "imagesService"],
   components: imageDetailComponent,
   data() {
     return {
@@ -59,10 +58,9 @@ export default {
     }
   },
   async created() {
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
+    this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
+
     this.account = this.accounts.find(account => account.loggedIn)
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
@@ -70,23 +68,23 @@ export default {
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
-        return this.images.find(value => value.laptop[0].ean === id);
+        return this.images.find(value => value.id === id);
       }
       return null;
     },
     isCorrespondingStatus(image) {
-      if (image.status === "Verouderd") {
+      if (image.status === "OVERDATE") {
         return true;
       } else return false;
     },
     setImage(image) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
         this.selectedImage = null
         this.$router.push(parentPath);
       } else {
         this.selectedImage = image
-        this.$router.push(parentPath + "/" + image.laptop[0].ean);
+        this.$router.push(parentPath + "/" + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
     },

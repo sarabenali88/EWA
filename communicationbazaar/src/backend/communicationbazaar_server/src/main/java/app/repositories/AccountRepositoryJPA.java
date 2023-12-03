@@ -27,7 +27,7 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
     }
 
     @Override
-    public Account findById(int id) {
+    public Account findById(long id) {
         return entityManager.find(Account.class, id);
     }
 
@@ -44,7 +44,7 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
     }
 
     @Override
-    public Account deleteById(int id) {
+    public Account deleteById(long id) {
         Account account = findById(id);
         if (account != null){
             entityManager.remove(account);

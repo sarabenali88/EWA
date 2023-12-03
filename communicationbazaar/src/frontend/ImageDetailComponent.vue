@@ -1,9 +1,9 @@
 <template>
-<div>
+<div v-if="imageCopy">
   <div class="row justify-content-between">
     <div class="col-auto">
       <h3>
-        {{imageCopy.laptop[0].brand}} {{imageCopy.laptop[0].description}}
+        {{imageCopy.laptop.brand}} {{imageCopy.laptop.description}}
       </h3>
     </div>
     <div class="col-4">
@@ -19,10 +19,10 @@
   </div>
   <div class="row justify-content-md-left">
     <div class="col col-sm-3">
-      {{ $t('imageDetail.ean') }}: {{currentImage.laptop[0].ean}}
+      {{ $t('imageDetail.ean') }}: {{imageCopy.laptop.ean}}
     </div>
     <div class="col-md-auto">
-      {{ $t('imageDetail.articleNumber') }}: {{currentImage.laptop[0].articleNumber}}
+      {{ $t('imageDetail.articleNumber') }}: {{imageCopy.laptop.articleNumber}}
     </div>
   </div>
   <div class="pt-4 m-sm-1">
@@ -85,12 +85,12 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div v-if="showDesc" class="m-2">
-        <div v-if="imageCopy.laptop[0].brand !== 'APPLE'" class="row justify-content-sm-left">
+        <div v-if="imageCopy.laptop.brand !== 'APPLE'" class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.os') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.laptop[0].os}}
+            {{imageCopy.laptop.os}}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -146,26 +146,8 @@ import {Image} from "@/models/Image";
 
 export default {
   name: "ImageDetailComponent",
-  inject: ["accountsService"],
-  props: [
-    'currentImage',
-  ],
+  inject: ["accountsService", "imagesService"],
   emits: ['delete-image', 'save-image'],
-  async created() {
-    this.copyImage(this.currentImage);
-    this.accounts = await this.accountsService.asyncFindAll();
-    this.account = this.accounts.find(account => account.loggedIn)
-  },
-  watch: {
-    currentImage: {
-      handler(newImage) {
-        if (newImage !== null) {
-          this.copyImage(newImage);
-        }
-      },
-      deep: true,
-    }
-  },
   data(){
     return {
       statuses: Image.Status,
@@ -177,7 +159,21 @@ export default {
       account: null,
     }
   },
+  watch: {
+    '$route'(){
+      this.reInitialise();
+    }
+  },
+  async created() {
+    this.accounts = await this.accountsService.asyncFindAll();
+    await this.reInitialise();
+    this.account = this.accounts.find(account => account.loggedIn)
+  },
   methods: {
+    async reInitialise(){
+      this.imageCopy =
+          await this.imagesService.asyncFindById(this.$route?.params?.id)
+    },
     setNav(word){
       if (word === 'com'){
         this.showDesc = false;
@@ -203,9 +199,6 @@ export default {
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
       this.imageClaimed = false;
-    },
-    copyImage(currentImage) {
-      this.imageCopy = JSON.parse(JSON.stringify(currentImage));
     },
     claimImage(){
       this.imageClaimed = true;

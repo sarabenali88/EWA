@@ -27,8 +27,8 @@ export class ImagesAdaptor {
         return images?.map(image => Image.copyConstructor(image));
     }
 
-    async asyncFindById (ean) {
-        const imageData = await this.fetchJson(this.resourcesUrl + '/' + ean);
+    async asyncFindById (id) {
+        const imageData = await this.fetchJson(this.resourcesUrl + '/' + id);
         return Image.copyConstructor(imageData);
     }
 
