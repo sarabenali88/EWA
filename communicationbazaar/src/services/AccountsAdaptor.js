@@ -13,17 +13,13 @@ export class AccountsAdaptor {
     }
 
     async fetchJson(url, options = null) {
-        try {
             const response = await fetch(url, options);
             if (response.ok) {
                 return await response.json();
             } else {
                 // TODO hier moet nog een; response error die in de json body zit
-                return [];
+                return null;
             }
-        } catch (error) {
-            return []
-        }
     }
 
     async asyncFindAll() {

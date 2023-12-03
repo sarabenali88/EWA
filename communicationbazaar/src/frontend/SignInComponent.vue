@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     async checkInput() {
+      console.log(await this.accountsService.verifyPassword(this.personalNumber, this.password))
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.displayAlert(this.$t('signIn.wrongPersMessage'))
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
