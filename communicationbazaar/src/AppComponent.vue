@@ -31,6 +31,9 @@ export default {
       laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
       accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts')
     }
+  },
+  created() {
+    this.$router.push("/imageListRoute/allImages");
   }
 }
 </script>
@@ -47,6 +50,7 @@ export default {
 #mainContent {
   margin-left: 0;
   max-height: calc(100vh + 100px);
+  z-index: -10;
 }
 
 @media (min-width: 700px) {

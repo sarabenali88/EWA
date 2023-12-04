@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
 import { barcode } from './HeaderComponent.vue'
 
@@ -138,6 +137,9 @@ export default {
           this.selectImageByEAN(code)
         }
       }
+    },
+    '$route'(){
+      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
     }
   },
   computed: {
