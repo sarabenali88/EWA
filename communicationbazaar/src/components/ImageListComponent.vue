@@ -156,7 +156,7 @@
     <router-view></router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
             :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-            accounts.some(account => account.loggedIn === true && account.role !== 'ImageMaker')}">
+            accounts.some(account => account.loggedIn === true && account.role !== 'admin')}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>

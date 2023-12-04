@@ -11,9 +11,10 @@
       <div v-if="selectedImage">
         <div class="card card-body">
           <router-view
-              @delete-image="deleteImage()" @save-image="saveImage" v-on:refresh="this.onRefresh()">
+              @delete-image="deleteImage()" @save-image="saveImage">
           </router-view>
         </div>
+      </div>
         <table class="table table-sm">
           <thead>
           <tr>
@@ -38,7 +39,6 @@
         </table>
       </div>
     </div>
-  </div>
 
   <!-- mobile view -->
   <div class="container-fluid p-3 mobile">
@@ -88,7 +88,6 @@ export default {
   async created() {
     this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
-
     this.account = this.accounts.find(account => account.loggedIn)
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
@@ -121,9 +120,10 @@ export default {
       this.images.splice(index, 1);
       this.selectedImage = null;
     },
-    async onRefresh() {
-      this.images = await this.imagesService.asyncFindAll();
-      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
+    saveImage(image) {
+      const index = this.images.indexOf(this.selectedImage);
+      this.images[index] = image;
+      this.setImage(image);
     },
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
