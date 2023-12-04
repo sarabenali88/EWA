@@ -38,13 +38,8 @@
       <label class="col-3" for="status">{{ $t('addImage.status') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <select class="form-control" v-model="statusSelect">
-            <option value="TODO">{{ $t('addImage.statusToDo') }}</option>
-            <option value="ONGOING">{{ $t('addImage.statusOngoing') }}</option>
-            <option value="FINISHED">{{ $t('addImage.statusFinished') }}</option>
-          </select>
+          <input class="form-control" v-model="statusImage" readonly>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -92,7 +87,7 @@ export default {
       selectedLaptop: null,
       startVersion: '',
       imageName: '',
-      statusSelect: '',
+      statusImage: Object.keys(Image.Status)[0],
       date: '',
       week: '',
       invalid: false,
@@ -119,8 +114,8 @@ export default {
      * @author Sara Benali
      */
     async validateInput() {
-      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' ||
-          this.statusSelect === '' || this.date === '' || this.week === '') {
+      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === ''
+          || this.date === '' || this.week === '') {
         this.invalid = true;
       } else {
         this.invalid = false;
@@ -156,7 +151,7 @@ export default {
        this.formattedDate = this.formatDate(this.date);
        this.formattedWeek = this.formatWeek(this.week);
        this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
-            this.formattedDate, this.statusSelect, null, null, this.formattedWeek, null,
+            this.formattedDate, this.statusImage, null, null, this.formattedWeek, null,
            this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);
       await this.imagesService.asyncFindAll();

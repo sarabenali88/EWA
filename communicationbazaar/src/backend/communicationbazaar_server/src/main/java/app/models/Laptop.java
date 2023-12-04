@@ -6,6 +6,7 @@
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
@@ -31,7 +32,7 @@ public class Laptop {
     private String os;
     private int prize;
     @OneToMany(mappedBy = "laptop")
-    @JsonBackReference
+    @JsonIgnoreProperties(value = {"laptop"}, allowSetters = true)
     private List<Image> images = new ArrayList<>();
 
     public Laptop(long articleNumber, long ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {

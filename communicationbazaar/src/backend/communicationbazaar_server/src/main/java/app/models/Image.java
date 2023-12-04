@@ -5,6 +5,8 @@
  */
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -18,6 +20,7 @@ public class Image {
     private long id;
     @ManyToOne
     //@JsonManagedReference
+    @JsonIgnoreProperties(value = {"images"}, allowSetters = true)
     private Laptop laptop;
     //@JsonView(ViewClasses.Summary.class)
     private String version;
