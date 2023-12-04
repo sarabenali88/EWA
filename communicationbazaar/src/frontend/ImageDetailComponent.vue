@@ -39,7 +39,7 @@
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
-          <option v-for="(key, value) in statuses" :value="value" :key="key">{{ key }}</option>
+          <option v-for="(value, key) in statuses" :value="key" :key="value">{{ key }}</option>
         </select>
       </div>
     </div>
@@ -113,7 +113,7 @@
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
@@ -168,7 +168,6 @@ export default {
     this.accounts = await this.accountsService.asyncFindAll();
     await this.reInitialise();
     this.account = this.accounts.find(account => account.loggedIn)
-    console.log(Image.Status.TODO)
   },
   methods: {
     async reInitialise(){
@@ -191,11 +190,11 @@ export default {
       }
     },
     saveChanges(){
-      if (this.imageCopy.status !== Image.Status.TODO && this.imageCopy.imageMaker === null){
+      if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.account.name
         this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === Image.Status.TODO){
+      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
@@ -206,7 +205,7 @@ export default {
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.account.name;
-      this.imageCopy.status = Image.Status.ONGOING;
+      this.imageCopy.status = Object.keys(Image.Status)[1];
       this.imageCopy.store = this.account.location;
     }
   }

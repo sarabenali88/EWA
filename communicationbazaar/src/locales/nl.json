@@ -10,7 +10,6 @@
     "date": "Datum",
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
-    "alertEan": "EAN code mag niet kleiner dan 0 zijn",
     "buttonSave": "Opslaan",
     "buttonAdd": "Image toevoegen"
   },

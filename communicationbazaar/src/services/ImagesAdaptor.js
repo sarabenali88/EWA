@@ -32,6 +32,14 @@ export class ImagesAdaptor {
         return Image.copyConstructor(imageData);
     }
 
+    /**
+     * Saves a new image if the id is 0 or updates an image
+     * @param image
+     * @return {Promise<any|null>}
+     *
+     * @ Sara Benali
+     */
+
     async asyncSave(image) {
         if (image.id === 0) {
             console.log(JSON.stringify({
