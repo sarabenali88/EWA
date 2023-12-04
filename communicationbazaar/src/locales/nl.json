@@ -3,7 +3,6 @@
     "eanNumber": "EAN Code",
     "ReadyToUseVersion": "Startklaar Versie",
     "imageName": "Image Naam",
-    "imageLocation": "Image Locatie",
     "status": "Status",
     "statusToDo": "Te doen",
     "statusOngoing": "Mee bezig",
@@ -11,7 +10,6 @@
     "date": "Datum",
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
-    "alertEan": "EAN code mag niet kleiner dan 0 zijn",
     "buttonSave": "Opslaan",
     "buttonAdd": "Image toevoegen"
   },
@@ -115,5 +113,10 @@
   },
   "home": {
     "welcomeMessage": "Welkom"
+  },
+  "status": {
+    "TODO": "Te doen",
+    "ONGOING": "Mee bezig",
+    "FINISHED": "Afgerond"
   }
 }

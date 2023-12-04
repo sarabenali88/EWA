@@ -5,6 +5,8 @@
  */
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -17,14 +19,15 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Image_ids")
     private long id;
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonIgnoreProperties(value = {"images"}, allowSetters = true)
     private Laptop laptop;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private String version;
     private String store;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private String upDateDate;
-    @JsonView(ViewClasses.Summary.class)
+    //@JsonView(ViewClasses.Summary.class)
     private Status status;
     private Release release;
     private Problem problem;

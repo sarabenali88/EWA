@@ -3,7 +3,6 @@
     "eanNumber": "Code EAN",
     "ReadyToUseVersion": "Version prête à l'emploi",
     "imageName": "Nom de l'image",
-    "imageLocation": "Emplacement de l'image",
     "status": "Statut",
     "statusToDo": "À faire",
     "statusOngoing": "En cours d'élaboration",
@@ -11,7 +10,6 @@
     "date": "Date",
     "week": "Semaine",
     "alertEmpty": "Ce champ est obligatoire",
-    "alertEan": "Le code EAN ne peut pas être inférieur à 0",
     "buttonSave": "Sauvegarder",
     "buttonAdd": "Ajouter une image"
   },

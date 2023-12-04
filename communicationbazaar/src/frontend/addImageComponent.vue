@@ -1,13 +1,16 @@
 <template>
   <div class="container mt-5">
     <div class="row mb-3">
-      <label class="col-3" for="ean">{{$t('addImage.eanNumber')}}</label>
+      <label class="col-3" for="ean">{{ $t('addImage.eanNumber') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="number" class="form-control" v-model.number="ean"/>
+          <select v-model="selectedLaptop" class="form-control">
+              <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
+             {{laptop.ean}}
+              </option>
+            </select>
         </div>
-        <div class="error" v-if="invalid === true && ean === null">{{$t('addImage.alertEmpty')}}</div>
-        <div class="error" v-if="invalidEan === true && ean < 0">{{$t('addImage.alertEan')}}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -17,127 +20,173 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="startVersion"/>
         </div>
-        <div class="error" v-if="invalid === true && startVersion === ''">{{$t('addImage.alertEmpty')}}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="col-3" for="image">{{$t('addImage.imageName')}}</label>
+      <label class="col-3" for="image">{{ $t('addImage.imageName') }}</label>
       <div class="col-5">
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="imageName"/>
         </div>
-        <div class="error" v-if="invalid === true && imageName === ''">{{$t('addImage.alertEmpty')}}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="col-3" for="location">{{$t('addImage.imageLocation')}}</label>
+      <label class="col-3" for="status">{{ $t('addImage.status') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="text" class="form-control" v-model.trim="locationImage"/>
+          <input class="form-control" v-model="statusImage" readonly>
         </div>
-        <div class="error" v-if="invalid === true && locationImage === ''">{{$t('addImage.alertEmpty')}}</div>
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="col-3" for="status">{{$t('addImage.status')}}</label>
-      <div class="col-5">
-        <div class="input-group">
-          <select class="form-control" v-model="statusSelect">
-            <option value="todo">{{$t('addImage.statusToDo')}}</option>
-            <option value="ongoing">{{$t('addImage.statusOngoing')}}</option>
-            <option value="finished">{{$t('addImage.statusFinished')}}</option>
-          </select>
-        </div>
-        <div class="error" v-if="invalid === true && statusSelect === ''">{{$t('addImage.alertEmpty')}}</div>
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <label class="col-3" for="date">{{$t('addImage.date')}}</label>
+      <label class="col-3" for="date">{{ $t('addImage.date') }}</label>
       <div class="col-5">
         <div class="input-group">
           <input :min="getToday()" type="date" class="form-control" v-model="date"/>
         </div>
-        <div class="error" v-if="invalid === true && date === ''">{{$t('addImage.alertEmpty')}}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="col-3" for="week">{{$t('addImage.week')}}</label>
+      <label class="col-3" for="week">{{ $t('addImage.week') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="week" class="form-control" v-model="week" :min="minWeek"/>
+          <input type="week" class="form-control" v-model="week" :min="getWeek()"/>
         </div>
-        <div class="error" v-if="invalid === true && week === ''">{{$t('addImage.alertEmpty')}}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-danger w-25" @click="validateInput">{{$t('addImage.buttonSave')}}</button>
+        <button class="btn btn-danger w-25" @click="validateInput">{{ $t('addImage.buttonSave') }}</button>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import '../i18n.js'
 
+<script>
+import {Image} from "@/models/Image";
+
+/**
+ * Script for adding a new Image to the list
+ * @author Sara Benali
+ */
 export default {
   name: "addImageComponent",
+  inject: ["imagesService", "laptopsService"],
   data() {
     return {
-      ean: null,
+      selectedLaptop: null,
       startVersion: '',
       imageName: '',
-      locationImage: '',
-      statusSelect: '',
+      statusImage: Object.keys(Image.Status)[0],
       date: '',
       week: '',
-      invalid: null,
-      invalidEan: null,
+      invalid: false,
+      image: null,
+      formattedDate: null,
+      formattedWeek: null,
+      laptops: [],
+      defaultId: 0,
+      milliSecond: 604800000,
     }
   },
+  /**
+   * Async method to load all the laptops when user is on the page
+   * @return {Promise<void>}
+   * @author Sara Benali
+   */
+  async created() {
+    this.laptops = await this.laptopsService.asyncFindAll();
+  },
   methods: {
-    validateInput() {
-      if (this.ean === '' || this.startVersion === '' || this.imageName === '' || this.locationImage === '' ||
-          this.statusSelect === '' || this.date === ''|| this.week === ''){
+    /**
+     * Method to check inputs of the user and save an image if input is correct
+     * @return {Promise<void>}
+     * @author Sara Benali
+     */
+    async validateInput() {
+      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === ''
+          || this.date === '' || this.week === '') {
         this.invalid = true;
-      }else{
-        this.invalid = '';
+      } else {
+        this.invalid = false;
       }
-      if (this.ean < 0){
-        this.invalidEan = true;
-      }else{
-        this.invalidEan = '';
-      }
-      if (this.invalid === '' && this.invalidEan === ''){
-        this.$router.push('/imageListRoute');
+      if (this.invalid === false) {
+        await this.saveImage();
       }
     },
+    /**
+     * Method to format the entered date value to dd-mm-yyyy format
+     * @param inputDate the value of a date
+     * @return {string}
+     * @author Sara Benali
+     */
+    formatDate(inputDate) {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      return new Date(inputDate).toLocaleDateString('nl-NL', options);
+    },
+    /**
+     * Method to format week from "2023-W43" to only get week number (43)
+     * @return {string}
+     * @author Sara Benali
+     */
+    formatWeek(week){
+      return week.split('W')[1];
+    },
+    /**
+     * Method to save an image to the list with the entered user value
+     * @return {Promise<void>}
+     * @author Sara Benali
+     */
+    async saveImage() {
+       this.formattedDate = this.formatDate(this.date);
+       this.formattedWeek = this.formatWeek(this.week);
+       this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
+            this.formattedDate, this.statusImage, null, null, this.formattedWeek, null,
+           this.imageName, null, null);
+      await this.imagesService.asyncSave(this.image);
+      await this.imagesService.asyncFindAll();
+      this.$router.push('/imageListRoute/allImages');
+    },
+    /**
+     * Method to get today's date and put it as minimum so user can't choose a date before today
+     * @return {string}
+     * @author Sara Benali
+     */
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
+    /**
+     * Method to calculate this week's date and set it as minimum so user can't choose a week before this week
+     * @return {string}
+     * @author Sara Benali
+     */
+    getWeek() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const week = Math.ceil((today - new Date(year, 0, 1)) / this.milliSecond);
+      return `${year}-W${week}`;
+    },
   },
   computed: {
-    minWeek() {
-      const today = new Date(); // get today's date
-      const year = today.getFullYear(); // get today's year
-      const week = Math.ceil((today - new Date(year, 0, 1)) / 604800000); //calculate current week by the
-      // difference between today and the first year by milliseconds
-      return `${year}-W${week}`; // minimum week value in formatie
-    },
   },
 }
 </script>
 
 <style scoped>
-.error{
+.error {
   color: darkred;
 }
+
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;

@@ -39,7 +39,7 @@
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
-          <option v-for="(value, key) in statuses" :value="value" :key="key">{{ value }}</option>
+          <option v-for="(value, key) in statuses" :value="key" :key="value">{{ key }}</option>
         </select>
       </div>
     </div>
@@ -51,13 +51,13 @@
         </svg>
         {{ $t('imageDetail.employee') }}:
       </div>
-      <div v-if="imageCopy.imageMaker !== ''" class="col-sm-auto">
+      <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
         {{imageCopy.imageMaker}}
       </div>
-      <div v-else-if="imageCopy.imageMaker === '' && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
+      <div v-else-if="imageCopy.imageMaker === null && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
         {{$t('imageDetail.claimButton')}}
       </div>
-      <div v-if="imageCopy.imageMaker === '' && editComment === false" class="col-sm-auto text-body-secondary" >
+      <div v-if="imageCopy.imageMaker === null && editComment === false" class="col-sm-auto text-body-secondary" >
         {{$t('imageDetail.unassigned')}}
       </div>
     </div>
@@ -113,7 +113,7 @@
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
@@ -190,11 +190,13 @@ export default {
       }
     },
     saveChanges(){
-      if (this.imageCopy.status !== "Te doen" && this.imageCopy.imageMaker === ""){
+      if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.account.name
+        this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === "Te doen"){
-        this.imageCopy.imageMaker = ""
+      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
+        this.imageCopy.imageMaker = null
+        this.imageCopy.store = null
       }
       this.$emit('save-image', this.imageCopy);
       this.editComment = false;
@@ -203,7 +205,8 @@ export default {
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.account.name;
-      this.imageCopy.status = "Mee bezig"
+      this.imageCopy.status = Object.keys(Image.Status)[1];
+      this.imageCopy.store = this.account.location;
     }
   }
 }
