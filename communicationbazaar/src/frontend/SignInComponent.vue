@@ -56,11 +56,6 @@
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
-              <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
-            </div>
-
-            <div class="form-outline mb-4">
               <input v-model="newPassword" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.newPassword') }}</label>
             </div>
@@ -138,12 +133,10 @@ export default {
         this.displayAlert(this.$t('signIn.wrongPersMessage'));
       } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
-        if (!this.password || !this.email || !this.passwordRepeat || !this.newPassword) {
+        if (!this.email || !this.passwordRepeat || !this.newPassword) {
           this.displayAlert(this.$t('adminPanel.errorMessage'));
         } else if (this.account.email !== this.email) {
           this.displayAlert(this.$t('signIn.emailWrong'));
-        } else if (this.account.password !== this.password) {
-          this.displayAlert(this.$t('signIn.wrongPassMessage'));
         } else if (this.newPassword !== this.passwordRepeat) {
           this.displayAlert(this.$t('signIn.passwordWrongRepeat'));
         }else {

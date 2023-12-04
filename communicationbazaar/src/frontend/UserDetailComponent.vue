@@ -28,12 +28,6 @@
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="website">{{ $t('adminPanel.password') }}</label>
-            <input v-model="accountCopy.password" class="form-control" type="password" readonly>
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !accountCopy.role }">
             <label for="zIp">{{ $t('adminPanel.role') }}</label>
             <select v-model="accountCopy.role" class="form-select" aria-label="Default select example">
@@ -84,7 +78,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="cancelAction()">{{ $t('adminPanel.cancelButton') }}
           </button>
-          <button type="button" class="btn btn-success" @click="performAction()">{{ $t('adminPanel.editButton') }}
+          <button type="button" class="btn btn-success" @click="performAction()">{{ $t('adminPanel.okButton') }}
           </button>
         </div>
       </div>
@@ -173,8 +167,6 @@ export default {
           this.displayAlert(this.$t('adminPanel.roleChange'));
         } else if (this.fieldsFilledCheck(this.accountCopy)) {
           if (!this.hasChanged()) {
-            console.log(this.accountCopy.loggedIn)
-            console.log(this.currentAccount.role)
             this.dismissAlert();
             this.action = "confirm";
             this.showModal = true;
