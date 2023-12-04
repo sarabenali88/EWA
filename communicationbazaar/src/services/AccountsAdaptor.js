@@ -3,7 +3,7 @@
  *
  * @author Jasper Fernhout
  */
-import { Account } from '@/models/Account'
+import {Account} from '@/models/Account'
 
 export class AccountsAdaptor {
     resourcesUrl;
@@ -26,6 +26,8 @@ export class AccountsAdaptor {
             return []
         }
     }
+
+
 
     async asyncFindAll() {
         const accounts = await this.fetchJson(this.resourcesUrl);

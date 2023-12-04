@@ -22,7 +22,7 @@ public class Account {
     @JsonView(ViewClasses.Summary.class)
     private long personalNumber;
     private String password;
-    private String hashedPassword = null;
+    private String hashedPassword;
     @JsonView(ViewClasses.Summary.class)
     private String name;
     @JsonView(ViewClasses.Summary.class)
@@ -76,6 +76,7 @@ public class Account {
         return SecureHasher.secureHash("Id-" + this.getPersonalNumber() + ":" + password);
     }
     public void setPassword(String newPassword) {
+        this.password = newPassword;
         this.setHashedPassword(this.hashPassword(newPassword));
     }
 
@@ -87,7 +88,7 @@ public class Account {
      * @return
      */
     public boolean verifyPassword(String password) {
-        return this.hashPassword(password).equals(this.getHashedPassword());
+        return this.hashPassword(password).equals(this.hashPassword(this.getPassword()));
     }
 
     /**

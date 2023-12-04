@@ -1,3 +1,9 @@
+/**
+ * This is a class that will give the repository functions an action for the accounts.
+ * Using the H2 console and database.
+ *
+ * @author Jasper Fernhout
+ */
 package app.repositories;
 
 import app.models.Account;
