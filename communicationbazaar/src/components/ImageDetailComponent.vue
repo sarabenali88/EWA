@@ -189,7 +189,7 @@ export default {
         this.editComment = true;
       }
     },
-    saveChanges(){
+    async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.account.name
         this.imageCopy.store = this.account.location;
@@ -198,9 +198,12 @@ export default {
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
-      this.$emit('save-image', this.imageCopy);
       this.editComment = false;
       this.imageClaimed = false;
+
+      await this.imagesService.asyncSave(this.imageCopy);
+      await this.imagesService.asyncFindAll()
+      this.$emit('refresh')
     },
     claimImage(){
       this.imageClaimed = true;

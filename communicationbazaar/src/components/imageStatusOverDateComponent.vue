@@ -11,7 +11,7 @@
       <div v-if="selectedImage">
         <div class="card card-body">
           <router-view
-                       @delete-image="deleteImage()" @save-image="saveImage">
+                       @delete-image="deleteImage()" @save-image="saveImage" v-on:refresh="this.onRefresh()">
 
           </router-view>
         </div>
@@ -93,10 +93,9 @@ export default {
       this.images.splice(index, 1);
       this.selectedImage = null;
     },
-    saveImage(image) {
-      const index = this.images.indexOf(this.selectedImage);
-      this.images[index] = image;
-      this.setImage(image);
+    async onRefresh() {
+      this.images = await this.imagesService.asyncFindAll();
+      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
     },
     dateConverter(givenDate){
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];

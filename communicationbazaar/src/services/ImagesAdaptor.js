@@ -42,21 +42,6 @@ export class ImagesAdaptor {
 
     async asyncSave(image) {
         if (image.id === 0) {
-            console.log(JSON.stringify({
-                id: image.id,
-                laptop: image.laptop,
-                version: image.version,
-                store: image.store,
-                upDateDate: image.upDateDate,
-                status: image.status,
-                release: image.release,
-                problem: image.problem,
-                createdWeek: image.createdWeek,
-                createdYear: image.createdYear,
-                name: image.name,
-                comment: image.comment,
-                imageMaker: image.imageMaker
-            }))
             return await this.fetchJson(this.resourcesUrl, {
                 method: "POST",
                 headers: {
@@ -86,7 +71,19 @@ export class ImagesAdaptor {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        image
+                        id: image.id,
+                        laptop: image.laptop,
+                        version: image.version,
+                        store: image.store,
+                        upDateDate: image.upDateDate,
+                        status: image.status,
+                        release: image.release,
+                        problem: image.problem,
+                        createdWeek: image.createdWeek,
+                        createdYear: image.createdYear,
+                        name: image.name,
+                        comment: image.comment,
+                        imageMaker: image.imageMaker
                     })
                 });
         }
