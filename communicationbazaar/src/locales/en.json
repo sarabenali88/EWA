@@ -3,7 +3,6 @@
     "eanNumber": "EAN Code",
     "ReadyToUseVersion": "Ready To Use Version",
     "imageName": "Image Name",
-    "imageLocation": "Image Location",
     "status": "Status",
     "statusToDo": "To Do",
     "statusOngoing": "Ongoing",
@@ -11,7 +10,6 @@
     "date": "Date",
     "week": "Week",
     "alertEmpty": "This field is required",
-    "alertEan": "EAN code may not be less than 0",
     "buttonSave": "Save",
     "buttonAdd": "Add image"
   },
@@ -120,5 +118,10 @@
   },
   "home": {
     "welcomeMessage": "Welcome"
+  },
+  "status": {
+    "TODO": "TODO",
+    "ONGOING": "ONGOING",
+    "FINISHED": "FINISHED"
   }
 }

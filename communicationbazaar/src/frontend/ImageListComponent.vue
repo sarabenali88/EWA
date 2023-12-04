@@ -166,6 +166,7 @@
 export default {
   name: "ImageListComponent",
   inject: ["accountsService", "imagesService"],
+  emits: ["save-event"],
   components: {},
   async created() {
     this.$router.push("/imageListRoute/allImages");
@@ -233,7 +234,7 @@ export default {
           this.amountOfImagesOverDate++;
         }
       }
-    }
+    },
   }
 }
 </script>

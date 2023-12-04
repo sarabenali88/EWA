@@ -130,8 +130,8 @@ public class Dataloader implements CommandLineRunner {
                 30,
                 2023,
                 "ImageNaam2",
-                "",
-                ""
+                null,
+                null
         ));
         imageRepository.save(new Image(
                 1002,
@@ -145,7 +145,7 @@ public class Dataloader implements CommandLineRunner {
                 35,
                 2023,
                 "ImageNaam3",
-                "",
+                null,
                 "Pieter van de Broek"
         ));
         imageRepository.save(new Image(
@@ -160,7 +160,7 @@ public class Dataloader implements CommandLineRunner {
                 23,
                 2023,
                 "ImageNaam4",
-                "",
+                null,
                 "Pieter van de Broek"
         ));
         imageRepository.save(new Image(
@@ -175,7 +175,7 @@ public class Dataloader implements CommandLineRunner {
                 18,
                 2023,
                 "ImageNaam5",
-                "",
+                null,
                 "Cindy Visser"
         ));
     }

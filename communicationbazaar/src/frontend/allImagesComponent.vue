@@ -25,10 +25,12 @@
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
-        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+        <td v-if="image.imageMaker !== null ">{{ image.imageMaker }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td>{{ image.store }}</td>
-        <td>{{ image.status }}</td>
+        <td v-if="image.imageMaker !== null">{{ image.store }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td>{{image.status}}</td>
+<!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -56,9 +58,10 @@
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
-        <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else class="text-secondary">Niet toegewezen</td>
-        <td>{{ image.status }}</td>
+        <td v-if="image.imageMaker !== null">{{ image.imageMaker }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td v-if="image.imageMaker !== null">{{ image.store }}</td>
+        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -74,6 +77,7 @@ import { barcode } from './HeaderComponent.vue'
 export default {
   name: "allImagesComponent",
   inject: ["imagesService"],
+  emits: ['addNewImage'],
   components: imageDetailComponent,
   data() {
     return {
@@ -119,14 +123,12 @@ export default {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
     },
-    selectImageByEAN(ean) {
-      console.log('The EAN value: ', ean)
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
-      const image = this.images.find(image => image.laptop[0].ean == ean)
+    selectImageByEAN(id) {
+      console.log('The EAN value: ', id)
+      const image = this.images.find(image => image.id == id)
       console.log(image)
       if (image) {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + ean);
+        this.setImage(image)
       }
     }
   },
@@ -137,6 +139,9 @@ export default {
           this.selectImageByEAN(code)
         }
       }
+    },
+    '$route'(){
+      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
     }
   },
   computed: {
