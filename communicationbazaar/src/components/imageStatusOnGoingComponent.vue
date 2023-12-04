@@ -14,7 +14,6 @@
               @delete-image="deleteImage()" @save-image="saveImage">
           </router-view>
         </div>
-      </div>
         <table class="table table-sm">
           <thead>
           <tr>
@@ -39,8 +38,10 @@
         </table>
       </div>
     </div>
+  </div>
 
-  <!-- mobile view -->
+
+<!--   mobile view -->
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
@@ -88,6 +89,7 @@ export default {
   async created() {
     this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
+
     this.account = this.accounts.find(account => account.loggedIn)
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
