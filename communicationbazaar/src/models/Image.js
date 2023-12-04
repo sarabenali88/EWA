@@ -1,6 +1,5 @@
-import {Laptop} from "@/models/laptop.js";
-
 export class Image{
+    id;
     laptop;
     version;
     store;
@@ -8,8 +7,8 @@ export class Image{
     status;
     release;
     problem;
-    week;
-    year;
+    createdWeek;
+    createdYear;
     name;
     comment;
     imageMaker;
@@ -31,16 +30,17 @@ export class Image{
         REPORTED: "Ja, gemeld"
     }
 
-    constructor(laptop, version, store, upDateDate, status, release, problem, week, year, name, comment, imageMaker) {
-        this.laptop = new Laptop();
+    constructor(id, laptop, version, store, upDateDate, status, release, problem, createdWeek, createdYear, name, comment, imageMaker) {
+        this.id = id;
+        this.laptop = laptop;
         this.version = version;
         this.store = store;
         this.upDateDate = upDateDate;
         this.status = status;
         this.release = release;
         this.problem = problem;
-        this.week = week;
-        this.year = year;
+        this.createdWeek = createdWeek;
+        this.createdYear = createdYear;
         this.name = name;
         this.comment = comment;
         this.imageMaker = imageMaker;
@@ -48,7 +48,6 @@ export class Image{
 
     static copyConstructor (image, id) {
         if (image == null) return null;
-
         return Object.assign(new Image(id), image);
     }
 }

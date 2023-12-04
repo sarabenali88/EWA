@@ -1,3 +1,8 @@
+/**
+ * This is a class that will fetch the data for the laptops from the back end in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 import { Laptop } from '@/models/laptop'
 
 export class LaptopsAdaptor {

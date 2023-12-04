@@ -67,23 +67,23 @@
               </div>
             </li>
             <li>
-              <div :class="{'active-route': $route.path === allImagesRoute}">
+              <div :class="{'active-route':$route.path.toString().includes(allImagesRoute)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
-                     :class="{'active-icon': $route.path === allImagesRoute}" viewBox="0 0 16 16">
+                     :class="{'active-icon': $route.path.toString().includes(allImagesRoute)}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                   <path
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
-                <router-link :to="allImagesRoute" :class="{'active-tab': $route.path === allImagesRoute}">
+                <router-link :to="allImagesRoute" :class="{'active-tab': $route.path.toString().includes(allImagesRoute)}">
                   {{$t('navbar.allImages')}}
                 </router-link>
               </div>
             </li>
 
             <li>
-              <div :class="{'active-route': $route.path === statusTodo}">
+              <div :class="{'active-route': $route.path.toString().includes(statusTodo)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
-                     :class="{'active-icon': $route.path === statusTodo}"
+                     :class="{'active-icon': $route.path.toString().includes(statusTodo)}"
                      class="bi bi-card-checklist my-4"
                      viewBox="0 0 16 16">
                   <path
@@ -91,16 +91,16 @@
                   <path
                       d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
                 </svg>
-                <router-link :to="statusTodo" :class="{'active-tab': $route.path === statusTodo}">
+                <router-link :to="statusTodo" :class="{'active-tab': $route.path.toString().includes(statusTodo)}">
                   {{$t('navbar.toDoList')}}
                 </router-link>
               </div>
             </li>
 
             <li>
-              <div :class="{'active-route': $route.path === statusOnGoing}">
+              <div :class="{'active-route': $route.path.toString().includes(statusOnGoing)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
-                     :class="{'active-icon': $route.path === statusOnGoing}"
+                     :class="{'active-icon': $route.path.toString().includes(statusOnGoing)}"
                      class="bi bi-arrow-repeat my-4 mx-1"
                      viewBox="0 0 16 16">
                   <path
@@ -108,16 +108,16 @@
                   <path fill-rule="evenodd"
                         d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                 </svg>
-                <router-link :to="statusOnGoing" :class="{'active-tab': $route.path === statusOnGoing}">
+                <router-link :to="statusOnGoing" :class="{'active-tab': $route.path.toString().includes(statusOnGoing)}">
                   {{$t('navbar.ongoingList')}}
                 </router-link>
               </div>
             </li>
 
             <li>
-              <div :class="{'active-route': $route.path === statusFinished}">
+              <div :class="{'active-route': $route.path.toString().includes(statusFinished)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
-                     :class="{'active-icon': $route.path === statusFinished}"
+                     :class="{'active-icon':$route.path.toString().includes(statusFinished)}"
                      class="bi bi-calendar-check my-4 mx-1"
                      viewBox="0 0 16 16">
                   <path
@@ -125,16 +125,16 @@
                   <path
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
-                <router-link :to="statusFinished" :class="{'active-tab': $route.path === statusFinished}">
+                <router-link :to="statusFinished" :class="{'active-tab': $route.path.toString().includes(statusFinished)}">
                   {{$t('navbar.finishedList')}}
                 </router-link>
               </div>
             </li>
 
             <li>
-              <div :class="{'active-route': $route.path === statusOverDate}">
+              <div :class="{'active-route': $route.path.toString().includes(statusOverDate)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
-                     :class="{'active-icon': $route.path === statusOverDate}"
+                     :class="{'active-icon': $route.path.toString().includes(statusOverDate)}"
                      class="bi bi-calendar-x my-4 mx-1"
                      viewBox="0 0 16 16">
                   <path
@@ -142,7 +142,7 @@
                   <path
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
-                <router-link :to="statusOverDate" :class="{'active-tab': $route.path === statusOverDate}">
+                <router-link :to="statusOverDate" :class="{'active-tab': $route.path.toString().includes(statusOverDate)}">
                   {{$t('navbar.overDateList')}}
                 </router-link>
               </div>
@@ -153,19 +153,6 @@
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
           <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
-            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
-              <div :class="{'active-route': $route.path === myAccountRoute}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
-                     viewBox="0 0 16 16"
-                     :class="{'active-icon': $route.path === myAccountRoute}">
-                  <path
-                      d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                </svg>
-                <router-link :to="myAccountRoute" :class="{'active-tab': $route.path === myAccountRoute}">
-                  {{$t('navbar.myAccount')}}
-                </router-link>
-              </div>
-            </li>
             <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
               <div :class="{'active-route': $route.path === myProfileRoute}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
@@ -351,7 +338,7 @@ export default {
       if (this.$route.path.match(this.homeRoute) || this.$route.path.match(this.imageListRoute)) {
         this.setCurrentContent('contentImage')
       }
-      if (this.$route.path.match(this.signInRoute) || this.$route.path.match(this.myAccountRoute)) {
+      if (this.$route.path.match(this.signInRoute) || this.$route.path.match(this.myProfileRoute)) {
         this.setCurrentContent('contentProfile')
       }
       if (this.$route.path.match(this.allUsersRoute) || this.$route.path.match(this.statisticsRoute)) {

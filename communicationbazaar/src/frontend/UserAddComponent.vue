@@ -22,12 +22,6 @@
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group" :class="{ 'has-error': !password }">
-            <label for="website">{{$t('adminPanel.password')}}</label>
-            <input v-model="password" class="form-control">
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !role }">
             <label for="zIp">{{$t('adminPanel.role')}}</label>
             <select v-model="role" class="form-select" aria-label="Default select example">
@@ -40,7 +34,14 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
           <div class="form-group" :class="{ 'has-error': !location }">
             <label for="website">{{$t('adminPanel.location')}}</label>
-            <input v-model="location" class="form-control">
+            <select v-model="location" class="form-select" aria-label="Default select example">
+              <option value="" disabled selected>{{$t('adminPanel.select')}}</option>
+              <option value="Hoorn">Hoorn</option>
+              <option value="Amsterdam">Amsterdam</option>
+              <option value="Apeldoorn">Apeldoorn</option>
+              <option value="Leeuwarden">Leeuwarden</option>
+              <option value="Groningen">Groningen</option>
+            </select>
           </div>
         </div>
       </div>
@@ -76,6 +77,11 @@
 </template>
 
 <script>
+/**
+ * This is the component for the functionalities of adding a user.
+ *
+ * @author Jasper Fernhout
+ */
 import {Account} from "@/models/Account";
 
 export default {
@@ -86,7 +92,7 @@ export default {
       defaultPersonalNumber: 0,
       name: "",
       email: "",
-      password: "",
+      password: "welkom",
       role: "",
       location: "",
       showAlert: false,
@@ -102,7 +108,7 @@ export default {
       this.$emit('cancelEvent', null);
     },
     saveEvent() {
-      this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, this.location,[], [], false)
+      this.account = new Account(this.defaultPersonalNumber, this.password, this.name, this.email, this.role, this.location, false)
       this.$emit('saveEvent', this.account);
     },
     fieldsFilledCheck() {

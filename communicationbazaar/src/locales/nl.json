@@ -3,7 +3,6 @@
     "eanNumber": "EAN Code",
     "ReadyToUseVersion": "Startklaar Versie",
     "imageName": "Image Naam",
-    "imageLocation": "Image Locatie",
     "status": "Status",
     "statusToDo": "Te doen",
     "statusOngoing": "Mee bezig",
@@ -11,7 +10,6 @@
     "date": "Datum",
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
-    "alertEan": "EAN code mag niet kleiner dan 0 zijn",
     "buttonSave": "Opslaan",
     "buttonAdd": "Image toevoegen"
   },
@@ -65,9 +63,9 @@
     "deleteButton" : "Verwijderen",
     "errorMessage": "Niet alle velden zijn ingevuld!",
     "confirmMessage": "Weet u zeker dat u door wilt gaan?",
-    "newAccount": "Nieuw account voor {name} is aangemaakt met personeelsnummer {employeeNumber}",
-    "deleteUser": "Gebruiker {name} is succesvol verwijderd"
-
+    "newAccount": "Nieuw account voor {name} is aangemaakt met personeelsnummer {employeeNumber} en wachtwoord welkom",
+    "deleteUser": "Gebruiker {name} is succesvol verwijderd",
+    "roleChange": "Je kan niet je eigen rol veranderen"
   },
   "imageStatus": {
     "toDoTitle" : "Status Te doen Images",
@@ -84,11 +82,16 @@
     "title": "Inloggen",
     "employeeNumber": "Personeelsnummer",
     "password": "Wachtwoord",
+    "passwordRepeat": "Herhaal wachtwoord",
+    "passwordChange": "Wijzig wachtwoord",
+    "passwordWrongRepeat": "Wachtwoorden komen niet overeen",
+    "emailWrong": "E-mail is fout",
     "remember": "Onthoud wachtwoord",
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
-    "wrongPersMessage": "Personeelsnummer is verkeerd"
+    "wrongPersMessage": "Personeelsnummer is verkeerd",
+    "newPassword": "Nieuw wachtwoord"
   },
   "profilePage": {
     "role": "Functie",
@@ -115,5 +118,10 @@
   },
   "home": {
     "welcomeMessage": "Welkom"
+  },
+  "status": {
+    "TODO": "Te doen",
+    "ONGOING": "Mee bezig",
+    "FINISHED": "Afgerond"
   }
 }

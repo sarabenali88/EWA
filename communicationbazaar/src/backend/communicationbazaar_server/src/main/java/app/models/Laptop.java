@@ -1,12 +1,26 @@
+/**
+ * This is a model for a laptop that will be created in the back end.
+ *
+ * @author Jasper Fernhout
+ */
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Laptop {
     @JsonView(ViewClasses.Summary.class)
-    private int articleNumber;
+    private long articleNumber;
+    @Id
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Laptop_ids")
     @JsonView(ViewClasses.Summary.class)
-    private int ean;
+    private long ean;
     private String brand;
     private String description;
     private String processor;
@@ -17,8 +31,11 @@ public class Laptop {
     private String sizeCm;
     private String os;
     private int prize;
+    @OneToMany(mappedBy = "laptop")
+    @JsonIgnoreProperties(value = {"laptop"}, allowSetters = true)
+    private List<Image> images = new ArrayList<>();
 
-    public Laptop(int articleNumber, int ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {
+    public Laptop(long articleNumber, long ean, String brand, String description, String processor, String ram, String storage, String gpu, String sizeInch, String sizeCm, String os, int prize) {
         this.articleNumber = articleNumber;
         this.ean = ean;
         this.brand = brand;
@@ -33,6 +50,16 @@ public class Laptop {
         this.prize = prize;
     }
 
+    public Laptop() {
+
+    }
+
+    /**
+     * This is a function that will create a sample laptop for test functionalities.
+     *
+     * @author Jasper Fernhout
+     * @return gives back a sample account.
+     */
     public static Laptop createSampleLaptop() {
         int randomNumber10000 = (int) Math.floor(Math.random() * 10000);
         int randomNumber1000 = (int) Math.floor(Math.random() * 1000);
@@ -54,15 +81,19 @@ public class Laptop {
         );
     }
 
-    public int getArticleNumber() {
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public long getArticleNumber() {
         return articleNumber;
     }
 
-    public int getEan() {
+    public long getEan() {
         return ean;
     }
 
-    public void setEan(int ean) {
+    public void setEan(long ean) {
         this.ean = ean;
     }
 
@@ -104,6 +135,58 @@ public class Laptop {
 
     public int getPrize() {
         return prize;
+    }
+
+    public void setArticleNumber(long articleNumber) {
+        this.articleNumber = articleNumber;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
+
+    public void setGpu(String gpu) {
+        this.gpu = gpu;
+    }
+
+    public void setSizeInch(String sizeInch) {
+        this.sizeInch = sizeInch;
+    }
+
+    public void setSizeCm(String sizeCm) {
+        this.sizeCm = sizeCm;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
+    }
+
+    public void addImages(Image image) {
+        images.add(image);
+    }
+
+    public void removeImages(Image image) {
+        images.remove(image);
     }
 }
 

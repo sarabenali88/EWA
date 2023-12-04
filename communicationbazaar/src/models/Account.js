@@ -1,3 +1,8 @@
+/**
+ * This is a model for an account that will function in the front end.
+ *
+ * @author Jasper Fernhout
+ */
 export class Account {
     personalNumber;
     password;
@@ -5,19 +10,15 @@ export class Account {
     email;
     role;
     location;
-    imagesOnGoing;
-    imagesDone;
     loggedIn;
 
-    constructor(personalNumber, password, name, email, role, location, imagesOnGoing, imagesDone, loggedIn) {
+    constructor(personalNumber, password, name, email, role, location, loggedIn) {
         this.personalNumber = personalNumber;
         this.password = password;
         this.name = name;
         this.email = email;
         this.role = role;
         this.location = location;
-        this.imagesOnGoing = imagesOnGoing;
-        this.imagesDone = imagesDone;
         this.loggedIn = loggedIn;
     }
 

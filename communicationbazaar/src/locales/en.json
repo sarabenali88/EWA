@@ -3,7 +3,6 @@
     "eanNumber": "EAN Code",
     "ReadyToUseVersion": "Ready To Use Version",
     "imageName": "Image Name",
-    "imageLocation": "Image Location",
     "status": "Status",
     "statusToDo": "To Do",
     "statusOngoing": "Ongoing",
@@ -11,7 +10,6 @@
     "date": "Date",
     "week": "Week",
     "alertEmpty": "This field is required",
-    "alertEan": "EAN code may not be less than 0",
     "buttonSave": "Save",
     "buttonAdd": "Add image"
   },
@@ -65,8 +63,9 @@
     "deleteButton": "Delete",
     "errorMessage": "Not all fields are filled in!",
     "confirmMessage": "Are you sure you want to continue?",
-    "newAccount": "New account for {name} has been created with employee number {employeeNumber}",
-    "deleteUser": "User {name} has been successfully deleted"
+    "newAccount": "New account for {name} has been created with employee number {employeeNumber} and password welkom",
+    "deleteUser": "User {name} has been successfully deleted",
+    "roleChange": "You can't change your own role"
   },
   "imageStatus": {
     "toDoTitle" : "Status To Do Images",
@@ -83,11 +82,16 @@
     "title": "Log In",
     "employeeNumber": "Employee number",
     "password": "Password",
+    "passwordRepeat": "Repeat password",
+    "passwordChange": "Edit password",
+    "passwordWrongRepeat": "Passwords are not the same",
+    "emailWrong": "E-mail is wrong",
     "remember": "Remember password",
     "logInButton": "Log in",
     "loggedInMessage": "Logged In",
     "wrongPassMessage": "Wrong password",
-    "wrongPersMessage": "The employee number is wrong"
+    "wrongPersMessage": "The employee number is wrong",
+    "newPassword": "New password"
   },
   "profilePage": {
     "role": "Role",
@@ -114,5 +118,10 @@
   },
   "home": {
     "welcomeMessage": "Welcome"
+  },
+  "status": {
+    "TODO": "TODO",
+    "ONGOING": "ONGOING",
+    "FINISHED": "FINISHED"
   }
 }
