@@ -1,8 +1,8 @@
 <template>
   <h1 class="mx-3">
-   {{$t('allImages.titleName')}}
+    {{ $t('allImages.titleName') }}
   </h1>
-  <div class="container-fluid p-3 overflow-auto normal" >
+  <div class="container-fluid p-3 overflow-auto normal">
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view
@@ -38,7 +38,7 @@
   </div>
 
   <!--  mobile view -->
-  <div class="container-fluid p-3 overflow-auto mobile" >
+  <div class="container-fluid p-3 overflow-auto mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view>
@@ -72,6 +72,7 @@
 
 <script>
 import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import { barcode } from './HeaderComponent.vue'
 
 export default {
   name: "allImagesComponent",
@@ -82,6 +83,7 @@ export default {
     return {
       images: [],
       selectedImage: null,
+      barcode
     }
   },
   async created() {
@@ -112,14 +114,36 @@ export default {
       this.images.splice(index, 1);
       this.selectedImage = null;
     },
-    saveImage(image){
+    saveImage(image) {
       const index = this.images.indexOf(this.selectedImage);
       this.images[index] = image;
       this.setImage(image);
     },
-    dateConverter(givenDate){
+    dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
+    },
+    selectImageByEAN(ean) {
+      console.log('The EAN value: ', ean)
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      const image = this.images.find(image => image.laptop[0].ean == ean)
+      console.log(image)
+      if (image) {
+        this.selectedImage = image
+        this.$router.push(parentPath + "/" + ean);
+      }
+    }
+  },
+  watch: {
+    barcode: {
+      handler(code) {
+        if (code) {
+          this.selectImageByEAN(code)
+        }
+      }
+    },
+    '$route'(){
+      this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
     }
   },
   computed: {
@@ -134,7 +158,6 @@ export default {
 </script>
 
 <style scoped>
-
 .statusButtonsStyling {
   height: 100px;
 }
