@@ -123,14 +123,12 @@ export default {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
     },
-    selectImageByEAN(ean) {
-      console.log('The EAN value: ', ean)
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
-      const image = this.images.find(image => image.laptop[0].ean == ean)
+    selectImageByEAN(id) {
+      console.log('The EAN value: ', id)
+      const image = this.images.find(image => image.id == id)
       console.log(image)
       if (image) {
-        this.selectedImage = image
-        this.$router.push(parentPath + "/" + ean);
+        this.setImage(image)
       }
     }
   },
