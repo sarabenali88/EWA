@@ -163,7 +163,6 @@ export default {
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
-    console.log(this.images);
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   watch: {},
