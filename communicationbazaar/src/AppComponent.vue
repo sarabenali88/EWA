@@ -13,7 +13,6 @@
 
 import HeaderComponent from "@/components/HeaderComponent";
 import NavBarComponent from "@/components/NavBarComponent";
-import CONFIG from "@/app-config";
 import { ImagesAdaptor } from "@/services/ImagesAdaptor";
 import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";
 import { AccountsAdaptor } from "@/services/AccountsAdaptor";
@@ -27,9 +26,9 @@ export default {
   },
   provide() {
     return {
-      imagesService: new ImagesAdaptor(CONFIG.BACKEND_URL + '/images'),
-      laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
-      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts')
+      imagesService: new ImagesAdaptor('/images'),
+      laptopsService: new LaptopsAdaptor('/laptops'),
+      accountsService: new AccountsAdaptor('/accounts')
     }
   },
   created() {
