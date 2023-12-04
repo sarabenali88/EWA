@@ -301,7 +301,7 @@
 </template>
 
 <script>
-import allImagesComponent from "@/frontend/allImagesComponent.vue";
+import allImagesComponent from "@/components/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',

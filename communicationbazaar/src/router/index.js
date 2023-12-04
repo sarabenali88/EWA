@@ -1,25 +1,25 @@
 import {createRouter, createWebHashHistory} from "vue-router";
-import WelcomeComponent from "@/frontend/WelcomeComponent";
-import UnknownRoute from "@/frontend/UnknownRouteComponent";
-import ImageListComponent from "@/frontend/ImageListComponent";
-import AccountComponent from "@/frontend/AccountComponent";
-import SignInComponent from "@/frontend/SignInComponent";
-import addImageComponent from "@/frontend/addImageComponent.vue";
-import NavBar from "@/frontend/NavBarComponent";
-import allImagesComponent from "@/frontend/allImagesComponent.vue";
-import imageStatusTodoComponent from "@/frontend/imageStatusTodoComponent.vue";
-import imageStatusOnGoingComponent from "@/frontend/imageStatusOnGoingComponent.vue";
-import imageStatusFinishedComponent from "@/frontend/imageStatusFinishedComponent.vue";
-import imageStatusOverDateComponent from "@/frontend/imageStatusOverDateComponent.vue";
-import imageDetailComponent from "@/frontend/ImageDetailComponent";
-import WebScraperComponent from "@/frontend/WebScraperComponent";
-import ProfilePageComponent from "@/frontend/ProfilePageComponent";
-import AllUsersComponent from "@/frontend/AllUsersComponent";
-import UserDetailComponent from "@/frontend/UserDetailComponent";
-import UserAddComponent from "@/frontend/UserAddComponent";
-import StatisticsPageComponent from "@/frontend/StatisticsPageComponent.vue";
+import WelcomeComponent from "@/components/WelcomeComponent";
+import UnknownRoute from "@/components/UnknownRouteComponent";
+import ImageListComponent from "@/components/ImageListComponent";
+import AccountComponent from "@/components/AccountComponent";
+import SignInComponent from "@/components/SignInComponent";
+import addImageComponent from "@/components/addImageComponent.vue";
+import NavBar from "@/components/NavBarComponent";
+import allImagesComponent from "@/components/allImagesComponent.vue";
+import imageStatusTodoComponent from "@/components/imageStatusTodoComponent.vue";
+import imageStatusOnGoingComponent from "@/components/imageStatusOnGoingComponent.vue";
+import imageStatusFinishedComponent from "@/components/imageStatusFinishedComponent.vue";
+import imageStatusOverDateComponent from "@/components/imageStatusOverDateComponent.vue";
+import imageDetailComponent from "@/components/ImageDetailComponent";
+import WebScraperComponent from "@/components/WebScraperComponent";
+import ProfilePageComponent from "@/components/ProfilePageComponent";
+import AllUsersComponent from "@/components/AllUsersComponent";
+import UserDetailComponent from "@/components/UserDetailComponent";
+import UserAddComponent from "@/components/UserAddComponent";
+import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
 
-import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
+import ClaimedImageComponent from "@/components/ClaimedImageComponent";
 
 
 export const router = createRouter({

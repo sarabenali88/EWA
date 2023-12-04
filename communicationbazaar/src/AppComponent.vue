@@ -11,8 +11,8 @@
 
 <script>
 
-import HeaderComponent from "@/frontend/HeaderComponent";
-import NavBarComponent from "@/frontend/NavBarComponent";
+import HeaderComponent from "@/components/HeaderComponent";
+import NavBarComponent from "@/components/NavBarComponent";
 import CONFIG from "@/app-config";
 import { ImagesAdaptor } from "@/services/ImagesAdaptor";
 import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";

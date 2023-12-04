@@ -66,7 +66,7 @@
  * @author Jasper Fernhout
  */
 
-import NavBar from "@/frontend/NavBarComponent";
+import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "AccountComponent",

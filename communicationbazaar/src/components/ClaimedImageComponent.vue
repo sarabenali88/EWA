@@ -28,7 +28,7 @@
 
 <script>
 import imageData from '@/image.json';
-import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import imageDetailComponent from "@/components/ImageDetailComponent";
 
 export default {
   name: 'ClaimedImageComponent',

@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import imageDetailComponent from "@/frontend/ImageDetailComponent";
+import imageDetailComponent from "@/components/ImageDetailComponent";
 import { barcode } from './HeaderComponent.vue'
 
 export default {

@@ -69,9 +69,9 @@
  *
  * @author Jasper Fernhout
  */
-import UserDetailComponent from "@/frontend/UserDetailComponent";
-import NavBarComponent from "@/frontend/NavBarComponent";
-import NavBar from "@/frontend/NavBarComponent";
+import UserDetailComponent from "@/components/UserDetailComponent";
+import NavBarComponent from "@/components/NavBarComponent";
+import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "AllUsersComponent",
