@@ -163,6 +163,7 @@ export default {
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
+    console.log(this.images);
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   watch: {},
@@ -171,12 +172,14 @@ export default {
       const query = this.searchQuery.toLowerCase().trim();
       if(query !== '') {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        return this.filteredImages = this.images.filter(image =>
-            image.laptop.ean.toString().includes(query) ||
-            image.imageMaker.toLowerCase().includes(query) ||
-            image.status.toLowerCase().includes(query) ||
-            image.upDateDate.toLowerCase().includes(query)
-        )
+       return this.filteredImages = this.images.filter(image =>
+            (image.laptop.ean && image.laptop.ean.toString().includes(query)) ||
+            (image.imageMaker && image.imageMaker.toLowerCase().includes(query)) ||
+            (image.status && image.status.toLowerCase().includes(query)) ||
+            (image.upDateDate && image.upDateDate.toLowerCase().includes(query)) ||
+            (image.store && image.store.toLowerCase().includes(query)) ||
+            (image.name && image.name.toLowerCase().includes(query))
+        );
       }
       return this.filteredImages()
     }
