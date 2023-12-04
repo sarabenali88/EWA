@@ -317,5 +317,179 @@
    "name": "ImageNaam11",
    "comment": "",
    "imageMaker": "Eadwine Schwangau"
- }
+ },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377578,
+        "ean": 4710180626989,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "11-11-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377100,
+        "ean": 4710180626100,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "11-11-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377234,
+        "ean": 4710180626234,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "11-11-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377456,
+        "ean": 4710180626345,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "9-9-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377409,
+        "ean": 4710180626309,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "9-9-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  },
+  {
+    "laptop": [
+      {
+        "articleNumber": 16377490,
+        "ean": 4710180626390,
+        "brand": "ACER",
+        "description": "ASPIRE 3 A317-51K-37GG",
+        "processor": "Intel Core i3-7020U",
+        "ram": "4 GB",
+        "storage": "256 GB",
+        "gpu": "HD Graphics 620",
+        "sizeInch": "17.3 inch",
+        "sizeCm": "43.9 cm",
+        "os": "WIN11",
+        "prize": 500
+      }
+    ],
+    "version": "MM V4.0.4",
+    "store": "Hoorn",
+    "upDateDate": "9-9-2023",
+    "status": "Mee bezig",
+    "release": "Nieuw",
+    "problem": "Ja",
+    "week": 31,
+    "year": 2023,
+    "name": "ImageNaam11",
+    "comment": "",
+    "imageMaker": "Eadwine Schwangau"
+  }
 ]

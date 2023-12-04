@@ -17,6 +17,8 @@ import ProfilePageComponent from "@/frontend/ProfilePageComponent";
 import AllUsersComponent from "@/frontend/AllUsersComponent";
 import UserDetailComponent from "@/frontend/UserDetailComponent";
 import UserAddComponent from "@/frontend/UserAddComponent";
+import StatisticsPageComponent from "@/frontend/StatisticsPageComponent.vue";
+
 import ClaimedImageComponent from "@/frontend/ClaimedImageComponent";
 
 
@@ -69,6 +71,10 @@ export const router = createRouter({
         {
             path: NavBar.data().webScraperRoute,
             component: WebScraperComponent
+        },
+        {
+            path: NavBar.data().statisticsRoute,
+            component: StatisticsPageComponent
         },
         {
             path: NavBar.data().allUsersRoute,
