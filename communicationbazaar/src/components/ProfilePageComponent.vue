@@ -128,6 +128,13 @@ export default {
   border-width: 3px !important;
 }
 
+@media (max-width: 700px) {
+  .container {
+    width: 90%;
+    margin: 5%;
+  }
+}
+
 h5 {
   color: lightgray;
 }

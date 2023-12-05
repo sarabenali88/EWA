@@ -325,7 +325,7 @@ export default {
       statisticsRoute: '/Statistics',
 
       currentContent: 'contentImage',
-      currentImageList: 'allImages',
+      currentImageList: 'statusFinished',
       fulNavActive: false
     }
   },
