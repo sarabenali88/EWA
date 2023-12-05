@@ -18,7 +18,7 @@
         <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control">
       </div>
       <!-- Test button since for devices with no camera's-->
-<!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('38000447')">Test Btn</button>-->
+<!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('1961881940030')">Test Btn</button>-->
       <!-- button for BarcodeScanner code-->
       <button type="button" class="btn btn-danger m-lg-3" @click="toggleStreamBarcodeReader">Scan for an image</button>
       <!-- BarcodeScanner in modal pop up-->

@@ -121,9 +121,9 @@ export default {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
     },
-    selectImageByEAN(id) {
-      console.log('The EAN value: ', id)
-      const image = this.images.find(image => image.id == id)
+    selectImageByEAN(ean) {
+      console.log('The EAN value: ', ean)
+      const image = this.images.find(image => image.laptop.ean == ean)
       console.log(image)
       if (image) {
         this.setImage(image)
