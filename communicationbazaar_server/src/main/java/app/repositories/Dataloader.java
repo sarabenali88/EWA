@@ -113,10 +113,40 @@ public class Dataloader implements CommandLineRunner {
                 "WIN11",
                 500
         );
+        Laptop laptop4 = new Laptop(
+                1697952,
+                195890201719L,
+                "LENOVO",
+                "YOGA SLIM7 13- RYZEN5 16GB 512GB",
+                "AMD Ryzen 5 5600U",
+                "16 GB",
+                "512 GB SSD",
+                "Radeon Graphics",
+                "13.3 inch",
+                "33.8 cm",
+                "WIN11",
+                500
+        );
+        Laptop laptop5 = new Laptop(
+                1635568,
+                5415247217718L,
+                "APPLE",
+                "Z0X20007Q/CTO/MBA 13 SG/1.6/16/512",
+                "Intel Core i5-8400",
+                "16 GB",
+                "512 GB SSD",
+                "UHD Graphics 617",
+                "13.3 inch",
+                "33.8 cm",
+                null,
+                500
+        );
 
         laptopRepository.save(laptop1);
         laptopRepository.save(laptop2);
         laptopRepository.save(laptop3);
+        laptopRepository.save(laptop4);
+        laptopRepository.save(laptop5);
 
         imageRepository.save(new Image(
                 1001,
@@ -152,7 +182,7 @@ public class Dataloader implements CommandLineRunner {
                 1003,
                 laptop2,
                 "MM V4.0",
-                "Dordrecht",
+                "Tilburg",
                 "11-6-2023",
                 Image.Status.FINISHED,
                 Image.Release.NEW,
