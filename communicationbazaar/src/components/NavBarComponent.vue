@@ -228,7 +228,7 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="statisticsRoute" :class="{'active-tab': $route.path === statisticsRoute}">
-                  Statistics
+                  Statistieken
                 </router-link>
               </div>
             </li>
@@ -286,7 +286,7 @@
 
     <div class="container-fluid" v-if="this.fulNavActive" >
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-person"
-           viewBox="0 0 16 16" @click="setPageContent(myAccountRoute)">
+           viewBox="0 0 16 16" @click="setPageContent(myProfileRoute)">
         <path
             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
       </svg>
