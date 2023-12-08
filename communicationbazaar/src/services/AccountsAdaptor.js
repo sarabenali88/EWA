@@ -9,7 +9,7 @@ export class AccountsAdaptor {
     resourcesUrl;
 
     constructor(resourcesUrl) {
-        this.resourcesUrl = process.env.VUE_APP_API_URL + resourcesUrl;
+        this.resourcesUrl = 'https://back-end-ewa.onrender.com/api' + resourcesUrl;
     }
 
     async fetchJson(url, options = null) {
