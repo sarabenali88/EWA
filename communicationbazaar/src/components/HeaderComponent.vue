@@ -223,9 +223,9 @@ export default {
         }, 1500)
       }
       // Made to reset the scanner but not necessary anymore
-      /*setTimeout(() => {
+      setTimeout(() => {
         barcode.value = null
-      }, 500);*/
+      }, 500);
     },
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
