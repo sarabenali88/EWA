@@ -56,7 +56,7 @@
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="newPassword" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
+              <input v-model="newPassword" @input="checkRegex" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.newPassword') }}</label>
             </div>
 
@@ -101,7 +101,8 @@ export default {
       account: null,
       showAlert: false,
       alertMessage: '',
-      visible: true
+      visible: true,
+      isMatch: false
     }
   },
   async created() {
@@ -137,15 +138,28 @@ export default {
           this.displayAlert(this.$t('adminPanel.errorMessage'));
         } else if (this.account.email !== this.email) {
           this.displayAlert(this.$t('signIn.emailWrong'));
+        } else if (this.isMatch === false) {
+          this.displayAlert(this.$t('signIn.passwordCheck'));
         } else if (this.newPassword !== this.passwordRepeat) {
           this.displayAlert(this.$t('signIn.passwordWrongRepeat'));
         }else {
           this.account.password = this.newPassword;
           await this.accountsService.asyncSave(this.account);
           this.dismissAlert();
+          this.newPassword = "";
+          this.passwordRepeat = "";
+          this.email = "";
           this.visibilitySwitch();
         }
       }
+    },
+    checkRegex() {
+      // (?=.*[A-Z]): Requires at least one uppercase letter.
+      // (?=.*\d): Requires at least one digit.
+      // [A-Za-z\d@$!%*#?&]{8,}: Matches any combination of uppercase/lowercase letters, digits, and specified special characters, with a minimum length of 8 characters.
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+
+      this.isMatch = passwordPattern.test(this.newPassword);
     },
     displayAlert(message) {
       this.alertMessage = message;
