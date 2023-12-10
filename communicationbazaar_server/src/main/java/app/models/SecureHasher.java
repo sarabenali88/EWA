@@ -5,43 +5,40 @@ import java.security.MessageDigest;
 import java.util.Base64;
 
 public class SecureHasher {
-
-    // Configure a password hasher
-    // See https://www.baeldung.com/java-password-hashing
-    private static MessageDigest saltedMessageDigest = getMessageDigest("SHA-512");
-    private static String secretSalt = "HvA-HBO-ICT-2022";
-    private static MessageDigest getMessageDigest(String algorithm) {
-        MessageDigest md;
+    private static final String SECRET_SALT = "HvA-HBO-ICT-2022";
+    private static final ThreadLocal<MessageDigest> messageDigestThreadLocal = ThreadLocal.withInitial(() -> {
         try {
-            md = MessageDigest.getInstance(algorithm);
-            // apply a secret salt to the hasher
-            md.update(String.format("%-16s",secretSalt).getBytes(StandardCharsets.UTF_8));
-            // for more security, add more salt, maybe different salt...
-
-            // reset the md to be ready for the first hash
-            md.reset();
-
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(String.format("%-16s", SECRET_SALT).getBytes(StandardCharsets.UTF_8));
+            // Optionally, add more salt or configurations for security
             return md;
         } catch (Exception ex) {
-            // try to fallback on SHA-256
-            if (!algorithm.equals("SHA-256"))
-                return getMessageDigest("SHA-256");
+            // Handle exception
+            ex.printStackTrace();
+            return null;
         }
-        // nothing found
-        return null;
-    }
+    });
 
     /**
-     * Calculate a secure hash from a soource for the purpose of password hashing.
-     * @param source
-     * @return
+     * Calculate a secure hash from a source for the purpose of password hashing.
+     *
+     * @param source The input string to be hashed
+     * @return The hashed result as a Base64-encoded string
      */
     public static String secureHash(String source) {
-        if (saltedMessageDigest == null || source == null) return null;
-        // hash the source using the salted SHA hasher
-        byte[] hashedResult = saltedMessageDigest.digest(source.getBytes(StandardCharsets.UTF_8));
-        // for more security, waste some time, maybe sleep a bit...
-        // convert the hashed result to a string
+        MessageDigest messageDigest = messageDigestThreadLocal.get();
+
+        if (messageDigest == null || source == null) {
+            return null;
+        }
+
+        // Reset the digest to initial state for each new hash computation
+        messageDigest.reset();
+
+        // Hash the source using the thread-local salted SHA hasher
+        byte[] hashedResult = messageDigest.digest(source.getBytes(StandardCharsets.UTF_8));
+
+        // Convert the hashed result to a Base64-encoded string
         return Base64.getEncoder().encodeToString(hashedResult);
     }
 }
