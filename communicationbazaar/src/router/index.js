@@ -18,6 +18,7 @@ import AllUsersComponent from "@/components/AllUsersComponent";
 import UserDetailComponent from "@/components/UserDetailComponent";
 import UserAddComponent from "@/components/UserAddComponent";
 import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
+import LaptopListComponent from "@/components/LaptopListComponent";
 
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
 
@@ -98,6 +99,7 @@ export const router = createRouter({
 
 
         {path: '/:pathMatch(.*)', component: UnknownRoute},
-        {path: '/addImage', component: addImageComponent}
+        {path: '/addImage', component: addImageComponent},
+        {path: '/laptopList', component: LaptopListComponent}
     ]
 })
