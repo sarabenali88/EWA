@@ -127,7 +127,7 @@ export default {
     /**
      * Method to format the entered date value to dd-mm-yyyy format
      * @param inputDate the value of a date
-     * @return {string}
+     * @return {string} -date format in "DD-MM-YYYY"
      * @author Sara Benali
      */
     formatDate(inputDate) {
@@ -153,12 +153,19 @@ export default {
     },
     /**
      * Method to get today's date and put it as minimum so user can't choose a date before today
-     * @return {string}
+     * @return {string} -date format in without the timezone included
      * @author Sara Benali
      */
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
+    /**
+     * Gets the week from the selected date
+     * @param selectedDate -selected date in "YYYY-MM-DD" format
+     * @return {string} -week format in "YYYY-Www"
+     *
+     * @author Sara Benali
+     */
     getWeekFromDate(selectedDate) {
       const date = new Date(selectedDate);
       date.setDate(date.getDate() + 4 - (date.getDay() || 7));
@@ -171,6 +178,11 @@ export default {
     },
   },
   watch: {
+    /**
+     * checks if the date value is changed, so it updates the week value accordingly
+     * @param newDate - new Date value
+     * @author Sara Benali
+     */
     date(newDate) {
       this.week = this.getWeekFromDate(newDate);
     },
