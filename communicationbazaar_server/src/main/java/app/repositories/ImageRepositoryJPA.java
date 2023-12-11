@@ -47,7 +47,7 @@ public class ImageRepositoryJPA implements Repository<Image>{
     public Image deleteById(long id) {
         Image image = findById(id);
         if (image != null){
-            entityManager.remove(id);
+            entityManager.remove(image);
         }
         return image;
     }
