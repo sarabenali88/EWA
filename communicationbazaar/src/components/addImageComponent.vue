@@ -10,7 +10,7 @@
               </option>
             </select>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="startVersion"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="imageName"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <div class="input-group">
           <input :min="getToday()" type="date" class="form-control" v-model="date"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
       </div>
     </div>
 
@@ -57,9 +57,8 @@
       <label class="col-3" for="week">{{ $t('addImage.week') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="week" class="form-control" v-model="week" :min="getWeek()"/>
+          <input type="week" class="form-control" v-model="week" readonly/>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -94,9 +93,10 @@ export default {
       image: null,
       formattedDate: null,
       formattedWeek: null,
+      formattedYear: null,
+      errorMessage: null,
       laptops: [],
       defaultId: 0,
-      milliSecond: 604800000,
     }
   },
   /**
@@ -114,9 +114,9 @@ export default {
      * @author Sara Benali
      */
     async validateInput() {
-      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === ''
-          || this.date === '' || this.week === '') {
+      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' || this.date === '') {
         this.invalid = true;
+        this.errorMessage = this.$t('addImage.alertEmpty');
       } else {
         this.invalid = false;
       }
@@ -135,25 +135,19 @@ export default {
       return new Date(inputDate).toLocaleDateString('nl-NL', options);
     },
     /**
-     * Method to format week from "2023-W43" to only get week number (43)
-     * @return {string}
-     * @author Sara Benali
-     */
-    formatWeek(week){
-      return week.split('W')[1];
-    },
-    /**
      * Method to save an image to the list with the entered user value
      * @return {Promise<void>}
      * @author Sara Benali
      */
     async saveImage() {
        this.formattedDate = this.formatDate(this.date);
-       this.formattedWeek = this.formatWeek(this.week);
+       this.formattedWeek = this.week.split('W')[1];
+       this.formattedYear = this.week.split('-')[0];
        this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
-            this.formattedDate, this.statusImage, null, null, this.formattedWeek, null,
+            this.formattedDate, this.statusImage, null, null, this.formattedWeek, this.formattedYear,
            this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);
+      console.log(this.image);
       await this.imagesService.asyncFindAll();
       this.$router.push('/imageListRoute/allImages');
     },
@@ -165,16 +159,20 @@ export default {
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
-    /**
-     * Method to calculate this week's date and set it as minimum so user can't choose a week before this week
-     * @return {string}
-     * @author Sara Benali
-     */
-    getWeek() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const week = Math.ceil((today - new Date(year, 0, 1)) / this.milliSecond);
-      return `${year}-W${week}`;
+    getWeekFromDate(selectedDate) {
+      const date = new Date(selectedDate);
+      date.setDate(date.getDate() + 4 - (date.getDay() || 7));
+      const year = date.getFullYear();
+      const startOfYear = new Date(year, 0, 1);
+      const days = Math.ceil((date - startOfYear) / 86400000);
+      const week = Math.ceil((days + startOfYear.getDay() + 1) / 7);
+      const formattedWeek = week.toString().padStart(2, '0');
+      return `${year}-W${formattedWeek}`;
+    },
+  },
+  watch: {
+    date(newDate) {
+      this.week = this.getWeekFromDate(newDate);
     },
   },
   computed: {
