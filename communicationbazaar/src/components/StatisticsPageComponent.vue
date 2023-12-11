@@ -2,7 +2,7 @@
   <Bar
       id="my-chart-id"
       :options="chartOptions"
-      :data="chartData"
+      v-if="loaded" :data="chartData"
   />
 </template>
 
@@ -16,11 +16,12 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
 export default {
   name: 'StatisticsPageComponent',
   components: {Bar},
-  // inject: ["imagesService"],
+  inject: ["imagesService"],
 
   data() {
     return {
       images: [],
+      loaded: false,
       chartData: {
         labels: [],
         datasets: [{
@@ -35,20 +36,22 @@ export default {
     }
   },
   async created() {
-    // await this.createInformation();
+    // load data from api and add it to the images array
+    this.images = await this.imagesService.asyncFindAll();
     for (let i in imageData) {
       this.images.push(imageData[i]);
     }
-    console.log(this.images)
+
+    // Make labals and data for the chart
     this.chartData.labels = this.getData().map(row => row.time);
     this.chartData.datasets[0].data = this.getData().map(row => row.amountOfImages);
 
-
+    // set loaded to true so the chart can be shown
+    this.loaded = true
   },
   methods: {
-    // async createInformation(){
-    //   this.images = await this.imagesService.asyncFindAll();
-    // },
+
+    // convert date to a date object
     dateConverter(date) {
       let data = date.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(data[2], data[1] - 1, data[0]);
@@ -57,44 +60,21 @@ export default {
       date.setMonth(date.getMonth() - months);
       return date;
     },
-    getDataOfLastMonth() {
-      let amountOfImages = 0;
-      for (const image of this.images) {
-        let correctDate = this.dateConverter(image.upDateDate)
-        if (correctDate > this.dateMinusMonths(new Date(), 1)) {
-          amountOfImages += 1;
-        }
-      }
-      console.log(amountOfImages)
-      return amountOfImages;
-    },
-    getDataOfLastQuarter() {
-      let amountOfImages = 0;
-      for (const image of this.images) {
-        let correctDate = this.dateConverter(image.upDateDate)
-        if (correctDate > this.dateMinusMonths(new Date(), 3)) {
-          amountOfImages += 1;
-        }
-      }
-      console.log(amountOfImages)
-      return amountOfImages;
-    },
 
-    getDataOfLastHalfYear() {
+    getDataMonths(months) {
       let amountOfImages = 0;
       for (const image of this.images) {
         let correctDate = this.dateConverter(image.upDateDate)
-        if (correctDate > this.dateMinusMonths(new Date(), 6)) {
+        if (correctDate > this.dateMinusMonths(new Date(), months)) {
           amountOfImages += 1;
         }
       }
-      console.log(amountOfImages)
       return amountOfImages;
     },
     getData() {
-      return [{time: 'laatste maand', amountOfImages: this.getDataOfLastMonth()},
-        {time: 'laatste kwartaal', amountOfImages: this.getDataOfLastQuarter()},
-        {time: 'laatste half jaar', amountOfImages: this.getDataOfLastHalfYear()}]
+      return [{time: 'Laatste maand', amountOfImages: this.getDataMonths(1)},
+        {time: 'Laatste kwartaal', amountOfImages: this.getDataMonths(3)},
+        {time: 'Laatste half jaar', amountOfImages: this.getDataMonths(6)}]
     }
   }
 }
