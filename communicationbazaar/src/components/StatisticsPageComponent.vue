@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import imageData from '@/image.json';
 import {Bar} from 'vue-chartjs'
 import {Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors} from 'chart.js'
 
@@ -38,11 +37,8 @@ export default {
   async created() {
     // load data from api and add it to the images array
     this.images = await this.imagesService.asyncFindAll();
-    for (let i in imageData) {
-      this.images.push(imageData[i]);
-    }
 
-    // Make labals and data for the chart
+    // Make labels and data for the chart
     this.chartData.labels = this.getData().map(row => row.time);
     this.chartData.datasets[0].data = this.getData().map(row => row.amountOfImages);
 
@@ -50,27 +46,35 @@ export default {
     this.loaded = true
   },
   methods: {
+    dateConverter(dateString) {
+      const parts = dateString.split(' ')[0].split('-');
 
-    // convert date to a date object
-    dateConverter(date) {
-      let data = date.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
-      return new Date(data[2], data[1] - 1, data[0]);
+      if (parts.length !== 3) {
+        throw new Error('Invalid date format. Expected format: DD-MM-YYYY');
+      }
+
+      const [day, month, year] = parts.map(Number); // Convert strings to numbers
+      const convertedDate = new Date(year, month - 1, day);
+      if (convertedDate.toString() === 'Invalid Date') {
+        throw new Error('Invalid date value');
+      }
+      return convertedDate;
     },
+
     dateMinusMonths(date, months) {
-      date.setMonth(date.getMonth() - months);
-      return date;
+      let newDate = new Date(date);
+      newDate.setMonth(newDate.getMonth() - months);
+      return newDate;
     },
 
     getDataMonths(months) {
-      let amountOfImages = 0;
-      for (const image of this.images) {
-        let correctDate = this.dateConverter(image.upDateDate)
-        if (correctDate > this.dateMinusMonths(new Date(), months)) {
-          amountOfImages += 1;
-        }
-      }
-      return amountOfImages;
+      const comparisonDate = this.dateMinusMonths(new Date(), months);
+      return this.images.filter(image => {
+        const imageDate = this.dateConverter(image.upDateDate);
+        return imageDate >= comparisonDate;
+      }).length;
     },
+
     getData() {
       return [{time: 'Laatste maand', amountOfImages: this.getDataMonths(1)},
         {time: 'Laatste kwartaal', amountOfImages: this.getDataMonths(3)},
