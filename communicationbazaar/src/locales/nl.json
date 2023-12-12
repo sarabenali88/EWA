@@ -114,7 +114,8 @@
     "logOut": "Log uit",
     "allUsers": "Alle gebruikers",
     "profileTitle": "Profiel",
-    "adminTitle": "Admin"
+    "adminTitle": "Admin",
+    "laptopList" : "Laptops"
   },
   "home": {
     "welcomeMessage": "Welkom"
@@ -123,5 +124,10 @@
     "TODO": "Te doen",
     "ONGOING": "Mee bezig",
     "FINISHED": "Afgerond"
+  },
+  "laptop": {
+    "allLaptops": "Alle Laptops",
+    "brand": "Merk",
+    "processor": "Processor"
   }
 }

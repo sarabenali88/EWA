@@ -114,9 +114,15 @@
     "logOut": "Se déconnecter",
     "allUsers": "Tous les utilisateurs",
     "profileTitle": "Profil",
-    "adminTitle": "Admin."
+    "adminTitle": "Admin.",
+    "laptopList" : "Ordinateurs Portables"
   },
   "home": {
     "welcomeMessage": "Bienvenue"
+  },
+  "laptop": {
+    "allLaptops": "Tous les ordinateurs portables",
+    "brand": "marque",
+    "processor": "Processeur"
   }
 }

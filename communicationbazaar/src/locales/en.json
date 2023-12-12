@@ -114,7 +114,8 @@
     "logOut": "Log out",
     "allUsers": "All users",
     "profileTitle": "Profile",
-    "adminTitle": "Admin"
+    "adminTitle": "Admin",
+    "laptopList" : "Laptops"
   },
   "home": {
     "welcomeMessage": "Welcome"
@@ -123,5 +124,10 @@
     "TODO": "TODO",
     "ONGOING": "ONGOING",
     "FINISHED": "FINISHED"
+  },
+  "laptop": {
+    "allLaptops": "All Laptops",
+    "brand": "Brand",
+    "processor": "Processor"
   }
 }
