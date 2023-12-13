@@ -20,6 +20,7 @@ import UserAddComponent from "@/components/UserAddComponent";
 import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
 
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
+import imageStatusImpossibleComponent from "@/components/ImageStatusImpossibleComponent";
 
 
 export const router = createRouter({
@@ -51,6 +52,11 @@ export const router = createRouter({
                 {
                     path: 'statusFinished',
                     component: imageStatusFinishedComponent,
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusImpossible',
+                    component: imageStatusImpossibleComponent,
                     children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {
