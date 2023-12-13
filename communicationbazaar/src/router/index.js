@@ -29,6 +29,7 @@ export const router = createRouter({
         {
             path: NavBar.data().homeRoute,
             component: WelcomeComponent,
+            children: [{path: ':ean/:id', component: imageDetailComponent}]
         },
         {
             path: NavBar.data().imageListRoute,

@@ -33,7 +33,7 @@ export default {
     }
   },
   created() {
-    this.$router.push("/imageListRoute/statusFinished");
+    this.$router.push("/welcome");
   }
 }
 </script>
