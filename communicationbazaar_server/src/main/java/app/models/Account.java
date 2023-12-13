@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -30,6 +33,9 @@ public class Account {
     private String role;
     private String location;
     private boolean loggedIn;
+    @OneToMany(mappedBy = "imageMaker", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = {"imageMaker"}, allowSetters = true)
+    private List<Image> images = new ArrayList<>();
 
     public Account() {
 
@@ -108,6 +114,41 @@ public class Account {
                 "Amsterdam",
                 LOGGEDIN.values()[0]
         );
+    }
+
+    /**
+     * Associates the given image with this account, if not yet associated
+     *
+     * @param image
+     * @return whether a new association has been added
+     */
+    public boolean associateImage(Image image) {
+        if (image == null || this.images.contains(image)) {
+            //no change required
+            return false;
+        }
+
+        //update both sides of the association
+        this.images.add(image);
+        image.associateAccount(this);
+        return true;
+    }
+
+    /**
+     * Dissociates the given image from this account, if associated
+     * @param image
+     * @return whether an existing association has been removed
+     */
+    public boolean dissociateImage(Image image) {
+        if (image == null || !this.images.contains(image)) {
+            //no change required
+            return false;
+        }
+
+        //update both sides of the association
+        this.images.remove(image);
+        image.setImageMaker(null);
+        return true;
     }
 
     public long getPersonalNumber() {

@@ -248,10 +248,11 @@ export default {
 
 .card {
   position: absolute;
-  width: 10%;
+  width: 25%;
   height: 10%;
   right: 5%;
   top: 80px;
+  z-index: 100;
 }
 
 .card-footer {

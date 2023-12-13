@@ -57,6 +57,10 @@ public class Dataloader implements CommandLineRunner {
                 "ImageMaker",
                 "Hoorn",
                 Account.LOGGEDIN.FALSE));
+
+        accountRepository.findById(10000).associateImage(imageRepository.findById(1001));
+        accountRepository.findById(10000).associateImage(imageRepository.findById(1002));
+        accountRepository.findById(10003).associateImage(imageRepository.findById(1003));
     }
 
     @Autowired
@@ -160,7 +164,6 @@ public class Dataloader implements CommandLineRunner {
                 30,
                 2023,
                 "ImageNaam2",
-                null,
                 null
         ));
         imageRepository.save(new Image(
@@ -175,8 +178,7 @@ public class Dataloader implements CommandLineRunner {
                 35,
                 2023,
                 "ImageNaam3",
-                null,
-                "Pieter van de Broek"
+                null
         ));
         imageRepository.save(new Image(
                 1003,
@@ -190,8 +192,7 @@ public class Dataloader implements CommandLineRunner {
                 23,
                 2023,
                 "ImageNaam4",
-                null,
-                "Pieter van de Broek"
+                null
         ));
         imageRepository.save(new Image(
                 1004,
@@ -205,8 +206,12 @@ public class Dataloader implements CommandLineRunner {
                 18,
                 2023,
                 "ImageNaam5",
-                null,
-                "Cindy Visser"
+                null
         ));
+
+        imageRepository.findById(1001).associateAccount(accountRepository.findById(10000));
+        imageRepository.findById(1002).associateAccount(accountRepository.findById(10000));
+        imageRepository.findById(1003).associateAccount(accountRepository.findById(10003));
+
     }
 }
