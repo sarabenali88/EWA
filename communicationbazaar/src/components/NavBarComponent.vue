@@ -115,6 +115,22 @@
             </li>
 
             <li>
+              <div :class="{'active-route': $route.path.toString().includes(statusImpossible)}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                     :class="{'active-icon': $route.path.toString().includes(statusImpossible)}"
+                     class="bi bi-arrow-repeat my-4 mx-1"
+                     viewBox="0 0 16 16">
+                  <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
+                  <path fill-rule="evenodd"
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                </svg>
+                <router-link :to="statusImpossible" :class="{'active-tab': $route.path.toString().includes(statusImpossible)}">
+                  Onmogelijke lijst
+                </router-link>
+              </div>
+            </li>
+
+            <li>
               <div :class="{'active-route': $route.path.toString().includes(statusFinished)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
                      :class="{'active-icon':$route.path.toString().includes(statusFinished)}"
@@ -270,7 +286,7 @@
 
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
            class="bi bi-calendar-check "
-           viewBox="0 0 16 16" @click="setImageList(this.statusFinished)">
+           viewBox="0 0 16 16" @click="setImageList(this.statusImpossible)">
         <path
             d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
         <path
@@ -313,6 +329,7 @@ export default {
       allImagesRoute: '/imageListRoute/allImages',
       statusTodo: '/imageListRoute/statusTodo',
       statusOnGoing: '/imageListRoute/statusOnGoing',
+      statusImpossible: '/imageListRoute/statusImpossible',
       statusFinished: '/imageListRoute/statusFinished',
       statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',
