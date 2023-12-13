@@ -33,7 +33,7 @@ public class Account {
     private String role;
     private String location;
     private boolean loggedIn;
-    @OneToMany(mappedBy = "imageMaker", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "imageMaker")
     @JsonIgnoreProperties(value = {"imageMaker"}, allowSetters = true)
     private List<Image> images = new ArrayList<>();
 
@@ -189,6 +189,10 @@ public class Account {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public List<Image> getImages() {
+        return images;
     }
 }
 

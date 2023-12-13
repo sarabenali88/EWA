@@ -19,7 +19,7 @@ public class Dataloader implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        this.createInitialAccount();
+//        this.createInitialAccount();
         this.createInitialImageAndLaptop();
     }
 
@@ -29,34 +29,40 @@ public class Dataloader implements CommandLineRunner {
         List<Account> accounts = accountRepository.findAll();
         if (!accounts.isEmpty()) return;
 
-        accountRepository.save(new Account(0,
+        Account account1 = new Account(0,
                 "IloveApples4%",
                 "Pieter van de Broek",
                 "pietervdbroek@gmail.com",
                 "admin",
                 "Amsterdam",
-                Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(0,
+                Account.LOGGEDIN.FALSE);
+        Account account2 = new Account(0,
                 "MacbookPro3",
                 "Julia Beekman",
                 "juliabeekman@gmail.com",
                 "admin",
                 "Amsterdam",
-                Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(0,
+                Account.LOGGEDIN.FALSE);
+        Account account3 = new Account(0,
                 "GroteBeer9",
                 "Guus de Jong",
                 "guusdejong@gmail.com",
                 "admin",
                 "Apeldoorn",
-                Account.LOGGEDIN.FALSE));
-        accountRepository.save(new Account(0,
+                Account.LOGGEDIN.FALSE);
+        Account account4 = new Account(0,
                 "IloveBazary4%",
                 "Cindy Visser",
                 "cindyvisser@mm.nl",
                 "ImageMaker",
                 "Hoorn",
-                Account.LOGGEDIN.FALSE));
+                Account.LOGGEDIN.FALSE);
+
+
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        accountRepository.save(account3);
+        accountRepository.save(account4);
 
         accountRepository.findById(10000).associateImage(imageRepository.findById(1001));
         accountRepository.findById(10000).associateImage(imageRepository.findById(1002));
@@ -152,7 +158,7 @@ public class Dataloader implements CommandLineRunner {
         laptopRepository.save(laptop4);
         laptopRepository.save(laptop5);
 
-        imageRepository.save(new Image(
+        Image image1 = new Image(
                 1001,
                 laptop2,
                 "MM V4.0.3",
@@ -165,8 +171,8 @@ public class Dataloader implements CommandLineRunner {
                 2023,
                 "ImageNaam2",
                 null
-        ));
-        imageRepository.save(new Image(
+        );
+        Image image2 = new Image(
                 1002,
                 laptop3,
                 "MM V4.0.4",
@@ -179,8 +185,8 @@ public class Dataloader implements CommandLineRunner {
                 2023,
                 "ImageNaam3",
                 null
-        ));
-        imageRepository.save(new Image(
+        );
+        Image image3 = new Image(
                 1003,
                 laptop2,
                 "MM V4.0",
@@ -193,8 +199,8 @@ public class Dataloader implements CommandLineRunner {
                 2023,
                 "ImageNaam4",
                 null
-        ));
-        imageRepository.save(new Image(
+        );
+        Image image4 = new Image(
                 1004,
                 laptop1,
                 "MM V4.0.1",
@@ -207,11 +213,77 @@ public class Dataloader implements CommandLineRunner {
                 2023,
                 "ImageNaam5",
                 null
-        ));
+        );
 
-        imageRepository.findById(1001).associateAccount(accountRepository.findById(10000));
-        imageRepository.findById(1002).associateAccount(accountRepository.findById(10000));
-        imageRepository.findById(1003).associateAccount(accountRepository.findById(10003));
+        List<Account> accounts = accountRepository.findAll();
+        if (!accounts.isEmpty()) return;
+
+        Account account1 = new Account(0,
+                "IloveApples4%",
+                "Pieter van de Broek",
+                "pietervdbroek@gmail.com",
+                "admin",
+                "Amsterdam",
+                Account.LOGGEDIN.FALSE);
+        Account account2 = new Account(0,
+                "MacbookPro3",
+                "Julia Beekman",
+                "juliabeekman@gmail.com",
+                "admin",
+                "Amsterdam",
+                Account.LOGGEDIN.FALSE);
+        Account account3 = new Account(0,
+                "GroteBeer9",
+                "Guus de Jong",
+                "guusdejong@gmail.com",
+                "admin",
+                "Apeldoorn",
+                Account.LOGGEDIN.FALSE);
+        Account account4 = new Account(0,
+                "IloveBazary4%",
+                "Cindy Visser",
+                "cindyvisser@mm.nl",
+                "ImageMaker",
+                "Hoorn",
+                Account.LOGGEDIN.FALSE);
+
+
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        accountRepository.save(account3);
+        accountRepository.save(account4);
+
+
+
+
+//        imageRepository.findById(1001).associateAccount(accountRepository.findById(10000));
+//        imageRepository.findById(1002).associateAccount(accountRepository.findById(10000));
+//        imageRepository.findById(1003).associateAccount(accountRepository.findById(10003));
+
+
+        imageRepository.save(image1);
+        imageRepository.save(image2);
+        imageRepository.save(image3);
+        imageRepository.save(image4);
+
+        image2.associateAccount(account1);
+        image3.associateAccount(account1);
+        image4.associateAccount(account4);
+
+        account1.associateImage(image2);
+        account1.associateImage(image3);
+        account4.associateImage(image4);
+
+        imageRepository.save(image2);
+        imageRepository.save(image3);
+        imageRepository.save(image4);
+
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        accountRepository.save(account3);
+        accountRepository.save(account4);
+
+
 
     }
 }
