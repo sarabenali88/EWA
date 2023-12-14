@@ -52,4 +52,9 @@ public class ImageRepositoryMock implements Repository<Image> {
 
         return deleteImage;
     }
+
+    @Override
+    public List<Image> findByQuery(String jpqlName, Object... params) {
+        return null;
+    }
 }

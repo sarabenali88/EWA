@@ -51,4 +51,15 @@ public class ImageRepositoryJPA implements Repository<Image>{
         }
         return image;
     }
+
+    @Override
+    public List<Image> findByQuery(String jpqlName, Object... params) {
+        TypedQuery<Image> query =
+                this.entityManager.createNamedQuery(jpqlName, Image.class);
+
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i+1, params[i]);
+        }
+        return query.getResultList();
+    }
 }

@@ -1,3 +1,9 @@
+/**
+ * This is a class that will generate test data for us to use
+ * for the website
+ *
+ * @author Seyma Kaya
+ */
 package app.repositories;
 
 import app.models.Account;

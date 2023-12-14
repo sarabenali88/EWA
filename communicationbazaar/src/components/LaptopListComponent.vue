@@ -15,7 +15,7 @@
               <div class="col-auto">
                 <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
                       accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                      class="row justify-content-md-end">
+                      class="row justify-content-md-end" @click="onDelete(laptop)">
                   <button type="button" class="btn btn-danger m-2 col-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -23,7 +23,7 @@
                           d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
                     </svg>
                   </button>
-                  <button type="button" class="btn btn-outline-secondary m-2 col-auto">
+                  <button type="button" class="btn btn-outline-secondary m-2 col-auto" @click="onChange()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path
@@ -117,6 +117,7 @@ export default {
     return {
       laptops: [],
       accounts: [],
+      editComment: false
     }
   },
   watch: {
@@ -132,6 +133,17 @@ export default {
   methods: {
     async reInitialise(){
       this.laptops = await this.laptopsService.asyncFindAll()
+    },
+    onChange(){
+      if (this.editComment === true){
+        this.editComment = false;
+      } else {
+        this.editComment = true;
+      }
+    },
+    async onDelete(laptop){
+      //console.log(laptop.ean)
+      await this.laptopsService.asyncDeleteById(laptop.ean)
     }
   }
 }

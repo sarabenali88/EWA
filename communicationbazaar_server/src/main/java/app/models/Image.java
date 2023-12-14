@@ -5,13 +5,15 @@
  */
 package app.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+
+@NamedQueries({
+        @NamedQuery(name="Image_delete_by_laptop_ean",
+                query = "select i from Image i where i.laptop.ean = ?1")
+})
 @Entity
 public class Image {
     @Id

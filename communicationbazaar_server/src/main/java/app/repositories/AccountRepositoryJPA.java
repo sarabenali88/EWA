@@ -57,4 +57,15 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
         }
         return account;
     }
+
+    @Override
+    public List<Account> findByQuery(String jpqlName, Object... params) {
+        TypedQuery<Account> query =
+                this.entityManager.createNamedQuery(jpqlName, Account.class);
+
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i+1, params[i]);
+        }
+        return query.getResultList();
+    }
 }
