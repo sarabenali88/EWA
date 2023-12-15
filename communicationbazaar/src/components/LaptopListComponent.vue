@@ -15,7 +15,7 @@
               <div class="col-auto">
                 <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
                       accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                      class="row justify-content-md-end" @click="onDelete(laptop)">
+                      class="row justify-content-md-end" @click="modalDelete(laptop)">
                   <button type="button" class="btn btn-danger m-2 col-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -105,6 +105,24 @@
           </div>
         </div>
       </div>
+<!--      modal pop-up view-->
+      <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
+              <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>{{$t('laptop.confirmMessage')}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeModal()">{{$t('adminPanel.cancelButton')}}</button>
+              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">{{$t('imageDetail.deleteButton')}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -117,7 +135,9 @@ export default {
     return {
       laptops: [],
       accounts: [],
-      editComment: false
+      editComment: false,
+      showModal: false,
+      selectedLaptop: null
     }
   },
   watch: {
@@ -131,9 +151,20 @@ export default {
     this.account = this.accounts.find(account => account.loggedIn)
   },
   methods: {
+    /**
+     * A methode that reinitializes the view with laptops
+     *
+     * @author Seyma Kaya
+     * @returns {Promise<void>}
+     */
     async reInitialise(){
       this.laptops = await this.laptopsService.asyncFindAll()
     },
+    /**
+     * A methode that sets the component to an editing style
+     *
+     * @author Seyma Kaya
+     */
     onChange(){
       if (this.editComment === true){
         this.editComment = false;
@@ -141,9 +172,37 @@ export default {
         this.editComment = true;
       }
     },
+    /**
+     * A methode opens the confirmation modal for delete
+     *
+     * @author Seyma Kaya
+     * @param laptop that this modal is for
+     * @returns {Promise<void>}
+     */
+    async modalDelete(laptop){
+      this.selectedLaptop = laptop
+      this.showModal = true;
+    },
+    /**
+     * A methode deletes a given laptop
+     *
+     * @author Seyma Kaya
+     * @param laptop that needs to be deleted
+     * @returns {Promise<void>}
+     */
     async onDelete(laptop){
-      //console.log(laptop.ean)
       await this.laptopsService.asyncDeleteById(laptop.ean)
+      this.reInitialise();
+      this.closeModal();
+    },
+    /**
+     * Method that will close the confirmation modal when the close button is clicked.
+     *
+     * @author Seyma Kaya
+     */
+    closeModal() {
+      this.showModal = false;
+      this.selectedLaptop = null
     }
   }
 }

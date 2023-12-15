@@ -123,6 +123,7 @@
   "laptop": {
     "allLaptops": "Tous les ordinateurs portables",
     "brand": "marque",
-    "processor": "Processeur"
+    "processor": "Processeur",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées."
   }
 }

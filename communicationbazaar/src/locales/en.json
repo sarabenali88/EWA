@@ -128,6 +128,7 @@
   "laptop": {
     "allLaptops": "All Laptops",
     "brand": "Brand",
-    "processor": "Processor"
+    "processor": "Processor",
+    "confirmMessage": "Are you sure you want to delete this laptop? All images for this laptop will also be deleted."
   }
 }
