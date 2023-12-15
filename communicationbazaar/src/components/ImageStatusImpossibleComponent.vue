@@ -1,6 +1,6 @@
 <template>
   <h1 class="mx-3">
-    Status Onmogelijke images
+    {{$t('imageStatus.impossibleTitle')}}
   </h1>
   <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
    accounts.some(account => account.loggedIn && account.role === 'admin')}">
@@ -15,7 +15,7 @@
           </router-view>
         </div>
       </div>
-      <table class="table table-sm">
+      <table class="table table-hover table-sm">
         <thead>
         <tr>
           <th scope="col">{{$t('allImages.ean')}}</th>
@@ -51,7 +51,7 @@
         </router-view>
       </div>
     </div>
-    <table class="table table-sm">
+    <table class="table table-hover table-sm">
       <thead>
       <tr>
         <th scope="col">{{$t('allImages.ean')}}</th>
@@ -64,7 +64,7 @@
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">Niet toegewezen</td>
+        <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>

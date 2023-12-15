@@ -16,7 +16,7 @@
           </router-view>
         </div>
       </div>
-      <table class="table table-sm">
+      <table class="table table-hover table-sm">
         <thead>
         <tr>
           <th scope="col">{{$t('allImages.ean')}}</th>
@@ -35,7 +35,7 @@
           <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td v-if="isCorrespondingStatus(image) && image.imageMaker !== null">{{ image.store }}</td>
           <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ $t(`status.${image.status}`) }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
         </tr>
         </tbody>
@@ -52,7 +52,7 @@
         </router-view>
       </div>
     </div>
-    <table class="table table-sm">
+    <table class="table table-hover table-sm">
       <thead>
       <tr>
         <th scope="col">{{$t('allImages.ean')}}</th>
@@ -65,8 +65,8 @@
       <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image) && image.imageMaker !== ''">{{ image.imageMaker }}</td>
-        <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">Niet toegewezen</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-else-if="isCorrespondingStatus(image)" class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ $t(`status.${image.status}`) }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>
       </tbody>

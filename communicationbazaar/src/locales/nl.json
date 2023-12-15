@@ -70,10 +70,12 @@
   "imageStatus": {
     "toDoTitle" : "Status Te doen Images",
     "ongoingTitle" : "Status Mee bezig Images",
+    "impossibleTitle": "Status Onmogelijke Images",
     "finishedTitle" : "Status Afgeronde Images",
     "overDateTitle" : "Status Over Datum Images",
     "statusToDo": "Te doen",
     "statusOngoing": "Mee bezig",
+    "statusImpossible": "Onmogelijk",
     "statusFinished": "Afgerond",
     "statusOverDate": "Over Datum",
     "noAccessMessage": "U heeft niet de bevoegdheden om deze data te zien"
@@ -98,6 +100,12 @@
     "employeeNumber": "Werknemer nr.",
     "location": "Locatie"
   },
+  "statisticsPage": {
+    "amountImages": "Aantal images",
+    "lastMonth": "Laatste maand",
+    "lastQuarter": "Laatste kwartaal",
+    "lastHalfYear": "Laatste half jaar"
+  },
   "header":{
     "placeholder": "Zoek voor image"
   },
@@ -106,22 +114,30 @@
     "allImages": "Alle Images",
     "toDoList": "Te doen Lijst",
     "ongoingList": "In ontwikkeling Lijst",
+    "impossibleList": "Onmogelijk Lijst",
     "finishedList": "Afgerond Lijst",
     "overDateList": "Over datum Lijst",
     "myAccount": "Mijn account",
     "myProfile": "Mijn profiel",
+    "statistics": "Statistieken",
     "logIn": "Log in",
     "logOut": "Log uit",
     "allUsers": "Alle gebruikers",
     "profileTitle": "Profiel",
-    "adminTitle": "Admin"
+    "adminTitle": "Admin",
+    "laptopTitle": "Laptop"
   },
-  "home": {
-    "welcomeMessage": "Welkom"
+  "home":{
+    "finishedList": "Afgeronde Images Lijst"
   },
   "status": {
-    "TODO": "Te doen",
-    "ONGOING": "Mee bezig",
-    "FINISHED": "Afgerond"
+    "TODO": "TE DOEN",
+    "ONGOING": "MEE BEZIG",
+    "FINISHED": "AFGEROND",
+    "IMPOSSIBLE": "ONMOGELIJK"
+  },
+  "release":{
+    "NEW": "NIEUW",
+    "UPDATE": "UPDATE"
   }
 }

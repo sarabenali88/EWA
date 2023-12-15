@@ -122,7 +122,7 @@
             <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
               <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-              <td v-else class="text-secondary">Niet toegewezen</td>
+              <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
               <td>{{ image.status }}</td>
               <td>{{ image.upDateDate }}</td>
             </tr>
@@ -197,13 +197,17 @@ export default {
     expandSearch() {
       this.expanded = !this.expanded;
     },
+    /**
+     * updates the language when the user selects a different language
+     *
+     * @author Sara Benali
+     */
     updateLocale() {
-      // update the i18n locale when the user selects a different language
       if (this.$i18n.locale === 'nl') {
         this.$i18n.locale = 'nl';
       } else if (this.$i18n.locale === 'en') {
         this.$i18n.locale = 'en';
-      } else {
+      } else if (this.$i18n.locale === 'fr') {
         this.$i18n.locale = 'fr';
       }
     },

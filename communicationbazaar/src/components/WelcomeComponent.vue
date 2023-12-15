@@ -1,12 +1,11 @@
 <template>
   <h1 class="mx-3 my-4">
-    Afgeronde Images Lijst
+    {{this.$t('home.finishedList')}}
   </h1>
   <div class="container-fluid p-3 normal ">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view
-            @delete-image="deleteImage()" @save-image="saveImage" v-on:refresh="this.onRefresh()">
+        <router-view v-on:refresh="this.onRefresh()">
         </router-view>
       </div>
     </div>
@@ -27,7 +26,7 @@
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ $t(`status.${image.status}`) }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -46,10 +45,10 @@
     <table class="table table-sm">
       <thead>
       <tr>
-        <th scope="col">EAN</th>
-        <th scope="col">Medewerker</th>
-        <th scope="col">Status</th>
-        <th scope="col">Datum</th>
+        <th scope="col">{{ $t('allImages.ean') }}</th>
+        <th scope="col">{{ $t('allImages.employeeName') }}</th>
+        <th scope="col">{{ $t('allImages.status') }}</th>
+        <th scope="col">{{ $t('allImages.date') }}</th>
       </tr>
       </thead>
       <tbody>
@@ -105,11 +104,6 @@ export default {
         this.$router.push(parentPath + '/' + image.laptop.ean + "/" + image.id);
       }
       console.log(this.selectedImage)
-    },
-    deleteImage() {
-      const index = this.images.indexOf(this.selectedImage);
-      this.images.splice(index, 1);
-      this.selectedImage = null;
     },
     async onRefresh() {
       this.images = await this.imagesService.asyncFindAll();

@@ -10,7 +10,7 @@
         </router-view>
       </div>
     </div>
-    <table class="table table-sm">
+    <table class="table table-hover table-sm">
       <thead>
       <tr>
         <th scope="col">{{$t('allImages.ean')}}</th>
@@ -29,8 +29,7 @@
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="image.imageMaker !== null">{{ image.store }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td>{{image.status}}</td>
-<!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td>{{ $t(`status.${image.status}`) }}</td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>

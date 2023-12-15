@@ -16,7 +16,7 @@
           </router-view>
         </div>
       </div>
-      <table class="table table-sm">
+      <table class="table table-hover table-sm">
         <thead>
         <tr>
           <th scope="col">{{ $t('allImages.ean') }}</th>
@@ -33,7 +33,7 @@
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+          <td v-if="isCorrespondingStatus(image)">{{ $t(`status.${image.status}`) }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
         </tr>
         </tbody>

@@ -35,7 +35,7 @@
         {{ $t('imageDetail.status') }}:
       </div>
       <div v-if="editComment === false" class="col-sm-auto">
-        {{imageCopy.status}}
+        {{ $t(`status.${imageCopy.status}`) }}
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
@@ -106,7 +106,7 @@
             {{ $t('imageDetail.newUpdate') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.release}}
+            {{ $t(`release.${imageCopy.release}`) }}
           </div>
         </div>
         <div class="row justify-content-sm-left">
