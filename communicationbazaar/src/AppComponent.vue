@@ -33,7 +33,7 @@ export default {
     }
   },
   created() {
-    this.$router.push("/welcome");
+    this.$router.push("/home");
   }
 }
 </script>

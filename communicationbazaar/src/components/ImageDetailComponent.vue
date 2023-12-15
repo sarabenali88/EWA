@@ -194,7 +194,8 @@ export default {
         this.imageCopy.imageMaker = this.account.name
         this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
+      if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
+          this.imageCopy.status === Object.keys(Image.Status)[3]){
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }

@@ -324,7 +324,7 @@ export default {
   inject: ["accountsService"],
   data() {
     return {
-      homeRoute: '/welcome',
+      homeRoute: '/home',
       imageListRoute: '/imageListRoute',
       allImagesRoute: '/imageListRoute/allImages',
       statusTodo: '/imageListRoute/statusTodo',
