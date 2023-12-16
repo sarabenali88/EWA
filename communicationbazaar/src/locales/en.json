@@ -11,7 +11,8 @@
     "week": "Week",
     "alertEmpty": "This field is required",
     "buttonSave": "Save",
-    "buttonAdd": "Add image"
+    "buttonAdd": "Add image",
+    "confirmMessage": "Are you sure you want to save this image?"
   },
   "allImages": {
     "titleName": "All Images",

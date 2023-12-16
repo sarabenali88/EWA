@@ -5,12 +5,12 @@
       <div class="col-5">
         <div class="input-group">
           <select v-model="selectedLaptop" class="form-control">
-              <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
-             {{laptop.ean}}
-              </option>
-            </select>
+            <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
+              {{ laptop.ean }}
+            </option>
+          </select>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="imageName"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <div class="input-group">
           <input :min="getToday()" type="date" class="form-control" v-model="date"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage}}</div>
+        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
       </div>
     </div>
 
@@ -64,7 +64,24 @@
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-danger w-25" @click="validateInput">{{ $t('addImage.buttonSave') }}</button>
+        <button class="btn btn-danger w-25" @click="modalShow">{{ $t('addImage.buttonSave') }}</button>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
+            <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ $t('addImage.confirmMessage') }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeModal()">{{ $t('adminPanel.cancelButton')}}</button>
+            <button type="button" class="btn btn-danger" @click="onSave()">{{ $t('addImage.buttonSave') }}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,6 +114,7 @@ export default {
       errorMessage: null,
       laptops: [],
       defaultId: 0,
+      showModal: false,
     }
   },
   /**
@@ -110,19 +128,43 @@ export default {
   methods: {
     /**
      * Method to check inputs of the user and save an image if input is correct
-     * @return {Promise<void>}
+     * @return {boolean}
      * @author Sara Benali
      */
-    async validateInput() {
+    validateInput() {
       if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' || this.date === '') {
         this.invalid = true;
         this.errorMessage = this.$t('addImage.alertEmpty');
+        return false;
       } else {
         this.invalid = false;
+        return true;
       }
-      if (this.invalid === false) {
-        await this.saveImage();
+    },
+    /**
+     * Method to close the modal
+     * @author Sara Benali
+     */
+    closeModal() {
+      this.showModal = false;
+    },
+    /**
+     * Method to show the modal only after the fields are validated
+     * @author Sara Benali
+     */
+    modalShow() {
+      if (this.validateInput()) {
+        this.showModal = true;
       }
+    },
+    /**
+     * Method to save the new created image and to close the modal
+     * @return {Promise<void>}
+     * @author Sara Benali
+     */
+    async onSave() {
+      await this.saveImage();
+      this.closeModal();
     },
     /**
      * Method to format the entered date value to dd-mm-yyyy format
@@ -131,7 +173,7 @@ export default {
      * @author Sara Benali
      */
     formatDate(inputDate) {
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
       return new Date(inputDate).toLocaleDateString('nl-NL', options);
     },
     /**
@@ -140,12 +182,12 @@ export default {
      * @author Sara Benali
      */
     async saveImage() {
-       this.formattedDate = this.formatDate(this.date);
-       this.formattedWeek = this.week.split('W')[1];
-       this.formattedYear = this.week.split('-')[0];
-       this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
-            this.formattedDate, this.statusImage, null, null, this.formattedWeek, this.formattedYear,
-           this.imageName, null, null);
+      this.formattedDate = this.formatDate(this.date);
+      this.formattedWeek = this.week.split('W')[1];
+      this.formattedYear = this.week.split('-')[0];
+      this.image = new Image(this.defaultId, this.selectedLaptop, this.startVersion, null,
+          this.formattedDate, this.statusImage, null, null, this.formattedWeek, this.formattedYear,
+          this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);
       console.log(this.image);
       await this.imagesService.asyncFindAll();
@@ -187,8 +229,7 @@ export default {
       this.week = this.getWeekFromDate(newDate);
     },
   },
-  computed: {
-  },
+  computed: {},
 }
 </script>
 
