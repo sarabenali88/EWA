@@ -93,6 +93,7 @@ export const router = createRouter({
                     name: 'claimedImageRoute',
                     component: ClaimedImageComponent,
                 },
+                {path: ':ean/:id', component: imageDetailComponent}
             ]
         },
 
