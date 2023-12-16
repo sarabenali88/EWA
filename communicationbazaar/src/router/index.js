@@ -4,7 +4,7 @@ import UnknownRoute from "@/components/UnknownRouteComponent";
 import ImageListComponent from "@/components/ImageListComponent";
 import AccountComponent from "@/components/AccountComponent";
 import SignInComponent from "@/components/SignInComponent";
-import addImageComponent from "@/components/addImageComponent.vue";
+import addImageComponent from "@/components/AddImageComponent.vue";
 import NavBar from "@/components/NavBarComponent";
 import allImagesComponent from "@/components/allImagesComponent.vue";
 import imageStatusTodoComponent from "@/components/imageStatusTodoComponent.vue";
