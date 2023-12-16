@@ -147,7 +147,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService"],
-  emits: ['delete-image', 'save-image'],
+  emits: ['delete-image', 'save-image', 'refresh'],
   data(){
     return {
       statuses: Image.Status,
@@ -203,8 +203,8 @@ export default {
       this.imageClaimed = false;
 
       await this.imagesService.asyncSave(this.imageCopy);
-      await this.imagesService.asyncFindAll()
-      this.$emit('refresh')
+      await this.imagesService.asyncFindAll();
+
     },
     claimImage(){
       this.imageClaimed = true;

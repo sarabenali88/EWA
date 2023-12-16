@@ -122,7 +122,7 @@
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2 ">{{ $t('imageStatus.statusImpossible') }}:</h6>
+          <h6 class="py-2 ">{{ $t('imageStatus.statusOngoing') }}:</h6>
             <h1 class="px-2 py-0">{{ amountOfImagesOnGoing }}</h1>
             <h4 class="px-2 py-1">Images</h4>
         </div>
@@ -139,7 +139,7 @@
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2 ">Onmogelijke:</h6>
+          <h6 class="py-2 ">{{ $t('imageStatus.statusImpossible') }}::</h6>
           <h1 class="px-2 py-0">{{ amountOfImagesImpossible }}</h1>
           <h4 class="px-2 py-1">Images</h4>
         </div>

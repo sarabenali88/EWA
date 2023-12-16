@@ -76,7 +76,6 @@ import { barcode } from './HeaderComponent.vue'
 export default {
   name: "allImagesComponent",
   inject: ["imagesService"],
-  emits: ['addNewImage'],
   components: imageDetailComponent,
   data() {
     return {
@@ -117,6 +116,7 @@ export default {
       this.images = this.images.filter(image => image.status !== 'IMPOSSIBLE');
       this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
     },
+
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
