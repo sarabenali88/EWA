@@ -114,6 +114,7 @@ export default {
     },
     async onRefresh() {
       this.images = await this.imagesService.asyncFindAll();
+      this.images = this.images.filter(image => image.status !== 'IMPOSSIBLE');
       this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
     },
     dateConverter(givenDate) {
