@@ -91,7 +91,8 @@
     "loggedInMessage": "Logged In",
     "wrongPassMessage": "Wrong password",
     "wrongPersMessage": "The employee number is wrong",
-    "newPassword": "New password"
+    "newPassword": "New password",
+    "passwordCheck": "Password must be at least 8 characters with a capital letter and a number."
   },
   "profilePage": {
     "role": "Role",

@@ -73,7 +73,7 @@ public class Account {
      * @param password
      */
     public String hashPassword(String password) {
-        return SecureHasher.secureHash("Id-" + this.getPersonalNumber() + ":" + password);
+        return SecureHasher.secureHash(password);
     }
     public void setPassword(String newPassword) {
         this.password = newPassword;
@@ -88,7 +88,7 @@ public class Account {
      * @return
      */
     public boolean verifyPassword(String password) {
-        return this.hashPassword(password).equals(this.hashPassword(this.getPassword()));
+        return this.hashPassword(password).equals(this.getHashedPassword());
     }
 
     /**
