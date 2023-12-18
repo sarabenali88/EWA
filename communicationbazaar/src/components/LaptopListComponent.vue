@@ -2,6 +2,14 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
+      <div v-if="editLaptop !== null">
+        <div class="card card-body">
+          <router-view
+              v-on:refresh="this.reInitialise()">
+
+          </router-view>
+        </div>
+      </div>
       <!--    1st view-->
       <div class="container">
         <div class="row">
@@ -15,15 +23,15 @@
               <div class="col-auto">
                 <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
                       accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                      class="row justify-content-md-end" @click="modalDelete(laptop)">
-                  <button type="button" class="btn btn-danger m-2 col-auto">
+                      class="row justify-content-md-end">
+                  <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path
                           d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
                     </svg>
                   </button>
-                  <button type="button" class="btn btn-outline-secondary m-2 col-auto" @click="onChange()">
+                  <button type="button" class="btn btn-outline-secondary m-2 col-auto" @click="setRoute(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path
@@ -128,21 +136,19 @@
 </template>
 
 <script>
+import laptopDetailComponent from "@/components/LaptopDetailComponent";
+
 export default {
   name: "LaptopListComponent",
   inject: ['laptopsService', 'accountsService'],
+  components: laptopDetailComponent,
   data() {
     return {
       laptops: [],
       accounts: [],
-      editComment: false,
       showModal: false,
-      selectedLaptop: null
-    }
-  },
-  watch: {
-    '$route'(){
-      this.reInitialise();
+      selectedLaptop: null,
+      editLaptop: null
     }
   },
   async created() {
@@ -152,6 +158,38 @@ export default {
   },
   methods: {
     /**
+     * A methode that sets the route link as well as the selected style for the editing view
+     *
+     * @author Seyma Kaya
+     * @param laptop
+     */
+    setRoute(laptop) {
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
+      if (this.editLaptop === laptop) {
+        this.$router.push(parentPath);
+        this.editLaptop = null;
+      } else {
+        this.$router.push(parentPath + "/" + laptop.ean);
+        this.editLaptop = laptop;
+      }
+      console.log(this.editLaptop)
+      console.log(1)
+    },
+    /**
+     * A methode that links the given id to the corresponding laptop
+     *
+     * @author Seyma Kaya
+     * @param id that belongs to a laptop we are trying to find
+     * @returns {null|*}
+     */
+    findSelectedFromRouteParams(id) {
+      if (id > 0) {
+        id = parseInt(id)
+        return this.laptops.find(value => value.id === id);
+      }
+      return null;
+    },
+    /**
      * A methode that reinitializes the view with laptops
      *
      * @author Seyma Kaya
@@ -159,18 +197,9 @@ export default {
      */
     async reInitialise(){
       this.laptops = await this.laptopsService.asyncFindAll()
-    },
-    /**
-     * A methode that sets the component to an editing style
-     *
-     * @author Seyma Kaya
-     */
-    onChange(){
-      if (this.editComment === true){
-        this.editComment = false;
-      } else {
-        this.editComment = true;
-      }
+      this.selectedLaptop = null;
+      this.editLaptop = null;
+      this.setRoute(this.editLaptop)
     },
     /**
      * A methode opens the confirmation modal for delete

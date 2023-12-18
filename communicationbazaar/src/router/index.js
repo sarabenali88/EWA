@@ -21,6 +21,7 @@ import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
 import LaptopListComponent from "@/components/LaptopListComponent";
 
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
+import laptopDetailComponent from "@/components/LaptopDetailComponent";
 
 
 export const router = createRouter({
@@ -100,6 +101,7 @@ export const router = createRouter({
 
         {path: '/:pathMatch(.*)', component: UnknownRoute},
         {path: '/addImage', component: addImageComponent},
-        {path: '/laptopList', component: LaptopListComponent}
+        {path: '/laptopList', component: LaptopListComponent,
+            children: [{path: ':id', component: laptopDetailComponent}]}
     ]
 })

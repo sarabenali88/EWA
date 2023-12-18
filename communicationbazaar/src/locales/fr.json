@@ -124,6 +124,8 @@
     "allLaptops": "Tous les ordinateurs portables",
     "brand": "marque",
     "processor": "Processeur",
+    "editMessage": "Ordinateur portable avec EAN: ",
+    "alertMessage": "Veuillez remplir tous les champs de saisie !",
     "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées."
   }
 }
