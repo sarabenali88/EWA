@@ -39,14 +39,8 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
 
     @Override
     public Account save(Account model) {
-        if (model.getPersonalNumber() == 0){
-            model.setPassword(model.getPassword());
-            return entityManager.merge(model);
-        }
-        else {
-            model.setPassword(model.getPassword());
-            return entityManager.merge(model);
-        }
+        model.setPassword(model.getPassword());
+        return entityManager.merge(model);
     }
 
     @Override
