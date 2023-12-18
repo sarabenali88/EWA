@@ -7,6 +7,7 @@
 package app.repositories;
 
 import app.models.Account;
+import app.models.Image;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -50,5 +51,16 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
             entityManager.remove(account);
         }
         return account;
+    }
+
+    public List<Image> getImagesFromAccount(long id) {
+
+        Account account = findById(id);
+
+        if (account != null) {
+            return  account.getImages();
+        }
+
+        return null;
     }
 }

@@ -52,7 +52,7 @@
         {{ $t('imageDetail.employee') }}:
       </div>
       <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
-        {{imageCopy.imageMaker}}
+        {{imageCopy.imageMaker.name}}
       </div>
       <div v-else-if="imageCopy.imageMaker === null && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
         {{$t('imageDetail.claimButton')}}
