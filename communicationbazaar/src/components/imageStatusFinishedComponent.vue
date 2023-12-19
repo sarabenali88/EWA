@@ -25,9 +25,9 @@
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{image.status}}</span></td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -55,8 +55,8 @@
       <tbody>
       <tr v-for="image of images" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.status }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker.name }}</td>
+        <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{image.status}}</span></td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -118,6 +118,16 @@ export default {
     dateConverter(givenDate){
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
+    },
+    getStatusClass(image) {
+      if (image.status === 'FINISHED') {
+        return 'badge rounded-pill text-bg-danger';
+      } else if (image.status === 'TODO') {
+        return 'badge rounded-pill text-bg-danger opacity-25';
+      } else if (image.status === 'ONGOING') {
+        return 'badge rounded-pill text-bg-danger opacity-50'
+      }
+      return '';
     }
   },
   computed: {

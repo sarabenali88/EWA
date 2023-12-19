@@ -154,14 +154,14 @@
           <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
             <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
-              <div :class="{'active-route': $route.path === myProfileRoute}">
+              <div :class="{'active-route': $route.path.toString().includes(myProfileRoute)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
                      viewBox="0 0 16 16"
-                     :class="{'active-icon': $route.path === myProfileRoute}">
+                     :class="{'active-icon': $route.path.toString().includes(myProfileRoute)}">
                   <path
                       d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
-                <router-link :to="myProfileRoute" :class="{'active-tab': $route.path === myProfileRoute}">
+                <router-link :to="myProfileRoute" :class="{'active-tab': $route.path.toString().includes(myProfileRoute)}">
                   {{$t('navbar.myProfile')}}
                 </router-link>
               </div>
@@ -379,22 +379,27 @@ export default {
         case this.allImagesRoute:
           this.$router.push(this.allImagesRoute);
           this.currentImageList = 'allImages';
+          this.fulNavActive = !this.fulNavActive;
           break;
         case this.statusTodo:
           this.$router.push(this.statusTodo);
           this.currentImageList = 'statusTodo';
+          this.fulNavActive = !this.fulNavActive;
           break;
         case this.statusOnGoing:
           this.$router.push(this.statusOnGoing);
           this.currentImageList = 'statusOnGoing';
+          this.fulNavActive = !this.fulNavActive;
           break;
         case this.statusFinished:
           this.$router.push(this.statusFinished);
           this.currentImageList = 'statusFinished';
+          this.fulNavActive = !this.fulNavActive;
           break;
         default:
           this.$router.push(this.allImagesRoute);
           this.currentImageList = 'allImages';
+
       }
     },
     showFullNav() {
@@ -402,6 +407,7 @@ export default {
     },
     setPageContent(route) {
       this.$router.push(route);
+      this.fulNavActive = !this.fulNavActive;
     }
   }
 }

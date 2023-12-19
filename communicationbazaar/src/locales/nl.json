@@ -11,7 +11,8 @@
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
     "buttonSave": "Opslaan",
-    "buttonAdd": "Image toevoegen"
+    "buttonAdd": "Image toevoegen",
+    "confirmMessage": "Weet u zeker dat u deze image wilt opslaan?"
   },
   "allImages": {
     "titleName": "Alle Images",
