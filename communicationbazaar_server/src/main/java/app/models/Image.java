@@ -48,7 +48,8 @@ public class Image {
     public enum Status {
         TODO("Te doen"),
         ONGOING("Mee bezig"),
-        FINISHED("Afgerond");
+        FINISHED("Afgerond"),
+        IMPOSSIBLE("Onmogelijk");
 
         private final String value;
 

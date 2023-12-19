@@ -10,7 +10,7 @@
         </router-view>
       </div>
     </div>
-    <table class="table table-sm">
+    <table class="table table-hover table-sm">
       <thead>
       <tr>
         <th scope="col">{{$t('allImages.ean')}}</th>
@@ -29,8 +29,7 @@
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="image.imageMaker !== null">{{ image.store }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
-<!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -76,7 +75,6 @@ import { barcode } from './HeaderComponent.vue'
 export default {
   name: "allImagesComponent",
   inject: ["imagesService"],
-  emits: ['addNewImage'],
   components: imageDetailComponent,
   data() {
     return {
@@ -114,8 +112,10 @@ export default {
     },
     async onRefresh() {
       this.images = await this.imagesService.asyncFindAll();
+      this.images = this.images.filter(image => image.status !== 'IMPOSSIBLE');
       this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
     },
+
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);

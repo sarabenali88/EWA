@@ -16,7 +16,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Functie</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.role')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ role }}
@@ -24,7 +24,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Werknemer nr.</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.employeeNumber')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ personalNumber }}
@@ -32,7 +32,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Locatie</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.location')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ location }}

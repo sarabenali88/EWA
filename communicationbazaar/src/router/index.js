@@ -21,6 +21,7 @@ import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
 import LaptopListComponent from "@/components/LaptopListComponent";
 
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
+import imageStatusImpossibleComponent from "@/components/ImageStatusImpossibleComponent";
 import laptopDetailComponent from "@/components/LaptopDetailComponent";
 
 
@@ -30,6 +31,7 @@ export const router = createRouter({
         {
             path: NavBar.data().homeRoute,
             component: WelcomeComponent,
+            children: [{path: ':ean/:id', component: imageDetailComponent}]
         },
         {
             path: NavBar.data().imageListRoute,
@@ -53,6 +55,11 @@ export const router = createRouter({
                 {
                     path: 'statusFinished',
                     component: imageStatusFinishedComponent,
+                    children: [{path: ':ean/:id', component: imageDetailComponent}]
+                },
+                {
+                    path: 'statusImpossible',
+                    component: imageStatusImpossibleComponent,
                     children: [{path: ':ean/:id', component: imageDetailComponent}]
                 },
                 {

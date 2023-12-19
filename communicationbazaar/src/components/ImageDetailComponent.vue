@@ -36,7 +36,7 @@
         {{ $t('imageDetail.status') }}:
       </div>
       <div v-if="editComment === false" class="col-sm-auto">
-        {{imageCopy.status}}
+        {{ $t(`status.${imageCopy.status}`) }}
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
@@ -107,7 +107,7 @@
             {{ $t('imageDetail.newUpdate') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.release}}
+            {{ $t(`release.${imageCopy.release}`) }}
           </div>
         </div>
         <div class="row justify-content-sm-left">
@@ -148,7 +148,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService"],
-  emits: ['delete-image', 'save-image'],
+  emits: ['delete-image', 'save-image', 'refresh'],
   data(){
     return {
       statuses: Image.Status,
@@ -199,7 +199,8 @@ export default {
         this.imageCopy.imageMaker = this.account.name
         this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
+      if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
+          this.imageCopy.status === Object.keys(Image.Status)[3]){
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
@@ -207,8 +208,8 @@ export default {
       this.imageClaimed = false;
 
       await this.imagesService.asyncSave(this.imageCopy);
-      await this.imagesService.asyncFindAll()
-      this.$emit('refresh')
+      await this.imagesService.asyncFindAll();
+
     },
     claimImage(){
       this.imageClaimed = true;
