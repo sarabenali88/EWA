@@ -172,23 +172,21 @@ export default {
         this.$router.push(parentPath + "/" + laptop.ean);
         this.editLaptop = laptop;
       }
-      console.log(this.editLaptop)
-      console.log(1)
     },
-    /**
-     * A methode that links the given id to the corresponding laptop
-     *
-     * @author Seyma Kaya
-     * @param id that belongs to a laptop we are trying to find
-     * @returns {null|*}
-     */
-    findSelectedFromRouteParams(id) {
-      if (id > 0) {
-        id = parseInt(id)
-        return this.laptops.find(value => value.id === id);
-      }
-      return null;
-    },
+    // /**
+    //  * A methode that links the given id to the corresponding laptop
+    //  *
+    //  * @author Seyma Kaya
+    //  * @param id that belongs to a laptop we are trying to find
+    //  * @returns {null|*}
+    //  */
+    // findSelectedFromRouteParams(id) {
+    //   if (id > 0) {
+    //     id = parseInt(id)
+    //     return this.laptops.find(value => value.id === id);
+    //   }
+    //   return null;
+    // },
     /**
      * A methode that reinitializes the view with laptops
      *

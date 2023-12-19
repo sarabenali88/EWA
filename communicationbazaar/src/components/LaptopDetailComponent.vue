@@ -47,8 +47,9 @@
           </div>
         </div>
         <div class="row justify-content-md-end">
-          <div class="col-auto pt-3">
-            <button type="button" class="btn btn-danger" @click="saveLaptop()">{{$t('imageDetail.saveButton')}}</button>
+          <div class="col-auto pt-2">
+            <button type="button" class="btn btn-danger m-1" @click="saveLaptop()">{{$t('imageDetail.saveButton')}}</button>
+            <button type="button" class="btn btn-outline-secondary m-2" @click="this.$emit('refresh')">{{$t('imageDetail.closeButton')}}</button>
           </div>
         </div>
       </div>
@@ -71,10 +72,10 @@ export default {
       this.reInitialise();
     }
   },
+  async created() {
+    await this.reInitialise();
+  },
   methods: {
-    async created() {
-      await this.reInitialise();
-    },
     /**
      * A methode that reinitializes the editing view
      *
