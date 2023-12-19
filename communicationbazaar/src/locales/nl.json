@@ -101,7 +101,8 @@
     "location": "Locatie"
   },
   "header":{
-    "placeholder": "Zoek voor image"
+    "placeholder": "Zoek voor image",
+    "placeholderLaptop": "Zoek voor laptop"
   },
   "navbar": {
     "home": "Home",

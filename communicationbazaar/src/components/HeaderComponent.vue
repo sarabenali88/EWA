@@ -15,7 +15,7 @@
           <path
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
-        <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+        <input v-model="searchQuery" type="text" :placeholder="$t(this.placeholder)" class="input form-control">
       </div>
       <!-- Test button since for devices with no camera's-->
 <!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('1961881940030')">Test Btn</button>-->
@@ -73,7 +73,7 @@
       <div class="card-footer shadow"> Zie alle notificaties</div>
     </div>
     <div class="search-result-main shadow" v-if="searchQuery !== '' && !this.expanded"  >
-      <table class="table table-sm">
+      <table class="table table-sm" v-if="filteringImages">
         <thead>
         <tr>
           <th scope="col">{{$t('allImages.ean')}}</th>
@@ -93,6 +93,32 @@
           <td>{{ image.store }}</td>
           <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
           <td>{{ image.upDateDate }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-sm" v-if="filteringLaptops">
+        <thead>
+        <tr>
+          <th scope="col">AEN</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Description</th>
+          <th scope="col">Processor</th>
+          <th scope="col">Ram</th>
+          <th scope="col">Storage</th>
+          <th scope="col">GPU</th>
+          <th scope="col">Prize</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="laptop in this.filterLaptop" v-bind:key="laptop.ean">
+          <td>{{ laptop.ean }}</td>
+          <td>{{ laptop.brand }}</td>
+          <td>{{ laptop.description }}</td>
+          <td>{{ laptop.processor }}</td>
+          <td>{{ laptop.ram }}</td>
+          <td>{{ laptop.storage }}</td>
+          <td>{{ laptop.gpu }}</td>
+          <td>{{ laptop.prize }}</td>
         </tr>
         </tbody>
       </table>
@@ -143,7 +169,7 @@ export const barcode = ref(null);
 
 export default {
   name: 'HeaderComponent',
-  inject: ["imagesService"],
+  inject: ["imagesService", "laptopsService"],
   components: {
     StreamBarcodeReader
   },
@@ -158,14 +184,33 @@ export default {
       mobile: false,
       images: [],
       filteredImages: [],
-      searchQuery: ''
+      searchQuery: '',
+      laptopRoute: "/laptopList",
+      placeholder: '',
+      laptops: [],
+      filteredLaptops: [],
+      filteringImages: false,
+      filteringLaptops: true
     }
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
+    this.laptops = await this.laptopsService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
-  watch: {},
+  watch: {
+    '$route'(){
+      if (this.$route.path.match(this.laptopRoute)) {
+        this.placeholder = 'header.placeholderLaptop';
+        this.filteringLaptops = !this.filteringLaptops;
+        this.filteringImages = !this.filteringImages;
+      } else {
+        this.placeholder = 'header.placeholder'
+        this.filteringImages = !this.filteringImages;
+        this.filteringLaptops = !this.filteringLaptops;
+      }
+    }
+  },
   computed: {
     filterImages(){
       const query = this.searchQuery.toLowerCase().trim();
@@ -181,6 +226,30 @@ export default {
         );
       }
       return this.filteredImages()
+    },
+    filterLaptop(){
+      const query = this.searchQuery.toLowerCase().trim();
+      if(query !== '') {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        return this.filteredLaptops = this.laptops.filter(laptop =>
+            (laptop.ean && laptop.ean.toString().includes(query)) ||
+            (laptop.brand && laptop.brand.toLowerCase().includes(query)) ||
+            (laptop.description && laptop.description.toLowerCase().includes(query)) ||
+            (laptop.processor && laptop.processor.toLowerCase().includes(query)) ||
+            (laptop.ram && laptop.ram.toLowerCase().includes(query)) ||
+            (laptop.storage && laptop.storage.toLowerCase().includes(query)) ||
+            (laptop.gpu && laptop.gpu.toLowerCase().includes(query)) ||
+            (laptop.prize && laptop.prize.toString().includes(query))
+        );
+      }
+      return this.filteredLaptops;
+    },
+    currentFilter(){
+      if (this.$route.path.match(this.laptopRoute)) {
+        return this.filterLaptop()
+      } else {
+        return this.filterImages()
+      }
     }
   },
   methods: {
