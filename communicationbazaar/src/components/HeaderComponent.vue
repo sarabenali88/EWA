@@ -91,7 +91,7 @@
           <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
           <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td>{{ image.store }}</td>
-          <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
+          <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
           <td>{{ image.upDateDate }}</td>
         </tr>
         </tbody>
@@ -121,7 +121,7 @@
             <tbody>
             <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
-              <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+              <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
               <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
               <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
               <td>{{ image.upDateDate }}</td>
