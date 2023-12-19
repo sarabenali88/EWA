@@ -8,6 +8,7 @@ package app.rest;
 import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
 import app.models.Account;
+import app.models.Image;
 import app.models.ViewClasses;
 import app.repositories.AccountRepositoryJPA;
 import app.repositories.Repository;
@@ -94,5 +95,12 @@ public class AccountController {
         } else {
             return account.verifyPassword(password);
         }
+    }
+
+    @GetMapping(path = "/{personalNumber}/images")
+    public List<Image> getImagesFromAccount(@PathVariable long personalNumber) {
+
+        return this.accountRepositoryJPA.getImagesFromAccount(personalNumber);
+
     }
 }

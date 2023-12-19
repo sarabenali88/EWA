@@ -11,7 +11,8 @@
     "week": "Semaine",
     "alertEmpty": "Ce champ est obligatoire",
     "buttonSave": "Sauvegarder",
-    "buttonAdd": "Ajouter une image"
+    "buttonAdd": "Ajouter une image",
+    "confirmMessage": "Êtes-vous sûr de vouloir enregistrer cette image?"
   },
   "allImages": {
     "titleName": "Toutes les Images",
@@ -64,6 +65,7 @@
     "errorMessage": "Tous les champs ne sont pas remplis!",
     "confirmMessage": "Êtes-vous sûr de vouloir changer?",
     "newAccount": "Nouveau compte pour {name} a été créé avec le numéro d'employé {employeeNumber} mot de passe welkom",
+    "roleChange": "Vous ne pouvez pas changer votre propre rôle",
     "deleteUser": "L'utilisateur {name} a été supprimé avec succès"
   },
   "imageStatus": {
@@ -93,7 +95,7 @@
     "wrongPassMessage": "Mot de passe erroné",
     "wrongPersMessage": "Le numéro de personnel est erroné",
     "newPassword": "Nouveau mot de passe",
-    "roleChange": "Vous ne pouvez pas changer votre propre rôle"
+    "passwordCheck": "Le mot de passe doit comporter au moins 8 caractères avec une lettre majuscule et un chiffre."
   },
   "profilePage": {
     "role": "Rôle",
@@ -140,5 +142,14 @@
   "release":{
     "NEW": "NOUVEAU",
     "UPDATE": "MISE À JOUR"
+  },
+  "laptop": {
+    "laptopList" : "Ordinateurs Portables",
+    "allLaptops": "Tous les ordinateurs portables",
+    "brand": "Marque",
+    "processor": "Processeur",
+    "editMessage": "Ordinateur portable avec EAN: ",
+    "alertMessage": "Veuillez remplir tous les champs de saisie !",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées."
   }
 }

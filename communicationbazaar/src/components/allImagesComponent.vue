@@ -25,11 +25,11 @@
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
-        <td v-if="image.imageMaker !== null ">{{ image.imageMaker }}</td>
+        <td v-if="image.imageMaker !== null ">{{ image.imageMaker.name }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="image.imageMaker !== null">{{ image.store }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td>{{ $t(`status.${image.status}`) }}</td>
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -57,10 +57,9 @@
       <tbody>
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
-        <td v-if="image.imageMaker !== null">{{ image.imageMaker }}</td>
+        <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td v-if="image.imageMaker !== null">{{ image.store }}</td>
-        <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -128,6 +127,16 @@ export default {
       if (image) {
         this.setImage(image)
       }
+    },
+    getStatusClass(image) {
+      if (image.status === 'FINISHED') {
+        return 'badge rounded-pill text-bg-danger';
+      } else if (image.status === 'TODO') {
+        return 'badge rounded-pill text-bg-danger opacity-25';
+      } else if (image.status === 'ONGOING') {
+        return 'badge rounded-pill text-bg-danger opacity-50'
+      }
+      return '';
     }
   },
   watch: {

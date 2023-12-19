@@ -4,7 +4,7 @@ import UnknownRoute from "@/components/UnknownRouteComponent";
 import ImageListComponent from "@/components/ImageListComponent";
 import AccountComponent from "@/components/AccountComponent";
 import SignInComponent from "@/components/SignInComponent";
-import addImageComponent from "@/components/addImageComponent.vue";
+import addImageComponent from "@/components/AddImageComponent.vue";
 import NavBar from "@/components/NavBarComponent";
 import allImagesComponent from "@/components/allImagesComponent.vue";
 import imageStatusTodoComponent from "@/components/imageStatusTodoComponent.vue";
@@ -18,9 +18,11 @@ import AllUsersComponent from "@/components/AllUsersComponent";
 import UserDetailComponent from "@/components/UserDetailComponent";
 import UserAddComponent from "@/components/UserAddComponent";
 import StatisticsPageComponent from "@/components/StatisticsPageComponent.vue";
+import LaptopListComponent from "@/components/LaptopListComponent";
 
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
 import imageStatusImpossibleComponent from "@/components/ImageStatusImpossibleComponent";
+import laptopDetailComponent from "@/components/LaptopDetailComponent";
 
 
 export const router = createRouter({
@@ -100,11 +102,14 @@ export const router = createRouter({
                     name: 'claimedImageRoute',
                     component: ClaimedImageComponent,
                 },
+                {path: ':ean/:id', component: imageDetailComponent}
             ]
         },
 
 
         {path: '/:pathMatch(.*)', component: UnknownRoute},
-        {path: '/addImage', component: addImageComponent}
+        {path: '/addImage', component: addImageComponent},
+        {path: '/laptopList', component: LaptopListComponent,
+            children: [{path: ':id', component: laptopDetailComponent}]}
     ]
 })

@@ -7,6 +7,7 @@ package app.rest;
 
 import app.exceptions.PreConditionFailedException;
 import app.exceptions.ResourceNotFoundException;
+import app.models.Image;
 import app.models.Laptop;
 import app.models.ViewClasses;
 import app.repositories.Repository;
@@ -22,6 +23,9 @@ import java.util.List;
 public class LaptopController {
     @Autowired
     Repository<Laptop> laptopList;
+
+    @Autowired
+    Repository<Image> imageList;
 
     @GetMapping(path = "", produces = "application/json")
     public List<Laptop> getAllLaptops() {
@@ -47,7 +51,13 @@ public class LaptopController {
 
     @DeleteMapping(path = "{ean}", produces = "application/json")
     public Laptop deleteOneLaptop(@PathVariable() long ean) throws ResourceNotFoundException {
-        Laptop laptop = this.laptopList.deleteById(ean);
+        List<Image> list = imageList.findByQuery("Image_delete_by_laptop_ean", ean);
+
+        for (Image image : list) {
+            imageList.deleteById(image.getId());
+        }
+
+        Laptop laptop = laptopList.deleteById(ean);
 
         if (laptop == null) {
             throw new ResourceNotFoundException("Cannot delete a laptop with ean= " + ean);

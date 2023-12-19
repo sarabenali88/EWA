@@ -151,8 +151,7 @@
   <div class="ms-lg-5">
     <router-view></router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
-            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-            accounts.some(account => account.loggedIn === true && account.role !== 'admin')}">
+            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>

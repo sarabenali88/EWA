@@ -11,7 +11,8 @@
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
     "buttonSave": "Opslaan",
-    "buttonAdd": "Image toevoegen"
+    "buttonAdd": "Image toevoegen",
+    "confirmMessage": "Weet u zeker dat u deze image wilt opslaan?"
   },
   "allImages": {
     "titleName": "Alle Images",
@@ -93,7 +94,8 @@
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
     "wrongPersMessage": "Personeelsnummer is verkeerd",
-    "newPassword": "Nieuw wachtwoord"
+    "newPassword": "Nieuw wachtwoord",
+    "passwordCheck": "Wachtwoord moet minimaal 8 karakters zijn met een hoofdletter en een cijfer."
   },
   "profilePage": {
     "role": "Functie",
@@ -125,7 +127,7 @@
     "allUsers": "Alle gebruikers",
     "profileTitle": "Profiel",
     "adminTitle": "Admin",
-    "laptopTitle": "Laptop"
+    "laptopList" : "Laptops"
   },
   "home":{
     "finishedList": "Afgeronde Images Lijst"
@@ -139,5 +141,13 @@
   "release":{
     "NEW": "NIEUW",
     "UPDATE": "UPDATE"
+  },
+  "laptop": {
+    "allLaptops": "Alle Laptops",
+    "brand": "Merk",
+    "processor": "Processor",
+    "editMessage": "Laptop met EAN: ",
+    "alertMessage": "Vul alsjeblieft alle invoervelden in!",
+    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd."
   }
 }

@@ -7,8 +7,9 @@
       </h3>
     </div>
     <div class="col-4">
-      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false || accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                     type="button" class="btn btn-danger m-2">
+      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
+      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+                     type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
       <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}"
@@ -52,7 +53,7 @@
         {{ $t('imageDetail.employee') }}:
       </div>
       <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
-        {{imageCopy.imageMaker}}
+        {{imageCopy.imageMaker.name}}
       </div>
       <div v-else-if="imageCopy.imageMaker === null && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
         {{$t('imageDetail.claimButton')}}
@@ -188,6 +189,10 @@ export default {
       } else {
         this.editComment = true;
       }
+    },
+    async onDelete(){
+      await this.imagesService.asyncDeleteById(this.imageCopy.id)
+      this.$emit('refresh')
     },
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
