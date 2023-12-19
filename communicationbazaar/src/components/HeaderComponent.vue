@@ -48,7 +48,7 @@
         </select>
       </div>
       <!-- Alert button-->
-      <div class="bell" @click="showNotifications">
+      <div class="bell right" @click="showNotifications">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-bell" viewBox="0 0 16 16">
           <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
         </svg>
@@ -199,6 +199,10 @@ export default {
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   watch: {
+    /**
+     * Watches the route and changes and updates the placeholder
+     * Updates the state of filtering
+     */
     '$route'(){
       if (this.$route.path.match(this.laptopRoute)) {
         this.placeholder = 'header.placeholderLaptop';
@@ -212,6 +216,11 @@ export default {
     }
   },
   computed: {
+    /**
+     * Filters the images based on the searchQuery
+     * Returns an array of filtered images.
+     * @return {Array}
+     */
     filterImages(){
       const query = this.searchQuery.toLowerCase().trim();
       if(query !== '') {
@@ -227,6 +236,11 @@ export default {
       }
       return this.filteredImages()
     },
+    /**
+     * Filters the laptops based on the searchQuery
+     * Returns an array of filtered images.
+     * @return {Array}
+     */
     filterLaptop(){
       const query = this.searchQuery.toLowerCase().trim();
       if(query !== '') {
@@ -246,9 +260,19 @@ export default {
     }
   },
   methods: {
+    /**
+     * Toggles the display of notifications
+     * Updates the state of 'showNotification'
+     */
     showNotifications() {
       this.showNotification = !this.showNotification;
     },
+    /**
+     * Find the selected image from the route
+     *
+     * @param id parameter from route
+     * @return {image}
+     */
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
@@ -256,6 +280,10 @@ export default {
       }
       return null;
     },
+    /**
+     * Toggles the display of the search bar and barcode scanner
+     * for mobile view
+     */
     expandSearch() {
       this.expanded = !this.expanded;
     },
@@ -273,6 +301,10 @@ export default {
         this.$i18n.locale = 'fr';
       }
     },
+    /**
+     * Toggles 'mobile' view for the search bar
+     * by checking the screen width
+     */
     checkScreenWidth() {
       if (window.innerWidth < 600) {
         this.mobile = !this.mobile;
@@ -293,6 +325,13 @@ export default {
         barcode.value = null
       }, 500);
     },
+    /**
+     * Sets the selected image and navigates based on the image selection.
+     * If the selected image is the same as the current image, navigate to the parent path
+     * If a diffrent image is selected, navigate to a new route, and update selectedImage
+     *
+     * @param image
+     */
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       console.log(parentPath)
@@ -306,6 +345,12 @@ export default {
         this.searchQuery = '';
       }
     },
+    /**
+     * Assigns a styling to the satus of the given image based on the status enum
+     * returns styling for status
+     * @param image
+     * @return {string}
+     */
     getStatusClass(image) {
       if (image.status === 'FINISHED') {
         return 'badge rounded-pill text-bg-danger';
@@ -368,8 +413,9 @@ export default {
 
 .bell {
   padding: 5px;
-  position: absolute;
-  right: 5%;
+  /*position: absolute;*/
+  /*right: 5%;*/
+  margin-left: 10%;
 }
 
 .bell:hover {
