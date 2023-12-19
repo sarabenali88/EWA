@@ -50,9 +50,6 @@
       "node": true,
       "jest": true
     },
-    "plugins": [
-      "jest"
-    ],
     "extends": [
       "plugin:vue/vue3-essential",
       "eslint:recommended"
@@ -66,12 +63,6 @@
       {
         "files": [
           "**/src/**/*.spec.js"
-        ],
-        "plugins": [
-          "jest"
-        ],
-        "extends": [
-          "plugin:jest/recommended"
         ]
       }
     ]
@@ -100,6 +91,9 @@
       "^.+\\.vue$": "@vue/vue3-jest",
       "^.+\\.(jpg|jpeg|png|gif|svg|mp3|mp4|mpeg)$": "<rootDir>/jest-media-transformer.js"
     },
+    "transformIgnorePatterns": [
+      "/node_modules/index.js"
+    ],
     "verbose": true
   }
 }
