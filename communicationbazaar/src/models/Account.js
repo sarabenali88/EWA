@@ -27,4 +27,17 @@ export class Account {
 
         return Object.assign(new Account(id), account);
     }
+
+    static CreateSampleAccount(id) {
+        // Generate a sample account
+        return new Account(
+            id,
+            'samplepassword',
+            'Sample User',
+            'sample@example.com',
+            'user',
+            'Sample Location',
+            false // Assuming initially not logged in
+        );
+    }
 }
