@@ -116,9 +116,18 @@
     "logOut": "Se déconnecter",
     "allUsers": "Tous les utilisateurs",
     "profileTitle": "Profil",
-    "adminTitle": "Admin."
+    "adminTitle": "Admin.",
+    "laptopList" : "Ordinateurs Portables"
   },
   "home": {
     "welcomeMessage": "Bienvenue"
+  },
+  "laptop": {
+    "allLaptops": "Tous les ordinateurs portables",
+    "brand": "Marque",
+    "processor": "Processeur",
+    "editMessage": "Ordinateur portable avec EAN: ",
+    "alertMessage": "Veuillez remplir tous les champs de saisie !",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées."
   }
 }

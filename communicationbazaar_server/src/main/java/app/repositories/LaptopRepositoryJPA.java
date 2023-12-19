@@ -50,4 +50,15 @@ public class LaptopRepositoryJPA implements Repository<Laptop>{
         }
         return laptop;
     }
+
+    @Override
+    public List<Laptop> findByQuery(String jpqlName, Object... params) {
+        TypedQuery<Laptop> query =
+                this.entityManager.createNamedQuery(jpqlName, Laptop.class);
+
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i+1, params[i]);
+        }
+        return query.getResultList();
+    }
 }
