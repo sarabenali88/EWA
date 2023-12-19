@@ -243,13 +243,6 @@ export default {
         );
       }
       return this.filteredLaptops;
-    },
-    currentFilter(){
-      if (this.$route.path.match(this.laptopRoute)) {
-        return this.filterLaptop()
-      } else {
-        return this.filterImages()
-      }
     }
   },
   methods: {
@@ -421,14 +414,15 @@ export default {
 
 .search-result-main {
 
-  width: 40%;
-  margin-left: 600px;
+  width: 60%;
+  margin-left: 350px;
   margin-top: 80px;
   display: flex;
   background-color: white;
   border-radius: 5px;
   padding: 10px;
   position: absolute;
+  z-index: 100;
 }
 
 
