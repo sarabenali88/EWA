@@ -34,10 +34,10 @@ export class ImagesAdaptor {
 
     /**
      * Saves a new image if the id is 0 or updates an image
-     * @param image
+     * @param image -an image that will be saved or updated
      * @return {Promise<any|null>}
      *
-     * @ Sara Benali
+     * @author Sara Benali
      */
 
     async asyncSave(image) {
