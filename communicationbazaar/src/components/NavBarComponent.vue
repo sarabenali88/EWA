@@ -207,7 +207,7 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
-          <h5 class="offcanvas-title">{{$t('navbar.laptopTitle')}}</h5>
+          <h5 class="offcanvas-title">{{$t('navbar.laptopList')}}</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === laptopList}">
