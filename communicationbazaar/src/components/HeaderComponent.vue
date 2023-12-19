@@ -88,7 +88,7 @@
         <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
           <td>{{ image.laptop.ean }}</td>
           <td>{{ image.name }}</td>
-          <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
+          <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
           <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td>{{ image.store }}</td>
           <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
@@ -121,7 +121,7 @@
             <tbody>
             <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
-              <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
+              <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
               <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
               <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
               <td>{{ image.upDateDate }}</td>
@@ -173,7 +173,7 @@ export default {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
        return this.filteredImages = this.images.filter(image =>
             (image.laptop.ean && image.laptop.ean.toString().includes(query)) ||
-            (image.imageMaker && image.imageMaker.name.toLowerCase().includes(query)) ||
+            (image.imageMaker.name && image.imageMaker.name.toLowerCase().includes(query)) ||
             (image.status && image.status.toLowerCase().includes(query)) ||
             (image.upDateDate && image.upDateDate.toLowerCase().includes(query)) ||
             (image.store && image.store.toLowerCase().includes(query)) ||
