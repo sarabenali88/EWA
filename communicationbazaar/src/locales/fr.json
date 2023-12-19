@@ -71,10 +71,12 @@
   "imageStatus": {
     "toDoTitle" : "Statut Images à faire",
     "ongoingTitle" : "Statut En Cours Images",
+    "impossibleTitle": "Statut Impossible Images",
     "finishedTitle" : "Statut Images complétées",
     "overDateTitle" : "Statut obsolète Images",
     "statusToDo": "À faire",
     "statusOngoing": "En cours",
+    "statusImpossible": "Impossible",
     "statusFinished": "Finie",
     "statusOverDate": "Surdate",
     "noAccessMessage": "Vous n'avez pas le pouvoir de consulter ces données"
@@ -100,6 +102,12 @@
     "employeeNumber": "Numéro de l'employé",
     "location": "Localisation"
   },
+  "statisticsPage": {
+    "amountImages": "Nombre d'images",
+    "lastMonth": "Le mois dernier",
+    "lastQuarter": "Dernier trimestre",
+    "lastHalfYear": "Six derniers mois"
+  },
   "header":{
     "placeholder": "Recherche par image"
   },
@@ -108,21 +116,35 @@
     "allImages": "Toutes les Images",
     "toDoList": "Liste de tâches",
     "ongoingList": "Liste en cours",
+    "impossibleList": "Liste impossible",
     "finishedList": "Liste finie",
     "overDateList": "Liste obsolète",
     "myAccount": "Mon compte",
     "myProfile": "Mon profil",
+    "statistics": "Statistiques",
     "logIn": "Se connecter",
     "logOut": "Se déconnecter",
     "allUsers": "Tous les utilisateurs",
     "profileTitle": "Profil",
     "adminTitle": "Admin.",
-    "laptopList" : "Ordinateurs Portables"
+    "laptopTitle": "Ordinateur portable"
+
   },
-  "home": {
-    "welcomeMessage": "Bienvenue"
+  "home":{
+    "finishedList": "Liste des images complétées"
+  },
+  "status": {
+    "TODO": "À FAIRE",
+    "ONGOING": "EN COURS",
+    "FINISHED": "FINIE",
+    "IMPOSSIBLE": "IMPOSSIBLE"
+  },
+  "release":{
+    "NEW": "NOUVEAU",
+    "UPDATE": "MISE À JOUR"
   },
   "laptop": {
+    "laptopList" : "Ordinateurs Portables",
     "allLaptops": "Tous les ordinateurs portables",
     "brand": "Marque",
     "processor": "Processeur",

@@ -17,7 +17,7 @@
           </router-view>
         </div>
       </div>
-      <table class="table table-sm">
+      <table class="table table-hover table-sm">
         <thead>
         <tr>
           <th scope="col">{{ $t('allImages.ean') }}</th>
@@ -29,14 +29,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="image of sortedItems" v-bind:key="image.ean" v-on:click="setImage(image)">
-          <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
+        <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
+        <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
           <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker.name }}</td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.store }}</td>
-          <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{image.status}}</span></td>
-          <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
-        </tr>
+        <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
+        <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
+      </tr>
         </tbody>
       </table>
     </div>
@@ -52,7 +52,7 @@
         </router-view>
       </div>
     </div>
-    <table class="table table-sm">
+    <table class="table table-hover table-sm">
       <thead>
       <tr>
         <th scope="col">{{ $t('allImages.ean') }}</th>
@@ -65,7 +65,8 @@
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker.name }}</td>
-        <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{image.status}}</span></td>
+        <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
+        <td v-if="isCorrespondingStatus(image)"><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -140,6 +141,8 @@ export default {
         return 'badge rounded-pill text-bg-danger opacity-25';
       } else if (image.status === 'ONGOING') {
         return 'badge rounded-pill text-bg-danger opacity-50'
+      } else if (image.status === 'IMPOSSIBLE'){
+        return 'badge rounded-pill text-bg-danger opacity-50';
       }
       return '';
     }

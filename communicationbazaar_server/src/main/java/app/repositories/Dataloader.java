@@ -31,6 +31,7 @@ public class Dataloader implements CommandLineRunner {
 
     @Autowired
     Repository<Account> accountRepository;
+
     private void createInitialAccount() {
         List<Account> accounts = accountRepository.findAll();
         if (!accounts.isEmpty()) return;
@@ -79,6 +80,7 @@ public class Dataloader implements CommandLineRunner {
     Repository<Laptop> laptopRepository;
     @Autowired
     Repository<Image> imageRepository;
+
     private void createInitialImageAndLaptop() {
         List<Laptop> laptops = laptopRepository.findAll();
         List<Image> images = imageRepository.findAll();
@@ -158,11 +160,43 @@ public class Dataloader implements CommandLineRunner {
                 500
         );
 
+        Laptop laptop6 = new Laptop(
+                1696810,
+                195890851341L,
+                "LENOVO",
+                "GAMING 3 15-I5-11300H8GB 512GB RTX3050",
+                "Intel Core i5-11300H",
+                " 8 GB",
+                "512 GB",
+                "GeForce RTX 3050",
+                "15.6 inch",
+                "39.6 cm",
+                "WIN11",
+                500
+
+        );
+        Laptop laptop7 = new Laptop(
+                1739468,
+                196548846290L,
+                "HP",
+                "VICTUS 15-FA0290ND",
+                "Intel Core i7-12700H",
+                "16 GB",
+                "1 TB",
+                "GeForce RTX 3050 Ti",
+                "15.6 inch",
+                "39.6 cm",
+                "WIN11",
+                500
+        );
+
         laptopRepository.save(laptop1);
         laptopRepository.save(laptop2);
         laptopRepository.save(laptop3);
         laptopRepository.save(laptop4);
         laptopRepository.save(laptop5);
+        laptopRepository.save(laptop6);
+        laptopRepository.save(laptop7);
 
         Image image1 = new Image(
                 1001,
@@ -220,6 +254,35 @@ public class Dataloader implements CommandLineRunner {
                 "ImageNaam5",
                 null
         );
+        Image image5 = new Image(
+                1005,
+                laptop6,
+                "MM V4.0.5",
+                "Rotterdam",
+                "5-12-2023",
+                Image.Status.IMPOSSIBLE,
+                Image.Release.NEW,
+                Image.Problem.YES,
+                49,
+                2023,
+                "ImageNaam6",
+                null
+        );
+
+        Image image6 = new Image(
+                1006,
+                laptop7,
+                "MM V4.6",
+                "Apeldoorn",
+                "9-11-2023",
+                Image.Status.IMPOSSIBLE,
+                Image.Release.NEW,
+                Image.Problem.YES,
+                45,
+                2023,
+                "ImageNaam7",
+                null
+        );
 
         List<Account> accounts = accountRepository.findAll();
         if (!accounts.isEmpty()) return;
@@ -271,6 +334,8 @@ public class Dataloader implements CommandLineRunner {
         imageRepository.save(image2);
         imageRepository.save(image3);
         imageRepository.save(image4);
+        imageRepository.save(image5);
+        imageRepository.save(image6);
 
         image2.associateAccount(account1);
         image3.associateAccount(account1);
@@ -283,6 +348,8 @@ public class Dataloader implements CommandLineRunner {
         imageRepository.save(image2);
         imageRepository.save(image3);
         imageRepository.save(image4);
+        imageRepository.save(image5);
+        imageRepository.save(image6);
 
         accountRepository.save(account1);
         accountRepository.save(account2);

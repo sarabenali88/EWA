@@ -88,10 +88,10 @@
         <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
           <td>{{ image.laptop.ean }}</td>
           <td>{{ image.name }}</td>
-          <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
+          <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
           <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td>{{ image.store }}</td>
-          <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
+          <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
           <td>{{ image.upDateDate }}</td>
         </tr>
         </tbody>
@@ -147,9 +147,9 @@
             <tbody>
             <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
-              <td v-if="image.imageMaker !== ''">{{ image.imageMaker.name }}</td>
-              <td v-else class="text-secondary">Niet toegewezen</td>
-              <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
+              <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
+              <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+              <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
               <td>{{ image.upDateDate }}</td>
             </tr>
             </tbody>
@@ -266,13 +266,17 @@ export default {
     expandSearch() {
       this.expanded = !this.expanded;
     },
+    /**
+     * updates the language when the user selects a different language
+     *
+     * @author Sara Benali
+     */
     updateLocale() {
-      // update the i18n locale when the user selects a different language
       if (this.$i18n.locale === 'nl') {
         this.$i18n.locale = 'nl';
       } else if (this.$i18n.locale === 'en') {
         this.$i18n.locale = 'en';
-      } else {
+      } else if (this.$i18n.locale === 'fr') {
         this.$i18n.locale = 'fr';
       }
     },
@@ -316,6 +320,8 @@ export default {
         return 'badge rounded-pill text-bg-danger opacity-25';
       } else if (image.status === 'ONGOING') {
         return 'badge rounded-pill text-bg-danger opacity-50'
+      } else if (image.status === 'IMPOSSIBLE'){
+        return 'badge rounded-pill text-bg-danger opacity-50';
       }
       return '';
     }

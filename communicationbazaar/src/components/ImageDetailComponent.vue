@@ -36,7 +36,7 @@
         {{ $t('imageDetail.status') }}:
       </div>
       <div v-if="editComment === false" class="col-sm-auto">
-        {{imageCopy.status}}
+        {{ $t(`status.${imageCopy.status}`) }}
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
@@ -107,14 +107,14 @@
             {{ $t('imageDetail.newUpdate') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.release}}
+            {{ $t(`release.${imageCopy.release}`) }}
           </div>
         </div>
         <div class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker.name !== null" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
@@ -148,7 +148,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService"],
-  emits: ['delete-image', 'save-image'],
+  emits: ['delete-image', 'save-image', 'refresh'],
   data(){
     return {
       statuses: Image.Status,
@@ -196,10 +196,11 @@ export default {
     },
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
-        this.imageCopy.imageMaker = this.account.name
+        this.imageCopy.imageMaker = this.account
         this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
+      if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
+          this.imageCopy.status === Object.keys(Image.Status)[3]){
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
@@ -207,12 +208,12 @@ export default {
       this.imageClaimed = false;
 
       await this.imagesService.asyncSave(this.imageCopy);
-      await this.imagesService.asyncFindAll()
       this.$emit('refresh')
+
     },
     claimImage(){
       this.imageClaimed = true;
-      this.imageCopy.imageMaker = this.account.name;
+      this.imageCopy.imageMaker = this.account;
       this.imageCopy.status = Object.keys(Image.Status)[1];
       this.imageCopy.store = this.account.location;
     }

@@ -115,18 +115,17 @@
             </li>
 
             <li>
-              <div :class="{'active-route': $route.path.toString().includes(statusFinished)}">
+              <div :class="{'active-route': $route.path.toString().includes(statusImpossible)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
-                     :class="{'active-icon':$route.path.toString().includes(statusFinished)}"
-                     class="bi bi-calendar-check my-4 mx-1"
+                     :class="{'active-icon': $route.path.toString().includes(statusImpossible)}"
+                     class="bi bi-arrow-repeat my-4 mx-1"
                      viewBox="0 0 16 16">
-                  <path
-                      d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                  <path
-                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                  <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
+                  <path fill-rule="evenodd"
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                 </svg>
-                <router-link :to="statusFinished" :class="{'active-tab': $route.path.toString().includes(statusFinished)}">
-                  {{$t('navbar.finishedList')}}
+                <router-link :to="statusImpossible" :class="{'active-tab': $route.path.toString().includes(statusImpossible)}">
+                  {{$t('navbar.impossibleList')}}
                 </router-link>
               </div>
             </li>
@@ -191,7 +190,7 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
-          <h5 class="offcanvas-title">Laptop</h5>
+          <h5 class="offcanvas-title">{{$t('navbar.laptopList')}}</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === laptopList}">
@@ -237,7 +236,7 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="statisticsRoute" :class="{'active-tab': $route.path === statisticsRoute}">
-                  Statistieken
+                  {{$t('navbar.statistics')}}
                 </router-link>
               </div>
             </li>
@@ -279,7 +278,7 @@
 
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
            class="bi bi-calendar-check "
-           viewBox="0 0 16 16" @click="setImageList(this.statusFinished)">
+           viewBox="0 0 16 16" @click="setImageList(this.statusImpossible)">
         <path
             d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
         <path
@@ -317,11 +316,12 @@ export default {
   inject: ["accountsService"],
   data() {
     return {
-      homeRoute: '/',
+      homeRoute: '/home',
       imageListRoute: '/imageListRoute',
       allImagesRoute: '/imageListRoute/allImages',
       statusTodo: '/imageListRoute/statusTodo',
       statusOnGoing: '/imageListRoute/statusOnGoing',
+      statusImpossible: '/imageListRoute/statusImpossible',
       statusFinished: '/imageListRoute/statusFinished',
       statusOverDate: '/imageListRoute/statusOverDate',
       myAccountRoute: '/myAccountRoute',

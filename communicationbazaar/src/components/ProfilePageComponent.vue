@@ -16,7 +16,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Functie</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.role')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ role }}
@@ -24,7 +24,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Werknemer nr.</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.employeeNumber')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ personalNumber }}
@@ -32,7 +32,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0 text-secondary">Locatie</h6>
+                <h6 class="mb-0 text-secondary">{{this.$t('profilePage.location')}}:</h6>
               </div>
               <div class="col-sm-9">
                 {{ location }}
@@ -67,8 +67,7 @@
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="image.imageMaker !== null">{{ image.store }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
-        <!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -88,8 +87,7 @@
         <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== null ">{{ image.imageMaker.name }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
-        <!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
