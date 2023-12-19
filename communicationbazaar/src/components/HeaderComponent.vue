@@ -123,7 +123,7 @@
               <td>{{ image.laptop.ean }}</td>
               <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
               <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-              <td>{{ image.status }}</td>
+              <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
               <td>{{ image.upDateDate }}</td>
             </tr>
             </tbody>
@@ -251,6 +251,8 @@ export default {
         return 'badge rounded-pill text-bg-danger opacity-25';
       } else if (image.status === 'ONGOING') {
         return 'badge rounded-pill text-bg-danger opacity-50'
+      } else if (image.status === 'IMPOSSIBLE'){
+        return 'badge rounded-pill text-bg-danger opacity-50';
       }
       return '';
     }
