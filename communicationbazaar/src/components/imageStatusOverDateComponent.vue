@@ -107,6 +107,8 @@ export default {
         return 'badge rounded-pill text-bg-danger opacity-25';
       } else if (image.status === 'ONGOING') {
         return 'badge rounded-pill text-bg-danger opacity-50'
+      } else if (image.status === 'IMPOSSIBLE'){
+        return 'badge rounded-pill text-bg-danger opacity-50';
       }
       return '';
     }

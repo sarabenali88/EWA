@@ -252,9 +252,8 @@ public class Dataloader implements CommandLineRunner {
                 18,
                 2023,
                 "ImageNaam5",
-                null,
-                "Cindy Visser"
-        ));
+                null
+        );
         Image image5 = new Image(
                 1005,
                 laptop6,
@@ -267,7 +266,6 @@ public class Dataloader implements CommandLineRunner {
                 49,
                 2023,
                 "ImageNaam6",
-                null,
                 null
         );
 
@@ -283,7 +281,6 @@ public class Dataloader implements CommandLineRunner {
                 45,
                 2023,
                 "ImageNaam7",
-                null,
                 null
         );
 

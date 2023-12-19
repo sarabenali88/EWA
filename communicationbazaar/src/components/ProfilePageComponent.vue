@@ -67,8 +67,7 @@
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
         <td v-if="image.imageMaker !== null">{{ image.store }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
-        <!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
@@ -88,8 +87,7 @@
         <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== null ">{{ image.imageMaker.name }}</td>
         <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
-        <td><span :class="getStatusClass(image)">{{image.status}}</span></td>
-        <!--        <td>{{ $t(`status.${image.status}`) }}</td>-->
+        <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
         <td>{{ image.upDateDate }}</td>
       </tr>
       </tbody>
