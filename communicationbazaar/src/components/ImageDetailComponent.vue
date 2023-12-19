@@ -114,7 +114,7 @@
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker.name !== null" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
@@ -196,7 +196,7 @@ export default {
     },
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
-        this.imageCopy.imageMaker = this.account.name
+        this.imageCopy.imageMaker = this.account
         this.imageCopy.store = this.account.location;
       }
       if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
@@ -208,12 +208,12 @@ export default {
       this.imageClaimed = false;
 
       await this.imagesService.asyncSave(this.imageCopy);
-      await this.imagesService.asyncFindAll();
+      this.$emit('refresh')
 
     },
     claimImage(){
       this.imageClaimed = true;
-      this.imageCopy.imageMaker = this.account.name;
+      this.imageCopy.imageMaker = this.account;
       this.imageCopy.status = Object.keys(Image.Status)[1];
       this.imageCopy.store = this.account.location;
     }

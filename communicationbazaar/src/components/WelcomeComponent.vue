@@ -24,7 +24,7 @@
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td v-if="isCorrespondingStatus(image)">{{ image.laptop.ean }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.name }}</td>
-        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker }}</td>
+        <td v-if="isCorrespondingStatus(image)">{{ image.imageMaker.name }}</td>
         <td v-if="isCorrespondingStatus(image)">{{image.store}}</td>
         <td v-if="isCorrespondingStatus(image)">{{ $t(`status.${image.status}`) }}</td>
         <td v-if="isCorrespondingStatus(image)">{{ image.upDateDate }}</td>
