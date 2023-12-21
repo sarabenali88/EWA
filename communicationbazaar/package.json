@@ -92,7 +92,8 @@
       "^.+\\.(jpg|jpeg|png|gif|svg|mp3|mp4|mpeg)$": "<rootDir>/jest-media-transformer.js"
     },
     "transformIgnorePatterns": [
-      "/node_modules/index.js"
+      "/node_modules/index.js",
+      "<rootDir>/i18n.js"
     ],
     "verbose": true
   }

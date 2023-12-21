@@ -2,43 +2,28 @@ import {mount} from "@vue/test-utils";
 import headerComponent from "@/components/HeaderComponent";
 import {ImagesAdaptor} from "@/services/ImagesAdaptor";
 import i18n from "@/i18n";
-// import nl from "@/locales/nl.json"
-// import en from "@/locales/en.json"
-// import fr from "@/locales/fr.json"
+import {reactive} from "vue";
 
-describe('name', () => {
-// const translations = {
-//     en: en,
-//     fr: fr,
-//     nl: nl
-// };
+let wrapper
 
-const mockI18n = {
-    t: (key, locale = 'nl') => {
-        return translations[locale][key];
-    }
-};
-
-let wrapper;
-
-beforeEach(function () {
+beforeEach(async function () {
+    let imagesService = new ImagesAdaptor('http://localhost:8086/api')
     wrapper = mount(headerComponent, {
         global: {
             provide: {
-                imagesService: ImagesAdaptor, // Replace with your mocked service
-            }
+                "imagesService": reactive(imagesService)
+            },
+            plugins: [i18n]
         }
     });
-
-    wrapper.setData({$i18n: 'nl'})
-})
+});
 
 it('should renders properly', function () {
+
     expect(wrapper.element.children.length,
         `main page starting with ${wrapper.element.tagname} has no child elements`)
         .toBeGreaterThan(0);
     expect(wrapper.html(),
         `The header did not render the pageTitle`)
         .toContain(wrapper.vm.pageTitle);
-});
 });
