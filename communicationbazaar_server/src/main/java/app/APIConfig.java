@@ -24,8 +24,9 @@ public class APIConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern())
-                .allowedMethods("GET", "POST", "PUT", "DELETE");
+                .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern(), "https://ewa-front-end-9z7b.onrender.com:*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("*");
     }
 
     /**

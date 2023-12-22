@@ -13,6 +13,7 @@ export class ImagesAdaptor {
     }
 
     async fetchJson (url, options = null) {
+        console.log(url);
         const response = await fetch(url, options);
         if (response.ok) {
             return await response.json();
