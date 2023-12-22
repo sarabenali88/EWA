@@ -35,7 +35,13 @@ export class LaptopsAdaptor {
   async asyncSave (laptop) {
     return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,
       {
-        method: 'POST'
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            laptop
+        )
       });
   }
 

@@ -43,4 +43,14 @@ public interface Repository<E> {
      * @author Jasper Fernhout
      */
     E deleteById(long id);
+
+    /**
+     * Function to delete one specific item in the array
+     *
+     * @param jpqlName name of the specific query that is being called.
+     * @param params objects that are used inside of the query
+     * @return response of the query.
+     * @author Seyma Kaya
+     */
+    List<E> findByQuery(String jpqlName, Object... params);
 }

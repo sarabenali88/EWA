@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    this.$router.push("/imageListRoute/allImages");
+    this.$router.push("/home");
   }
 }
 </script>

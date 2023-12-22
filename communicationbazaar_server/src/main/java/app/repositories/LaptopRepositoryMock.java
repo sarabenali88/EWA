@@ -59,4 +59,9 @@ public class LaptopRepositoryMock implements Repository<Laptop> {
 
         return deleteLaptop;
     }
+
+    @Override
+    public List<Laptop> findByQuery(String jpqlName, Object... params) {
+        return null;
+    }
 }

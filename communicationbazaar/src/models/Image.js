@@ -16,7 +16,8 @@ export class Image{
     static Status = {
         TODO: "Te doen",
         ONGOING: "Mee bezig",
-        FINISHED: "Afgerond"
+        FINISHED: "Afgerond",
+        IMPOSSIBLE: "Onmogelijk",
     }
 
     static Release = {
