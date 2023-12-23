@@ -39,7 +39,7 @@ public class ImagesRepositoryTest {
                 "GeForce RTX 3050", "15.6 inch", "39.6 cm", "WIN11", 500
         );
         Image newImage = new Image(
-                1001, newLaptop, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.FINISHED,
+                1007, newLaptop, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.FINISHED,
                 Image.Release.NEW, Image.Problem.NO, 51, 2023, "testing123", null
         );
 
@@ -47,7 +47,7 @@ public class ImagesRepositoryTest {
 
         Image findSavedImage = imageRepo.findById(savedImage.getId());
         assertNotNull(findSavedImage);
-        assertEquals(newImage.getStatus(), savedImage.getStatus());
+        assertEquals(newImage.getId(), savedImage.getId());
 
         Image deleteSavedImage = imageRepo.deleteById(savedImage.getId());
         assertNotNull(deleteSavedImage);
