@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LaptopControllerTest {
 
@@ -29,6 +31,7 @@ public class LaptopControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         Laptop createdLaptop = response.getBody();
+        assertEquals(createdLaptop.getEan(), newLaptop.getEan());
         createdLaptop.setPrize(1000);
 
         ResponseEntity<Laptop> updateResponse = this.restTemplate.exchange("/laptops/{ean}",
@@ -37,6 +40,7 @@ public class LaptopControllerTest {
                 Laptop.class,
                 createdLaptop.getEan()
         );
+        assertNotEquals(createdLaptop.getPrize(), newLaptop.getPrize());
         assertEquals(HttpStatus.OK, updateResponse.getStatusCode());
     }
 }
