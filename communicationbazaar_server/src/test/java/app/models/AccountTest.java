@@ -17,7 +17,7 @@ public class AccountTest {
                 "TUF GAMING F15 FX507ZC4-HN002W", "Intel Core i7-12700H", "16 GB", "512 GB",
                 "GeForce RTX 3050", "15.6 inch", "39.6 cm", "WIN11", 500
         );
-        image1 = new Image(1007, laptop1, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.TODO,
+        image1 = new Image(1008, laptop1, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.TODO,
                 Image.Release.NEW, Image.Problem.NO, 51, 2023, "testing123", null);
         account1 = new Account(0, "IloveApples4%", "Nazeera Ibrahim",
                 "nazeera_ibrahim@gmail.com", "admin", "Rotterdam", Account.LOGGEDIN.TRUE);
