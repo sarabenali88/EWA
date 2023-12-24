@@ -1,5 +1,6 @@
 package app.rest;
 import app.models.Laptop;
+import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,17 @@ public class LaptopControllerTest {
     Laptop newLaptop;
     @BeforeEach
     public void setup() {
-        newLaptop = new Laptop();
-    }
-
-    @Test
-    public void addAndUpdateOneLaptop() {
         newLaptop = new Laptop(1770000, 2000016316125L, "ASUS",
                 "TUF GAMING F15 FX507ZC4-HN002W", "Intel Core i7-12700H", "16 GB", "512 GB",
                 "GeForce RTX 3050", "15.6 inch", "39.6 cm", "WIN11", 500
         );
+    }
+
+    @Test
+    public void addAndUpdateOneLaptop() {
         ResponseEntity<Laptop> response =
                 this.restTemplate.postForEntity("/laptops", newLaptop, Laptop.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         Laptop createdLaptop = response.getBody();
         assertEquals(createdLaptop.getEan(), newLaptop.getEan());
@@ -40,7 +40,16 @@ public class LaptopControllerTest {
                 Laptop.class,
                 createdLaptop.getEan()
         );
-        assertNotEquals(createdLaptop.getPrize(), newLaptop.getPrize());
+
+        //check to see if it actually is updated
         assertEquals(HttpStatus.OK, updateResponse.getStatusCode());
+        ResponseEntity<Laptop> getResponse = this.restTemplate.getForEntity("/laptops/{ean}",
+                Laptop.class, createdLaptop.getEan());
+
+        Laptop getUpdatedLaptop = getResponse.getBody();
+        assertEquals(createdLaptop.getPrize(), getUpdatedLaptop.getPrize());
+        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
+
+
     }
 }
