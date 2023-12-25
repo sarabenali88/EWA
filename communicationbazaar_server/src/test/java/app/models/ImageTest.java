@@ -1,3 +1,8 @@
+/**
+ * A test class for the Image model
+ *
+ * @author Seyma Kaya
+ */
 package app.models;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +20,9 @@ public class ImageTest {
        this.image1a = Image.createSampleImage(1001);
     }
 
+    /**
+     * a test that checks whether the createSampleImage creates two different images
+     */
     @Test
     void createSampleImageCreatesTwoDifferentImages(){
         assertNotSame(this.image1.hashCode(), this.image1a.hashCode());
