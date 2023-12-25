@@ -41,7 +41,8 @@
     "unassigned": "Non alloué",
     "saveButton": "Sauvegarder",
     "closeButton": "Fermer",
-    "claimButton": "Revendication"
+    "claimButton": "Revendication",
+    "commentRequired": "Entrez une raison"
   },
   "adminPanel" : {
     "headTitle": "Liste des utilisateurs",

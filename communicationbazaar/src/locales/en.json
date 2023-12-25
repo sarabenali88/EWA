@@ -41,7 +41,8 @@
     "unassigned": "Unassigned",
     "saveButton": "Save",
     "closeButton": "Close",
-    "claimButton": "Claim"
+    "claimButton": "Claim",
+    "commentRequired": "Enter a reason"
   },
   "adminPanel" : {
     "headTitle": "User List",

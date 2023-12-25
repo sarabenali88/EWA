@@ -10,7 +10,7 @@
             </option>
           </select>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
+        <div class="error" v-if="invalid === true">{{$t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="startVersion"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div class="input-group">
           <input type="text" class="form-control" v-model.trim="imageName"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <div class="input-group">
           <input :min="getToday()" type="date" class="form-control" v-model="date"/>
         </div>
-        <div class="error" v-if="invalid === true">{{ errorMessage }}</div>
+        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -111,7 +111,6 @@ export default {
       formattedDate: null,
       formattedWeek: null,
       formattedYear: null,
-      errorMessage: null,
       laptops: [],
       defaultId: 0,
       showModal: false,
@@ -134,7 +133,6 @@ export default {
     validateInput() {
       if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' || this.date === '') {
         this.invalid = true;
-        this.errorMessage = this.$t('addImage.alertEmpty');
         return false;
       } else {
         this.invalid = false;

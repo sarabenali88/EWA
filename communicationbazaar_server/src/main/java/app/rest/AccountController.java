@@ -14,6 +14,7 @@ import app.repositories.AccountRepositoryJPA;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,18 +52,18 @@ public class AccountController {
     }
 
     @DeleteMapping(path = "{personalNumber}", produces = "application/json")
-    public Account deleteOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
+    public ResponseEntity<Account> deleteOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
         Account account = this.accountList.deleteById(personalNumber);
 
         if (account == null) {
             throw new ResourceNotFoundException("Cannot delete a cabin with id= " + personalNumber);
         }
 
-        return account;
+        return ResponseEntity.ok().body(account);
     }
 
     @PostMapping(path = "", produces = "application/json")
-    public Account addOneAccount(@RequestBody Account account) throws Exception {
+    public ResponseEntity<Account> addOneAccount(@RequestBody Account account) throws Exception {
 
         if (this.accountList.findById(account.getPersonalNumber()) != null) {
             throw new Exception("Account already exist with personalNumber= " + account.getPersonalNumber());
@@ -70,12 +71,13 @@ public class AccountController {
 
         account = this.accountList.save(account);
 
-        return account;
+        return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 
 
     @PutMapping(path = "{personalNumber}", produces = "application/json")
-    public Account updateOneAccount(@PathVariable() long personalNumber, @RequestBody Account targetAccount) throws PreConditionFailedException {
+    public ResponseEntity<Account> updateOneAccount(@PathVariable() long personalNumber,
+                                                    @RequestBody Account targetAccount) throws PreConditionFailedException {
 
         if (personalNumber != targetAccount.getPersonalNumber()) {
             throw new PreConditionFailedException("Account personalNumber=" + targetAccount.getPersonalNumber() + " does not match path parameter=" + personalNumber);
@@ -83,7 +85,7 @@ public class AccountController {
             targetAccount = this.accountList.save(targetAccount);
         }
 
-        return targetAccount;
+        return ResponseEntity.ok().body(targetAccount);
     }
 
     @GetMapping(path = "/verifyPassword/{personalNumber}/{password}", produces = "application/json")

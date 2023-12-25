@@ -121,7 +121,10 @@
       </div>
       <div v-else-if="editComment === true && !showDesc" >
         <textarea class="row justify-content-center m-3 p-3 text" rows="5"
-                  v-model="imageCopy.comment"></textarea>
+                  v-model="imageCopy.comment"
+                  :style="{ borderColor: textareaBorderColor }"
+        ></textarea>
+        <div class="ms-3" v-if="invalidTextarea">{{$t('imageDetail.commentRequired')}}</div>
         <div class="row justify-content-between">
           <div class="col-auto">
           </div>
@@ -134,8 +137,12 @@
         </div>
       </div>
       <div v-else-if="!showDesc">
-        <textarea class="row justify-content-center m-3 p-3 text" rows="5" :placeholder="$t('imageDetail.placeholder')"
-                  v-model="imageCopy.comment" readonly></textarea>
+      <textarea
+          class="row justify-content-center m-3 p-3 text"
+          rows="5"
+          :placeholder="$t('imageDetail.placeholder')"
+          v-model="imageCopy.comment" readonly
+          ></textarea>
       </div>
     </div>
   </div>
@@ -158,12 +165,14 @@ export default {
       accounts: [],
       imageClaimed: false,
       account: null,
+      invalidTextarea: false,
     }
   },
   watch: {
     '$route'(){
       this.reInitialise();
-    }
+    },
+
   },
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
@@ -204,6 +213,14 @@ export default {
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
+      if (this.imageCopy.status === Object.keys(Image.Status)[3]) {
+        if (this.imageCopy.comment === null) {
+          this.invalidTextarea = true;
+          return false;
+        } else {
+          this.invalidTextarea = false;
+        }
+      }
       this.editComment = false;
       this.imageClaimed = false;
 
@@ -217,6 +234,11 @@ export default {
       this.imageCopy.status = Object.keys(Image.Status)[1];
       this.imageCopy.store = this.account.location;
     }
+  },
+  computed: {
+    textareaBorderColor() {
+      return this.invalidTextarea ? 'red' : '';
+    },
   }
 }
 </script>
@@ -227,5 +249,7 @@ export default {
 }
 .text {
   width: 90%;
+
 }
+
 </style>
