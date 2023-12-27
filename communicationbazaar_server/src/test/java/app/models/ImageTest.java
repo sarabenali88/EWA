@@ -22,6 +22,8 @@ public class ImageTest {
 
     /**
      * a test that checks whether the createSampleImage creates two different images
+     *
+     * @author Seyma Kaya
      */
     @Test
     void createSampleImageCreatesTwoDifferentImages(){
