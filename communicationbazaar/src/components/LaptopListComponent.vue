@@ -2,6 +2,10 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
+      <label for="importedFile" @change="importFile()">Import</label>
+      <input type="file" id="importedFile" name="Import"
+             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <div id="errorMessageFileImport"></div>
       <div v-if="editLaptop !== null">
         <div class="card card-body">
           <router-view
@@ -23,7 +27,7 @@
               <div class="col-auto">
                 <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
                       accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                      class="row justify-content-md-end">
+                     class="row justify-content-md-end">
                   <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -113,20 +117,24 @@
           </div>
         </div>
       </div>
-<!--      modal pop-up view-->
+      <!--      modal pop-up view-->
       <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
+              <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
               <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>{{$t('laptop.confirmMessage')}}</p>
+              <p>{{ $t('laptop.confirmMessage') }}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal()">{{$t('adminPanel.cancelButton')}}</button>
-              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">{{$t('imageDetail.deleteButton')}}</button>
+              <button type="button" class="btn btn-secondary" @click="closeModal()">
+                {{ $t('adminPanel.cancelButton') }}
+              </button>
+              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">
+                {{ $t('imageDetail.deleteButton') }}
+              </button>
             </div>
           </div>
         </div>
@@ -145,10 +153,18 @@ export default {
   data() {
     return {
       laptops: [],
+      importedLaptops: [],
       accounts: [],
       showModal: false,
       selectedLaptop: null,
-      editLaptop: null
+      editLaptop: null,
+      fileTypes: [
+        "xlsx",
+        "xlsm",
+        "xml",
+        "xls",
+        "xlsb"
+      ]
     }
   },
   async created() {
@@ -164,7 +180,7 @@ export default {
      * @param laptop
      */
     setRoute(laptop) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
       if (this.editLaptop === laptop) {
         this.$router.push(parentPath);
         this.editLaptop = null;
@@ -193,7 +209,7 @@ export default {
      * @author Seyma Kaya
      * @returns {Promise<void>}
      */
-    async reInitialise(){
+    async reInitialise() {
       this.laptops = await this.laptopsService.asyncFindAll()
       this.selectedLaptop = null;
       this.editLaptop = null;
@@ -206,7 +222,7 @@ export default {
      * @param laptop that this modal is for
      * @returns {Promise<void>}
      */
-    async modalDelete(laptop){
+    async modalDelete(laptop) {
       this.selectedLaptop = laptop
       this.showModal = true;
     },
@@ -217,7 +233,7 @@ export default {
      * @param laptop that needs to be deleted
      * @returns {Promise<void>}
      */
-    async onDelete(laptop){
+    async onDelete(laptop) {
       await this.laptopsService.asyncDeleteById(laptop.ean)
       this.reInitialise();
       this.closeModal();
@@ -230,7 +246,31 @@ export default {
     closeModal() {
       this.showModal = false;
       this.selectedLaptop = null
-    }
+    },
+    validFileType(file) {
+      return this.fileTypes.includes(file.type);
+    },
+    importFile(){
+      const importedFile = document.getElementById("importedFile").files;
+      const errorMessageFileImport = document.getElementById("errorMessageFileImport");
+
+      while (errorMessageFileImport.firstChild) {
+        errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
+      }
+
+      //checks amount of files that are selected
+      if (importedFile.length === 0){
+        const para = document.createElement("p");
+        para.textContent = "No files currently selected for upload";
+        errorMessageFileImport.appendChild(para);
+      } else if (importedFile.length > 1){
+        const para = document.createElement("p");
+        para.textContent = "Too much files are selected";
+        errorMessageFileImport.appendChild(para);
+      } else {}
+
+
+    },
   }
 }
 </script>
@@ -238,5 +278,9 @@ export default {
 <style scoped>
 .hiddenButton {
   display: none;
+}
+
+input {
+  opacity: 0;
 }
 </style>
