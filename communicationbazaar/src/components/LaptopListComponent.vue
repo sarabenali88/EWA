@@ -2,9 +2,9 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
-      <label for="importedFile" @change="importFile()">Import</label>
-      <input type="file" id="importedFile" name="Import"
-             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <label for="allImportedFiles">Import</label>
+      <input type="file" id="allImportedFiles" name="Import" @change="importFile()"
+             accept=".csv">
       <div id="errorMessageFileImport"></div>
       <div v-if="editLaptop !== null">
         <div class="card card-body">
@@ -159,11 +159,8 @@ export default {
       selectedLaptop: null,
       editLaptop: null,
       fileTypes: [
-        "xlsx",
-        "xlsm",
-        "xml",
-        "xls",
-        "xlsb"
+        "csv",
+        "text/csv"
       ]
     }
   },
@@ -248,29 +245,69 @@ export default {
       this.selectedLaptop = null
     },
     validFileType(file) {
+      console.log(file.type)
+      console.log(this.fileTypes.includes(file.type))
       return this.fileTypes.includes(file.type);
     },
-    importFile(){
-      const importedFile = document.getElementById("importedFile").files;
+    importFile() {
+      const Excel = require('exceljs');
+      const allImportedFiles = document.getElementById("allImportedFiles").files;
       const errorMessageFileImport = document.getElementById("errorMessageFileImport");
+      const correctImportedFile = allImportedFiles[0];
+
+      console.log(allImportedFiles)
+      console.log(correctImportedFile)
+
+      const wb = new Excel.Workbook();
 
       while (errorMessageFileImport.firstChild) {
         errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
       }
 
       //checks amount of files that are selected
-      if (importedFile.length === 0){
+      if (allImportedFiles.length === 0) {
         const para = document.createElement("p");
         para.textContent = "No files currently selected for upload";
         errorMessageFileImport.appendChild(para);
-      } else if (importedFile.length > 1){
+      } else if (allImportedFiles.length > 1) {
         const para = document.createElement("p");
         para.textContent = "Too much files are selected";
         errorMessageFileImport.appendChild(para);
-      } else {}
+      } else if (!this.validFileType(correctImportedFile)) {
+        const para = document.createElement("p");
+        para.textContent = "Chose a file of type .csv";
+        errorMessageFileImport.appendChild(para);
+      } else {
+        console.log("Hij begint hier met lezen van de file")
+        wb.csv.readFile(correctImportedFile).then((ws) => {
 
+          console.log("Hij is nu aan het lezen")
+          // console.log(
+          //     `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
+          //         ws.dimensions
+          //     )}`);
 
+          for (let i = 1; i <= ws.actualRowCount; i++) {
+            console.log("Hij probeert nu alle data van 1 rij in een variabele te zetten")
+            const val = ws.getRow(i).values;
+            // process.stdout.write(`${val} `);
+            this.importedLaptops.push(val);
+          }
+        })
+      }
+
+      if (this.importedLaptops.length !== 0) {
+        this.addImportedLaptopsWithoutDuplicates();
+      } else {
+        //error message no data in file
+      }
     },
+    addImportedLaptopsWithoutDuplicates() {
+      for (const laptop in this.laptops) {
+        this.importedLaptops.push(laptop);
+      }
+      console.log("Alle laptops zijn succesvol toegevoegd")
+    }
   }
 }
 </script>
@@ -282,5 +319,9 @@ export default {
 
 input {
   opacity: 0;
+}
+
+label {
+  border: solid black;
 }
 </style>
