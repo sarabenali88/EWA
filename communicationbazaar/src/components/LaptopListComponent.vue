@@ -249,7 +249,7 @@ export default {
       console.log(this.fileTypes.includes(file.type))
       return this.fileTypes.includes(file.type);
     },
-    importFile() {
+    async importFile() {
       const Excel = require('exceljs');
       const allImportedFiles = document.getElementById("allImportedFiles").files;
       const errorMessageFileImport = document.getElementById("errorMessageFileImport");
@@ -264,7 +264,7 @@ export default {
         errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
       }
 
-      //checks amount of files that are selected
+      //checks amount of files that are selected and fills error box when none or too many are selected
       if (allImportedFiles.length === 0) {
         const para = document.createElement("p");
         para.textContent = "No files currently selected for upload";
@@ -273,19 +273,20 @@ export default {
         const para = document.createElement("p");
         para.textContent = "Too much files are selected";
         errorMessageFileImport.appendChild(para);
+        //validates the type of file so only csv files are allowed
       } else if (!this.validFileType(correctImportedFile)) {
         const para = document.createElement("p");
         para.textContent = "Chose a file of type .csv";
         errorMessageFileImport.appendChild(para);
       } else {
         console.log("Hij begint hier met lezen van de file")
-        wb.csv.readFile(correctImportedFile).then((ws) => {
+        const ws = await wb.csv.readFile(correctImportedFile)
 
           console.log("Hij is nu aan het lezen")
-          // console.log(
-          //     `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
-          //         ws.dimensions
-          //     )}`);
+          console.log(
+              `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
+                  ws.dimensions
+              )}`);
 
           for (let i = 1; i <= ws.actualRowCount; i++) {
             console.log("Hij probeert nu alle data van 1 rij in een variabele te zetten")
@@ -293,7 +294,6 @@ export default {
             // process.stdout.write(`${val} `);
             this.importedLaptops.push(val);
           }
-        })
       }
 
       if (this.importedLaptops.length !== 0) {
