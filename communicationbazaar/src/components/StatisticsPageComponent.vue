@@ -46,6 +46,12 @@ export default {
     this.loaded = true
   },
   methods: {
+    /**
+     * Formats date to DD-MM-YYYY
+     * @author Rowin Schenk, Pieter Leek
+     * @param dateString
+     * @returns {Date}
+     */
     dateConverter(dateString) {
       const parts = dateString.split(' ')[0].split('-');
 
@@ -60,13 +66,24 @@ export default {
       }
       return convertedDate;
     },
-
+    /**
+     * Subtracts desired amount of months of the given date
+     * @author Rowin Schenk, Pieter Leek
+     * @param date
+     * @param months
+     * @returns {Date}
+     */
     dateMinusMonths(date, months) {
       let newDate = new Date(date);
       newDate.setMonth(newDate.getMonth() - months);
       return newDate;
     },
-
+    /**
+     * Counts the amount of images that were created more recent than the given amount of months ago
+     * @author Rowin Schenk, Pieter Leek
+     * @param months
+     * @returns {number}
+     */
     getDataMonths(months) {
       const comparisonDate = this.dateMinusMonths(new Date(), months);
       return this.images.filter(image => {
@@ -75,6 +92,11 @@ export default {
       }).length;
     },
 
+    /**
+     * Gets name of the labels and the data for the chart
+     * @author Rowin Schenk
+     * @returns {[{time: string, amountOfImages: (*|number)},{time: string, amountOfImages: (*|number)},{time: string, amountOfImages: (*|number)}]}
+     */
     getData() {
       return [{time: 'Laatste maand', amountOfImages: this.getDataMonths(1)},
         {time: 'Laatste kwartaal', amountOfImages: this.getDataMonths(3)},
