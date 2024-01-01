@@ -104,10 +104,14 @@ export default {
       }
       return null;
     },
+    /**
+     * Method so only images with status ONGOING get returned
+     * @author Rowin Schenk
+     * @param image
+     * @returns {boolean}
+     */
     isCorrespondingStatus(image) {
-      if (image.status === "ONGOING") {
-        return true;
-      } else return false;
+      return image.status === "ONGOING";
     },
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
@@ -130,6 +134,12 @@ export default {
       this.images[index] = image;
       this.setImage(image);
     },
+    /**
+     * Method to parse date to correct format
+     * @author Rowin Schenk
+     * @param givenDate
+     * @returns {Date}
+     */
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
@@ -148,6 +158,11 @@ export default {
     }
   },
   computed: {
+    /**
+     * Sorts images by date with most recent date at the top
+     * @author Rowin Schenk
+     * @returns {*[]}
+     */
     sortedItems() {
       // Create a shallow copy of the images array
       let imagesCopy = [...this.images];
