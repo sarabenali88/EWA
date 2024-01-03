@@ -273,7 +273,7 @@ export default {
         return;
       }
 
-      if (allImportedFiles.length > 1){
+      if (allImportedFiles.length > 1) {
         errorMessageFileImport.textContent = "U heeft teveel bestanden geselecteerd om te uploaden";
         return
       }
@@ -316,13 +316,13 @@ export default {
         if (!existingLaptop) {
           const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
           if (newLaptop.ean !== "ean") {
-            this.laptops.push(newLaptop);
+            this.laptopsService.asyncSave(newLaptop);
           }
         }
       }
-      console.log("Alle laptops zijn succesvol toegevoegd")
-      console.log(this.laptops)
-      successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
+        this.reInitialise();
+        successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
+
     }
   }
 }
