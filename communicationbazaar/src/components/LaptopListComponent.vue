@@ -306,6 +306,12 @@ export default {
           const worksheet = workbook.Sheets[firstSheetName];
           const importedData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
 
+          const dataCheck = importedData[0];
+
+          if (dataCheck[1] !== "ean"){
+            errorMessageFileImport.textContent = "De data in uw gekozen bestand is incorrect";
+            return
+          }
           // Add imported laptops without duplicates to the main list
           this.addImportedLaptopsWithoutDuplicates(importedData);
         };
