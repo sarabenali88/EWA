@@ -6,6 +6,7 @@
       <input type="file" id="allImportedFiles" name="Import" @change="importFile()"
              accept=".csv">
       <div id="errorMessageFileImport" class="text-danger"></div>
+      <div id="successMessageFileImport" class="text-dark"></div>
       <div v-if="editLaptop !== null">
         <div class="card card-body">
           <router-view
@@ -257,24 +258,29 @@ export default {
 
       const allImportedFiles = document.getElementById("allImportedFiles").files;
       const errorMessageFileImport = document.getElementById("errorMessageFileImport");
+      const successMessageFileImport = document.getElementById("successMessageFileImport");
 
       while (errorMessageFileImport.firstChild) {
         errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
       }
 
+      while (successMessageFileImport.firstChild) {
+        successMessageFileImport.removeChild(successMessageFileImport.firstChild);
+      }
+
       if (allImportedFiles.length === 0) {
-        errorMessageFileImport.textContent = "No files currently selected for upload";
+        errorMessageFileImport.textContent = "U heeft op dit moment geen nieuw bestand geselecteerd op te uploaden";
         return;
       }
 
       if (allImportedFiles.length > 1){
-        errorMessageFileImport.textContent = "Too many files currently selected for upload";
+        errorMessageFileImport.textContent = "U heeft teveel bestanden geselecteerd om te uploaden";
         return
       }
 
       const correctImportedFile = allImportedFiles[0];
       if (!this.validFileType(correctImportedFile)) {
-        errorMessageFileImport.textContent = "Choose a file of type .csv";
+        errorMessageFileImport.textContent = "Kies een bestand van type .csv";
         return;
       }
 
@@ -303,6 +309,7 @@ export default {
       }
     },
     addImportedLaptopsWithoutDuplicates(importedData) {
+      const successMessageFileImport = document.getElementById("successMessageFileImport");
       for (const laptop of importedData) {
         console.log(laptop)
         const existingLaptop = this.laptops.find((l) => l.ean === laptop[1]);
@@ -315,6 +322,7 @@ export default {
       }
       console.log("Alle laptops zijn succesvol toegevoegd")
       console.log(this.laptops)
+      successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
     }
   }
 }
