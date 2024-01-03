@@ -12,16 +12,16 @@
                 {{ alertMessage }}
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
-              <input v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text" class="form-control form-control-lg"/>
+              <input id="personalNumberField" v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text" class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" @keyup.enter="checkInputSignIn" type="password" class="form-control form-control-lg"/>
+              <input id="passwordField" v-model="password" @keyup.enter="checkInputSignIn" type="password" class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
-            <button @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
+            <button id="loginButton" @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
               {{ $t('signIn.logInButton') }}</button>
             <button @click="visibilitySwitch" class="btn btn-danger btn-lg m-1" type="submit">
               {{ $t('signIn.newPassword') }}</button>

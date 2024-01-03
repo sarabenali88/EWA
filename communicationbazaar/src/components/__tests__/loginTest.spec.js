@@ -3,12 +3,21 @@ import i18n from "@/i18n";
 import {reactive} from "vue";
 import SignInComponent from "@/components/SignInComponent";
 import {AccountsAdaptor} from "@/services/AccountsAdaptor";
+import {createMemoryHistory, createRouter} from "vue-router";
+import WelcomeComponent from "@/components/WelcomeComponent";
 
 let wrapper
 
+const mockRoutes = [
+        {
+            path: '/',
+            component: WelcomeComponent
+        },
+];
+
 const mockAccounts = [
     {
-        personalNumber: 1,
+        personalNumber: "1",
         password: 'Welkom01.',
         name: 'jasper',
         email: 'ja@ja.nl',
@@ -17,7 +26,7 @@ const mockAccounts = [
         loggedIn: false
     },
     {
-        personalNumber: 2,
+        personalNumber: "2",
         password: 'halloP9!.',
         name: 'Pieter',
         email: 'nee@nee.nl',
@@ -28,6 +37,10 @@ const mockAccounts = [
 ];
 
 beforeEach(async function () {
+    const router = createRouter({
+        history: createMemoryHistory(),
+        routes: mockRoutes,
+    })
 
     const accountsService = new AccountsAdaptor('http://localhost:8086/api');
 
@@ -56,9 +69,11 @@ beforeEach(async function () {
             provide: {
                 "accountsService": reactive(accountsService)
             },
-            plugins: [i18n]
+            plugins: [i18n, router]
         }
     });
+
+    await wrapper.vm.$router.isReady();
 });
 
 it('should render properly', function () {
@@ -69,7 +84,11 @@ it('should render properly', function () {
 });
 
 it('can log in', async function () {
-    const button = wrapper.findAll('button').find(b => b.text() === 'signIn.logInButton')
+    const onRouterPushSpi =
+        jest.spyOn(wrapper.vm.$router,'push');
+    const button = wrapper.get('#loginButton');
+    const personalNumberField = wrapper.get('#personalNumberField');
+    const passwordField = wrapper.get('#passwordField');
 
     expect(button.exists(),
         `Cannot find button with id loginButton`)
@@ -78,5 +97,21 @@ it('can log in', async function () {
         `button with id loginButton has been disabled`)
         .toBeFalsy();
 
+    expect(personalNumberField.exists(),
+        `Cannot find button with id personalNumberField`)
+        .toBe(true);
+    expect(passwordField.exists(),
+        `Cannot find button with id passwordField`)
+        .toBe(true);
+
+    await personalNumberField.setValue("1");
+    await passwordField.setValue("Welkom01.");
+
+    expect(personalNumberField.element.value).toBe(mockAccounts[0].personalNumber);
+    expect(passwordField.element.value).toBe(mockAccounts[0].password);
+
     await button.trigger('click');
+    expect(onRouterPushSpi).toHaveBeenCalledWith("/");
+
+    await wrapper.vm.$nextTick();
 });
