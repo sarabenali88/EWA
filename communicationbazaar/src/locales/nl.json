@@ -11,7 +11,8 @@
     "week": "Week",
     "alertEmpty": "Dit veld is verplicht",
     "buttonSave": "Opslaan",
-    "buttonAdd": "Image toevoegen"
+    "buttonAdd": "Image toevoegen",
+    "confirmMessage": "Weet u zeker dat u deze image wilt opslaan?"
   },
   "allImages": {
     "titleName": "Alle Images",
@@ -40,7 +41,8 @@
     "unassigned": "Niet toegewezen",
     "saveButton": "Opslaan",
     "closeButton": "Afsluiten",
-    "claimButton": "Claim"
+    "claimButton": "Claim",
+    "commentRequired": "Vul een reden in"
   },
   "adminPanel" : {
     "headTitle": "Gebruikerslijst",
@@ -70,10 +72,12 @@
   "imageStatus": {
     "toDoTitle" : "Status Te doen Images",
     "ongoingTitle" : "Status Mee bezig Images",
+    "impossibleTitle": "Status Onmogelijke Images",
     "finishedTitle" : "Status Afgeronde Images",
     "overDateTitle" : "Status Over Datum Images",
     "statusToDo": "Te doen",
     "statusOngoing": "Mee bezig",
+    "statusImpossible": "Onmogelijk",
     "statusFinished": "Afgerond",
     "statusOverDate": "Over Datum",
     "noAccessMessage": "U heeft niet de bevoegdheden om deze data te zien"
@@ -91,12 +95,19 @@
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
     "wrongPersMessage": "Personeelsnummer is verkeerd",
-    "newPassword": "Nieuw wachtwoord"
+    "newPassword": "Nieuw wachtwoord",
+    "passwordCheck": "Wachtwoord moet minimaal 8 karakters zijn met een hoofdletter en een cijfer."
   },
   "profilePage": {
     "role": "Functie",
     "employeeNumber": "Werknemer nr.",
     "location": "Locatie"
+  },
+  "statisticsPage": {
+    "amountImages": "Aantal images",
+    "lastMonth": "Laatste maand",
+    "lastQuarter": "Laatste kwartaal",
+    "lastHalfYear": "Laatste half jaar"
   },
   "header":{
     "placeholder": "Zoek voor image"
@@ -106,22 +117,38 @@
     "allImages": "Alle Images",
     "toDoList": "Te doen Lijst",
     "ongoingList": "In ontwikkeling Lijst",
+    "impossibleList": "Onmogelijk Lijst",
     "finishedList": "Afgerond Lijst",
     "overDateList": "Over datum Lijst",
     "myAccount": "Mijn account",
     "myProfile": "Mijn profiel",
+    "statistics": "Statistieken",
     "logIn": "Log in",
     "logOut": "Log uit",
     "allUsers": "Alle gebruikers",
     "profileTitle": "Profiel",
-    "adminTitle": "Admin"
+    "adminTitle": "Admin",
+    "laptopList" : "Laptops"
   },
-  "home": {
-    "welcomeMessage": "Welkom"
+  "home":{
+    "finishedList": "Afgeronde Images Lijst"
   },
   "status": {
-    "TODO": "Te doen",
-    "ONGOING": "Mee bezig",
-    "FINISHED": "Afgerond"
+    "TODO": "TE DOEN",
+    "ONGOING": "MEE BEZIG",
+    "FINISHED": "AFGEROND",
+    "IMPOSSIBLE": "ONMOGELIJK"
+  },
+  "release":{
+    "NEW": "NIEUW",
+    "UPDATE": "UPDATE"
+  },
+  "laptop": {
+    "allLaptops": "Alle Laptops",
+    "brand": "Merk",
+    "processor": "Processor",
+    "editMessage": "Laptop met EAN: ",
+    "alertMessage": "Vul alsjeblieft alle invoervelden in!",
+    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd."
   }
 }

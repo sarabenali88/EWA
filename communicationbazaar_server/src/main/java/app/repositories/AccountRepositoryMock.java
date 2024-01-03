@@ -50,4 +50,9 @@ public class AccountRepositoryMock implements Repository<Account> {
 
         return deleteAccount;
     }
+
+    @Override
+    public List<Account> findByQuery(String jpqlName, Object... params) {
+        return null;
+    }
 }

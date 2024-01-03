@@ -7,8 +7,9 @@
       </h3>
     </div>
     <div class="col-4">
-      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false || accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                     type="button" class="btn btn-danger m-2">
+      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
+      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+                     type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
       <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}"
@@ -35,7 +36,7 @@
         {{ $t('imageDetail.status') }}:
       </div>
       <div v-if="editComment === false" class="col-sm-auto">
-        {{imageCopy.status}}
+        {{ $t(`status.${imageCopy.status}`) }}
       </div>
       <div v-else class="col-sm-auto">
         <select class="form-select" v-model="imageCopy.status">
@@ -52,7 +53,7 @@
         {{ $t('imageDetail.employee') }}:
       </div>
       <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
-        {{imageCopy.imageMaker}}
+        {{imageCopy.imageMaker.name}}
       </div>
       <div v-else-if="imageCopy.imageMaker === null && editComment === true && imageClaimed === false" class="col-sm-auto link-danger text-decoration-underline" @click="claimImage()">
         {{$t('imageDetail.claimButton')}}
@@ -106,21 +107,24 @@
             {{ $t('imageDetail.newUpdate') }}:
           </div>
           <div class="col-sm-auto">
-            {{imageCopy.release}}
+            {{ $t(`release.${imageCopy.release}`) }}
           </div>
         </div>
         <div class="row justify-content-sm-left">
           <div class="col col-sm-2 text-body-tertiary">
             {{ $t('imageDetail.location') }}:
           </div>
-          <div v-if="imageCopy.imageMaker !== null" class="col-sm-auto">
+          <div v-if="imageCopy.imageMaker.name !== null" class="col-sm-auto">
             {{imageCopy.store}}
           </div>
         </div>
       </div>
       <div v-else-if="editComment === true && !showDesc" >
         <textarea class="row justify-content-center m-3 p-3 text" rows="5"
-                  v-model="imageCopy.comment"></textarea>
+                  v-model="imageCopy.comment"
+                  :style="{ borderColor: textareaBorderColor }"
+        ></textarea>
+        <div class="ms-3" v-if="invalidTextarea">{{$t('imageDetail.commentRequired')}}</div>
         <div class="row justify-content-between">
           <div class="col-auto">
           </div>
@@ -133,8 +137,12 @@
         </div>
       </div>
       <div v-else-if="!showDesc">
-        <textarea class="row justify-content-center m-3 p-3 text" rows="5" :placeholder="$t('imageDetail.placeholder')"
-                  v-model="imageCopy.comment" readonly></textarea>
+      <textarea
+          class="row justify-content-center m-3 p-3 text"
+          rows="5"
+          :placeholder="$t('imageDetail.placeholder')"
+          v-model="imageCopy.comment" readonly
+          ></textarea>
       </div>
     </div>
   </div>
@@ -147,7 +155,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService"],
-  emits: ['delete-image', 'save-image'],
+  emits: ['delete-image', 'save-image', 'refresh'],
   data(){
     return {
       statuses: Image.Status,
@@ -157,12 +165,14 @@ export default {
       accounts: [],
       imageClaimed: false,
       account: null,
+      invalidTextarea: false,
     }
   },
   watch: {
     '$route'(){
       this.reInitialise();
-    }
+    },
+
   },
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
@@ -189,25 +199,46 @@ export default {
         this.editComment = true;
       }
     },
-    saveChanges(){
+    async onDelete(){
+      await this.imagesService.asyncDeleteById(this.imageCopy.id)
+      this.$emit('refresh')
+    },
+    async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
-        this.imageCopy.imageMaker = this.account.name
+        this.imageCopy.imageMaker = this.account
         this.imageCopy.store = this.account.location;
       }
-      if (this.imageCopy.status === Object.keys(Image.Status)[0]){
+      if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
+          this.imageCopy.status === Object.keys(Image.Status)[3]){
         this.imageCopy.imageMaker = null
         this.imageCopy.store = null
       }
-      this.$emit('save-image', this.imageCopy);
+      if (this.imageCopy.status === Object.keys(Image.Status)[3]) {
+        if (this.imageCopy.comment === null) {
+          this.invalidTextarea = true;
+          return false;
+        } else {
+          this.invalidTextarea = false;
+        }
+      }
       this.editComment = false;
       this.imageClaimed = false;
+
+      await this.imagesService.asyncSave(this.imageCopy);
+      this.$emit('refresh')
+
     },
     claimImage(){
       this.imageClaimed = true;
-      this.imageCopy.imageMaker = this.account.name;
+      this.imageCopy.imageMaker = this.account;
       this.imageCopy.status = Object.keys(Image.Status)[1];
       this.imageCopy.store = this.account.location;
     }
+  },
+  computed: {
+    textareaBorderColor() {
+      return this.invalidTextarea ? 'red' : '';
+    },
   }
 }
 </script>
@@ -218,5 +249,7 @@ export default {
 }
 .text {
   width: 90%;
+
 }
+
 </style>

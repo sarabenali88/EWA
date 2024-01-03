@@ -5,13 +5,15 @@
  */
 package app.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+
+@NamedQueries({
+        @NamedQuery(name="Image_delete_by_laptop_ean",
+                query = "select i from Image i where i.laptop.ean = ?1")
+})
 @Entity
 public class Image {
     @Id
@@ -35,7 +37,9 @@ public class Image {
     private int createdYear;
     private String name;
     private String comment;
-    private String imageMaker;
+    @ManyToOne
+    @JsonIgnoreProperties(value = {"images"}, allowSetters = true)
+    private Account imageMaker;
 
     public Image() {
 
@@ -44,7 +48,8 @@ public class Image {
     public enum Status {
         TODO("Te doen"),
         ONGOING("Mee bezig"),
-        FINISHED("Afgerond");
+        FINISHED("Afgerond"),
+        IMPOSSIBLE("Onmogelijk");
 
         private final String value;
 
@@ -88,7 +93,7 @@ public class Image {
         }
     }
 
-    public Image(long id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment, String imageMaker) {
+    public Image(long id, Laptop laptop, String version, String store, String upDateDate, Status status, Release release, Problem problem, int createdWeek, int createdYear, String name, String comment) {
         this.id = id;
         this.laptop = laptop;
         this.version = version;
@@ -101,7 +106,7 @@ public class Image {
         this.createdYear = createdYear;
         this.name = name;
         this.comment = comment;
-        this.imageMaker = imageMaker;
+
     }
 
     /**
@@ -141,9 +146,39 @@ public class Image {
                 randomNumber52,
                 2023,
                 "ImageNaam" + randomNumber1000,
-                "",
-                imageMaker.get(randomNumber3)
+                ""
         );
+    }
+
+    /**
+     * Associates the given account with this image, if not yet associated
+     *
+     * @param account
+     * @return whether a new association has been added
+     */
+    public boolean associateAccount(Account account) {
+
+//        if (account == null || this.imageMaker.equals(account)) {
+//            //no change required
+//            return false;
+//        }
+
+        if (this.imageMaker != null) {
+            if (this.imageMaker.equals(account)) {
+                //no change required
+                return false;
+            }
+            return false;
+        }
+
+        if (account == null) {
+            return false;
+        }
+
+        //update both sides of the association
+        this.setImageMaker(account);
+        account.associateImage(this);
+        return true;
     }
 
     public long getId() {
@@ -194,7 +229,7 @@ public class Image {
         return comment;
     }
 
-    public String getImageMaker() {
+    public Account getImageMaker() {
         return imageMaker;
     }
 
@@ -246,7 +281,7 @@ public class Image {
         this.comment = comment;
     }
 
-    public void setImageMaker(String imageMaker) {
+    public void setImageMaker(Account imageMaker) {
         this.imageMaker = imageMaker;
     }
 }
