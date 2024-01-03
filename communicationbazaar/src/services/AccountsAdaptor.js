@@ -83,4 +83,8 @@ export class AccountsAdaptor {
     async verifyPassword(personalNumber, password) {
         return await this.fetchJson(this.resourcesUrl + '/verifyPassword/' + personalNumber + "/" + password);
     }
+
+    async asyncGetImagesFromAccount(personalNumber) {
+        return await this.fetchJson(this.resourcesUrl + '/' + personalNumber + "/images");
+    }
 }

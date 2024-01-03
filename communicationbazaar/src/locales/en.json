@@ -11,7 +11,8 @@
     "week": "Week",
     "alertEmpty": "This field is required",
     "buttonSave": "Save",
-    "buttonAdd": "Add image"
+    "buttonAdd": "Add image",
+    "confirmMessage": "Are you sure you want to save this image?"
   },
   "allImages": {
     "titleName": "All Images",
@@ -40,7 +41,8 @@
     "unassigned": "Unassigned",
     "saveButton": "Save",
     "closeButton": "Close",
-    "claimButton": "Claim"
+    "claimButton": "Claim",
+    "commentRequired": "Enter a reason"
   },
   "adminPanel" : {
     "headTitle": "User List",
@@ -70,10 +72,12 @@
   "imageStatus": {
     "toDoTitle" : "Status To Do Images",
     "ongoingTitle" : "Status Ongoing Images",
+    "impossibleTitle": "Status Impossible Images",
     "finishedTitle" : "Status Finished Images",
     "overDateTitle" : "Status Over Date Images",
     "statusToDo": "To Do",
     "statusOngoing": "Ongoing",
+    "statusImpossible": "Impossible",
     "statusFinished": "Finished",
     "statusOverDate": "Over Date",
     "noAccessMessage": "You do not have the authority to see this data"
@@ -99,6 +103,12 @@
     "employeeNumber": "Employee nr.",
     "location": "Location"
   },
+  "statisticsPage": {
+    "amountImages": "Amount of images",
+    "lastMonth": "Last month",
+    "lastQuarter": "Last Quarter",
+    "lastHalfYear": "Last six months"
+  },
   "header":{
     "placeholder": "Search for image"
   },
@@ -107,22 +117,38 @@
     "allImages": "All Images",
     "toDoList": "Todo List",
     "ongoingList": "Ongoing List",
+    "impossibleList": "Impossible List",
     "finishedList": "Finished List",
     "overDateList": "Overdate List",
     "myAccount": "My Account",
     "myProfile": "My Profile",
+    "statistics": "Statistics",
     "logIn": "Sign in",
     "logOut": "Log out",
     "allUsers": "All users",
     "profileTitle": "Profile",
-    "adminTitle": "Admin"
+    "adminTitle": "Admin",
+    "laptopList" : "Laptops"
   },
-  "home": {
-    "welcomeMessage": "Welcome"
+  "home":{
+    "finishedList": "Finished Images List"
   },
   "status": {
     "TODO": "TODO",
     "ONGOING": "ONGOING",
-    "FINISHED": "FINISHED"
+    "FINISHED": "FINISHED",
+    "IMPOSSIBLE": "IMPOSSIBLE"
+  },
+  "release":{
+    "NEW": "NEW",
+    "UPDATE": "UPDATE"
+  },
+  "laptop": {
+    "allLaptops": "All Laptops",
+    "brand": "Brand",
+    "processor": "Processor",
+    "editMessage": "Laptop with EAN: ",
+    "alertMessage": "Please fill in all the input fields!",
+    "confirmMessage": "Are you sure you want to delete this laptop? All images for this laptop will also be deleted."
   }
 }

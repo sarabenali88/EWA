@@ -5,12 +5,12 @@
       <div class="col-5">
         <div class="input-group">
           <select v-model="selectedLaptop" class="form-control">
-              <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
-             {{laptop.ean}}
-              </option>
-            </select>
+            <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
+              {{ laptop.ean }}
+            </option>
+          </select>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
+        <div class="error" v-if="invalid === true">{{$t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
@@ -57,15 +57,31 @@
       <label class="col-3" for="week">{{ $t('addImage.week') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="week" class="form-control" v-model="week" :min="getWeek()"/>
+          <input type="week" class="form-control" v-model="week" readonly/>
         </div>
-        <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-danger w-25" @click="validateInput">{{ $t('addImage.buttonSave') }}</button>
+        <button class="btn btn-danger w-25" @click="modalShow">{{ $t('addImage.buttonSave') }}</button>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
+            <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ $t('addImage.confirmMessage') }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeModal()">{{ $t('adminPanel.cancelButton')}}</button>
+            <button type="button" class="btn btn-danger" @click="onSave()">{{ $t('addImage.buttonSave') }}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,9 +110,10 @@ export default {
       image: null,
       formattedDate: null,
       formattedWeek: null,
+      formattedYear: null,
       laptops: [],
       defaultId: 0,
-      milliSecond: 604800000,
+      showModal: false,
     }
   },
   /**
@@ -110,37 +127,52 @@ export default {
   methods: {
     /**
      * Method to check inputs of the user and save an image if input is correct
+     * @return {boolean}
+     * @author Sara Benali
+     */
+    validateInput() {
+      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === '' || this.date === '') {
+        this.invalid = true;
+        return false;
+      } else {
+        this.invalid = false;
+        return true;
+      }
+    },
+    /**
+     * Method to close the modal
+     * @author Sara Benali
+     */
+    closeModal() {
+      this.showModal = false;
+    },
+    /**
+     * Method to show the modal only after the fields are validated
+     * @author Sara Benali
+     */
+    modalShow() {
+      if (this.validateInput()) {
+        this.showModal = true;
+      }
+    },
+    /**
+     * Method to save the new created image and to close the modal
      * @return {Promise<void>}
      * @author Sara Benali
      */
-    async validateInput() {
-      if (this.selectedLaptop === null || this.startVersion === '' || this.imageName === ''
-          || this.date === '' || this.week === '') {
-        this.invalid = true;
-      } else {
-        this.invalid = false;
-      }
-      if (this.invalid === false) {
-        await this.saveImage();
-      }
+    async onSave() {
+      await this.saveImage();
+      this.closeModal();
     },
     /**
      * Method to format the entered date value to dd-mm-yyyy format
      * @param inputDate the value of a date
-     * @return {string}
+     * @return {string} -date format in "DD-MM-YYYY"
      * @author Sara Benali
      */
     formatDate(inputDate) {
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
       return new Date(inputDate).toLocaleDateString('nl-NL', options);
-    },
-    /**
-     * Method to format week from "2023-W43" to only get week number (43)
-     * @return {string}
-     * @author Sara Benali
-     */
-    formatWeek(week){
-      return week.split('W')[1];
     },
     /**
      * Method to save an image to the list with the entered user value
@@ -148,37 +180,54 @@ export default {
      * @author Sara Benali
      */
     async saveImage() {
-       this.formattedDate = this.formatDate(this.date);
-       this.formattedWeek = this.formatWeek(this.week);
-       this.image =  new Image(this.defaultId,this.selectedLaptop, this.startVersion, null,
-            this.formattedDate, this.statusImage, null, null, this.formattedWeek, null,
-           this.imageName, null, null);
+      this.formattedDate = this.formatDate(this.date);
+      this.formattedWeek = this.week.split('W')[1];
+      this.formattedYear = this.week.split('-')[0];
+      this.image = new Image(this.defaultId, this.selectedLaptop, this.startVersion, null,
+          this.formattedDate, this.statusImage, null, null, this.formattedWeek, this.formattedYear,
+          this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);
+      console.log(this.image);
       await this.imagesService.asyncFindAll();
       this.$router.push('/imageListRoute/allImages');
     },
     /**
      * Method to get today's date and put it as minimum so user can't choose a date before today
-     * @return {string}
+     * @return {string} -date format in without the timezone included
      * @author Sara Benali
      */
     getToday() {
       return new Date().toISOString().split("T")[0];
     },
     /**
-     * Method to calculate this week's date and set it as minimum so user can't choose a week before this week
-     * @return {string}
+     * Gets the week from the selected date
+     * @param selectedDate -selected date in "YYYY-MM-DD" format
+     * @return {string} -week format in "YYYY-Www"
+     *
      * @author Sara Benali
      */
-    getWeek() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const week = Math.ceil((today - new Date(year, 0, 1)) / this.milliSecond);
-      return `${year}-W${week}`;
+    getWeekFromDate(selectedDate) {
+      const date = new Date(selectedDate);
+      date.setDate(date.getDate() + 4 - (date.getDay() || 7));
+      const year = date.getFullYear();
+      const startOfYear = new Date(year, 0, 1);
+      const days = Math.ceil((date - startOfYear) / 86400000);
+      const week = Math.ceil((days + startOfYear.getDay() + 1) / 7);
+      const formattedWeek = week.toString().padStart(2, '0');
+      return `${year}-W${formattedWeek}`;
     },
   },
-  computed: {
+  watch: {
+    /**
+     * checks if the date value is changed, so it updates the week value accordingly
+     * @param newDate - new Date value
+     * @author Sara Benali
+     */
+    date(newDate) {
+      this.week = this.getWeekFromDate(newDate);
+    },
   },
+  computed: {},
 }
 </script>
 

@@ -88,10 +88,10 @@
         <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
           <td>{{ image.laptop.ean }}</td>
           <td>{{ image.name }}</td>
-          <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
+          <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
           <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
           <td>{{ image.store }}</td>
-          <td>{{ image.status }}</td>
+          <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
           <td>{{ image.upDateDate }}</td>
         </tr>
         </tbody>
@@ -121,9 +121,9 @@
             <tbody>
             <tr v-for="image in this.filterImages" v-bind:key="image.ean" v-on:click="setImage(image)">
               <td>{{ image.laptop.ean }}</td>
-              <td v-if="image.imageMaker !== ''">{{ image.imageMaker }}</td>
-              <td v-else class="text-secondary">Niet toegewezen</td>
-              <td>{{ image.status }}</td>
+              <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
+              <td v-else class="text-secondary">{{$t('imageDetail.unassigned')}}</td>
+              <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
               <td>{{ image.upDateDate }}</td>
             </tr>
             </tbody>
@@ -173,7 +173,7 @@ export default {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
        return this.filteredImages = this.images.filter(image =>
             (image.laptop.ean && image.laptop.ean.toString().includes(query)) ||
-            (image.imageMaker && image.imageMaker.toLowerCase().includes(query)) ||
+            (image.imageMaker && image.imageMaker.name.toLowerCase().includes(query)) ||
             (image.status && image.status.toLowerCase().includes(query)) ||
             (image.upDateDate && image.upDateDate.toLowerCase().includes(query)) ||
             (image.store && image.store.toLowerCase().includes(query)) ||
@@ -197,13 +197,17 @@ export default {
     expandSearch() {
       this.expanded = !this.expanded;
     },
+    /**
+     * updates the language when the user selects a different language
+     *
+     * @author Sara Benali
+     */
     updateLocale() {
-      // update the i18n locale when the user selects a different language
       if (this.$i18n.locale === 'nl') {
         this.$i18n.locale = 'nl';
       } else if (this.$i18n.locale === 'en') {
         this.$i18n.locale = 'en';
-      } else {
+      } else if (this.$i18n.locale === 'fr') {
         this.$i18n.locale = 'fr';
       }
     },
@@ -239,6 +243,18 @@ export default {
         this.expanded = false;
         this.searchQuery = '';
       }
+    },
+    getStatusClass(image) {
+      if (image.status === 'FINISHED') {
+        return 'badge rounded-pill text-bg-danger';
+      } else if (image.status === 'TODO') {
+        return 'badge rounded-pill text-bg-danger opacity-25';
+      } else if (image.status === 'ONGOING') {
+        return 'badge rounded-pill text-bg-danger opacity-50'
+      } else if (image.status === 'IMPOSSIBLE'){
+        return 'badge rounded-pill text-bg-danger opacity-50';
+      }
+      return '';
     }
   }
 }
@@ -248,10 +264,11 @@ export default {
 
 .card {
   position: absolute;
-  width: 10%;
+  width: 25%;
   height: 10%;
   right: 5%;
   top: 80px;
+  z-index: 100;
 }
 
 .card-footer {
@@ -441,7 +458,7 @@ export default {
 }
 
 .language {
-  margin-left: 50px
+  margin-left: 25px
 }
 
 .language:hover {

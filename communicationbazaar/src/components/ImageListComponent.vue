@@ -44,22 +44,20 @@
         </div>
       </div>
       <div class="row col w-auto mx-4 my-2 h-50 statusButtonsStyling bg-danger p-2 rounded" style="--bs-bg-opacity: .95;"
-           :class="{'active-tab': $route.path === '/imageListRoute/statusFinished'}"
-           @click="getSelectedStatus(this.finishedStatus)">
+           :class="{'active-tab': $route.path === '/imageListRoute/statusImpossible'}"
+           @click="getSelectedStatus(this.impossibleStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                class="bi bi-calendar-check my-4 mx-1"
                viewBox="0 0 16 16">
-            <path
-                d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-            <path
-                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+            <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
           </svg>
         </div>
         <div class="col">
-          <h6>{{$t('imageStatus.statusFinished')}}:</h6>
+          <h6>{{ $t('imageStatus.statusImpossible') }}:</h6>
           <div>
-            <h1>{{ amountOfImagesFinished }}</h1>
+            <h1>{{ amountOfImagesImpossible }}</h1>
             <h4>images</h4>
           </div>
         </div>
@@ -130,21 +128,19 @@
         </div>
       </div>
       <div class="row mx-2 my-2 statusButtonsStyling bg-danger p-2 rounded" style="--bs-bg-opacity: .95;"
-           :class="{'active-tab': $route.path === '/imageListRoute/statusFinished'}"
-           @click="getSelectedStatus(this.finishedStatus)">
+           :class="{'active-tab': $route.path === '/imageListRoute/statusImpossible'}"
+           @click="getSelectedStatus(this.impossibleStatus)">
         <div class="col">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                class="bi bi-calendar-check"
                viewBox="0 0 16 16">
-            <path
-                d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-            <path
-                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+            <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
           </svg>
         </div>
         <div class="col items">
-          <h6 class="py-2 ">{{ $t('imageStatus.statusFinished') }}:</h6>
-          <h1 class="px-2 py-0">{{ amountOfImagesFinished }}</h1>
+          <h6 class="py-2 ">{{ $t('imageStatus.statusImpossible') }}::</h6>
+          <h1 class="px-2 py-0">{{ amountOfImagesImpossible }}</h1>
           <h4 class="px-2 py-1">Images</h4>
         </div>
       </div>
@@ -155,8 +151,7 @@
   <div class="ms-lg-5">
     <router-view></router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
-            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-            accounts.some(account => account.loggedIn === true && account.role !== 'admin')}">
+            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
@@ -182,11 +177,13 @@ export default {
       images: [],
       amountOfImagesToDo: 0,
       amountOfImagesOnGoing: 0,
+      amountOfImagesImpossible: 0,
       amountOfImagesFinished: 0,
       amountOfImagesOverDate: 0,
       todoStatus: "todoStatus",
       onGoingStatus: "onGoingStatus",
       finishedStatus: "finishedStatus",
+      impossibleStatus: "impossibleStatus",
       overDateStatus: "overDateStatus",
       allImagesStatus: "allImages",
       selectedStatus: this.allImagesStatus,
@@ -209,6 +206,10 @@ export default {
           this.$router.push("/imageListRoute/statusOnGoing");
           this.selectedStatus = this.onGoingStatus;
         }
+        if (status === this.impossibleStatus){
+          this.$router.push("/imageListRoute/statusImpossible");
+          this.selectedStatus = this.impossibleStatus;
+        }
         if (status === this.finishedStatus) {
           this.$router.push("/imageListRoute/statusFinished");
           this.selectedStatus = this.finishedStatus;
@@ -226,6 +227,9 @@ export default {
         }
         if (image.status === "ONGOING") {
           this.amountOfImagesOnGoing++;
+        }
+        if (image.status === "IMPOSSIBLE"){
+          this.amountOfImagesImpossible++;
         }
         if (image.status === "FINISHED") {
           this.amountOfImagesFinished++;
