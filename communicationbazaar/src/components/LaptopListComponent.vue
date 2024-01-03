@@ -145,6 +145,8 @@
 
 <script>
 import laptopDetailComponent from "@/components/LaptopDetailComponent";
+import * as XLSX from 'xlsx';
+import {Laptop} from "@/models/laptop";
 
 export default {
   name: "LaptopListComponent",
@@ -160,7 +162,8 @@ export default {
       editLaptop: null,
       fileTypes: [
         "csv",
-        "text/csv"
+        "text/csv",
+        "xlsx"
       ]
     }
   },
@@ -249,64 +252,125 @@ export default {
       console.log(this.fileTypes.includes(file.type))
       return this.fileTypes.includes(file.type);
     },
+    // async importFile() {
+    //   const Excel = require('exceljs');
+    //   const allImportedFiles = document.getElementById("allImportedFiles").files;
+    //   const errorMessageFileImport = document.getElementById("errorMessageFileImport");
+    //   const correctImportedFile = allImportedFiles[0];
+    //
+    //   console.log(allImportedFiles)
+    //   console.log(correctImportedFile)
+    //
+    //   const wb = new Excel.Workbook();
+    //
+    //   while (errorMessageFileImport.firstChild) {
+    //     errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
+    //   }
+    //
+    //   //checks amount of files that are selected and fills error box when none or too many are selected
+    //   if (allImportedFiles.length === 0) {
+    //     const para = document.createElement("p");
+    //     para.textContent = "No files currently selected for upload";
+    //     errorMessageFileImport.appendChild(para);
+    //   } else if (allImportedFiles.length > 1) {
+    //     const para = document.createElement("p");
+    //     para.textContent = "Too much files are selected";
+    //     errorMessageFileImport.appendChild(para);
+    //     //validates the type of file so only csv files are allowed
+    //   } else if (!this.validFileType(correctImportedFile)) {
+    //     const para = document.createElement("p");
+    //     para.textContent = "Chose a file of type .csv";
+    //     errorMessageFileImport.appendChild(para);
+    //   } else {
+    //
+    //     console.log("Hij begint hier met lezen van de file")
+    //     const ws = await wb.csv.readFile(correctImportedFile)
+    //
+    //       console.log("Hij is nu aan het lezen")
+    //       console.log(
+    //           `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
+    //               ws.dimensions
+    //           )}`);
+    //
+    //       for (let i = 1; i <= ws.actualRowCount; i++) {
+    //         console.log("Hij probeert nu alle data van 1 rij in een variabele te zetten")
+    //         const val = ws.getRow(i).values;
+    //         // process.stdout.write(`${val} `);
+    //         this.importedLaptops.push(val);
+    //       }
+    //   }
+    //
+    //   if (this.importedLaptops.length !== 0) {
+    //     this.addImportedLaptopsWithoutDuplicates();
+    //   } else {
+    //     //error message no data in file
+    //   }
+    // },
+    // addImportedLaptopsWithoutDuplicates() {
+    //   for (const laptop in this.laptops) {
+    //     this.importedLaptops.push(laptop);
+    //   }
+    //   [this.importedLaptops]
+    //
+    //   this.laptops = this.importedLaptops;
+    //   console.log("Alle laptops zijn succesvol toegevoegd")
+    // }
     async importFile() {
-      const Excel = require('exceljs');
+      console.log(this.laptops)
+
       const allImportedFiles = document.getElementById("allImportedFiles").files;
       const errorMessageFileImport = document.getElementById("errorMessageFileImport");
-      const correctImportedFile = allImportedFiles[0];
-
-      console.log(allImportedFiles)
-      console.log(correctImportedFile)
-
-      const wb = new Excel.Workbook();
 
       while (errorMessageFileImport.firstChild) {
         errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
       }
 
-      //checks amount of files that are selected and fills error box when none or too many are selected
       if (allImportedFiles.length === 0) {
-        const para = document.createElement("p");
-        para.textContent = "No files currently selected for upload";
-        errorMessageFileImport.appendChild(para);
-      } else if (allImportedFiles.length > 1) {
-        const para = document.createElement("p");
-        para.textContent = "Too much files are selected";
-        errorMessageFileImport.appendChild(para);
-        //validates the type of file so only csv files are allowed
-      } else if (!this.validFileType(correctImportedFile)) {
-        const para = document.createElement("p");
-        para.textContent = "Chose a file of type .csv";
-        errorMessageFileImport.appendChild(para);
-      } else {
-        console.log("Hij begint hier met lezen van de file")
-        const ws = await wb.csv.readFile(correctImportedFile)
-
-          console.log("Hij is nu aan het lezen")
-          console.log(
-              `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
-                  ws.dimensions
-              )}`);
-
-          for (let i = 1; i <= ws.actualRowCount; i++) {
-            console.log("Hij probeert nu alle data van 1 rij in een variabele te zetten")
-            const val = ws.getRow(i).values;
-            // process.stdout.write(`${val} `);
-            this.importedLaptops.push(val);
-          }
+        errorMessageFileImport.textContent = "No files currently selected for upload";
+        return;
       }
 
-      if (this.importedLaptops.length !== 0) {
-        this.addImportedLaptopsWithoutDuplicates();
-      } else {
-        //error message no data in file
+      const correctImportedFile = allImportedFiles[0];
+      if (!this.validFileType(correctImportedFile)) {
+        errorMessageFileImport.textContent = "Choose a file of type .csv";
+        return;
+      }
+
+      try {
+        const fileReader = new FileReader();
+
+        fileReader.onload = (e) => {
+          const data = e.target.result;
+          const workbook = XLSX.read(data, { type: 'binary' });
+
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const importedData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+          // Now 'importedData' contains the parsed CSV data in an array
+          console.log(importedData);
+
+          // Add imported laptops without duplicates to the main list
+          this.addImportedLaptopsWithoutDuplicates(importedData);
+        };
+
+        fileReader.readAsBinaryString(correctImportedFile);
+      } catch (error) {
+        console.error("Error importing file:", error);
+        errorMessageFileImport.textContent = "Error occurred while importing the file";
       }
     },
-    addImportedLaptopsWithoutDuplicates() {
-      for (const laptop in this.laptops) {
-        this.importedLaptops.push(laptop);
+    addImportedLaptopsWithoutDuplicates(importedData) {
+      for (const laptop of importedData) {
+        console.log(laptop)
+        const existingLaptop = this.laptops.find((l) => l.ean === laptop.ean);
+        if (!existingLaptop) {
+          const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
+          this.laptops.push(newLaptop);
+        }
       }
       console.log("Alle laptops zijn succesvol toegevoegd")
+      console.log(this.laptops)
     }
   }
 }
