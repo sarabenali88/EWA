@@ -248,22 +248,31 @@ export default {
       this.showModal = false;
       this.selectedLaptop = null
     },
+    /**
+     * Method that validates file type
+     * @author Rowin Schenk
+     * @param file
+     * @returns {boolean}
+     */
     validFileType(file) {
-      console.log(file.type)
-      console.log(this.fileTypes.includes(file.type))
       return this.fileTypes.includes(file.type);
     },
+    /**
+     * Method that reads .csv file from the input field
+     * @author Rowin Schenk, Jasper Fernhout
+     * @returns {Promise<void>}
+     */
     async importFile() {
-      console.log(this.laptops)
-
       const allImportedFiles = document.getElementById("allImportedFiles").files;
       const errorMessageFileImport = document.getElementById("errorMessageFileImport");
       const successMessageFileImport = document.getElementById("successMessageFileImport");
 
+      //empties errorbox
       while (errorMessageFileImport.firstChild) {
         errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
       }
 
+      //empties successbox
       while (successMessageFileImport.firstChild) {
         successMessageFileImport.removeChild(successMessageFileImport.firstChild);
       }
@@ -279,6 +288,7 @@ export default {
       }
 
       const correctImportedFile = allImportedFiles[0];
+
       if (!this.validFileType(correctImportedFile)) {
         errorMessageFileImport.textContent = "Kies een bestand van type .csv";
         return;
@@ -287,6 +297,7 @@ export default {
       try {
         const fileReader = new FileReader();
 
+        //Parses csv data to JSON into 'importedData'
         fileReader.onload = (e) => {
           const data = e.target.result;
           const workbook = XLSX.read(data, {type: 'binary'});
@@ -294,9 +305,6 @@ export default {
           const firstSheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[firstSheetName];
           const importedData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
-
-          // Now 'importedData' contains the parsed CSV data in an array
-          console.log(importedData);
 
           // Add imported laptops without duplicates to the main list
           this.addImportedLaptopsWithoutDuplicates(importedData);
@@ -308,12 +316,20 @@ export default {
         errorMessageFileImport.textContent = "Error occurred while importing the file";
       }
     },
+    /**
+     * Method that filters out duplicates when the imported array of laptops is added to the database
+     * @author Rowin Schenk, Jasper Fernhout
+     * @param importedData
+     */
     addImportedLaptopsWithoutDuplicates(importedData) {
       const successMessageFileImport = document.getElementById("successMessageFileImport");
+
+      //Loops through all data(laptops) of the csv file
       for (const laptop of importedData) {
-        console.log(laptop)
+        //Filters duplicate laptops out
         const existingLaptop = this.laptops.find((l) => l.ean === laptop[1]);
         if (!existingLaptop) {
+          //creates laptop object and adds it to database
           const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
           if (newLaptop.ean !== "ean") {
             this.laptopsService.asyncSave(newLaptop);
@@ -322,7 +338,6 @@ export default {
       }
         this.reInitialise();
         successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
-
     }
   }
 }
