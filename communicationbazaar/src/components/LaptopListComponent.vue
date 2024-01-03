@@ -2,10 +2,10 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
-      <label for="allImportedFiles">Import</label>
+      <label for="allImportedFiles" class="btn btn-danger mb-2">Import</label>
       <input type="file" id="allImportedFiles" name="Import" @change="importFile()"
              accept=".csv">
-      <div id="errorMessageFileImport"></div>
+      <div id="errorMessageFileImport" class="text-danger"></div>
       <div v-if="editLaptop !== null">
         <div class="card card-body">
           <router-view
@@ -252,69 +252,6 @@ export default {
       console.log(this.fileTypes.includes(file.type))
       return this.fileTypes.includes(file.type);
     },
-    // async importFile() {
-    //   const Excel = require('exceljs');
-    //   const allImportedFiles = document.getElementById("allImportedFiles").files;
-    //   const errorMessageFileImport = document.getElementById("errorMessageFileImport");
-    //   const correctImportedFile = allImportedFiles[0];
-    //
-    //   console.log(allImportedFiles)
-    //   console.log(correctImportedFile)
-    //
-    //   const wb = new Excel.Workbook();
-    //
-    //   while (errorMessageFileImport.firstChild) {
-    //     errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
-    //   }
-    //
-    //   //checks amount of files that are selected and fills error box when none or too many are selected
-    //   if (allImportedFiles.length === 0) {
-    //     const para = document.createElement("p");
-    //     para.textContent = "No files currently selected for upload";
-    //     errorMessageFileImport.appendChild(para);
-    //   } else if (allImportedFiles.length > 1) {
-    //     const para = document.createElement("p");
-    //     para.textContent = "Too much files are selected";
-    //     errorMessageFileImport.appendChild(para);
-    //     //validates the type of file so only csv files are allowed
-    //   } else if (!this.validFileType(correctImportedFile)) {
-    //     const para = document.createElement("p");
-    //     para.textContent = "Chose a file of type .csv";
-    //     errorMessageFileImport.appendChild(para);
-    //   } else {
-    //
-    //     console.log("Hij begint hier met lezen van de file")
-    //     const ws = await wb.csv.readFile(correctImportedFile)
-    //
-    //       console.log("Hij is nu aan het lezen")
-    //       console.log(
-    //           `Sheet ${ws.id} - ${ws.name}, Dims=${JSON.stringify(
-    //               ws.dimensions
-    //           )}`);
-    //
-    //       for (let i = 1; i <= ws.actualRowCount; i++) {
-    //         console.log("Hij probeert nu alle data van 1 rij in een variabele te zetten")
-    //         const val = ws.getRow(i).values;
-    //         // process.stdout.write(`${val} `);
-    //         this.importedLaptops.push(val);
-    //       }
-    //   }
-    //
-    //   if (this.importedLaptops.length !== 0) {
-    //     this.addImportedLaptopsWithoutDuplicates();
-    //   } else {
-    //     //error message no data in file
-    //   }
-    // },
-    // addImportedLaptopsWithoutDuplicates() {
-    //   for (const laptop in this.laptops) {
-    //     this.importedLaptops.push(laptop);
-    //   }
-    //   [this.importedLaptops]
-    //
-    //   this.laptops = this.importedLaptops;
-    //   console.log("Alle laptops zijn succesvol toegevoegd")
-    // }
     async importFile() {
       console.log(this.laptops)
 
@@ -330,6 +267,11 @@ export default {
         return;
       }
 
+      if (allImportedFiles.length > 1){
+        errorMessageFileImport.textContent = "Too many files currently selected for upload";
+        return
+      }
+
       const correctImportedFile = allImportedFiles[0];
       if (!this.validFileType(correctImportedFile)) {
         errorMessageFileImport.textContent = "Choose a file of type .csv";
@@ -341,11 +283,11 @@ export default {
 
         fileReader.onload = (e) => {
           const data = e.target.result;
-          const workbook = XLSX.read(data, { type: 'binary' });
+          const workbook = XLSX.read(data, {type: 'binary'});
 
           const firstSheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[firstSheetName];
-          const importedData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          const importedData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
 
           // Now 'importedData' contains the parsed CSV data in an array
           console.log(importedData);
@@ -363,10 +305,12 @@ export default {
     addImportedLaptopsWithoutDuplicates(importedData) {
       for (const laptop of importedData) {
         console.log(laptop)
-        const existingLaptop = this.laptops.find((l) => l.ean === laptop.ean);
+        const existingLaptop = this.laptops.find((l) => l.ean === laptop[1]);
         if (!existingLaptop) {
           const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
-          this.laptops.push(newLaptop);
+          if (newLaptop.ean !== "ean") {
+            this.laptops.push(newLaptop);
+          }
         }
       }
       console.log("Alle laptops zijn succesvol toegevoegd")
@@ -385,7 +329,4 @@ input {
   opacity: 0;
 }
 
-label {
-  border: solid black;
-}
 </style>
