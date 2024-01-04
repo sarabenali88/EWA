@@ -5,5 +5,5 @@
  */
 export default {
   BACKEND_URL: 'http://localhost:8086/api',
-  JWT_STORAGE_ITEM: 'JWT_CABINS'
+  JWT_STORAGE_ITEM: 'JWT_MARKT'
 }

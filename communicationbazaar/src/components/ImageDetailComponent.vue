@@ -204,7 +204,6 @@ export default {
       this.$emit('refresh')
     },
     async saveChanges(){
-      console.log(this.sessionService._currentAccount.location)
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.sessionService._currentAccount
         this.imageCopy.store = this.sessionService._currentAccount.location;
