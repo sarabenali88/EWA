@@ -29,7 +29,7 @@ public class APIConfig implements WebMvcConfigurer {
     private int tokenDurationOfValidity;
 
     public Set<String> SECURED_PATHS =
-            Set.of("/laptops");
+            Set.of("");
 
     /**
      * Adds CORS mappings to allow cross-origin requests from specified origins and methods.
