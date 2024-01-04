@@ -177,6 +177,7 @@ export default {
   },
   async created() {
     this.account = !this.sessionService._currentAccount
+    this.reInitialise();
   },
   methods: {
     async reInitialise(){
@@ -203,9 +204,10 @@ export default {
       this.$emit('refresh')
     },
     async saveChanges(){
+      console.log(this.sessionService._currentAccount.location)
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
-        this.imageCopy.imageMaker = this.account
-        this.imageCopy.store = this.account.location;
+        this.imageCopy.imageMaker = this.sessionService._currentAccount
+        this.imageCopy.store = this.sessionService._currentAccount.location;
       }
       if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
           this.imageCopy.status === Object.keys(Image.Status)[3]){
@@ -229,9 +231,9 @@ export default {
     },
     claimImage(){
       this.imageClaimed = true;
-      this.imageCopy.imageMaker = this.account;
+      this.imageCopy.imageMaker = this.sessionService._currentAccount;
       this.imageCopy.status = Object.keys(Image.Status)[1];
-      this.imageCopy.store = this.account.location;
+      this.imageCopy.store = this.sessionService._currentAccount.location;
     }
   },
   computed: {
