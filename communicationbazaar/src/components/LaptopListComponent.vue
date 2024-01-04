@@ -21,8 +21,8 @@
                 </h4>
               </div>
               <div class="col-auto">
-                <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-                      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+                <div :class="{'hiddenButton': !this.sessionService._currentToken ||
+                      this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
                       class="row justify-content-md-end">
                   <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -140,7 +140,7 @@ import laptopDetailComponent from "@/components/LaptopDetailComponent";
 
 export default {
   name: "LaptopListComponent",
-  inject: ['laptopsService', 'accountsService'],
+  inject: ['laptopsService', 'accountsService', 'sessionService'],
   components: laptopDetailComponent,
   data() {
     return {
@@ -148,13 +148,14 @@ export default {
       accounts: [],
       showModal: false,
       selectedLaptop: null,
-      editLaptop: null
+      editLaptop: null,
+      sessionService: this.sessionService
     }
   },
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
     await this.reInitialise();
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount
   },
   methods: {
     /**

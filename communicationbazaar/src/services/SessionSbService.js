@@ -39,6 +39,14 @@ export class SessionSbService {
     return this._currentAccount != null
   }
 
+  isAuthenticatedAndAdmin () {
+    return this._currentAccount != null && this._currentAccount.role === 'admin'
+  }
+
+  isAuthenticatedAndImageMaker () {
+    return this._currentAccount != null && this._currentAccount.role === 'ImageMaker'
+  }
+
   getTokenFromBrowserStorage () {
     if (this._currentToken != null) return this._currentToken
     this._currentToken = window.sessionStorage.getItem(this.BROWSER_STORAGE_ITEM_NAME)

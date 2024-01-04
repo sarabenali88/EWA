@@ -40,7 +40,7 @@
 
         <!-- Admin icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock"
-             :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+             :class="{'hiddenButton': !this.sessionService._currentToken || this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
              viewBox="0 0 16 16" @click="setCurrentContent('contentAdmin')">
           <path
               d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
@@ -152,7 +152,7 @@
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
           <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
           <ul>
-            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
+            <li :class="{'hiddenButton': !this.sessionService._currentToken}">
               <div :class="{'active-route': $route.path.toString().includes(myProfileRoute)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
                      viewBox="0 0 16 16"
@@ -167,7 +167,7 @@
             </li>
             <li>
               <div
-                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn === true)}">
+                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.sessionService._currentToken}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -181,7 +181,7 @@
             </li>
           </ul>
           <ul>
-            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}" @click="logOut">
+            <li :class="{'hiddenButton': !this.sessionService._currentToken}" @click="signOut()">
               <router-link to>
                 {{$t('navbar.logOut')}}
               </router-link>
@@ -213,7 +213,7 @@
           <ul>
             <li>
               <div
-                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}">
+                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': !this.sessionService._currentToken || this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -313,7 +313,7 @@ import allImagesComponent from "@/components/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   data() {
     return {
       homeRoute: '/home',
@@ -334,6 +334,7 @@ export default {
       accounts: [],
       statisticsRoute: '/Statistics',
       laptopList: '/laptopList',
+      sessionService: this.sessionService,
 
       currentContent: 'contentImage',
       currentImageList: 'statusFinished',
@@ -409,6 +410,10 @@ export default {
     setPageContent(route) {
       this.$router.push(route);
       this.fulNavActive = !this.fulNavActive;
+    },
+    signOut() {
+      this.sessionService.signOut()
+      this.$router.push(this.signOutRoute)
     }
   }
 }

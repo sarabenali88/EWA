@@ -77,7 +77,7 @@ export default {
   name: "AllUsersComponent",
   components: UserDetailComponent,
 
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   emits: ['cancelEvent', 'saveEvent'],
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -88,7 +88,6 @@ export default {
     return {
       accounts: [],
       selectedAccount: null,
-      loggedInAccount: undefined,
       showAlert: false,
       alertMessage: '',
       showModal: false,
@@ -109,14 +108,6 @@ export default {
     },
   },
   methods: {
-
-    //TODO deze methode werkt niet
-    findSelectedFromRouteParams(id) {
-      if (id > 0) {
-        return this.accounts.find(account => account.personalNumber === id);
-      }
-      return null;
-    },
 
     /**
      * Method that will open the window to update the information of an account.
@@ -214,8 +205,7 @@ export default {
      */
     async createInformation() {
       this.accounts = await this.accountsService.asyncFindAll();
-      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
-      if (!this.loggedInAccount || this.loggedInAccount.loggedIn && this.loggedInAccount.role === "ImageMaker") {
+      if (!this.sessionService.isAuthenticated() || this.sessionService.isAuthenticatedAndImageMaker()) {
         this.$router.push(NavBar.data().homeRoute);
       }
     },
