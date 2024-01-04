@@ -3,7 +3,7 @@
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
   <div :class="{'hiddenPage': this.sessionService._currentToken && this.sessionService._currentAccount.role === 'ImageMaker' ||
-   this.sessionService._currentToken && this.sessionService._currentToken.role === 'admin'}">
+   this.sessionService._currentToken && this.sessionService._currentAccount.role === 'admin'}">
     <h3>{{ $t('imageStatus.noAccessMessage') }}</h3>
   </div>
   <div :class="{'hiddenPage': !this.sessionService._currentToken ||
