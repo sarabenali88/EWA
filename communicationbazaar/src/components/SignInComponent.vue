@@ -89,7 +89,7 @@ import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "SignInComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   data() {
     return {
       accounts: [],
@@ -102,7 +102,8 @@ export default {
       showAlert: false,
       alertMessage: '',
       visible: true,
-      isMatch: false
+      isMatch: false,
+      sessionService: this.sessionService
     }
   },
   async created() {
@@ -124,6 +125,9 @@ export default {
         }else {
           NavBar.methods.setCurrentContent('contentImage')
           this.account.loggedIn = true;
+          const gelukt = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
+          console.log(gelukt + "gelukt")
+          console.log(this.sessionService._currentToken + "dit is de token")
           await this.accountsService.asyncSave(this.account);
           this.$router.push(NavBar.data().homeRoute);
         }

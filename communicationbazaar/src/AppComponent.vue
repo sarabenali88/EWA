@@ -2,7 +2,7 @@
   <div class="all">
     <HeaderComponent/>
     <NavBarComponent/>
-    <div id="mainContent" >
+    <div id="mainContent">
       <router-view/>
     </div>
   </div>
@@ -14,11 +14,15 @@
 import HeaderComponent from "@/components/HeaderComponent";
 import NavBarComponent from "@/components/NavBarComponent";
 import CONFIG from "@/app-config";
-import { ImagesAdaptor } from "@/services/ImagesAdaptor";
-import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";
-import { AccountsAdaptor } from "@/services/AccountsAdaptor";
+import {shallowReactive} from 'vue'
+import {ImagesAdaptor} from "@/services/ImagesAdaptor";
+import {LaptopsAdaptor} from "@/services/LaptopsAdaptor";
+import {AccountsAdaptor} from "@/services/AccountsAdaptor";
+import {SessionSbService} from '@/services/SessionSbService';
+import { FetchAdaptor } from '@/services/FetchAdaptor';
 
 import "./main.css"
+
 export default {
   name: 'App',
   components: {
@@ -26,14 +30,24 @@ export default {
     HeaderComponent,
   },
   provide() {
+    this.SessionSbService = shallowReactive(
+        new SessionSbService(CONFIG.BACKEND_URL + '/authentication', CONFIG.JWT_STORAGE_ITEM)
+    )
+    this.FetchAdaptor = new FetchAdaptor(this.SessionSbService, this.$router)
     return {
       imagesService: new ImagesAdaptor(CONFIG.BACKEND_URL + '/images'),
       laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
-      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts')
+      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts'),
+      sessionService: this.SessionSbService
     }
   },
   created() {
     this.$router.push("/home");
+
+  },
+  unmounted() {
+    console.log('App.unmounted() has been called.')
+    this.FetchAdaptor.unregister()
   }
 }
 </script>
@@ -41,12 +55,12 @@ export default {
 <style scoped>
 
 
-
 .all {
   overflow: hidden;
   font-family: Inter, sans-serif;
   font-weight: lighter;
 }
+
 #mainContent {
   margin-left: 0;
   max-height: calc(100vh + 100px);

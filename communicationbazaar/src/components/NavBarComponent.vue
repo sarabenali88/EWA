@@ -328,6 +328,7 @@ export default {
       myProfileRoute: '/myProfileRoute',
       claimedImageRoute: '/claimedImageRoute',
       signInRoute: '/signIn',
+      signOutRoute: '/signOut',
       webScraperRoute: '/webScraper',
       allUsersRoute: '/allUsers',
       accounts: [],
