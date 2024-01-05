@@ -150,6 +150,7 @@
     "processor": "Processor",
     "editMessage": "Laptop met EAN: ",
     "alertMessage": "Vul alsjeblieft alle invoervelden in!",
-    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd."
+    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd.",
+    "import": "Importeren"
   }
 }
