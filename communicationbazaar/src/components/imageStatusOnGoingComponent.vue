@@ -2,12 +2,12 @@
   <h1 class="mx-3">
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
-  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
-   accounts.some(account => account.loggedIn && account.role === 'admin')}">
+  <div :class="{'hiddenPage': this.sessionService._currentToken && this.sessionService._currentAccount.role === 'ImageMaker' ||
+   this.sessionService._currentToken && this.sessionService._currentAccount.role === 'admin'}">
     <h3>{{ $t('imageStatus.noAccessMessage') }}</h3>
   </div>
-  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
-   accounts.some(account => account.loggedIn && account.role !== 'admin')}">
+  <div :class="{'hiddenPage': !this.sessionService._currentToken ||
+   this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}">
     <div class="container-fluid p-3 normal">
       <div v-if="selectedImage">
         <div class="card card-body">
@@ -79,21 +79,22 @@ import imageDetailComponent from "@/components/ImageDetailComponent";
 
 export default {
   name: "imageStatusOnGoingComponent",
-  inject: ["accountsService", "imagesService"],
+  inject: ["accountsService", "imagesService", "sessionService"],
   components: imageDetailComponent,
   data() {
     return {
       images: [],
       selectedImage: null,
       accounts: [],
-      account: null
+      account: null,
+      sessionService: this.sessionService
     }
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
 
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
@@ -104,10 +105,14 @@ export default {
       }
       return null;
     },
+    /**
+     * Method so only images with status ONGOING get returned
+     * @author Rowin Schenk
+     * @param image
+     * @returns {boolean}
+     */
     isCorrespondingStatus(image) {
-      if (image.status === "ONGOING") {
-        return true;
-      } else return false;
+      return image.status === "ONGOING";
     },
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
@@ -130,6 +135,12 @@ export default {
       this.images[index] = image;
       this.setImage(image);
     },
+    /**
+     * Method to parse date to correct format
+     * @author Rowin Schenk
+     * @param givenDate
+     * @returns {Date}
+     */
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
@@ -148,6 +159,11 @@ export default {
     }
   },
   computed: {
+    /**
+     * Sorts images by date with most recent date at the top
+     * @author Rowin Schenk
+     * @returns {*[]}
+     */
     sortedItems() {
       // Create a shallow copy of the images array
       let imagesCopy = [...this.images];

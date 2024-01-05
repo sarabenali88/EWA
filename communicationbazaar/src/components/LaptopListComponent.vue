@@ -2,6 +2,11 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
+      <label for="allImportedFiles" class="btn btn-danger mb-2">{{ $t('laptop.import') }}</label>
+      <input type="file" id="allImportedFiles" name="Import" @change="importFile()"
+             accept=".csv">
+      <div id="errorMessageFileImport" class="text-danger"></div>
+      <div id="successMessageFileImport" class="text-dark"></div>
       <div v-if="editLaptop !== null">
         <div class="card card-body">
           <router-view
@@ -21,8 +26,8 @@
                 </h4>
               </div>
               <div class="col-auto">
-                <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-                      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+                <div :class="{'hiddenButton': !this.sessionService._currentToken ||
+                      this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
                       class="row justify-content-md-end">
                   <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -137,24 +142,33 @@
 
 <script>
 import laptopDetailComponent from "@/components/LaptopDetailComponent";
+import * as XLSX from 'xlsx';
+import {Laptop} from "@/models/laptop";
 
 export default {
   name: "LaptopListComponent",
-  inject: ['laptopsService', 'accountsService'],
+  inject: ['laptopsService', 'accountsService', 'sessionService'],
   components: laptopDetailComponent,
   data() {
     return {
       laptops: [],
+      importedLaptops: [],
       accounts: [],
       showModal: false,
       selectedLaptop: null,
-      editLaptop: null
+      editLaptop: null,
+      sessionService: this.sessionService,
+      fileTypes: [
+        "csv",
+        "text/csv",
+        "xlsx"
+      ]
     }
   },
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
     await this.reInitialise();
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount
   },
   methods: {
     /**
@@ -193,7 +207,7 @@ export default {
      * @author Seyma Kaya
      * @returns {Promise<void>}
      */
-    async reInitialise(){
+    async reInitialise() {
       this.laptops = await this.laptopsService.asyncFindAll()
       this.selectedLaptop = null;
       this.editLaptop = null;
@@ -206,7 +220,7 @@ export default {
      * @param laptop that this modal is for
      * @returns {Promise<void>}
      */
-    async modalDelete(laptop){
+    async modalDelete(laptop) {
       this.selectedLaptop = laptop
       this.showModal = true;
     },
@@ -217,7 +231,7 @@ export default {
      * @param laptop that needs to be deleted
      * @returns {Promise<void>}
      */
-    async onDelete(laptop){
+    async onDelete(laptop) {
       await this.laptopsService.asyncDeleteById(laptop.ean)
       this.reInitialise();
       this.closeModal();
@@ -230,6 +244,104 @@ export default {
     closeModal() {
       this.showModal = false;
       this.selectedLaptop = null
+    },
+    /**
+     * Method that validates file type
+     * @author Rowin Schenk
+     * @param file
+     * @returns {boolean}
+     */
+    validFileType(file) {
+      return this.fileTypes.includes(file.type);
+    },
+    /**
+     * Method that reads .csv file from the input field
+     * @author Rowin Schenk, Jasper Fernhout
+     * @returns {Promise<void>}
+     */
+    async importFile() {
+      const allImportedFiles = document.getElementById("allImportedFiles").files;
+      const errorMessageFileImport = document.getElementById("errorMessageFileImport");
+      const successMessageFileImport = document.getElementById("successMessageFileImport");
+
+      //empties errorbox
+      while (errorMessageFileImport.firstChild) {
+        errorMessageFileImport.removeChild(errorMessageFileImport.firstChild);
+      }
+
+      //empties successbox
+      while (successMessageFileImport.firstChild) {
+        successMessageFileImport.removeChild(successMessageFileImport.firstChild);
+      }
+
+      if (allImportedFiles.length === 0) {
+        errorMessageFileImport.textContent = "U heeft op dit moment geen nieuw bestand geselecteerd op te uploaden";
+        return;
+      }
+
+      if (allImportedFiles.length > 1) {
+        errorMessageFileImport.textContent = "U heeft teveel bestanden geselecteerd om te uploaden";
+        return
+      }
+
+      const correctImportedFile = allImportedFiles[0];
+
+      if (!this.validFileType(correctImportedFile)) {
+        errorMessageFileImport.textContent = "Kies een bestand van type .csv";
+        return;
+      }
+
+      try {
+        const fileReader = new FileReader();
+
+        //Parses csv data to JSON into 'importedData'
+        fileReader.onload = (e) => {
+          const data = e.target.result;
+          const workbook = XLSX.read(data, {type: 'binary'});
+
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const importedData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+          const dataCheck = importedData[0];
+
+          if (dataCheck[1] !== "ean"){
+            errorMessageFileImport.textContent = "De data in uw gekozen bestand is incorrect";
+            return
+          }
+          // Add imported laptops without duplicates to the main list
+          this.addImportedLaptopsWithoutDuplicates(importedData);
+        };
+
+        fileReader.readAsBinaryString(correctImportedFile);
+      } catch (error) {
+        console.error("Error importing file:", error);
+        errorMessageFileImport.textContent = "Error occurred while importing the file";
+      }
+    },
+    /**
+     * Method that filters out duplicates when the imported array of laptops is added to the database
+     * @author Rowin Schenk, Jasper Fernhout
+     * @param importedData
+     */
+    async addImportedLaptopsWithoutDuplicates(importedData) {
+      const successMessageFileImport = document.getElementById("successMessageFileImport");
+
+      //Loops through all data(laptops) of the csv file
+      for (const laptop of importedData) {
+        //Filters duplicate laptops out
+        const existingLaptop = this.laptops.find((l) => l.ean === laptop[1]);
+        if (!existingLaptop) {
+          //creates laptop object and adds it to database
+          const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
+          if (newLaptop.ean !== "ean") {
+            const lap = await this.laptopsService.asyncSave(newLaptop);
+            console.log(lap)
+          }
+        }
+      }
+        await this.reInitialise();
+        successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
     }
   }
 }
@@ -239,4 +351,9 @@ export default {
 .hiddenButton {
   display: none;
 }
+
+input {
+  opacity: 0;
+}
+
 </style>

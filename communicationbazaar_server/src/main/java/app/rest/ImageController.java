@@ -12,6 +12,7 @@ import app.models.ViewClasses;
 import app.repositories.Repository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,18 +47,18 @@ public class ImageController {
     }
 
     @DeleteMapping(path = "{id}", produces = "application/json")
-    public Image deleteOneImage(@PathVariable() long id) throws ResourceNotFoundException {
+    public ResponseEntity<Image> deleteOneImage(@PathVariable() long id) throws ResourceNotFoundException {
         Image image = this.imageList.deleteById(id);
 
         if (image == null) {
             throw new ResourceNotFoundException("Cannot delete a image with ean= " + id);
         }
 
-        return image;
+        return ResponseEntity.ok().body(image);
     }
 
     @PostMapping(path = "", produces = "application/json")
-    public Image addOneImage(@RequestBody Image image) throws Exception {
+    public ResponseEntity<Image> addOneImage(@RequestBody Image image) throws Exception {
 
         if (this.imageList.findById(image.getId()) != null){
             throw new Exception("Image already exist with id= " + image.getId());
@@ -65,11 +66,11 @@ public class ImageController {
 
         image = this.imageList.save(image);
 
-        return image;
+        return ResponseEntity.status(HttpStatus.CREATED).body(image);
     }
 
     @PutMapping(path = "{id}", produces = "application/json")
-    public Image updateOneImage(@PathVariable() long id, @RequestBody Image targetImage) throws PreConditionFailedException {
+    public ResponseEntity<Image> updateOneImage(@PathVariable() long id, @RequestBody Image targetImage) throws PreConditionFailedException {
 
         if (id != targetImage.getId()) {
             throw new PreConditionFailedException("Image-id=" + targetImage.getId() + " does not match path parameter=" + id);
@@ -77,6 +78,6 @@ public class ImageController {
             targetImage = this.imageList.save(targetImage);
         }
 
-        return targetImage;
+        return ResponseEntity.ok().body(targetImage);
     }
 }

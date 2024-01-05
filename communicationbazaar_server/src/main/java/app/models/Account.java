@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@NamedQueries({
+        @NamedQuery(name = "Account_find_by_personalNumber_and_password",
+                query = "SELECT a FROM Account a WHERE a.personalNumber=?1 AND a.password=?2")
+})
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
@@ -189,6 +194,10 @@ public class Account {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
     public List<Image> getImages() {

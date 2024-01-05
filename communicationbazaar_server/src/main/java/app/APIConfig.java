@@ -5,15 +5,31 @@
  */
 package app;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
+import java.util.Set;
 
 @Configuration
 public class APIConfig implements WebMvcConfigurer {
+
+    // JWT configuration that can be adjusted from application.properties
+    @Value("${jwt.issuer:private company}")
+    private String issuer;
+
+    @Value("${jwt.passphrase:This is very secret information for my private encryption key.}")
+    private String passphrase;
+
+    @Value("${jwt.duration-of-validity:1200}") // default 20 minutes;
+    private int tokenDurationOfValidity;
+
+    public Set<String> SECURED_PATHS =
+            Set.of();
 
     /**
      * Adds CORS mappings to allow cross-origin requests from specified origins and methods.
@@ -27,6 +43,11 @@ public class APIConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern(), "https://ewa-front-end-9z7b.onrender.com:*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedOrigins("*");
+                .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern())
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
+                .exposedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
+                .allowCredentials(true);
     }
 
     /**
@@ -42,5 +63,17 @@ public class APIConfig implements WebMvcConfigurer {
         }
         return "http://192.168.*.*:*";
 
+    }
+
+    public String getIssuer() {
+        return issuer;
+    }
+
+    public String getPassphrase() {
+        return passphrase;
+    }
+
+    public int getTokenDurationOfValidity() {
+        return tokenDurationOfValidity;
     }
 }

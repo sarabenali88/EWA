@@ -12,19 +12,23 @@
                 {{ alertMessage }}
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
-              <input v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text" class="form-control form-control-lg"/>
+              <input id="personalNumberField" v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" @keyup.enter="checkInputSignIn" type="password" class="form-control form-control-lg"/>
+              <input id="passwordField" v-model="password" @keyup.enter="checkInputSignIn" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
-            <button @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
-              {{ $t('signIn.logInButton') }}</button>
+            <button id="loginButton" @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
+              {{ $t('signIn.logInButton') }}
+            </button>
             <button @click="visibilitySwitch" class="btn btn-danger btn-lg m-1" type="submit">
-              {{ $t('signIn.newPassword') }}</button>
+              {{ $t('signIn.newPassword') }}
+            </button>
 
             <hr class="my-4">
           </div>
@@ -46,7 +50,8 @@
                 {{ alertMessage }}
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
-              <input v-model="personalNumber" @keyup.enter="checkInputNewPassword" type="text" class="form-control form-control-lg"/>
+              <input v-model="personalNumber" @keyup.enter="checkInputNewPassword" type="text"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
@@ -56,19 +61,23 @@
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="newPassword" @input="checkRegex" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
+              <input v-model="newPassword" @input="checkRegex" @keyup.enter="checkInputNewPassword" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.newPassword') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="passwordRepeat" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
+              <input v-model="passwordRepeat" @keyup.enter="checkInputNewPassword" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.passwordRepeat') }}</label>
             </div>
 
             <button @click="checkInputNewPassword" class="btn btn-danger btn-lg" type="submit">
-              {{ $t('signIn.passwordChange') }}</button>
+              {{ $t('signIn.passwordChange') }}
+            </button>
             <button @click="visibilitySwitch" class="btn btn-danger btn-lg m-1" type="submit">
-              {{ $t('signIn.logInButton') }}</button>
+              {{ $t('signIn.logInButton') }}
+            </button>
 
             <hr class="my-4">
           </div>
@@ -89,7 +98,7 @@ import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "SignInComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   data() {
     return {
       accounts: [],
@@ -102,7 +111,8 @@ export default {
       showAlert: false,
       alertMessage: '',
       visible: true,
-      isMatch: false
+      isMatch: false,
+      sessionService: this.sessionService
     }
   },
   async created() {
@@ -110,23 +120,13 @@ export default {
   },
   methods: {
     async checkInputSignIn() {
-      if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+      this.dismissAlert();
+      this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
+      if (this.account == null) {
         this.displayAlert(this.$t('signIn.wrongPersMessage'));
-      } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
-        this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
-        if (!this.password) {
-          this.displayAlert(this.$t('signIn.wrongPassMessage'));
-        } else if (!await this.accountsService.verifyPassword(this.personalNumber, this.password)) {
-          this.displayAlert(this.$t('signIn.wrongPassMessage'));
-        } else if (this.account.password === "welkom") {
-          this.password = "";
-          this.visibilitySwitch();
-        }else {
-          NavBar.methods.setCurrentContent('contentImage')
-          this.account.loggedIn = true;
-          await this.accountsService.asyncSave(this.account);
-          this.$router.push(NavBar.data().homeRoute);
-        }
+      } else {
+        NavBar.methods.setCurrentContent('contentImage')
+        this.$router.push(NavBar.data().homeRoute);
       }
     },
     async checkInputNewPassword() {
@@ -142,7 +142,7 @@ export default {
           this.displayAlert(this.$t('signIn.passwordCheck'));
         } else if (this.newPassword !== this.passwordRepeat) {
           this.displayAlert(this.$t('signIn.passwordWrongRepeat'));
-        }else {
+        } else {
           this.account.password = this.newPassword;
           await this.accountsService.asyncSave(this.account);
           this.dismissAlert();
@@ -169,14 +169,14 @@ export default {
       this.showAlert = false;
       this.alertMessage = '';
     },
-    visibilitySwitch(){
+    visibilitySwitch() {
       if (this.visible === true) {
         this.visible = false;
       } else if (this.visible === false) {
         this.visible = true
       }
     }
-  },
+  }
 }
 
 
@@ -185,7 +185,7 @@ export default {
 <style scoped>
 
 
-.activeContainer{
+.activeContainer {
   display: none;
 }
 
