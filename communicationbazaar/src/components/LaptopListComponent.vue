@@ -2,7 +2,7 @@
   <div class="m-2">
     <h1 class="mx-3">{{ $t('laptop.allLaptops') }}</h1>
     <div class="container-fluid p-3 normal">
-      <label for="allImportedFiles" class="btn btn-danger mb-2">Import</label>
+      <label for="allImportedFiles" class="btn btn-danger mb-2">{{ $t('laptop.import') }}</label>
       <input type="file" id="allImportedFiles" name="Import" @change="importFile()"
              accept=".csv">
       <div id="errorMessageFileImport" class="text-danger"></div>
