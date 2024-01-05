@@ -2,12 +2,12 @@
   <h1 class="mx-3">
     {{ $t('imageStatus.ongoingTitle') }}
   </h1>
-  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn && account.role === 'ImageMaker') ||
-   accounts.some(account => account.loggedIn && account.role === 'admin')}">
+  <div :class="{'hiddenPage': this.sessionService._currentToken && this.sessionService._currentAccount.role === 'ImageMaker' ||
+   this.sessionService._currentToken && this.sessionService._currentAccount.role === 'admin'}">
     <h3>{{ $t('imageStatus.noAccessMessage') }}</h3>
   </div>
-  <div :class="{'hiddenPage': accounts.some(account => account.loggedIn) === false ||
-   accounts.some(account => account.loggedIn && account.role !== 'admin')}">
+  <div :class="{'hiddenPage': !this.sessionService._currentToken ||
+   this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}">
     <div class="container-fluid p-3 normal">
       <div v-if="selectedImage">
         <div class="card card-body">
@@ -79,21 +79,22 @@ import imageDetailComponent from "@/components/ImageDetailComponent";
 
 export default {
   name: "imageStatusOnGoingComponent",
-  inject: ["accountsService", "imagesService"],
+  inject: ["accountsService", "imagesService", "sessionService"],
   components: imageDetailComponent,
   data() {
     return {
       images: [],
       selectedImage: null,
       accounts: [],
-      account: null
+      account: null,
+      sessionService: this.sessionService
     }
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
 
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {

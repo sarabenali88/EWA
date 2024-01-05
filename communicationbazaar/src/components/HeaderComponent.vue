@@ -2,7 +2,7 @@
   <div class="page" :class="{ expanded: this.expanded }">
     <div class="headerContent">
       <!-- Mediamarkt logo-->
-      <img class="logo" :src="mediaMarktLogo" alt="">
+      <img class="logo" :src="mediaMarktLogo" alt="logo">
       <!-- Input Search Image-->
       <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="lightgrey" class="bi bi-search mobile"
         viewBox="0 0 16 16" @click="expandSearch()">

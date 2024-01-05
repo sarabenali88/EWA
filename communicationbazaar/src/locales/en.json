@@ -94,7 +94,7 @@
     "logInButton": "Log in",
     "loggedInMessage": "Logged In",
     "wrongPassMessage": "Wrong password",
-    "wrongPersMessage": "The employee number is wrong",
+    "wrongPersMessage": "Could not authenticate with provided credentials",
     "newPassword": "New password",
     "passwordCheck": "Password must be at least 8 characters with a capital letter and a number."
   },
