@@ -356,6 +356,9 @@ export default {
       if (this.$route.path.match(this.allUsersRoute) || this.$route.path.match(this.statisticsRoute)) {
         this.setCurrentContent('contentAdmin')
       }
+      if (this.$route.path.match(this.laptopList)) {
+        this.setCurrentContent('contentLaptop')
+      }
     }
 
 
