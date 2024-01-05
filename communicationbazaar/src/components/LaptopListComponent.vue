@@ -26,9 +26,9 @@
                 </h4>
               </div>
               <div class="col-auto">
-                <div :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-                      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
-                     class="row justify-content-md-end">
+                <div :class="{'hiddenButton': !this.sessionService._currentToken ||
+                      this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
+                      class="row justify-content-md-end">
                   <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -118,24 +118,20 @@
           </div>
         </div>
       </div>
-      <!--      modal pop-up view-->
+<!--      modal pop-up view-->
       <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
+              <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
               <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>{{ $t('laptop.confirmMessage') }}</p>
+              <p>{{$t('laptop.confirmMessage')}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal()">
-                {{ $t('adminPanel.cancelButton') }}
-              </button>
-              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">
-                {{ $t('imageDetail.deleteButton') }}
-              </button>
+              <button type="button" class="btn btn-secondary" @click="closeModal()">{{$t('adminPanel.cancelButton')}}</button>
+              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">{{$t('imageDetail.deleteButton')}}</button>
             </div>
           </div>
         </div>
@@ -151,7 +147,7 @@ import {Laptop} from "@/models/laptop";
 
 export default {
   name: "LaptopListComponent",
-  inject: ['laptopsService', 'accountsService'],
+  inject: ['laptopsService', 'accountsService', 'sessionService'],
   components: laptopDetailComponent,
   data() {
     return {
@@ -161,6 +157,7 @@ export default {
       showModal: false,
       selectedLaptop: null,
       editLaptop: null,
+      sessionService: this.sessionService,
       fileTypes: [
         "csv",
         "text/csv",
@@ -171,7 +168,7 @@ export default {
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
     await this.reInitialise();
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount
   },
   methods: {
     /**
@@ -181,7 +178,7 @@ export default {
      * @param laptop
      */
     setRoute(laptop) {
-      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"), '');
+      let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d*$"),'');
       if (this.editLaptop === laptop) {
         this.$router.push(parentPath);
         this.editLaptop = null;

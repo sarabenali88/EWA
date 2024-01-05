@@ -47,6 +47,24 @@ export class Image{
         this.imageMaker = imageMaker;
     }
 
+    static createSampleImage(id) {
+        return new Image(
+            id,
+            'Sample Laptop',
+            'Sample Version',
+            'Sample Store',
+            new Date(), // Sample date, you can adjust this as needed
+            Image.Status.TODO, // Using the predefined status 'Te doen'
+            Image.Release.NEW, // Using the predefined release 'Nieuw'
+            Image.Problem.YES, // Using the predefined problem 'Ja'
+            1, // Sample createdWeek value
+            2023, // Sample createdYear value
+            'Sample Name',
+            'Sample Comment',
+            'Sample Image Maker'
+        );
+    }
+
     static copyConstructor (image, id) {
         if (image == null) return null;
         return Object.assign(new Image(id), image);

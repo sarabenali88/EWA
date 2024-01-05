@@ -70,7 +70,7 @@ import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "AccountComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.createInformation();

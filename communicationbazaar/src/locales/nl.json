@@ -94,7 +94,7 @@
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
-    "wrongPersMessage": "Personeelsnummer is verkeerd",
+    "wrongPersMessage": "Kan geen authorisatie verlenen",
     "newPassword": "Nieuw wachtwoord",
     "passwordCheck": "Wachtwoord moet minimaal 8 karakters zijn met een hoofdletter en een cijfer."
   },
