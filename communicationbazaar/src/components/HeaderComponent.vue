@@ -15,7 +15,7 @@
           <path
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
-        <input v-model="searchQuery" type="text" :placeholder="$t('header.placeholder')" class="input form-control">
+        <input v-model="searchQuery" type="text" :placeholder="$t(this.placeholder)" class="input form-control">
       </div>
       <!-- Test button since for devices with no camera's-->
 <!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('1961881940030')">Test Btn</button>-->
@@ -48,7 +48,7 @@
         </select>
       </div>
       <!-- Alert button-->
-      <div class="bell" @click="showNotifications">
+      <div class="bell right" @click="showNotifications">
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="lightgrey" class="bi bi-bell" viewBox="0 0 16 16">
           <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
         </svg>
@@ -73,7 +73,7 @@
       <div class="card-footer shadow"> Zie alle notificaties</div>
     </div>
     <div class="search-result-main shadow" v-if="searchQuery !== '' && !this.expanded"  >
-      <table class="table table-sm">
+      <table class="table table-sm" v-if="filteringImages">
         <thead>
         <tr>
           <th scope="col">{{$t('allImages.ean')}}</th>
@@ -93,6 +93,32 @@
           <td>{{ image.store }}</td>
           <td><span :class="getStatusClass(image)">{{ $t(`status.${image.status}`) }}</span></td>
           <td>{{ image.upDateDate }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-sm" v-if="filteringLaptops">
+        <thead>
+        <tr>
+          <th scope="col">AEN</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Description</th>
+          <th scope="col">Processor</th>
+          <th scope="col">Ram</th>
+          <th scope="col">Storage</th>
+          <th scope="col">GPU</th>
+          <th scope="col">Prize</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="laptop in this.filterLaptop" v-bind:key="laptop.ean">
+          <td>{{ laptop.ean }}</td>
+          <td>{{ laptop.brand }}</td>
+          <td>{{ laptop.description }}</td>
+          <td>{{ laptop.processor }}</td>
+          <td>{{ laptop.ram }}</td>
+          <td>{{ laptop.storage }}</td>
+          <td>{{ laptop.gpu }}</td>
+          <td>{{ laptop.prize }}</td>
         </tr>
         </tbody>
       </table>
@@ -143,7 +169,7 @@ export const barcode = ref(null);
 
 export default {
   name: 'HeaderComponent',
-  inject: ["imagesService"],
+  inject: ["imagesService", "laptopsService"],
   components: {
     StreamBarcodeReader
   },
@@ -158,15 +184,43 @@ export default {
       mobile: false,
       images: [],
       filteredImages: [],
-      searchQuery: ''
+      searchQuery: '',
+      laptopRoute: "/laptopList",
+      placeholder: '',
+      laptops: [],
+      filteredLaptops: [],
+      filteringImages: false,
+      filteringLaptops: true
     }
   },
   async created() {
     this.images = await this.imagesService.asyncFindAll();
+    this.laptops = await this.laptopsService.asyncFindAll();
     this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
-  watch: {},
+  watch: {
+    /**
+     * Watches the route and changes and updates the placeholder
+     * Updates the state of filtering
+     */
+    '$route'(){
+      if (this.$route.path.match(this.laptopRoute)) {
+        this.placeholder = 'header.placeholderLaptop';
+        this.filteringLaptops = !this.filteringLaptops;
+        this.filteringImages = !this.filteringImages;
+      } else {
+        this.placeholder = 'header.placeholder'
+        this.filteringImages = !this.filteringImages;
+        this.filteringLaptops = !this.filteringLaptops;
+      }
+    }
+  },
   computed: {
+    /**
+     * Filters the images based on the searchQuery
+     * Returns an array of filtered images.
+     * @return {Array}
+     */
     filterImages(){
       const query = this.searchQuery.toLowerCase().trim();
       if(query !== '') {
@@ -181,12 +235,44 @@ export default {
         );
       }
       return this.filteredImages()
+    },
+    /**
+     * Filters the laptops based on the searchQuery
+     * Returns an array of filtered images.
+     * @return {Array}
+     */
+    filterLaptop(){
+      const query = this.searchQuery.toLowerCase().trim();
+      if(query !== '') {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        return this.filteredLaptops = this.laptops.filter(laptop =>
+            (laptop.ean && laptop.ean.toString().includes(query)) ||
+            (laptop.brand && laptop.brand.toLowerCase().includes(query)) ||
+            (laptop.description && laptop.description.toLowerCase().includes(query)) ||
+            (laptop.processor && laptop.processor.toLowerCase().includes(query)) ||
+            (laptop.ram && laptop.ram.toLowerCase().includes(query)) ||
+            (laptop.storage && laptop.storage.toLowerCase().includes(query)) ||
+            (laptop.gpu && laptop.gpu.toLowerCase().includes(query)) ||
+            (laptop.prize && laptop.prize.toString().includes(query))
+        );
+      }
+      return this.filteredLaptops;
     }
   },
   methods: {
+    /**
+     * Toggles the display of notifications
+     * Updates the state of 'showNotification'
+     */
     showNotifications() {
       this.showNotification = !this.showNotification;
     },
+    /**
+     * Find the selected image from the route
+     *
+     * @param id parameter from route
+     * @return {image}
+     */
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
@@ -194,6 +280,10 @@ export default {
       }
       return null;
     },
+    /**
+     * Toggles the display of the search bar and barcode scanner
+     * for mobile view
+     */
     expandSearch() {
       this.expanded = !this.expanded;
     },
@@ -211,6 +301,10 @@ export default {
         this.$i18n.locale = 'fr';
       }
     },
+    /**
+     * Toggles 'mobile' view for the search bar
+     * by checking the screen width
+     */
     checkScreenWidth() {
       if (window.innerWidth < 600) {
         this.mobile = !this.mobile;
@@ -231,6 +325,13 @@ export default {
         barcode.value = null
       }, 500);
     },
+    /**
+     * Sets the selected image and navigates based on the image selection.
+     * If the selected image is the same as the current image, navigate to the parent path
+     * If a diffrent image is selected, navigate to a new route, and update selectedImage
+     *
+     * @param image
+     */
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       console.log(parentPath)
@@ -244,6 +345,12 @@ export default {
         this.searchQuery = '';
       }
     },
+    /**
+     * Assigns a styling to the satus of the given image based on the status enum
+     * returns styling for status
+     * @param image
+     * @return {string}
+     */
     getStatusClass(image) {
       if (image.status === 'FINISHED') {
         return 'badge rounded-pill text-bg-danger';
@@ -306,8 +413,9 @@ export default {
 
 .bell {
   padding: 5px;
-  position: absolute;
-  right: 5%;
+  /*position: absolute;*/
+  /*right: 5%;*/
+  margin-left: 10%;
 }
 
 .bell:hover {
@@ -352,14 +460,15 @@ export default {
 
 .search-result-main {
 
-  width: 40%;
-  margin-left: 600px;
+  width: 60%;
+  margin-left: 350px;
   margin-top: 80px;
   display: flex;
   background-color: white;
   border-radius: 5px;
   padding: 10px;
   position: absolute;
+  z-index: 100;
 }
 
 
