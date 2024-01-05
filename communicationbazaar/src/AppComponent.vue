@@ -18,9 +18,6 @@ import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";
 import { AccountsAdaptor } from "@/services/AccountsAdaptor";
 import CONFIG from "@/app-config";
 import {shallowReactive} from 'vue'
-import {ImagesAdaptor} from "@/services/ImagesAdaptor";
-import {LaptopsAdaptor} from "@/services/LaptopsAdaptor";
-import {AccountsAdaptor} from "@/services/AccountsAdaptor";
 import {SessionSbService} from '@/services/SessionSbService';
 import { FetchAdaptor } from '@/services/FetchAdaptor';
 
@@ -39,10 +36,7 @@ export default {
     return {
       imagesService: new ImagesAdaptor('/images'),
       laptopsService: new LaptopsAdaptor('/laptops'),
-      accountsService: new AccountsAdaptor('/accounts')
-      imagesService: new ImagesAdaptor(CONFIG.BACKEND_URL + '/images'),
-      laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
-      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts'),
+      accountsService: new AccountsAdaptor('/accounts'),
       sessionService: this.SessionSbService
     }
   },

@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "npx http-server -p 8081 ./dist"
-    "lint": "vue-cli-service lint",
+    "start": "npx http-server -p 8081 ./dist",
     "test:unit": "vue-cli-service test:unit",
     "test:clear-cache": "node_modules/.bin/jest --clearCache"
   },
@@ -19,6 +18,7 @@
     "chart.js": "^4.4.0",
     "core-js": "^3.8.3",
     "http-server": "^14.1.1",
+    "vue-i18n": "^9.6.2",
     "exceljs": "^4.4.0",
     "mitt": "^3.0.1",
     "vee-validate": "^4.11.7",
