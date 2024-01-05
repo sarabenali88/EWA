@@ -99,7 +99,7 @@
       <table class="table table-sm" v-if="filteringLaptops">
         <thead>
         <tr>
-          <th scope="col">AEN</th>
+          <th scope="col">EAN</th>
           <th scope="col">Brand</th>
           <th scope="col">Description</th>
           <th scope="col">Processor</th>
