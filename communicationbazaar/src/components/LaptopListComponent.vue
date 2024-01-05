@@ -324,7 +324,7 @@ export default {
      * @author Rowin Schenk, Jasper Fernhout
      * @param importedData
      */
-    addImportedLaptopsWithoutDuplicates(importedData) {
+    async addImportedLaptopsWithoutDuplicates(importedData) {
       const successMessageFileImport = document.getElementById("successMessageFileImport");
 
       //Loops through all data(laptops) of the csv file
@@ -335,11 +335,12 @@ export default {
           //creates laptop object and adds it to database
           const newLaptop = new Laptop(laptop[0], laptop[1], laptop[2], laptop[3], laptop[4], laptop[5], laptop[6], laptop[7], laptop[8], laptop[9], laptop[10], laptop[11])
           if (newLaptop.ean !== "ean") {
-            this.laptopsService.asyncSave(newLaptop);
+            await this.laptopsService.asyncSave(newLaptop);
+            console.log(this.laptopsService.asyncSave(newLaptop))
           }
         }
       }
-        this.reInitialise();
+        await this.reInitialise();
         successMessageFileImport.textContent = "De laptops zijn succesvol toegevoegd!";
     }
   }
