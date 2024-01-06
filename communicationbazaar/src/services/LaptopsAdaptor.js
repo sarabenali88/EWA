@@ -33,7 +33,7 @@ export class LaptopsAdaptor {
   }
 
   async asyncSave (laptop) {
-    const allLaptops = this.asyncFindAll();
+    const allLaptops = await this.asyncFindAll();
     for (const currentLaptop in allLaptops){
       if (currentLaptop.id === laptop.id){
         return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,
