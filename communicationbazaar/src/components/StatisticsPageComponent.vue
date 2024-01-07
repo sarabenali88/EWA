@@ -98,9 +98,9 @@ export default {
      * @returns {[{time: string, amountOfImages: (*|number)},{time: string, amountOfImages: (*|number)},{time: string, amountOfImages: (*|number)}]}
      */
     getData() {
-      return [{time: 'Laatste maand', amountOfImages: this.getDataMonths(1)},
-        {time: 'Laatste kwartaal', amountOfImages: this.getDataMonths(3)},
-        {time: 'Laatste half jaar', amountOfImages: this.getDataMonths(6)}]
+      return [{time: "Last month", amountOfImages: this.getDataMonths(1)},
+        {time: "Last Quarter", amountOfImages: this.getDataMonths(3)},
+        {time: "Last six months", amountOfImages: this.getDataMonths(6)}]
     }
   }
 }

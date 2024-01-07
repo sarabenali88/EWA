@@ -20,17 +20,16 @@ export class FetchAdaptor {
     request (url, options) {
       const token = FetchAdaptor.theInstance.sessionService.getCurrentToken()
 
-      if (token == null) {
-        return [url, options]
-      } else if (options == null) {
-        return [url, { headers: { Authorization: token } }]
-      } else {
-        const newOptions = { ...options }
-        // TODO combine existing headers with new Authorization header
-        newOptions.headers = { Authorization: token }
-        // console.log("FetchAdaptor request: ", url, newOptions);
-        return [url, newOptions]
-      }
+        if (token == null) {
+            return [url, options];
+        } else if (options == null) {
+            return [url, { headers: { Authorization: token } }];
+        } else {
+            const newOptions = { ...options };
+            // Combine existing headers with the new Authorization header
+            newOptions.headers = { ...newOptions.headers, Authorization: token };
+            return [url, newOptions];
+        }
     }
 
     response (response) {

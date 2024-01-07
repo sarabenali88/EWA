@@ -149,6 +149,7 @@
     "processor": "Processor",
     "editMessage": "Laptop with EAN: ",
     "alertMessage": "Please fill in all the input fields!",
-    "confirmMessage": "Are you sure you want to delete this laptop? All images for this laptop will also be deleted."
+    "confirmMessage": "Are you sure you want to delete this laptop? All images for this laptop will also be deleted.",
+    "import": "Import"
   }
 }

@@ -45,7 +45,7 @@ public class AuthenticationController {
 
 
         return ResponseEntity.accepted()
-                .header(HttpHeaders.AUTHORIZATION, tokenString)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenString)
                 .body(account);
     }
 
