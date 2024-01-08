@@ -187,7 +187,6 @@ export default {
           this.formattedDate, this.statusImage, null, null, this.formattedWeek, this.formattedYear,
           this.imageName, null, null);
       await this.imagesService.asyncSave(this.image);
-      console.log(this.image);
       await this.imagesService.asyncFindAll();
       this.$router.push('/imageListRoute/allImages');
     },
