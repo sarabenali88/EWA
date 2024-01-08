@@ -192,6 +192,11 @@ export default {
     }
   },
   methods: {
+    /**
+     * Connects the selected status to the right status component
+     * @param status
+     * @author Rowin Schenk, Sara Benali
+     */
     getSelectedStatus(status) {
       if (this.selectedStatus === status) {
         this.$router.push("/imageListRoute/allImages");
@@ -220,6 +225,10 @@ export default {
         }
       }
     },
+    /**
+     * Calculates how many images there are per status
+     * @author Rowin Schenk, Sara Benali
+     */
     amountOfImages() {
       for (const image of this.images) {
         if (image.status === "TODO") {
