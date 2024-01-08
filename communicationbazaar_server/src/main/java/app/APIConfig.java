@@ -45,7 +45,8 @@ public class APIConfig implements WebMvcConfigurer {
                 .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
                 .exposedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
                 .allowCredentials(true)
-                .allowedOrigins("https://back-end-ewa.onrender.com/:*", "https://ewa-front-end-9z7b.onrender.com:*");
+                .allowedOrigins("https://back-end-ewa.onrender.com/api/images", "https://back-end-ewa.onrender.com/api/accounts",
+                        "https://back-end-ewa.onrender.com/api/laptops");
     }
 
     /**
