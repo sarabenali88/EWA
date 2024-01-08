@@ -33,15 +33,52 @@ export class LaptopsAdaptor {
   }
 
   async asyncSave (laptop) {
-    return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,
+    const allLaptops = this.asyncFindAll();
+    for (const currentLaptop in allLaptops){
+      if (currentLaptop.id === laptop.id){
+        return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                articleNumber: laptop.articleNumber,
+                ean: laptop.ean,
+                brand: laptop.brand,
+                description: laptop.description,
+                processor: laptop.processor,
+                ram: laptop.ram,
+                storage: laptop.storage,
+                gpu: laptop.gpu,
+                sizeInch: laptop.sizeInch,
+                sizeCm: laptop.sizeCm,
+                os: laptop.os,
+                prize: laptop.prize
+              })
+            });
+      }
+    }
+    return this.fetchJson(this.resourcesUrl,
       {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(
-            laptop
-        )
+        body: JSON.stringify({
+          articleNumber: laptop.articleNumber,
+          ean: laptop.ean,
+          brand: laptop.brand,
+          description: laptop.description,
+          processor: laptop.processor,
+          ram: laptop.ram,
+          storage: laptop.storage,
+          gpu: laptop.gpu,
+          sizeInch: laptop.sizeInch,
+          sizeCm: laptop.sizeCm,
+          os: laptop.os,
+          prize: laptop.prize
+        })
       });
   }
 

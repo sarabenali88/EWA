@@ -23,11 +23,16 @@ import LaptopListComponent from "@/components/LaptopListComponent";
 import ClaimedImageComponent from "@/components/ClaimedImageComponent";
 import imageStatusImpossibleComponent from "@/components/ImageStatusImpossibleComponent";
 import laptopDetailComponent from "@/components/LaptopDetailComponent";
+import signOutComponent from "@/components/SignOutComponent";
 
 
 export const router = createRouter({
     history: createWebHashHistory(),
     routes: [
+        {
+            path: NavBar.data().signOutRoute,
+            component: signOutComponent
+        },
         {
             path: NavBar.data().homeRoute,
             component: WelcomeComponent,
