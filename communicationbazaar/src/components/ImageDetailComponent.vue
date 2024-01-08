@@ -155,7 +155,7 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService", "sessionService"],
-  emits: ['delete-image', 'save-image', 'refresh'],
+  emits: ['refresh'],
   data(){
     return {
       statuses: Image.Status,
@@ -173,7 +173,6 @@ export default {
     '$route'(){
       this.reInitialise();
     },
-
   },
   async created() {
     this.account = !this.sessionService._currentAccount
