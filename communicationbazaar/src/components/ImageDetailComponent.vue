@@ -162,7 +162,6 @@ export default {
       showDesc: false,
       editComment: false,
       imageCopy: null,
-      accounts: [],
       imageClaimed: false,
       account: null,
       invalidTextarea: false,
@@ -176,13 +175,25 @@ export default {
   },
   async created() {
     this.account = !this.sessionService._currentAccount
-    this.reInitialise();
+    await this.reInitialise();
   },
   methods: {
+    /**
+     * A methode that reinitializes the editing view
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async reInitialise(){
       this.imageCopy =
           await this.imagesService.asyncFindById(this.$route?.params?.id)
     },
+    /**
+     * A methode that sets the small detail navigation bar inside the imageDetail
+     *
+     * @param word
+     * @author Seyma Kaya
+     */
     setNav(word){
       if (word === 'com'){
         this.showDesc = false;
@@ -191,6 +202,11 @@ export default {
         this.showDesc = true;
       }
     },
+    /**
+     * A methode that sets the variable for editing an Image
+     *
+     * @author Seyma Kaya
+     */
     onChange(){
       if (this.editComment === true){
         this.editComment = false;
@@ -198,10 +214,23 @@ export default {
         this.editComment = true;
       }
     },
+    /**
+     * A methode that deletes an image
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async onDelete(){
       await this.imagesService.asyncDeleteById(this.imageCopy.id)
       this.$emit('refresh')
     },
+    /**
+     * A methode saves an image. This methode also associates/dissociates an imageMaker with
+     * an image when necessary.
+     *
+     * @returns {Promise<boolean>}
+     * @author Seyma Kaya
+     */
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.sessionService._currentAccount
@@ -227,6 +256,11 @@ export default {
       this.$emit('refresh')
 
     },
+    /**
+     * A methode that associates an imageMaker with an image when they claim it
+     *
+     * @author Seyma Kaya
+     */
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.sessionService._currentAccount;

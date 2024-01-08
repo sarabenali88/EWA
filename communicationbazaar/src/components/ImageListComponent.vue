@@ -149,7 +149,10 @@
 
 
   <div class="ms-lg-5">
-    <router-view></router-view>
+    <router-view
+    v-on:refresh="this.onRefresh()">
+
+    </router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
             :class="{'hiddenButton': !this.sessionService._currentToken}">
       {{$t('addImage.buttonAdd')}}
@@ -161,16 +164,10 @@
 export default {
   name: "ImageListComponent",
   inject: ["accountsService", "imagesService", "sessionService"],
-  emits: ["save-event"],
-  components: {},
+  emits: ["refresh"],
   async created() {
     this.$router.push("/imageListRoute/allImages");
-
-    this.images = await this.imagesService.asyncFindAll();
-    this.accounts = await this.accountsService.asyncFindAll();
-    this.account = this.sessionService._currentAccount;
-
-    this.amountOfImages();
+    await this.onRefresh();
   },
   data() {
     return {
@@ -187,12 +184,18 @@ export default {
       overDateStatus: "overDateStatus",
       allImagesStatus: "allImages",
       selectedStatus: this.allImagesStatus,
-      accounts: [],
       account: null,
       sessionService: this.sessionService
     }
   },
   methods: {
+    async onRefresh(){
+      this.images = await this.imagesService.asyncFindAll();
+      this.accounts = await this.accountsService.asyncFindAll();
+      this.account = this.sessionService._currentAccount;
+
+      this.amountOfImages();
+    },
     getSelectedStatus(status) {
       if (this.selectedStatus === status) {
         this.$router.push("/imageListRoute/allImages");
