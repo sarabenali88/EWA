@@ -15,7 +15,7 @@ export class AccountsAdaptor {
      * @author Jasper Fernhout
      */
     constructor(resourcesUrl) {
-        this.resourcesUrl = resourcesUrl;
+        this.resourcesUrl = process.env.VUE_APP_API_URL + resourcesUrl;
     }
 
     async fetchJson(url, options = null) {
