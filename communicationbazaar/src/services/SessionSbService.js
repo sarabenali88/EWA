@@ -26,7 +26,6 @@ export class SessionSbService {
         user)
       return user
     } else {
-      console.log(response)
       return null
     }
   }
@@ -58,28 +57,19 @@ export class SessionSbService {
     if (jsonAccount != null) {
       this._currentAccount = JSON.parse(jsonAccount)
     }
-    console.log('SessionService recovered token: ', this._currentToken)
-    console.log('Current Account:', this._currentAccount)
     return this._currentToken
   }
 
   saveTokenIntoBrowserStorage (token, account) {
     this._currentToken = token
     this._currentAccount = account
-    // allow for different user sessions from the same computer
-    // sessionStorage keeps different items per browser tab
-    // localStorage keeps a single item per browser vendor
-    // both isolate the items per server domain of the page (including port number?)
     if (token == null) {
       this._currentAccount = null
       window.sessionStorage.removeItem(this.BROWSER_STORAGE_ITEM_NAME)
       window.sessionStorage.removeItem(this.BROWSER_STORAGE_ITEM_NAME + '_ACC')
-      // TODO remove the token+account from local storage, if localStorage and session storage are equal
     } else {
-      console.log('New token for ' + account.name + ': ' + token)
       window.sessionStorage.setItem(this.BROWSER_STORAGE_ITEM_NAME, token)
       window.sessionStorage.setItem(this.BROWSER_STORAGE_ITEM_NAME + '_ACC', JSON.stringify(account))
-      // TODO also save the new token+account in localStorage
     }
   }
 

@@ -46,7 +46,6 @@ export default {
 
   },
   unmounted() {
-    console.log('App.unmounted() has been called.')
     this.FetchAdaptor.unregister()
   }
 }

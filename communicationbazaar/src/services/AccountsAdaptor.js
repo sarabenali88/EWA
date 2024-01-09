@@ -8,6 +8,12 @@ import {Account} from '@/models/Account'
 export class AccountsAdaptor {
     resourcesUrl;
 
+    /**
+     * Constructs an AccountsAdaptor instance with a specified resources URL.
+     *
+     * @param {string} resourcesUrl - The URL for accessing account-related resources.
+     * @author Jasper Fernhout
+     */
     constructor(resourcesUrl) {
         this.resourcesUrl = resourcesUrl;
     }
@@ -18,27 +24,43 @@ export class AccountsAdaptor {
             if (response.ok) {
                 return await response.json();
             } else {
-                // TODO hier moet nog een; response error die in de json body zit
                 return []
             }
-
         } catch (error) {
             return []
         }
     }
 
-
-
+    /**
+     * Retrieves all accounts asynchronously.
+     *
+     * @returns {Promise<Account[]>} - A promise resolving to an array of Account instances.
+     * @author Jasper Fernhout
+     */
     async asyncFindAll() {
         const accounts = await this.fetchJson(this.resourcesUrl);
         return accounts?.map(account => Account.copyConstructor(account));
     }
 
+    /**
+     * Retrieves an account by its personal number asynchronously.
+     *
+     * @param {number} personalNumber - The personal number of the account.
+     * @returns {Promise<Account>} - A promise resolving to an Account instance.
+     * @author Jasper Fernhout
+     */
     async asyncFindById(personalNumber) {
         const accountData = await this.fetchJson(this.resourcesUrl + '/' + personalNumber);
         return Account.copyConstructor(accountData);
     }
 
+    /**
+     * Saves a newly created account or updates an excisting one.
+     *
+     * @param account - The account that needs to be added or updated.
+     * @returns {Promise<any|[]|undefined>}
+     * @author Jasper Fernhout
+     */
     async asyncSave(account) {
         if (account.personalNumber === 0) {
             return this.fetchJson(this.resourcesUrl,
@@ -73,15 +95,18 @@ export class AccountsAdaptor {
         }
     }
 
+    /**
+     * Deletes an account instance based on the personalNumber.
+     *
+     * @param personalNumber - The personalNumber of the account that needs to be deleted.
+     * @returns {Promise<any|[]|undefined>}
+     * @author Jasper Fernhout
+     */
     async asyncDeleteById(personalNumber) {
         return this.fetchJson(this.resourcesUrl + '/' + personalNumber,
             {
                 method: 'DELETE'
             });
-    }
-
-    async verifyPassword(personalNumber, password) {
-        return await this.fetchJson(this.resourcesUrl + '/verifyPassword/' + personalNumber + "/" + password);
     }
 
     async asyncGetImagesFromAccount(personalNumber) {

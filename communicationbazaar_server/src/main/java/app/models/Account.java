@@ -25,8 +25,8 @@ import java.util.List;
 public class Account {
 
     @Id
-    @SequenceGenerator(name="Account_ids", initialValue=10000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Account_ids")
+    @SequenceGenerator(name = "Account_ids", initialValue = 10000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Account_ids")
     @JsonView(ViewClasses.Summary.class)
     private long personalNumber;
     private String password;
@@ -81,11 +81,14 @@ public class Account {
      * Hash the given password in combination with the account identification (id)
      * and some extra characters for extra security.
      * Different accounts with the same password will deliver different hashes
-     * @param password
+     *
+     * @param password - The password that needs to be hashed.
+     * @author Jasper Fernhout
      */
     public String hashPassword(String password) {
         return SecureHasher.secureHash(password);
     }
+
     public void setPassword(String newPassword) {
         this.password = newPassword;
         this.setHashedPassword(this.hashPassword(newPassword));
@@ -95,8 +98,9 @@ public class Account {
      * Verify whether the hash of the given password
      * matches the correct hash of the account's true password
      * (without actually knowing the correct password: only its hash has been kept in store)
-     * @param password
-     * @return
+     *
+     * @param password - The password that needs to be checked.
+     * @author Jasper Fernhout
      */
     public boolean verifyPassword(String password) {
         return this.hashPassword(password).equals(this.getHashedPassword());
@@ -141,6 +145,7 @@ public class Account {
 
     /**
      * Dissociates the given image from this account, if associated
+     *
      * @param image
      * @return whether an existing association has been removed
      */

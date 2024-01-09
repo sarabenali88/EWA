@@ -1,3 +1,8 @@
+/**
+ * AuthenticationController class that will control the login token functionalities.
+ *
+ * @author Jasper Fernhout
+ */
 package app.rest;
 
 import app.APIConfig;
@@ -25,12 +30,20 @@ public class AuthenticationController {
     @Autowired
     AccountRepositoryJPA accountRepositoryJPA;
 
+    /**
+     * Handles the authentication process.
+     *
+     * @param temp - JSON object containing user credentials (personalNumber, password).
+     * @return ResponseEntity<Account> - Response entity with the authenticated account and a generated token.
+     * @throws NotAcceptableException - If authentication fails for the provided credentials.
+     * @author Jasper Fernhout
+     */
     @PostMapping(path = "/login", produces = "application/json")
-    public ResponseEntity<Account> authenticate (@RequestBody ObjectNode temp) throws NotAcceptableException {
-        if (accountRepositoryJPA.findByQuery("Account_find_by_personalNumber_and_password",temp.get("personalNumber").asInt(), temp.get("password").asText()).isEmpty()){
-            throw new NotAcceptableException("Cannot authenticate user by personalNumber="+temp.get("personalNumber").asInt());
+    public ResponseEntity<Account> authenticate(@RequestBody ObjectNode temp) throws NotAcceptableException {
+        if (accountRepositoryJPA.findByQuery("Account_find_by_personalNumber_and_password", temp.get("personalNumber").asInt(), temp.get("password").asText()).isEmpty()) {
+            throw new NotAcceptableException("Cannot authenticate user by personalNumber=" + temp.get("personalNumber").asInt());
         }
-        List<Account> accounts = accountRepositoryJPA.findByQuery("Account_find_by_personalNumber_and_password",temp.get("personalNumber").asText(), temp.get("password").asText());
+        List<Account> accounts = accountRepositoryJPA.findByQuery("Account_find_by_personalNumber_and_password", temp.get("personalNumber").asText(), temp.get("password").asText());
         Account account = !accounts.isEmpty() ? accounts.get(0) : null;
 
         assert account != null;

@@ -29,17 +29,37 @@ public class AccountController {
     @Autowired
     AccountRepositoryJPA accountRepositoryJPA;
 
+    /**
+     * This will search for all available acocunts.
+     *
+     * @return - Gives back a list of all accounts.
+     * @author Jasper Fernhout
+     */
     @GetMapping(path = "", produces = "application/json")
     public List<Account> getAllAccounts() {
         return this.accountList.findAll();
     }
 
+    /**
+     * Will look for a summary version of all the accounts.
+     *
+     * @return - Gives back a summary list of those accounts.
+     * @author Jasper Fernhout
+     */
     @JsonView(ViewClasses.Summary.class)
     @GetMapping(path = "/summary", produces = "application/json")
     public List<Account> getSummaryAccounts() {
         return this.accountList.findAll();
     }
 
+    /**
+     * Will look for an account with the giving personalNumber.
+     *
+     * @param personalNumber - The personalNumber of the target account.
+     * @return - Gives back the target account.
+     * @throws ResourceNotFoundException - The error if the account is not available.
+     * @author Jasper Fernhout
+     */
     @GetMapping(path = "{personalNumber}", produces = "application/json")
     public ResponseEntity<Account> getOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
         Account account = this.accountList.findById(personalNumber);
@@ -51,6 +71,14 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
+    /**
+     * Will delete an account with the giving personalNumber.
+     *
+     * @param personalNumber - The personalNumber of the target account.
+     * @return - Gives back the target account.
+     * @throws ResourceNotFoundException - The error if the account is not available.
+     * @author Jasper Fernhout
+     */
     @DeleteMapping(path = "{personalNumber}", produces = "application/json")
     public ResponseEntity<Account> deleteOneAccount(@PathVariable() long personalNumber) throws ResourceNotFoundException {
         Account account = this.accountList.deleteById(personalNumber);
@@ -62,6 +90,14 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
+    /**
+     * Will add an account to the existing list of accounts.
+     *
+     * @param account - The account that needs to be added.
+     * @return - Gives back the added account.
+     * @throws Exception - Will throw this exception if anything goes wrong.
+     * @author Jasper Fernhout
+     */
     @PostMapping(path = "", produces = "application/json")
     public ResponseEntity<Account> addOneAccount(@RequestBody Account account) throws Exception {
 
@@ -74,7 +110,15 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 
-
+    /**
+     * Updates an existing account with new details.
+     *
+     * @param personalNumber - The personalNumber of the account that needs to be updated.
+     * @param targetAccount  - The account with the new details.
+     * @return - Gives back the account that has been updated.
+     * @throws PreConditionFailedException - Throws this exception if anything goes wrong.
+     * @author Jasper Fernhout
+     */
     @PutMapping(path = "{personalNumber}", produces = "application/json")
     public ResponseEntity<Account> updateOneAccount(@PathVariable() long personalNumber,
                                                     @RequestBody Account targetAccount) throws PreConditionFailedException {

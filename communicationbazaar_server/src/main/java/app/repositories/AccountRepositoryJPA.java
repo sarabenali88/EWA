@@ -25,6 +25,12 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * This method will return all accounts.
+     *
+     * @return - All accounts available.
+     * @author Jasper Fernhout
+     */
     @Override
     public List<Account> findAll() {
         TypedQuery<Account> query = entityManager.createQuery(
@@ -33,21 +39,42 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
         return query.getResultList();
     }
 
+    /**
+     * This method will return the account with the fitting id.
+     *
+     * @param id the id of the item.
+     * @return - Returns the correct account when it is available.
+     * @author Jasper Fernhout
+     */
     @Override
     public Account findById(long id) {
         return entityManager.find(Account.class, id);
     }
 
+    /**
+     * Saves a newly created account or updates an existing one.
+     *
+     * @param model the model that has to be saved.
+     * @return - gives back the account.
+     * @author Jasper Fernhout
+     */
     @Override
     public Account save(Account model) {
         model.setPassword(model.getPassword());
         return entityManager.merge(model);
     }
 
+    /**
+     * Deletes an account with that id.
+     *
+     * @param id the id of the item.
+     * @return - Gives back the deleted account.
+     * @author Jasper Fernhout
+     */
     @Override
     public Account deleteById(long id) {
         Account account = findById(id);
-        if (account != null){
+        if (account != null) {
             entityManager.remove(account);
         }
         return account;
@@ -59,7 +86,7 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
                 this.entityManager.createNamedQuery(jpqlName, Account.class);
 
         for (int i = 0; i < params.length; i++) {
-            query.setParameter(i+1, params[i]);
+            query.setParameter(i + 1, params[i]);
         }
         return query.getResultList();
     }
@@ -69,7 +96,7 @@ public class AccountRepositoryJPA implements app.repositories.Repository<Account
         Account account = findById(id);
 
         if (account != null) {
-            return  account.getImages();
+            return account.getImages();
         }
 
         return null;
