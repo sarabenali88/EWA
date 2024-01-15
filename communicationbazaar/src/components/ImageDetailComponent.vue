@@ -7,12 +7,12 @@
       </h3>
     </div>
     <div class="col-4">
-      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false ||
-      accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+      <button :class="{'hiddenButton': !this.sessionService.isAuthenticated() ||
+      this.sessionService.isAuthenticated() && this.sessionService._currentAccount.role !== 'admin'}"
                      type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
-      <button :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}"
+      <button :class="{'hiddenButton': !this.sessionService._currentToken}"
                      type="button" class="btn btn-outline-secondary" @click="onChange()">
         {{$t('imageDetail.editButton')}}
       </button>
@@ -154,7 +154,7 @@ import {Image} from "@/models/Image";
 
 export default {
   name: "ImageDetailComponent",
-  inject: ["accountsService", "imagesService"],
+  inject: ["accountsService", "imagesService", "sessionService"],
   emits: ['delete-image', 'save-image', 'refresh'],
   data(){
     return {
@@ -166,6 +166,7 @@ export default {
       imageClaimed: false,
       account: null,
       invalidTextarea: false,
+      sessionService: this.sessionService
     }
   },
   watch: {
@@ -175,9 +176,8 @@ export default {
 
   },
   async created() {
-    this.accounts = await this.accountsService.asyncFindAll();
-    await this.reInitialise();
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = !this.sessionService._currentAccount
+    this.reInitialise();
   },
   methods: {
     async reInitialise(){
@@ -210,8 +210,8 @@ export default {
      */
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
-        this.imageCopy.imageMaker = this.account
-        this.imageCopy.store = this.account.location;
+        this.imageCopy.imageMaker = this.sessionService._currentAccount
+        this.imageCopy.store = this.sessionService._currentAccount.location;
       }
       if (this.imageCopy.status === Object.keys(Image.Status)[0] ||
           this.imageCopy.status === Object.keys(Image.Status)[3]){
@@ -239,9 +239,9 @@ export default {
      */
     claimImage(){
       this.imageClaimed = true;
-      this.imageCopy.imageMaker = this.account;
+      this.imageCopy.imageMaker = this.sessionService._currentAccount;
       this.imageCopy.status = Object.keys(Image.Status)[1];
-      this.imageCopy.store = this.account.location;
+      this.imageCopy.store = this.sessionService._currentAccount.location;
     }
   },
   computed: {

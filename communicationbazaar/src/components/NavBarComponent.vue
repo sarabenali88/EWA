@@ -40,7 +40,7 @@
 
         <!-- Admin icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="grey" class="bi bi-person-lock"
-             :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn === true && account.role !== 'admin')}"
+             :class="{'hiddenButton': !this.sessionService._currentToken || this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
              viewBox="0 0 16 16" @click="setCurrentContent('contentAdmin')">
           <path
               d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
@@ -74,8 +74,9 @@
                   <path
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
-                <router-link :to="allImagesRoute" :class="{'active-tab': $route.path.toString().includes(allImagesRoute)}">
-                  {{$t('navbar.allImages')}}
+                <router-link :to="allImagesRoute"
+                             :class="{'active-tab': $route.path.toString().includes(allImagesRoute)}">
+                  {{ $t('navbar.allImages') }}
                 </router-link>
               </div>
             </li>
@@ -92,7 +93,7 @@
                       d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
                 </svg>
                 <router-link :to="statusTodo" :class="{'active-tab': $route.path.toString().includes(statusTodo)}">
-                  {{$t('navbar.toDoList')}}
+                  {{ $t('navbar.toDoList') }}
                 </router-link>
               </div>
             </li>
@@ -108,8 +109,9 @@
                   <path fill-rule="evenodd"
                         d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                 </svg>
-                <router-link :to="statusOnGoing" :class="{'active-tab': $route.path.toString().includes(statusOnGoing)}">
-                  {{$t('navbar.ongoingList')}}
+                <router-link :to="statusOnGoing"
+                             :class="{'active-tab': $route.path.toString().includes(statusOnGoing)}">
+                  {{ $t('navbar.ongoingList') }}
                 </router-link>
               </div>
             </li>
@@ -124,8 +126,9 @@
                   <path fill-rule="evenodd"
                         d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                 </svg>
-                <router-link :to="statusImpossible" :class="{'active-tab': $route.path.toString().includes(statusImpossible)}">
-                  {{$t('navbar.impossibleList')}}
+                <router-link :to="statusImpossible"
+                             :class="{'active-tab': $route.path.toString().includes(statusImpossible)}">
+                  {{ $t('navbar.impossibleList') }}
                 </router-link>
               </div>
             </li>
@@ -141,8 +144,9 @@
                   <path
                       d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                 </svg>
-                <router-link :to="statusOverDate" :class="{'active-tab': $route.path.toString().includes(statusOverDate)}">
-                  {{$t('navbar.overDateList')}}
+                <router-link :to="statusOverDate"
+                             :class="{'active-tab': $route.path.toString().includes(statusOverDate)}">
+                  {{ $t('navbar.overDateList') }}
                 </router-link>
               </div>
             </li>
@@ -150,9 +154,9 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentProfile'}">
-          <h5 class="offcanvas-title">{{$t('navbar.profileTitle')}}</h5>
+          <h5 class="offcanvas-title">{{ $t('navbar.profileTitle') }}</h5>
           <ul>
-            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}">
+            <li :class="{'hiddenButton': !this.sessionService._currentToken}">
               <div :class="{'active-route': $route.path.toString().includes(myProfileRoute)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-house"
                      viewBox="0 0 16 16"
@@ -160,14 +164,15 @@
                   <path
                       d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                 </svg>
-                <router-link :to="myProfileRoute" :class="{'active-tab': $route.path.toString().includes(myProfileRoute)}">
-                  {{$t('navbar.myProfile')}}
+                <router-link :to="myProfileRoute"
+                             :class="{'active-tab': $route.path.toString().includes(myProfileRoute)}">
+                  {{ $t('navbar.myProfile') }}
                 </router-link>
               </div>
             </li>
             <li>
               <div
-                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn === true)}">
+                  :class="{'active-route': $route.path === signInRoute, 'hiddenButton': this.sessionService._currentToken}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === signInRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -175,32 +180,33 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="signInRoute" :class="{'active-tab': $route.path === signInRoute}">
-                  {{$t('navbar.logIn')}}
+                  {{ $t('navbar.logIn') }}
                 </router-link>
               </div>
             </li>
           </ul>
           <ul>
-            <li :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false}" @click="logOut">
+            <li :class="{'hiddenButton': !this.sessionService._currentToken}" @click="signOut()">
               <router-link to>
-                {{$t('navbar.logOut')}}
+                {{ $t('navbar.logOut') }}
               </router-link>
             </li>
           </ul>
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentLaptop'}">
-          <h5 class="offcanvas-title">{{$t('navbar.laptopList')}}</h5>
+          <h5 class="offcanvas-title">{{ $t('navbar.laptopList') }}</h5>
           <ul>
             <li>
               <div :class="{'active-route': $route.path === laptopList}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-laptop"
                      viewBox="0 0 16 16"
                      :class="{'active-icon': $route.path === laptopList}">
-                  <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"/>
+                  <path
+                      d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"/>
                 </svg>
                 <router-link :to="laptopList" :class="{'active-tab': $route.path === laptopList}">
-                  {{$t('navbar.laptopList')}}
+                  {{ $t('navbar.laptopList') }}
                 </router-link>
               </div>
             </li>
@@ -209,11 +215,11 @@
         </div>
 
         <div class="content" :class="{ 'selected' : currentContent === 'contentAdmin'}">
-          <h5 class="offcanvas-title">{{$t('navbar.adminTitle')}}</h5>
+          <h5 class="offcanvas-title">{{ $t('navbar.adminTitle') }}</h5>
           <ul>
             <li>
               <div
-                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}">
+                  :class="{'active-route': $route.path === allUsersRoute, 'hiddenButton': !this.sessionService._currentToken || this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === allUsersRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -221,7 +227,7 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="allUsersRoute" :class="{'active-tab': $route.path === allUsersRoute}">
-                  {{$t('navbar.allUsers')}}
+                  {{ $t('navbar.allUsers') }}
                 </router-link>
               </div>
             </li>
@@ -236,23 +242,24 @@
                       d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <router-link :to="statisticsRoute" :class="{'active-tab': $route.path === statisticsRoute}">
-                  {{$t('navbar.statistics')}}
+                  {{ $t('navbar.statistics') }}
                 </router-link>
               </div>
             </li>
           </ul>
         </div>
 
+      </div>
     </div>
-  </div>
   </div>
 
   <!-- Mobile navbar -->
-  <nav class="navbar fixed-bottom bg-body-tertiary" :class="{active: fulNavActive}" >
-    <div class="image-active-line" :class="{'all-active': currentImageList === 'allImages', 'todo-active': currentImageList === 'statusTodo', 'ongoing-active': currentImageList === 'statusOnGoing', 'finished-active' : currentImageList === 'statusFinished' }"></div>
+  <nav class="navbar fixed-bottom bg-body-tertiary" :class="{active: fulNavActive}">
+    <div class="image-active-line"
+         :class="{'all-active': currentImageList === 'allImages', 'todo-active': currentImageList === 'statusTodo', 'ongoing-active': currentImageList === 'statusOnGoing', 'finished-active' : currentImageList === 'statusFinished' }"></div>
     <div class="container-fluid">
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-image"
-            viewBox="0 0 16 16" @click="setImageList(this.allImagesRoute)">
+           viewBox="0 0 16 16" @click="setImageList(this.allImagesRoute)">
         <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
         <path
             d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
@@ -285,20 +292,22 @@
             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
       </svg>
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black"  class="bi bi-list-2"
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black" class="bi bi-list-2"
            viewBox="0 0 16 16" @click="showFullNav()">
         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1
            .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
       </svg>
     </div>
 
-    <div class="container-fluid" v-if="this.fulNavActive" >
+    <div class="container-fluid" v-if="this.fulNavActive">
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-person"
            viewBox="0 0 16 16" @click="setPageContent(myProfileRoute)">
         <path
             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
       </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%" class="bi bi-person-lock" :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}"
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" fill-opacity="50%"
+           class="bi bi-person-lock"
+           :class="{'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}"
            viewBox="0 0 16 16" @click="setPageContent(allUsersRoute)">
         <path
             d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
@@ -313,7 +322,7 @@ import allImagesComponent from "@/components/allImagesComponent.vue";
 
 export default {
   name: 'NavBarComponent',
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   data() {
     return {
       homeRoute: '/home',
@@ -328,11 +337,13 @@ export default {
       myProfileRoute: '/myProfileRoute',
       claimedImageRoute: '/claimedImageRoute',
       signInRoute: '/signIn',
+      signOutRoute: '/signOut',
       webScraperRoute: '/webScraper',
       allUsersRoute: '/allUsers',
       accounts: [],
       statisticsRoute: '/Statistics',
       laptopList: '/laptopList',
+      sessionService: this.sessionService,
 
       currentContent: 'contentImage',
       currentImageList: 'statusFinished',
@@ -354,6 +365,9 @@ export default {
       if (this.$route.path.match(this.allUsersRoute) || this.$route.path.match(this.statisticsRoute)) {
         this.setCurrentContent('contentAdmin')
       }
+      if (this.$route.path.match(this.laptopList)) {
+        this.setCurrentContent('contentLaptop')
+      }
     }
 
 
@@ -364,6 +378,7 @@ export default {
     }
   },
   methods: {
+    // This isnt called anywhere
     async logOut() {
       this.loggedInAccount = this.accounts.find(account => account.loggedIn === true);
       this.loggedInAccount.loggedIn = false;
@@ -408,6 +423,15 @@ export default {
     setPageContent(route) {
       this.$router.push(route);
       this.fulNavActive = !this.fulNavActive;
+    },
+    /**
+     * Function that will be called when the sign out button is pressed.
+     *
+     * @author Jasper Fernhout
+     */
+    signOut() {
+      this.sessionService.signOut()
+      this.$router.push(this.signOutRoute)
     }
   }
 }

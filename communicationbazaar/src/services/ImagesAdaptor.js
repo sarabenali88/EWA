@@ -9,10 +9,11 @@ export class ImagesAdaptor {
     resourcesUrl;
 
     constructor (resourcesUrl) {
-        this.resourcesUrl = resourcesUrl;
+        this.resourcesUrl = process.env.VUE_APP_API_URL + resourcesUrl;
     }
 
     async fetchJson (url, options = null) {
+        console.log(url);
         const response = await fetch(url, options);
         if (response.ok) {
             return await response.json();

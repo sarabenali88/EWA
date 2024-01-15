@@ -121,18 +121,53 @@ export default {
     }
   },
   methods: {
+    /**
+     * This will emit the event call that is worked out in the parent component.
+     * The cancel event is linked to clicking the cancel button in the field.
+     *
+     * @author Jasper Fernhout
+     */
     cancelEvent() {
       this.$emit('cancelEvent', null);
     },
+    /**
+     * This will emit the event call that is worked out in the parent component.
+     * The save event is linked to clicking the save button in the field.
+     * It will give back an edited instance of the account.
+     *
+     * @author Jasper Fernhout
+     */
     saveEvent() {
       this.$emit('saveEvent', this.accountCopy);
     },
+    /**
+     * This method will set the account copy to the account that has been clicked on the site.
+     *
+     * @param currentAccount
+     * @author Jasper Fernhout
+     */
     copyAccount(currentAccount) {
       this.accountCopy = JSON.parse(JSON.stringify(currentAccount));
     },
+    /**
+     * This method is created to give back a true or false whether the account details are changed or not
+     *
+     * @returns {boolean|*}
+     * @author Jasper Fernhout
+     */
     hasChanged() {
       return this.compareAccounts(this.accountCopy, this.currentAccount);
     },
+    /**
+     * This method will compare the current account and the copy of the account.
+     * If the details are changed in the fields it will give back a true.
+     * If nothing is changed it will give back a false.
+     *
+     * @param accountCopy The copy of the account that can be changed.
+     * @param currentAccount The current account with fixed values.
+     * @returns {boolean}
+     * @author Jasper Fernhout
+     */
     compareAccounts(accountCopy, currentAccount) {
       if (!accountCopy || !currentAccount) {
         return false;
@@ -145,6 +180,14 @@ export default {
           accountCopy.role === currentAccount.role &&
           accountCopy.location === currentAccount.location;
     },
+    /**
+     * This is a method that will check if every field is filled in.
+     * If a field is not filled in, it will give back a false.
+     * Else it will give back a true and then the newly created account can be added.
+     *
+     * @returns {boolean}
+     * @author Jasper Fernhout
+     */
     fieldsFilledCheck(accountCopy) {
       if (!accountCopy.name || !accountCopy.email || !accountCopy.role || !accountCopy.location) {
         this.displayAlert(this.$t('adminPanel.errorMessage'));
@@ -153,14 +196,31 @@ export default {
         return true;
       }
     },
+    /**
+     * A method for displaying an alert with the given message.
+     *
+     * @param message the message that will be shown.
+     * @author Jasper Fernhout
+     */
     displayAlert(message) {
       this.alertMessage = message;
       this.showAlert = true;
     },
+    /**
+     * A message to close an alert when it is open.
+     *
+     * @author Jasper Fernhout
+     */
     dismissAlert() {
       this.showAlert = false;
       this.alertMessage = '';
     },
+    /**
+     * A method that wil show the confirmation modal with the given action.
+     *
+     * @param cancelOrConfirm gives the action that needs to be done when the button is pressed in the modal.
+     * @author Jasper Fernhout
+     */
     showConfirmModal(cancelOrConfirm) {
       if (cancelOrConfirm === "confirm") {
         if (this.accountCopy.loggedIn === true && this.accountCopy.role === "ImageMaker" && this.currentAccount.role === "admin") {
@@ -179,9 +239,23 @@ export default {
         this.showModal = true;
       }
     },
+    /**
+     * This method will be called if the x button is pressed in the modal.
+     * The modal will close afterwards.
+     *
+     * @author Jasper Fernhout
+     */
     closeModal() {
       this.showModal = false;
     },
+    /**
+     * An event that will save a newly added account to the list and will send a request to the back end to save.
+     * Also an event that will update an already existing account in the front end and will send a request to the back end.
+     * And a method that will delete an account in the front end and will send a delete request to the back end.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     performAction() {
       if (this.action === "confirm") {
         this.saveEvent();
@@ -191,6 +265,11 @@ export default {
         this.closeModal();
       }
     },
+    /**
+     * Method that will close the confirmation modal when the cancel button is clicked.
+     *
+     * @author Jasper Fernhout
+     */
     cancelAction() {
       this.closeModal();
     }

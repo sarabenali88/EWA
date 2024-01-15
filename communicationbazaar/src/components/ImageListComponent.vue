@@ -151,7 +151,7 @@
   <div class="ms-lg-5">
     <router-view></router-view>
     <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
-            :class="{'hiddenButton': accounts.some(account => account.loggedIn) === false}">
+            :class="{'hiddenButton': !this.sessionService._currentToken}">
       {{$t('addImage.buttonAdd')}}
     </button>
   </div>
@@ -160,7 +160,7 @@
 <script>
 export default {
   name: "ImageListComponent",
-  inject: ["accountsService", "imagesService"],
+  inject: ["accountsService", "imagesService", "sessionService"],
   emits: ["save-event"],
   components: {},
   async created() {
@@ -168,7 +168,7 @@ export default {
 
     this.images = await this.imagesService.asyncFindAll();
     this.accounts = await this.accountsService.asyncFindAll();
-    this.account = this.accounts.find(account => account.loggedIn)
+    this.account = this.sessionService._currentAccount;
 
     this.amountOfImages();
   },
@@ -189,6 +189,7 @@ export default {
       selectedStatus: this.allImagesStatus,
       accounts: [],
       account: null,
+      sessionService: this.sessionService
     }
   },
   methods: {

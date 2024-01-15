@@ -12,19 +12,23 @@
                 {{ alertMessage }}
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
-              <input v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text" class="form-control form-control-lg"/>
+              <input id="personalNumberField" v-model="personalNumber" @keyup.enter="checkInputSignIn" type="text"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="password" @keyup.enter="checkInputSignIn" type="password" class="form-control form-control-lg"/>
+              <input id="passwordField" v-model="password" @keyup.enter="checkInputSignIn" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.password') }}</label>
             </div>
 
-            <button @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
-              {{ $t('signIn.logInButton') }}</button>
+            <button id="loginButton" @click="checkInputSignIn" class="btn btn-danger btn-lg " type="submit">
+              {{ $t('signIn.logInButton') }}
+            </button>
             <button @click="visibilitySwitch" class="btn btn-danger btn-lg m-1" type="submit">
-              {{ $t('signIn.newPassword') }}</button>
+              {{ $t('signIn.newPassword') }}
+            </button>
 
             <hr class="my-4">
           </div>
@@ -46,7 +50,8 @@
                 {{ alertMessage }}
                 <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
               </div>
-              <input v-model="personalNumber" @keyup.enter="checkInputNewPassword" type="text" class="form-control form-control-lg"/>
+              <input v-model="personalNumber" @keyup.enter="checkInputNewPassword" type="text"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typeEmailX-2">{{ $t('signIn.employeeNumber') }}</label>
             </div>
 
@@ -56,19 +61,23 @@
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="newPassword" @input="checkRegex" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
+              <input v-model="newPassword" @input="checkRegex" @keyup.enter="checkInputNewPassword" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.newPassword') }}</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input v-model="passwordRepeat" @keyup.enter="checkInputNewPassword" type="password" class="form-control form-control-lg"/>
+              <input v-model="passwordRepeat" @keyup.enter="checkInputNewPassword" type="password"
+                     class="form-control form-control-lg"/>
               <label class="form-label" for="typePasswordX-2">{{ $t('signIn.passwordRepeat') }}</label>
             </div>
 
             <button @click="checkInputNewPassword" class="btn btn-danger btn-lg" type="submit">
-              {{ $t('signIn.passwordChange') }}</button>
+              {{ $t('signIn.passwordChange') }}
+            </button>
             <button @click="visibilitySwitch" class="btn btn-danger btn-lg m-1" type="submit">
-              {{ $t('signIn.logInButton') }}</button>
+              {{ $t('signIn.logInButton') }}
+            </button>
 
             <hr class="my-4">
           </div>
@@ -89,7 +98,7 @@ import NavBar from "@/components/NavBarComponent";
 
 export default {
   name: "SignInComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   data() {
     return {
       accounts: [],
@@ -102,33 +111,40 @@ export default {
       showAlert: false,
       alertMessage: '',
       visible: true,
-      isMatch: false
+      isMatch: false,
+      sessionService: this.sessionService
     }
   },
   async created() {
     this.accounts = await this.accountsService.asyncFindAll();
   },
   methods: {
+    /**
+     * When a user wants to sign in, this method will be called.
+     * It will check if the personalNumber and password connect with each other.
+     * If that is true, the page will go to the homepage.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async checkInputSignIn() {
-      if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
+      this.dismissAlert();
+      this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
+      if (this.account == null) {
         this.displayAlert(this.$t('signIn.wrongPersMessage'));
-      } else if (this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
-        this.account = this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber));
-        if (!this.password) {
-          this.displayAlert(this.$t('signIn.wrongPassMessage'));
-        } else if (!await this.accountsService.verifyPassword(this.personalNumber, this.password)) {
-          this.displayAlert(this.$t('signIn.wrongPassMessage'));
-        } else if (this.account.password === "welkom") {
-          this.password = "";
-          this.visibilitySwitch();
-        }else {
-          NavBar.methods.setCurrentContent('contentImage')
-          this.account.loggedIn = true;
-          await this.accountsService.asyncSave(this.account);
-          this.$router.push(NavBar.data().homeRoute);
-        }
+      } else {
+        NavBar.methods.setCurrentContent('contentImage')
+        this.$router.push(NavBar.data().homeRoute);
       }
     },
+    /**
+     * This method will be called when a user wants to make a new password.
+     * All the information will be checked when an account is found with the right personalNumber.
+     * If everything is correct, the user will be granted with the newly created password.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async checkInputNewPassword() {
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.displayAlert(this.$t('signIn.wrongPersMessage'));
@@ -142,7 +158,7 @@ export default {
           this.displayAlert(this.$t('signIn.passwordCheck'));
         } else if (this.newPassword !== this.passwordRepeat) {
           this.displayAlert(this.$t('signIn.passwordWrongRepeat'));
-        }else {
+        } else {
           this.account.password = this.newPassword;
           await this.accountsService.asyncSave(this.account);
           this.dismissAlert();
@@ -153,30 +169,55 @@ export default {
         }
       }
     },
+    /**
+     * This regex is checked when the newly chosen password is being made.
+     * The password has to have at least one uppercase, a digit and a special character, witb a min length of 8.
+     * (?=.*[A-Z]): Requires at least one uppercase letter.
+     * (?=.*\d): Requires at least one digit.
+     * [A-Za-z\d@$!%*#?&]{8,}: Matches any combination of uppercase/lowercase letters, digits, and specified special characters, with a minimum length of 8 characters.
+     *
+     * @author Jasper Fernhout
+     */
     checkRegex() {
-      // (?=.*[A-Z]): Requires at least one uppercase letter.
-      // (?=.*\d): Requires at least one digit.
-      // [A-Za-z\d@$!%*#?&]{8,}: Matches any combination of uppercase/lowercase letters, digits, and specified special characters, with a minimum length of 8 characters.
+
       const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
 
       this.isMatch = passwordPattern.test(this.newPassword);
     },
+    /**
+     * A method for displaying an alert with the given message.
+     *
+     * @param message the message that will be shown.
+     * @author Jasper Fernhout
+     */
     displayAlert(message) {
       this.alertMessage = message;
       this.showAlert = true;
     },
+    /**
+     * A message to close an alert when it is open.
+     *
+     * @author Jasper Fernhout
+     */
     dismissAlert() {
       this.showAlert = false;
       this.alertMessage = '';
     },
-    visibilitySwitch(){
+    /**
+     * This is a method that will change the view.
+     * This switch will determine with view is on the page.
+     * The view is either of signing in or choosing a new password.
+     *
+     * @author Jasper Fernhout
+     */
+    visibilitySwitch() {
       if (this.visible === true) {
         this.visible = false;
       } else if (this.visible === false) {
         this.visible = true
       }
     }
-  },
+  }
 }
 
 
@@ -185,7 +226,7 @@ export default {
 <style scoped>
 
 
-.activeContainer{
+.activeContainer {
   display: none;
 }
 

@@ -65,12 +65,9 @@
  *
  * @author Jasper Fernhout
  */
-
-import NavBar from "@/components/NavBarComponent";
-
 export default {
   name: "AccountComponent",
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.createInformation();
@@ -103,13 +100,7 @@ export default {
   },
   methods: {
     async createInformation() {
-      this.accounts = await this.accountsService.asyncFindAll();
-      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
-      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn) {
-        this.$router.push(NavBar.data().signInRoute);
-      } else {
-        this.setInformation();
-      }
+      this.loggedInAccount = this.sessionService._currentAccount
     },
     setInformation() {
       this.name = this.loggedInAccount.name;

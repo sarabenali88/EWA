@@ -94,7 +94,7 @@
     "logInButton": "Inloggen",
     "loggedInMessage": "Ingelogd",
     "wrongPassMessage": "Verkeerd wachtwoord",
-    "wrongPersMessage": "Personeelsnummer is verkeerd",
+    "wrongPersMessage": "Kan geen authorisatie verlenen",
     "newPassword": "Nieuw wachtwoord",
     "passwordCheck": "Wachtwoord moet minimaal 8 karakters zijn met een hoofdletter en een cijfer."
   },
@@ -110,7 +110,8 @@
     "lastHalfYear": "Laatste half jaar"
   },
   "header":{
-    "placeholder": "Zoek voor image"
+    "placeholder": "Zoek voor image",
+    "placeholderLaptop": "Zoek voor laptop"
   },
   "navbar": {
     "home": "Home",
@@ -149,6 +150,7 @@
     "processor": "Processor",
     "editMessage": "Laptop met EAN: ",
     "alertMessage": "Vul alsjeblieft alle invoervelden in!",
-    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd."
+    "confirmMessage": "Weet u zeker dat u deze laptop wil verwijderen? Alle images voor deze laptop worden ook verwijderd.",
+    "import": "Importeren"
   }
 }

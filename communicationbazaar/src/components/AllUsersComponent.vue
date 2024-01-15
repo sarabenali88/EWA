@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <h1>{{$t('adminPanel.headTitle')}}</h1>
+    <h1>{{ $t('adminPanel.headTitle') }}</h1>
     <div v-if="showAlert" class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
       {{ alertMessage }}
       <button type="button" class="btn-close" @click="dismissAlert" aria-label="Close"></button>
@@ -12,54 +12,63 @@
       </router-view>
     </div>
 
-  <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">{{$t('adminPanel.addUser')}}</button>
+    <button class="btn btn-secondary btn-round" id="addButton" @click="addAccount()">{{ $t('adminPanel.addUser') }}
+    </button>
 
-  <div class="container-fluid p-3">
-    <ul>
-      <li v-for="account in accounts" :key="account.personalNumber">
-        <div class="col-xl-6 col-lg-7 col-md-12">
-          <div class="card profile-header">
-            <div class="body">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                  <img class="w-50 rounded-circle mt-4 m-lg-4" src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                       alt="">
-                </div>
-                <div class="col-lg-8 col-md-8 col-12">
-                  <h4 class="m-t-0 m-b-0"><strong>{{ account.name }}</strong></h4>
-                  <p class="job_post">{{ account.role }}</p>
-                  <p class="job_post">{{ account.email }}</p>
-                  <p class="job_post">{{ account.location }}</p>
-                  <div>
-                    <button class="btn btn-secondary btn-round" @click="updateAccount(account)">{{$t('adminPanel.editButton')}}</button>
-                    <button class="btn btn-danger btn-round" @click="deleteAccount(account)">{{$t('adminPanel.deleteButton')}}</button>
+    <div class="container-fluid p-3">
+      <ul>
+        <li v-for="account in accounts" :key="account.personalNumber">
+          <div class="col-xl-6 col-lg-7 col-md-12">
+            <div class="card profile-header">
+              <div class="body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-12">
+                    <img class="w-50 rounded-circle mt-4 m-lg-4"
+                         src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                         alt="">
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h4 class="m-t-0 m-b-0"><strong>{{ account.name }}</strong></h4>
+                    <p class="job_post">{{ account.role }}</p>
+                    <p class="job_post">{{ account.email }}</p>
+                    <p class="job_post">{{ account.location }}</p>
+                    <div>
+                      <button class="btn btn-secondary btn-round" @click="updateAccount(account)">
+                        {{ $t('adminPanel.editButton') }}
+                      </button>
+                      <button class="btn btn-danger btn-round" @click="deleteAccount(account)">
+                        {{ $t('adminPanel.deleteButton') }}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+        </li>
+      </ul>
+    </div>
 
-  <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{$t('adminPanel.confirmation')}}</h5>
-          <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>{{$t('adminPanel.confirmMessage')}}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cancelAction()">{{$t('adminPanel.cancelButton')}}</button>
-          <button type="button" class="btn btn-success" @click="performAction()">{{$t('adminPanel.okButton')}}</button>
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ $t('adminPanel.confirmation') }}</h5>
+            <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ $t('adminPanel.confirmMessage') }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="cancelAction()">
+              {{ $t('adminPanel.cancelButton') }}
+            </button>
+            <button type="button" class="btn btn-success" @click="performAction()">{{ $t('adminPanel.okButton') }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -77,7 +86,7 @@ export default {
   name: "AllUsersComponent",
   components: UserDetailComponent,
 
-  inject: ["accountsService"],
+  inject: ["accountsService", "sessionService"],
   emits: ['cancelEvent', 'saveEvent'],
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -88,7 +97,6 @@ export default {
     return {
       accounts: [],
       selectedAccount: null,
-      loggedInAccount: undefined,
       showAlert: false,
       alertMessage: '',
       showModal: false,
@@ -109,14 +117,6 @@ export default {
     },
   },
   methods: {
-
-    //TODO deze methode werkt niet
-    findSelectedFromRouteParams(id) {
-      if (id > 0) {
-        return this.accounts.find(account => account.personalNumber === id);
-      }
-      return null;
-    },
 
     /**
      * Method that will open the window to update the information of an account.
@@ -182,7 +182,10 @@ export default {
       if (account.personalNumber === 0) {
         const newAccount = await this.accountsService.asyncSave(account);
         this.accounts.push(newAccount);
-        this.displayAlert(this.$t('adminPanel.newAccount', { name: newAccount.name, employeeNumber: newAccount.personalNumber }));
+        this.displayAlert(this.$t('adminPanel.newAccount', {
+          name: newAccount.name,
+          employeeNumber: newAccount.personalNumber
+        }));
         this.$router.push(NavBarComponent.data().allUsersRoute);
       } else {
         const updatedData = JSON.parse(JSON.stringify(account));
@@ -214,8 +217,7 @@ export default {
      */
     async createInformation() {
       this.accounts = await this.accountsService.asyncFindAll();
-      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
-      if (!this.loggedInAccount || this.loggedInAccount.loggedIn && this.loggedInAccount.role === "ImageMaker") {
+      if (!this.sessionService.isAuthenticated() || this.sessionService.isAuthenticatedAndImageMaker()) {
         this.$router.push(NavBar.data().homeRoute);
       }
     },
@@ -259,6 +261,12 @@ export default {
         this.showModal = true;
       }
     },
+    /**
+     * This method will be called if the x button is pressed in the modal.
+     * The modal will close afterwards.
+     *
+     * @author Jasper Fernhout
+     */
     closeModal() {
       this.showModal = false;
     },
@@ -284,13 +292,13 @@ export default {
         const indexToDelete = this.accounts.indexOf(this.accounts.find((account) => account.personalNumber === this.confirmAccount.personalNumber));
         this.accounts.splice(indexToDelete, 1);
         await this.accountsService.asyncDeleteById(this.confirmAccount.personalNumber);
-        this.displayAlert(this.$t('adminPanel.deleteUser', {name :this.confirmAccount.name}));
+        this.displayAlert(this.$t('adminPanel.deleteUser', {name: this.confirmAccount.name}));
         this.closeModal();
       }
     },
 
     /**
-     * Method that will close the confirmation modal when the close button is clicked.
+     * Method that will close the confirmation modal when the cancel button is clicked.
      *
      * @author Jasper Fernhout
      */
@@ -334,6 +342,7 @@ li {
   }
 
 }
+
 #alert {
   margin-left: 40px;
   margin-right: 30px;

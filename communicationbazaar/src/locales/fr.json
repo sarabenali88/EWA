@@ -94,7 +94,7 @@
     "logInButton": "Se connecter",
     "loggedInMessage": "Connecté",
     "wrongPassMessage": "Mot de passe erroné",
-    "wrongPersMessage": "Le numéro de personnel est erroné",
+    "wrongPersMessage": "Impossible de s'authentifier avec les informations d'identification fournies",
     "newPassword": "Nouveau mot de passe",
     "passwordCheck": "Le mot de passe doit comporter au moins 8 caractères avec une lettre majuscule et un chiffre."
   },
@@ -151,6 +151,7 @@
     "processor": "Processeur",
     "editMessage": "Ordinateur portable avec EAN: ",
     "alertMessage": "Veuillez remplir tous les champs de saisie !",
-    "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées."
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet ordinateur portable ? Toutes les images de cet ordinateur portable seront également supprimées.",
+    "import": "Importer"
   }
 }
