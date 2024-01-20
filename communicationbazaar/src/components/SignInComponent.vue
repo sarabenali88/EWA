@@ -120,13 +120,17 @@ export default {
   },
   methods: {
     async checkInputSignIn() {
-      this.dismissAlert();
-      this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
-      if (this.account == null) {
-        this.displayAlert(this.$t('signIn.wrongPersMessage'));
+      if (this.password === 'welkom') {
+        this.visibilitySwitch();
       } else {
-        NavBar.methods.setCurrentContent('contentImage')
-        this.$router.push(NavBar.data().homeRoute);
+        this.dismissAlert();
+        this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
+        if (this.account == null) {
+          this.displayAlert(this.$t('signIn.wrongPersMessage'));
+        } else {
+          NavBar.methods.setCurrentContent('contentImage')
+          this.$router.push(NavBar.data().homeRoute);
+        }
       }
     },
     async checkInputNewPassword() {
@@ -147,6 +151,7 @@ export default {
           await this.accountsService.asyncSave(this.account);
           this.dismissAlert();
           this.newPassword = "";
+          this.password = "";
           this.passwordRepeat = "";
           this.email = "";
           this.visibilitySwitch();

@@ -6,7 +6,7 @@
     <div v-if="selectedImage">
       <div class="card card-body">
         <router-view
-          @delete-image="deleteImage()" @save-image="saveImage" v-on:refresh="this.onRefresh()">
+           v-on:refresh="this.onRefresh()">
         </router-view>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <th scope="col">{{$t('allImages.date')}}</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="image-tb-body">
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td>{{ image.name }}</td>
@@ -40,7 +40,8 @@
   <div class="container-fluid p-3 overflow-auto mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view>
+        <router-view
+            v-on:refresh="this.onRefresh()">
 
         </router-view>
       </div>
@@ -54,7 +55,7 @@
         <th scope="col">{{$t('allImages.date')}}</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="image-tb-body-mobile">
       <tr v-for="image of sortedItems" v-bind:key="image.id" v-on:click="setImage(image)">
         <td>{{ image.laptop.ean }}</td>
         <td v-if="image.imageMaker !== null">{{ image.imageMaker.name }}</td>
@@ -69,13 +70,11 @@
 </template>
 
 <script>
-import imageDetailComponent from "@/components/ImageDetailComponent";
 import { barcode } from './HeaderComponent.vue'
 
 export default {
   name: "allImagesComponent",
   inject: ["imagesService"],
-  components: imageDetailComponent,
   data() {
     return {
       images: [],

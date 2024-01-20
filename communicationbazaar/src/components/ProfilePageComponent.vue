@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col-sm-3">
                 <h3 class="mb-0">
-                  {{ name }}
+                  {{ this.sessionService._currentAccount.name }}
                 </h3>
               </div>
             </div>
@@ -19,7 +19,7 @@
                 <h6 class="mb-0 text-secondary">{{this.$t('profilePage.role')}}:</h6>
               </div>
               <div class="col-sm-9">
-                {{ role }}
+                {{ this.sessionService._currentAccount.role }}
               </div>
             </div>
             <div class="row">
@@ -27,7 +27,7 @@
                 <h6 class="mb-0 text-secondary">{{this.$t('profilePage.employeeNumber')}}:</h6>
               </div>
               <div class="col-sm-9">
-                {{ personalNumber }}
+                {{ this.sessionService._currentAccount.personalNumber }}
               </div>
             </div>
             <div class="row">
@@ -35,7 +35,7 @@
                 <h6 class="mb-0 text-secondary">{{this.$t('profilePage.location')}}:</h6>
               </div>
               <div class="col-sm-9">
-                {{ location }}
+                {{ this.sessionService._currentAccount.location }}
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ import NavBar from "@/components/NavBarComponent";
 export default {
   name: "ProfilePageComponent",
 
-  inject: ["accountsService", "imagesService"],
+  inject: ["accountsService", "imagesService", "sessionService"],
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.createInformation();
@@ -120,11 +120,12 @@ export default {
       accounts: [],
       loggedInAccount: undefined,
       images: [],
-      selectedImage: null
+      selectedImage: null,
+      sessionService: this.sessionService
     }
   },
   async created() {
-    this.createInformation();
+    await this.createInformation();
   },
   watch: {
     loggedInAccount: {
@@ -139,8 +140,8 @@ export default {
   methods: {
     async createInformation() {
       this.accounts = await this.accountsService.asyncFindAll();
-      this.loggedInAccount = this.accounts.find(account => account.loggedIn);
-      if (!this.loggedInAccount || !this.loggedInAccount.loggedIn) {
+      this.loggedInAccount = this.sessionService._currentAccount;
+      if (!this.loggedInAccount || !this.sessionService.isAuthenticated()) {
         this.$router.push(NavBar.data().signInRoute);
       } else {
         this.setInformation();

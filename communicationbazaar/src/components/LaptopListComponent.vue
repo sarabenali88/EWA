@@ -141,14 +141,12 @@
 </template>
 
 <script>
-import laptopDetailComponent from "@/components/LaptopDetailComponent";
 import * as XLSX from 'xlsx';
 import {Laptop} from "@/models/laptop";
 
 export default {
   name: "LaptopListComponent",
   inject: ['laptopsService', 'accountsService', 'sessionService'],
-  components: laptopDetailComponent,
   data() {
     return {
       laptops: [],

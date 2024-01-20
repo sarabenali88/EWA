@@ -228,7 +228,7 @@
 
             <li>
               <div
-                  :class="{'active-route': $route.path === statisticsRoute, 'hiddenButton': this.accounts.some(account => account.loggedIn) === false || this.accounts.some(account => account.loggedIn && account.role !== 'admin')}">
+                  :class="{'active-route': $route.path === statisticsRoute, 'hiddenButton': !this.sessionService._currentToken || this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" class="bi bi-image"
                      :class="{'active-icon': $route.path === statisticsRoute}" viewBox="0 0 16 16">
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>

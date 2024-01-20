@@ -2,7 +2,7 @@
 <div v-if="imageCopy">
   <div class="row justify-content-between">
     <div class="col-auto">
-      <h3>
+      <h3 id="image-laptop-name">
         {{imageCopy.laptop.brand}} {{imageCopy.laptop.description}}
       </h3>
     </div>
@@ -70,7 +70,7 @@
         </svg>
         {{ $t('imageDetail.date') }}:
       </div>
-      <div class="col-sm-auto">
+      <div class="col-sm-auto" id="image-date">
         {{imageCopy.upDateDate}}
       </div>
     </div>
