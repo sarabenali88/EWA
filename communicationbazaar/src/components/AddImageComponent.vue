@@ -4,8 +4,8 @@
       <label class="col-3" for="ean">{{ $t('addImage.eanNumber') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <select v-model="selectedLaptop" class="form-control">
-            <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop">
+          <select  id="selectedLaptopField" v-model="selectedLaptop" class="form-control">
+            <option v-for="laptop in laptops" :key="laptop.ean" :value="laptop" >
               {{ laptop.ean }}
             </option>
           </select>
@@ -18,7 +18,7 @@
       <label class="col-3" for="start">{{ $t('addImage.ReadyToUseVersion') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="text" class="form-control" v-model.trim="startVersion"/>
+          <input id="startVersionField" type="text" class="form-control" v-model.trim="startVersion"/>
         </div>
         <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
@@ -28,7 +28,7 @@
       <label class="col-3" for="image">{{ $t('addImage.imageName') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="text" class="form-control" v-model.trim="imageName"/>
+          <input id="imageNameField" type="text" class="form-control" v-model.trim="imageName"/>
         </div>
         <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
@@ -38,7 +38,7 @@
       <label class="col-3" for="status">{{ $t('addImage.status') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input class="form-control" v-model="statusImage" readonly>
+          <input id="statusImageField" class="form-control" v-model="statusImage" readonly>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
       <label class="col-3" for="date">{{ $t('addImage.date') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input :min="getToday()" type="date" class="form-control" v-model="date"/>
+          <input id="dateField" :min="getToday()" type="date" class="form-control" v-model="date"/>
         </div>
         <div class="error" v-if="invalid === true">{{ $t('addImage.alertEmpty') }}</div>
       </div>
@@ -57,14 +57,14 @@
       <label class="col-3" for="week">{{ $t('addImage.week') }}</label>
       <div class="col-5">
         <div class="input-group">
-          <input type="week" class="form-control" v-model="week" readonly/>
+          <input id="weekField" type="week" class="form-control" v-model="week" readonly/>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-danger w-25" @click="modalShow">{{ $t('addImage.buttonSave') }}</button>
+        <button id="save-button" class="btn btn-danger w-25" @click="modalShow">{{ $t('addImage.buttonSave') }}</button>
       </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" style="display: block;" v-if="showModal">
@@ -79,7 +79,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeModal()">{{ $t('adminPanel.cancelButton')}}</button>
-            <button type="button" class="btn btn-danger" @click="onSave()">{{ $t('addImage.buttonSave') }}</button>
+            <button type="button" id="save-image-button"
+                    class="btn btn-danger" @click="onSave()">{{ $t('addImage.buttonSave') }}</button>
           </div>
         </div>
       </div>

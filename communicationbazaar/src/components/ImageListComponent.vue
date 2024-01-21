@@ -150,7 +150,7 @@
 
   <div class="ms-lg-5">
     <router-view></router-view>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
+    <button id="add-button" type="button" class="btn btn-danger" @click="$router.push('/addImage')"
             :class="{'hiddenButton': !this.sessionService._currentToken}">
       {{$t('addImage.buttonAdd')}}
     </button>

@@ -1,3 +1,7 @@
+/**
+ * Test for Image repository
+ * @author Sara Benali
+ */
 package app.repositories;
 
 import app.models.Image;
@@ -32,6 +36,10 @@ public class ImagesRepositoryTest {
         this.someImages = this.imageRepo.findAll();
     }
 
+    /**
+     * This test tests that an image can be created and can be deleted
+     * @author Sara Benali
+     */
     @Test
     public void savesAndDeletesImage() {
         Laptop newLaptop = new Laptop(1770000, 2000016316124L, "ASUS",
@@ -39,7 +47,7 @@ public class ImagesRepositoryTest {
                 "GeForce RTX 3050", "15.6 inch", "39.6 cm", "WIN11", 500
         );
         Image newImage = new Image(
-                1007, newLaptop, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.FINISHED,
+                0, newLaptop, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.FINISHED,
                 Image.Release.NEW, Image.Problem.NO, 51, 2023, "testing123", null
         );
 

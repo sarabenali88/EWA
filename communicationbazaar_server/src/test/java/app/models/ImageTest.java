@@ -1,11 +1,12 @@
+/**
+ * Test for Image modal
+ * @author Sara Benali
+ */
 package app.models;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 
 public class ImageTest {
 
@@ -16,6 +17,10 @@ public class ImageTest {
         image2 = new Image();
     }
 
+    /**
+     * This test tests that two images are not the same when they are created
+     * @author Sara Benali
+     */
     @Test
     public void createSampleImageTest(){
         image1 = Image.createSampleImage(1000);

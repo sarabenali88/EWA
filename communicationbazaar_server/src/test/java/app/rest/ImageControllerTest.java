@@ -1,3 +1,7 @@
+/**
+ * Test for Image Controller
+ * @author Sara Benali
+ */
 package app.rest;
 import app.models.Image;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +26,10 @@ public class ImageControllerTest {
 
     }
 
+    /**
+     * This method tests that a new image can be created and that it can be updated
+     * @author Sara Benali
+     */
     @Test
     public void addAndUpdateOneImage() {
         ResponseEntity<Image> response =

@@ -1,3 +1,7 @@
+/**
+ * Test for Laptop Repository
+ * @author Sara Benali
+ */
 package app.repositories;
 
 import app.models.Image;
@@ -42,6 +46,10 @@ public class LaptopRepositoryTest {
 
     }
 
+    /**
+     * This test tests that all the laptops are found and checks if a new created laptop has images
+     * @author Sara Benali
+     */
    @Test
     public void findsAllLaptopsAndChecksImages(){
         laptopRepo.save(laptop1);

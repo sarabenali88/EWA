@@ -111,7 +111,8 @@
   },
   "header":{
     "placeholder": "Zoek voor image",
-    "placeholderLaptop": "Zoek voor laptop"
+    "placeholderLaptop": "Zoek voor laptop",
+    "scan": "Scan voor een image"
   },
   "navbar": {
     "home": "Home",

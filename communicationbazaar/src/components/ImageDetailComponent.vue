@@ -12,8 +12,8 @@
                      type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
-      <button :class="{'hiddenButton': !this.sessionService._currentToken}"
-                     type="button" class="btn btn-outline-secondary" @click="onChange()">
+      <button  :class="{'hiddenButton': !this.sessionService._currentToken}"
+                     type="button" class="edit-button btn btn-outline-secondary" @click="onChange()">
         {{$t('imageDetail.editButton')}}
       </button>
     </div>
@@ -129,7 +129,8 @@
           <div class="col-auto">
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
+            <button type="button" id="save-button"
+                    class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
             </button>
             <button type="button" class="btn btn-outline-danger" @click="onChange()">{{$t('imageDetail.closeButton')}}
             </button>

@@ -40,4 +40,5 @@ export class Account {
             false // Assuming initially not logged in
         );
     }
+
 }

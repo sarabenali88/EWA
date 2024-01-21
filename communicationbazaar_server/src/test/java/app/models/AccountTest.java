@@ -1,3 +1,7 @@
+/**
+ * Test for Account modal
+ * @author Sara Benali
+ */
 package app.models;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +27,10 @@ public class AccountTest {
                 "nazeera_ibrahim@gmail.com", "admin", "Rotterdam", Account.LOGGEDIN.TRUE);
     }
 
+    /**
+     * This test tests the association and disassociation of images to an account
+     * @author Sara Benali
+     */
     @Test
     public void associatesAndDisassociatesImage(){
         assertTrue(account1.getImages().isEmpty());

@@ -20,7 +20,7 @@
       <!-- Test button since for devices with no camera's-->
 <!--      <button type="button" class="btn btn-danger m-lg-3" @click="onDecode('1961881940030')">Test Btn</button>-->
       <!-- button for BarcodeScanner code-->
-      <button type="button" class="btn btn-danger m-lg-3" @click="toggleStreamBarcodeReader">Scan for an image</button>
+      <button type="button" class="btn btn-danger m-lg-3" @click="toggleStreamBarcodeReader">{{$t('header.scan')}}</button>
       <!-- BarcodeScanner in modal pop up-->
       <div v-if="showModal" class="modal">
         <div class="modal-content">
