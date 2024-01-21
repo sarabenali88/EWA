@@ -4,12 +4,13 @@ import { reactive } from "vue";
 import i18n from "@/i18n";
 import { createMemoryHistory, createRouter } from "vue-router";
 import allImagesComponent from "@/components/allImagesComponent";
+import WelcomeComponent from "@/components/WelcomeComponent";
 
 let wrapper;
 const mockRoutes = [
     {
         path: '/',
-        component: allImagesComponent
+        component: WelcomeComponent
     },
 ];
 
