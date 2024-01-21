@@ -1,12 +1,20 @@
 package app.models;
 
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for our relation between Image and Account
+ *
+ * @author Jonathan
+ */
 public class AccountTest {
 
+    /**
+     * A test that checks whether you can associate an Image
+     */
     @Test
     public void testAssociateImage() {
         Account account = Account.createSampleAccount();
@@ -17,6 +25,9 @@ public class AccountTest {
         assertEquals(account, image.getImageMaker());
     }
 
+    /**
+     * A test that checks whether you can dissociate an Image
+     */
     @Test
     public void testDissociateImage() {
         Account account = Account.createSampleAccount();
@@ -29,6 +40,9 @@ public class AccountTest {
         assertNull(image.getImageMaker());
     }
 
+    /**
+     * A test that checks whether you can associate an Image twice
+     */
     @Test
     public void testAssociateImageTwice() {
         Account account = Account.createSampleAccount();
@@ -41,6 +55,9 @@ public class AccountTest {
         assertEquals(account, image.getImageMaker());
     }
 
+    /**
+     * A test that checks whether you can dissociate a non associated image.
+     */
     @Test
     public void testDissociateNonAssociatedImage() {
         Account account = Account.createSampleAccount();

@@ -14,6 +14,11 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for our relation between Image and Account
+ *
+ * @author Jonathan
+ */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class RelationControllerTest {
 
@@ -78,7 +83,7 @@ public class RelationControllerTest {
         assertNotNull(reponseCorrectImage.getBody());
         assertEquals(1, reponseCorrectImage.getBody().length);
         assertEquals(savedImage.getId(), reponseCorrectImage.getBody()[0].getId());
-        assertEquals(savedImage.getImageMaker().getName(), reponseCorrectImage.getBody()[0].getImageMaker().getName());
+        assertEquals(savedImage.getImageMaker().getPersonalNumber(), reponseCorrectImage.getBody()[0].getImageMaker().getPersonalNumber());
 
     }
 
