@@ -8,7 +8,7 @@ import allImagesComponent from "@/components/allImagesComponent";
 let wrapper;
 const mockRoutes = [
     {
-        path: '/imageListRoute/allImages',
+        path: '/',
         component: allImagesComponent
     },
 ];
@@ -48,14 +48,10 @@ const mockImages = [
 ];
 
 beforeEach(async function () {
-    const history = createMemoryHistory();
     const router = createRouter({
-        history,
+        history: createMemoryHistory(),
         routes: mockRoutes,
-    });
-
-    // Set the initial route
-    history.push('/imageListRoute/allImages');
+    })
 
     const imagesService = new ImagesAdaptor("http://localhost:8086/api");
 
