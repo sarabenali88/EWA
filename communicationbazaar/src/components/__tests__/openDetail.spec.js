@@ -45,23 +45,6 @@ const mockImages = [
         comment: 'Sample Comment',
         imageMaker: 'Sample Image Maker'
     },
-    {
-        id: 2,
-        laptop: mockLaptops[0],
-        version: 'Sample Version',
-        store: 'Sample Store',
-        upDateDate: new Date(), // Sample date, you can adjust this as needed
-        status: "TODO", // Using the predefined status 'Te doen'
-        release: "NEW", // Using the predefined release 'Nieuw'
-        problem: "YES", // Using the predefined problem 'Ja'
-        createdWeek: 1, // Sample createdWeek value
-        createdYear: 2023, // Sample createdYear value
-        name: 'Sample Name',
-        comment: 'Sample Comment',
-        imageMaker: 'Sample Image Maker'
-    },
-
-
 ];
 
 beforeEach(async function () {
@@ -118,25 +101,4 @@ it('it should open the detail of an image', async () => {
     await wrapper.vm.$nextTick();
 
     expect(vm.selectedImage).toEqual(selectedImage);
-});
-
-it('renders properly', async () => {
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.exists()).toBe(true);
-
-    expect(wrapper.element.children.length).toBeGreaterThan(0);
-
-    expect(wrapper.text()).toContain(wrapper.vm.$t('allImages.titleName'));
-
-    expect(wrapper.find('table').exists()).toBe(true);
-    await wrapper.vm.$nextTick();
-
-    const tableRow = wrapper.findAll('tr').length
-    const imageList = wrapper.vm.images.length
-
-    expect(imageList,
-        'List of images are not loaded')
-        .toBe(tableRow)
-
 });

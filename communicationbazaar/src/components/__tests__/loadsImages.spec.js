@@ -4,87 +4,43 @@ import { reactive } from "vue";
 import i18n from "@/i18n";
 import { createMemoryHistory, createRouter } from "vue-router";
 import WelcomeComponent from "@/components/WelcomeComponent";
+import {Account} from "@/models/Account";
+import {Laptop} from "@/models/laptop";
+import {Image} from "@/models/Image";
 
 let wrapper;
+let laptop1;
+let account1;
+let image1, image2;
+
 const mockRoutes = [
     {
-        path: '/home',
+        path: '/',
         component: WelcomeComponent
     },
 ];
 
-const mockLaptops = [
-    {
-        articleNumber: "1637763",
-        ean: "4710180623840",
-        brand: "ACER",
-        description: "SWIFT 5 SF515-51T-500N",
-        processor: "Intel Core i5-8265U",
-        ram: "8 GB",
-        storage: "512 GB + 512 GB",
-        gpu: "UHD Graphics 620",
-        sizeInch: "15.6 inch",
-        sizeCm: "39.6 cm",
-        os: "WIN11",
-        prize: "500",
-    },
-];
-const mockImages = [
-    {
-        id: 1,
-        laptop: mockLaptops[0],
-        version: 'Sample Version',
-        store: 'Sample Store',
-        upDateDate: new Date(), // Sample date, you can adjust this as needed
-        status: "TODO", // Using the predefined status 'Te doen'
-        release: "NEW", // Using the predefined release 'Nieuw'
-        problem: "YES", // Using the predefined problem 'Ja'
-        createdWeek: 1, // Sample createdWeek value
-        createdYear: 2023, // Sample createdYear value
-        name: 'Sample Name',
-        comment: 'Sample Comment',
-        imageMaker: 'Sample Image Maker'
-    },
-    {
-        id: 2,
-        laptop: mockLaptops[0],
-        version: 'Sample Version',
-        store: 'Sample Store',
-        upDateDate: new Date(), // Sample date, you can adjust this as needed
-        status: "TODO", // Using the predefined status 'Te doen'
-        release: "NEW", // Using the predefined release 'Nieuw'
-        problem: "YES", // Using the predefined problem 'Ja'
-        createdWeek: 1, // Sample createdWeek value
-        createdYear: 2023, // Sample createdYear value
-        name: 'Sample Name',
-        comment: 'Sample Comment',
-        imageMaker: 'Sample Image Maker'
-    },
-
-
-];
-
 beforeEach(async function () {
-    const history = createMemoryHistory();
+    account1 = new Account(1, 1, 1, 1, 1, 1, false)
+    laptop1 = new Laptop(1, 1000, "Brand", "Desc", 'Processor', "RAM", "Storage", "GPU", 10, 20, "OS", 100)
+    image1 = new Image(1, laptop1, 1, 1, '2024-01-15', Image.Status.TODO, Image.Release.NEW, null, 1, 2024, "Image", "", account1)
+    image2 = Image.createSampleImage(image1.id + 1)
+
     const router = createRouter({
-        history,
+        history: createMemoryHistory(),
         routes: mockRoutes,
-    });
+    })
 
-    // Set the initial route
-    history.push('/home');
-
-    const imagesService = new ImagesAdaptor("http://localhost:8086/api");
+    const mockImages = [image1, image2];
+    const imagesService = new ImagesAdaptor('http://localhost:8086/api');
 
     jest.spyOn(imagesService, "asyncFindAll").mockResolvedValue(mockImages);
-
-    jest.spyOn(imagesService, "asyncFindById")
-        .mockImplementation(async (id) => {
-            const foundImage = mockImages.find((image) => image.id === id);
-            return foundImage ? foundImage : null;
-        });
-
-    jest.spyOn(imagesService, "asyncSave")
+    jest.spyOn(imagesService, "asyncFindById").mockImplementation(async (id) => {
+        const foundImage = mockImages.find(image => image.id === id);
+        return foundImage ? foundImage : null;
+    });
+    jest
+        .spyOn(imagesService, "asyncSave")
         .mockImplementation(async (image) => {
             if (image.id === 0) {
                 image.id = mockImages.length + 1;
@@ -94,19 +50,17 @@ beforeEach(async function () {
                 return image;
             }
         });
-
-    jest.spyOn(imagesService, "asyncDeleteById")
-        .mockResolvedValue({ success: true });
+    jest.spyOn(imagesService, "asyncDeleteById").mockResolvedValue({success: true});
 
     wrapper = mount(WelcomeComponent, {
         global: {
             provide: {
-                imagesService: reactive(imagesService),
+                "imagesService": reactive(imagesService)
             },
-            plugins: [i18n, router],
-        },
+            plugins: [i18n, router]
+        }
     });
-});
+})
 
 it('renders properly', async () => {
     await wrapper.vm.$nextTick();
@@ -118,12 +72,14 @@ it('renders properly', async () => {
     expect(wrapper.text()).toContain(wrapper.vm.$t('home.finishedList'));
 
     expect(wrapper.find('table').exists()).toBe(true);
+
+    // Wait for the next tick to ensure the component has updated
     await wrapper.vm.$nextTick();
 
     const tableRow = wrapper.findAll('tr').length
-    const imageList = wrapper.vm.images.length
+    const allImages = wrapper.vm.images.length
 
-    expect(imageList,
+    expect(allImages,
         'List of images are not loaded')
         .toBe(tableRow)
 
