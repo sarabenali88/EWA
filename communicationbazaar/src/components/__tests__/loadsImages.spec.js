@@ -7,6 +7,7 @@ import WelcomeComponent from "@/components/WelcomeComponent";
 import {Account} from "@/models/Account";
 import {Laptop} from "@/models/laptop";
 import {Image} from "@/models/Image";
+import allImagesComponent from "@/components/allImagesComponent";
 
 let wrapper;
 let laptop1;
@@ -23,7 +24,7 @@ const mockRoutes = [
 beforeEach(async function () {
     account1 = new Account(1, 1, 1, 1, 1, 1, false)
     laptop1 = new Laptop(1, 1000, "Brand", "Desc", 'Processor', "RAM", "Storage", "GPU", 10, 20, "OS", 100)
-    image1 = new Image(1, laptop1, 1, 1, '2024-01-15', Image.Status.TODO, Image.Release.NEW, null, 1, 2024, "Image", "", account1)
+    image1 = new Image(1, laptop1, 1, 1, 1, Image.Status.TODO, Image.Release.NEW, null, 1, 2024, "Image", "", account1)
     image2 = Image.createSampleImage(image1.id + 1)
 
     const router = createRouter({
@@ -31,28 +32,27 @@ beforeEach(async function () {
         routes: mockRoutes,
     })
 
-    const mockImages = [image1, image2];
+    const mockedImages = [image1, image2];
     const imagesService = new ImagesAdaptor('http://localhost:8086/api');
 
-    jest.spyOn(imagesService, "asyncFindAll").mockResolvedValue(mockImages);
+    jest.spyOn(imagesService, "asyncFindAll").mockResolvedValue(mockedImages);
     jest.spyOn(imagesService, "asyncFindById").mockImplementation(async (id) => {
-        const foundImage = mockImages.find(image => image.id === id);
+        const foundImage = mockedImages.find(image => image.id === id);
         return foundImage ? foundImage : null;
     });
-    jest
-        .spyOn(imagesService, "asyncSave")
-        .mockImplementation(async (image) => {
-            if (image.id === 0) {
-                image.id = mockImages.length + 1;
-                return image;
-            } else {
-                mockImages.push(image);
-                return image;
-            }
-        });
+    jest.spyOn(imagesService, "asyncSave").mockImplementation(async (image) => {
+        if (image.id === 0) {
+            return {
+                id: 123, // Mocked ID for a newly saved image
+            };
+        }
+        return {
+            id: image.id,
+        };
+    });
     jest.spyOn(imagesService, "asyncDeleteById").mockResolvedValue({success: true});
 
-    wrapper = mount(WelcomeComponent, {
+    wrapper = mount(allImagesComponent, {
         global: {
             provide: {
                 "imagesService": reactive(imagesService)
@@ -62,6 +62,7 @@ beforeEach(async function () {
     });
 })
 
+
 it('renders properly', async () => {
     await wrapper.vm.$nextTick();
 
@@ -69,18 +70,21 @@ it('renders properly', async () => {
 
     expect(wrapper.element.children.length).toBeGreaterThan(0);
 
-    expect(wrapper.text()).toContain(wrapper.vm.$t('home.finishedList'));
+    expect(wrapper.text()).toContain(wrapper.vm.$t('allImages.titleName'));
 
     expect(wrapper.find('table').exists()).toBe(true);
 
     // Wait for the next tick to ensure the component has updated
     await wrapper.vm.$nextTick();
 
-    const tableRow = wrapper.findAll('tr').length
-    const allImages = wrapper.vm.images.length
+});
 
-    expect(allImages,
+it('should load all the images', function () {
+    const tableRow = wrapper.findAll('tr').length
+    const imageList = wrapper.vm.images.length
+
+    expect(imageList,
         'List of images are not loaded')
         .toBe(tableRow)
-
 });
+
