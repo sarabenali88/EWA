@@ -9,7 +9,7 @@ export class LaptopsAdaptor {
   resourcesUrl;
 
   constructor (resourcesUrl) {
-    this.resourcesUrl = resourcesUrl;
+    this.resourcesUrl = process.env.VUE_APP_API_URL + resourcesUrl;
   }
 
   async fetchJson (url, options = null) {
@@ -33,7 +33,7 @@ export class LaptopsAdaptor {
   }
 
   async asyncSave (laptop) {
-    const allLaptops = this.asyncFindAll();
+    const allLaptops = await this.asyncFindAll();
     for (const currentLaptop in allLaptops){
       if (currentLaptop.ean === laptop.ean){
         return this.fetchJson(this.resourcesUrl + '/' + laptop.ean,

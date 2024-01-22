@@ -110,7 +110,8 @@
     "lastHalfYear": "Last six months"
   },
   "header":{
-    "placeholder": "Search for image"
+    "placeholder": "Search for image",
+    "scan": "Scan for an image"
   },
   "navbar": {
     "home": "Home",

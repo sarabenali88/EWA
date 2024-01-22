@@ -40,11 +40,13 @@ public class APIConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern())
+                .allowedOriginPatterns("http://localhost:*", getHostIPAddressPattern(), "https://ewa-front-end-9z7b.onrender.com:*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
                 .exposedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
-                .allowCredentials(true);
+                .allowCredentials(true)
+                .allowedOrigins("https://back-end-ewa.onrender.com/api/images", "https://back-end-ewa.onrender.com/api/accounts",
+                        "https://back-end-ewa.onrender.com/api/laptops");
     }
 
     /**

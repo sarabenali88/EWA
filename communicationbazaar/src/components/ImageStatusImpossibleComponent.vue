@@ -106,10 +106,10 @@ export default {
       return null;
     },
     /**
-     * Method so only images with status IMPOSSIBLE get returned
-     * @author Rowin Schenk
+     * Method that filters the image status on impossible
      * @param image
-     * @returns {boolean}
+     * @return {boolean}
+     * @author Sara Benali
      */
     isCorrespondingStatus(image) {
       return image.status === "IMPOSSIBLE";
@@ -150,6 +150,12 @@ export default {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
     },
+    /**
+     * This method adds styling to the status column
+     * @param image
+     * @return {string}
+     * @author Sara Benali
+     */
     getStatusClass(image) {
       if (image.status === 'FINISHED') {
         return 'badge rounded-pill text-bg-danger';
