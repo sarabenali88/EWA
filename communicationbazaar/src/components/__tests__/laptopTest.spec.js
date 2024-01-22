@@ -1,6 +1,6 @@
 import WelcomeComponent from "@/components/WelcomeComponent";
 import {Laptop} from "@/models/laptop";
-import {createMemoryHistory, createRouter} from "vue-router";
+import {createMemoryHistory, createRouter, createWebHashHistory} from "vue-router";
 import {LaptopsAdaptor} from "@/services/LaptopsAdaptor";
 import {flushPromises, mount} from "@vue/test-utils";
 import {reactive} from "vue";
@@ -102,3 +102,36 @@ it('should delete a given laptop', async function () {
     expect(laptopsService.asyncDeleteById).toHaveBeenCalledWith(selectedLaptop.ean);
 
 });
+
+    it('should render all laptops page', () => {
+        expect(wrapper.html()).toContain("Alle Laptops");
+    });
+
+    it('should contain an input field with type="file"', () => {
+        const importButtonInput = wrapper.get('#allImportedFiles');
+        expect(importButtonInput).toBeDefined();
+
+        expect(importButtonInput.html()).toContain('type=\"file\"');
+    });
+
+    it('should contain a label with text "Importeren"', () => {
+        const importButtonLabel = wrapper.get('#importButtonLabel');
+        expect(importButtonLabel).toBeDefined();
+
+        expect(importButtonLabel.html()).toContain("Importeren");
+    });
+
+    it('should have an empty errorbox', () => {
+        const errorMessageFileImport = wrapper.get('#errorMessageFileImport');
+
+        expect(errorMessageFileImport.html()).toBeDefined();
+        expect(errorMessageFileImport.html()).toContain('text-danger');
+    });
+
+
+    it('should have an empty succesbox', () => {
+        const successMessageFileImport = wrapper.get('#successMessageFileImport');
+
+        expect(successMessageFileImport.html()).toBeDefined();
+        expect(successMessageFileImport.html()).toContain('text-dark');
+    });
