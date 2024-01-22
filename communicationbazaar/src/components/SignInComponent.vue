@@ -119,16 +119,36 @@ export default {
     this.accounts = await this.accountsService.asyncFindAll();
   },
   methods: {
+    /**
+     * When a user wants to sign in, this method will be called.
+     * It will check if the personalNumber and password connect with each other.
+     * If that is true, the page will go to the homepage.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async checkInputSignIn() {
-      this.dismissAlert();
-      this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
-      if (this.account == null) {
-        this.displayAlert(this.$t('signIn.wrongPersMessage'));
+      if (this.password === 'welkom') {
+        this.visibilitySwitch();
       } else {
-        NavBar.methods.setCurrentContent('contentImage')
-        this.$router.push(NavBar.data().homeRoute);
+        this.dismissAlert();
+        this.account = await this.sessionService.asyncSignIn(this.personalNumber, this.password);
+        if (this.account == null) {
+          this.displayAlert(this.$t('signIn.wrongPersMessage'));
+        } else {
+          NavBar.methods.setCurrentContent('contentImage')
+          this.$router.push(NavBar.data().homeRoute);
+        }
       }
     },
+    /**
+     * This method will be called when a user wants to make a new password.
+     * All the information will be checked when an account is found with the right personalNumber.
+     * If everything is correct, the user will be granted with the newly created password.
+     *
+     * @returns {Promise<void>}
+     * @author Jasper Fernhout
+     */
     async checkInputNewPassword() {
       if (!this.accounts.find(account => account.personalNumber === parseInt(this.personalNumber))) {
         this.displayAlert(this.$t('signIn.wrongPersMessage'));
@@ -147,28 +167,54 @@ export default {
           await this.accountsService.asyncSave(this.account);
           this.dismissAlert();
           this.newPassword = "";
+          this.password = "";
           this.passwordRepeat = "";
           this.email = "";
           this.visibilitySwitch();
         }
       }
     },
+    /**
+     * This regex is checked when the newly chosen password is being made.
+     * The password has to have at least one uppercase, a digit and a special character, witb a min length of 8.
+     * (?=.*[A-Z]): Requires at least one uppercase letter.
+     * (?=.*\d): Requires at least one digit.
+     * [A-Za-z\d@$!%*#?&]{8,}: Matches any combination of uppercase/lowercase letters, digits, and specified special characters, with a minimum length of 8 characters.
+     *
+     * @author Jasper Fernhout
+     */
     checkRegex() {
-      // (?=.*[A-Z]): Requires at least one uppercase letter.
-      // (?=.*\d): Requires at least one digit.
-      // [A-Za-z\d@$!%*#?&]{8,}: Matches any combination of uppercase/lowercase letters, digits, and specified special characters, with a minimum length of 8 characters.
+
       const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
 
       this.isMatch = passwordPattern.test(this.newPassword);
     },
+    /**
+     * A method for displaying an alert with the given message.
+     *
+     * @param message the message that will be shown.
+     * @author Jasper Fernhout
+     */
     displayAlert(message) {
       this.alertMessage = message;
       this.showAlert = true;
     },
+    /**
+     * A message to close an alert when it is open.
+     *
+     * @author Jasper Fernhout
+     */
     dismissAlert() {
       this.showAlert = false;
       this.alertMessage = '';
     },
+    /**
+     * This is a method that will change the view.
+     * This switch will determine with view is on the page.
+     * The view is either of signing in or choosing a new password.
+     *
+     * @author Jasper Fernhout
+     */
     visibilitySwitch() {
       if (this.visible === true) {
         this.visible = false;

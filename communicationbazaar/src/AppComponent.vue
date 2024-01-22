@@ -13,16 +13,15 @@
 
 import HeaderComponent from "@/components/HeaderComponent";
 import NavBarComponent from "@/components/NavBarComponent";
+import { ImagesAdaptor } from "@/services/ImagesAdaptor";
+import { LaptopsAdaptor } from "@/services/LaptopsAdaptor";
+import { AccountsAdaptor } from "@/services/AccountsAdaptor";
 import CONFIG from "@/app-config";
 import {shallowReactive} from 'vue'
-import {ImagesAdaptor} from "@/services/ImagesAdaptor";
-import {LaptopsAdaptor} from "@/services/LaptopsAdaptor";
-import {AccountsAdaptor} from "@/services/AccountsAdaptor";
 import {SessionSbService} from '@/services/SessionSbService';
 import { FetchAdaptor } from '@/services/FetchAdaptor';
 
 import "./main.css"
-
 export default {
   name: 'App',
   components: {
@@ -35,9 +34,9 @@ export default {
     )
     this.FetchAdaptor = new FetchAdaptor(this.SessionSbService, this.$router)
     return {
-      imagesService: new ImagesAdaptor(CONFIG.BACKEND_URL + '/images'),
-      laptopsService: new LaptopsAdaptor(CONFIG.BACKEND_URL + '/laptops'),
-      accountsService: new AccountsAdaptor(CONFIG.BACKEND_URL + '/accounts'),
+      imagesService: new ImagesAdaptor('/images'),
+      laptopsService: new LaptopsAdaptor('/laptops'),
+      accountsService: new AccountsAdaptor('/accounts'),
       sessionService: this.SessionSbService
     }
   },
@@ -46,7 +45,6 @@ export default {
 
   },
   unmounted() {
-    console.log('App.unmounted() has been called.')
     this.FetchAdaptor.unregister()
   }
 }

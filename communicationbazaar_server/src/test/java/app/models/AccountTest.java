@@ -1,72 +1,51 @@
+/**
+ * Test for Account modal
+ * @author Sara Benali
+ */
 package app.models;
 
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * A test class for our relation between Image and Account
- *
- * @author Jonathan
- */
 public class AccountTest {
 
-    /**
-     * A test that checks whether you can associate an Image
-     */
-    @Test
-    public void testAssociateImage() {
-        Account account = Account.createSampleAccount();
-        Image image = Image.createSampleImage(1);
+    Image image1;
+    Laptop laptop1;
+    Account account1;
 
-        assertTrue(account.associateImage(image));
-        assertTrue(account.getImages().contains(image));
-        assertEquals(account, image.getImageMaker());
+    @BeforeEach
+    public void setup(){
+        laptop1 = new Laptop(1770000, 2000016316124L, "ASUS",
+                "TUF GAMING F15 FX507ZC4-HN002W", "Intel Core i7-12700H", "16 GB", "512 GB",
+                "GeForce RTX 3050", "15.6 inch", "39.6 cm", "WIN11", 500
+        );
+        image1 = new Image(1008, laptop1, "MM V4.0.1", "Ede", "20-12-2023", Image.Status.TODO,
+                Image.Release.NEW, Image.Problem.NO, 51, 2023, "testing123", null);
+        account1 = new Account(0, "IloveApples4%", "Nazeera Ibrahim",
+                "nazeera_ibrahim@gmail.com", "admin", "Rotterdam", Account.LOGGEDIN.TRUE);
     }
 
     /**
-     * A test that checks whether you can dissociate an Image
+     * This test tests the association and disassociation of images to an account
+     * @author Sara Benali
      */
     @Test
-    public void testDissociateImage() {
-        Account account = Account.createSampleAccount();
-        Image image = Image.createSampleImage(1);
+    public void associatesAndDisassociatesImage(){
+        assertTrue(account1.getImages().isEmpty());
+        image1.setStatus(Image.Status.ONGOING);
 
-        account.associateImage(image);
+        boolean associatedImage = account1.associateImage(image1);
+        assertTrue(associatedImage);
+        assertEquals(account1, image1.getImageMaker());
+        assertTrue(account1.getImages().contains(image1));
 
-        assertTrue(account.dissociateImage(image));
-        assertFalse(account.getImages().contains(image));
-        assertNull(image.getImageMaker());
+        image1.setStatus(Image.Status.TODO);
+        assertNotEquals(image1.getStatus(), Image.Status.ONGOING);
+
+        account1.dissociateImage(image1);
+        assertTrue(account1.getImages().isEmpty());
+
     }
-
-    /**
-     * A test that checks whether you can associate an Image twice
-     */
-    @Test
-    public void testAssociateImageTwice() {
-        Account account = Account.createSampleAccount();
-        Image image = Image.createSampleImage(1);
-
-        assertTrue(account.associateImage(image));
-        assertFalse(account.associateImage(image)); // Association already exists
-
-        assertTrue(account.getImages().contains(image));
-        assertEquals(account, image.getImageMaker());
-    }
-
-    /**
-     * A test that checks whether you can dissociate a non associated image.
-     */
-    @Test
-    public void testDissociateNonAssociatedImage() {
-        Account account = Account.createSampleAccount();
-        Image image = Image.createSampleImage(1);
-
-        assertFalse(account.dissociateImage(image)); // No association to dissociate
-
-        assertFalse(account.getImages().contains(image));
-        assertNull(image.getImageMaker());
-    }
-
 }

@@ -31,6 +31,7 @@ public class Image {
     private String upDateDate;
     //@JsonView(ViewClasses.Summary.class)
     private Status status;
+    @Column(name = "release_status")
     private Release release;
     private Problem problem;
     private int createdWeek;

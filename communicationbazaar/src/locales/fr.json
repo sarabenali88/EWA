@@ -110,7 +110,8 @@
     "lastHalfYear": "Six derniers mois"
   },
   "header":{
-    "placeholder": "Recherche par image"
+    "placeholder": "Recherche par image",
+    "scan": "Recherche par un image"
   },
   "navbar": {
     "home": "Home",

@@ -2,7 +2,7 @@
 <div v-if="imageCopy">
   <div class="row justify-content-between">
     <div class="col-auto">
-      <h3>
+      <h3 id="image-laptop-name">
         {{imageCopy.laptop.brand}} {{imageCopy.laptop.description}}
       </h3>
     </div>
@@ -12,8 +12,8 @@
                      type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
-      <button :class="{'hiddenButton': !this.sessionService._currentToken}"
-                     type="button" class="btn btn-outline-secondary" @click="onChange()">
+      <button  :class="{'hiddenButton': !this.sessionService._currentToken}"
+                     type="button" class="edit-button btn btn-outline-secondary" @click="onChange()">
         {{$t('imageDetail.editButton')}}
       </button>
     </div>
@@ -70,7 +70,7 @@
         </svg>
         {{ $t('imageDetail.date') }}:
       </div>
-      <div class="col-sm-auto">
+      <div class="col-sm-auto" id="image-date">
         {{imageCopy.upDateDate}}
       </div>
     </div>
@@ -129,7 +129,8 @@
           <div class="col-auto">
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
+            <button type="button" id="save-button"
+                    class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
             </button>
             <button type="button" class="btn btn-outline-danger" @click="onChange()">{{$t('imageDetail.closeButton')}}
             </button>
@@ -225,11 +226,9 @@ export default {
       this.$emit('refresh')
     },
     /**
-     * A methode saves an image. This methode also associates/dissociates an imageMaker with
-     * an image when necessary.
-     *
-     * @returns {Promise<boolean>}
-     * @author Seyma Kaya
+     * Method that saves an image and save the updated the changes if any are made
+     * @return {Promise<boolean>}
+     * @author Seyma Kaya, Sara Benali
      */
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
@@ -257,9 +256,8 @@ export default {
 
     },
     /**
-     * A methode that associates an imageMaker with an image when they claim it
-     *
-     * @author Seyma Kaya
+     * Method that changes the values of columns when an image is claimed
+     * @author Seyma Kaya, Sara Benali
      */
     claimImage(){
       this.imageClaimed = true;
@@ -269,6 +267,11 @@ export default {
     }
   },
   computed: {
+    /**
+     * Method that makes the border of the textarea red when it's needed
+     * @return {string}
+     * @author Sara Benali
+     */
     textareaBorderColor() {
       return this.invalidTextarea ? 'red' : '';
     },

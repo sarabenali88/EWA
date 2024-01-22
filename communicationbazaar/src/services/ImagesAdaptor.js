@@ -9,10 +9,11 @@ export class ImagesAdaptor {
     resourcesUrl;
 
     constructor (resourcesUrl) {
-        this.resourcesUrl = resourcesUrl;
+        this.resourcesUrl = process.env.VUE_APP_API_URL + resourcesUrl;
     }
 
     async fetchJson (url, options = null) {
+        console.log(url);
         const response = await fetch(url, options);
         if (response.ok) {
             return await response.json();
@@ -34,7 +35,7 @@ export class ImagesAdaptor {
 
     /**
      * Saves a new image if the id is 0 or updates an image
-     * @param image -an image that will be saved or updated
+     * @param image -an image that will be created or updated
      * @return {Promise<any|null>}
      *
      * @author Sara Benali
