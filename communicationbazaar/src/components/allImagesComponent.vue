@@ -86,6 +86,13 @@ export default {
     await this.onRefresh()
   },
   methods: {
+    /**
+     * A methode that find the corresponding image with the id in the router
+     *
+     * @param id
+     * @returns {null|*}
+     * @author Seyma Kaya
+     */
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
@@ -93,6 +100,12 @@ export default {
       }
       return null;
     },
+    /**
+     * A methode that sets the route with the corresponding imageId
+     *
+     * @param image
+     * @author Seyma Kaya
+     */
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
@@ -104,17 +117,17 @@ export default {
       }
       console.log(this.selectedImage)
     },
-    deleteImage() {
-      const index = this.images.indexOf(this.selectedImage);
-      this.images.splice(index, 1);
-      this.selectedImage = null;
-    },
+    /**
+     * A methode that reinitializes the view of images
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async onRefresh() {
       this.images = await this.imagesService.asyncFindAll();
       this.images = this.images.filter(image => image.status !== 'IMPOSSIBLE');
       this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)
     },
-
     dateConverter(givenDate) {
       let date = givenDate.split(' ')[0].split('-'); //now date is ['16', '4', '2017'];
       return new Date(date[2], date[1], date[0]);
@@ -154,8 +167,12 @@ export default {
     sortedItems() {
       // Create a shallow copy of the images array
       let imagesCopy = [...this.images];
+      try {
+        return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
+      } catch (e) {
+        return console.log(e + " occurred")
+      }
       // Sort the copy
-      return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
     }
   }
 }

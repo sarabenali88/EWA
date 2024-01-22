@@ -12,7 +12,9 @@ import WelcomeComponent from "@/components/WelcomeComponent";
 let laptop1;
 let account1;
 let image1, image2;
+
 let wrapper;
+let mockedImages;
 
 const mockRoutes = [
     {
@@ -32,7 +34,7 @@ beforeEach(async function () {
         routes: mockRoutes,
     })
 
-    const mockedImages = [image1, image2];
+    mockedImages = [image1, image2];
     const imagesService = new ImagesAdaptor('http://localhost:8086/api');
 
     jest.spyOn(imagesService, "asyncFindAll").mockResolvedValue(mockedImages);
@@ -78,14 +80,12 @@ it('should create a proper sample image', function () {
         .toBeTruthy();
 });
 
-it('should have a list of images', function () {
+it('should have a list of images', async function () {
     //const onRouterPushSpi = jest.spyOn(wrapper.vm.$router,'push');
-    console.log(wrapper.html());
-
-    const tableRow = wrapper.findAll('tr').length
+    await wrapper.vm.$nextTick();
     const imageList = wrapper.vm.images.length
 
     expect(imageList,
-        'List of images are not loaded')
-        .toBe(tableRow)
+        'List of images are not loaded in')
+        .toBe(mockedImages.length)
 }); 
