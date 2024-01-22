@@ -12,8 +12,8 @@
                      type="button" class="btn btn-danger m-2" @click="onDelete()">
         {{$t('imageDetail.deleteButton')}}
       </button>
-      <button :class="{'hiddenButton': !this.sessionService._currentToken}"
-                     type="button" class="btn btn-outline-secondary" @click="onChange()">
+      <button  :class="{'hiddenButton': !this.sessionService._currentToken}"
+                     type="button" class="edit-button btn btn-outline-secondary" @click="onChange()">
         {{$t('imageDetail.editButton')}}
       </button>
     </div>
@@ -129,7 +129,8 @@
           <div class="col-auto">
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
+            <button type="button" id="save-button"
+                    class="btn btn-outline-secondary m-2" @click="saveChanges()">{{$t('imageDetail.saveButton')}}
             </button>
             <button type="button" class="btn btn-outline-danger" @click="onChange()">{{$t('imageDetail.closeButton')}}
             </button>
@@ -203,6 +204,11 @@ export default {
       await this.imagesService.asyncDeleteById(this.imageCopy.id)
       this.$emit('refresh')
     },
+    /**
+     * Method that saves an image and save the updated the changes if any are made
+     * @return {Promise<boolean>}
+     * @author Seyma Kaya, Sara Benali
+     */
     async saveChanges(){
       if (this.imageCopy.status !== Object.keys(Image.Status)[0] && this.imageCopy.imageMaker === null){
         this.imageCopy.imageMaker = this.sessionService._currentAccount
@@ -228,6 +234,10 @@ export default {
       this.$emit('refresh')
 
     },
+    /**
+     * Method that changes the values of columns when an image is claimed
+     * @author Seyma Kaya, Sara Benali
+     */
     claimImage(){
       this.imageClaimed = true;
       this.imageCopy.imageMaker = this.sessionService._currentAccount;
@@ -236,6 +246,11 @@ export default {
     }
   },
   computed: {
+    /**
+     * Method that makes the border of the textarea red when it's needed
+     * @return {string}
+     * @author Sara Benali
+     */
     textareaBorderColor() {
       return this.invalidTextarea ? 'red' : '';
     },

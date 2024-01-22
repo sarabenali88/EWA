@@ -87,7 +87,7 @@
       "**/src/**/*.spec.js"
     ],
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1",
+      "^@/(.)$": "<rootDir>/src/$1",
       "/images/(.*)$": "<rootDir>/public/images/$1",
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },

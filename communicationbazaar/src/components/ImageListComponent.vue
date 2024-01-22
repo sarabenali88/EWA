@@ -150,7 +150,7 @@
 
   <div class="ms-lg-5">
     <router-view></router-view>
-    <button type="button" class="btn btn-danger" @click="$router.push('/addImage')"
+    <button id="add-button" type="button" class="btn btn-danger" @click="$router.push('/addImage')"
             :class="{'hiddenButton': !this.sessionService._currentToken}">
       {{$t('addImage.buttonAdd')}}
     </button>
@@ -193,6 +193,11 @@ export default {
     }
   },
   methods: {
+    /**
+     * Connects the selected status to the right status component
+     * @param status
+     * @author Rowin Schenk, Sara Benali
+     */
     getSelectedStatus(status) {
       if (this.selectedStatus === status) {
         this.$router.push("/imageListRoute/allImages");
@@ -221,6 +226,10 @@ export default {
         }
       }
     },
+    /**
+     * Calculates how many images there are per status
+     * @author Rowin Schenk, Sara Benali
+     */
     amountOfImages() {
       for (const image of this.images) {
         if (image.status === "TODO") {

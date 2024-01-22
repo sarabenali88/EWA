@@ -154,9 +154,13 @@ export default {
   computed: {
     sortedItems() {
       // Create a shallow copy of the images array
-      let imagesCopy = [...this.images];
       // Sort the copy
-      return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
+      let imagesCopy = [...this.images];
+      try {
+        return imagesCopy.sort((a, b) => new Date(this.dateConverter(b.upDateDate)) - new Date(this.dateConverter(a.upDateDate)));
+      } catch (e){
+        return console.log(e + "occured");
+      }
     }
   }
 }
