@@ -19,7 +19,7 @@
       <div class="container">
         <div class="row">
           <div class="card col-md-5 m-3 p-3" v-for="laptop of laptops" v-bind:key="laptop.ean">
-            <div class="row justify-content-between">
+            <div id="laptop-div" class="row justify-content-between">
               <div class="col-8">
                 <h4>
                   {{ laptop.brand }} {{ laptop.description }}
@@ -29,7 +29,7 @@
                 <div :class="{'hiddenButton': !this.sessionService._currentToken ||
                       this.sessionService._currentToken && this.sessionService._currentAccount.role !== 'admin'}"
                       class="row justify-content-md-end">
-                  <button type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
+                  <button id="delete-btn" type="button" class="btn btn-danger m-2 col-auto" @click="modalDelete(laptop)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path
@@ -131,7 +131,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="closeModal()">{{$t('adminPanel.cancelButton')}}</button>
-              <button type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">{{$t('imageDetail.deleteButton')}}</button>
+              <button id="delete-laptop" type="button" class="btn btn-danger" @click="onDelete(selectedLaptop)">{{$t('imageDetail.deleteButton')}}</button>
             </div>
           </div>
         </div>
@@ -141,19 +141,16 @@
 </template>
 
 <script>
-import laptopDetailComponent from "@/components/LaptopDetailComponent";
 import * as XLSX from 'xlsx';
 import {Laptop} from "@/models/laptop";
 
 export default {
   name: "LaptopListComponent",
-  inject: ['laptopsService', 'accountsService', 'sessionService'],
-  components: laptopDetailComponent,
+  inject: ['laptopsService', 'sessionService'],
   data() {
     return {
       laptops: [],
       importedLaptops: [],
-      accounts: [],
       showModal: false,
       selectedLaptop: null,
       editLaptop: null,
@@ -166,7 +163,6 @@ export default {
     }
   },
   async created() {
-    this.accounts = await this.accountsService.asyncFindAll();
     await this.reInitialise();
     this.account = this.sessionService._currentAccount
   },
@@ -187,20 +183,6 @@ export default {
         this.editLaptop = laptop;
       }
     },
-    // /**
-    //  * A methode that links the given id to the corresponding laptop
-    //  *
-    //  * @author Seyma Kaya
-    //  * @param id that belongs to a laptop we are trying to find
-    //  * @returns {null|*}
-    //  */
-    // findSelectedFromRouteParams(id) {
-    //   if (id > 0) {
-    //     id = parseInt(id)
-    //     return this.laptops.find(value => value.id === id);
-    //   }
-    //   return null;
-    // },
     /**
      * A methode that reinitializes the view with laptops
      *
@@ -233,7 +215,7 @@ export default {
      */
     async onDelete(laptop) {
       await this.laptopsService.asyncDeleteById(laptop.ean)
-      this.reInitialise();
+      await this.reInitialise();
       this.closeModal();
     },
     /**

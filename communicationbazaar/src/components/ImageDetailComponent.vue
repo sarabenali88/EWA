@@ -2,7 +2,7 @@
 <div v-if="imageCopy">
   <div class="row justify-content-between">
     <div class="col-auto">
-      <h3>
+      <h3 id="image-laptop-name">
         {{imageCopy.laptop.brand}} {{imageCopy.laptop.description}}
       </h3>
     </div>
@@ -70,7 +70,7 @@
         </svg>
         {{ $t('imageDetail.date') }}:
       </div>
-      <div class="col-sm-auto">
+      <div class="col-sm-auto" id="image-date">
         {{imageCopy.upDateDate}}
       </div>
     </div>
@@ -156,14 +156,13 @@ import {Image} from "@/models/Image";
 export default {
   name: "ImageDetailComponent",
   inject: ["accountsService", "imagesService", "sessionService"],
-  emits: ['delete-image', 'save-image', 'refresh'],
+  emits: ['refresh'],
   data(){
     return {
       statuses: Image.Status,
       showDesc: false,
       editComment: false,
       imageCopy: null,
-      accounts: [],
       imageClaimed: false,
       account: null,
       invalidTextarea: false,
@@ -174,17 +173,28 @@ export default {
     '$route'(){
       this.reInitialise();
     },
-
   },
   async created() {
     this.account = !this.sessionService._currentAccount
-    this.reInitialise();
+    await this.reInitialise();
   },
   methods: {
+    /**
+     * A methode that reinitializes the editing view
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async reInitialise(){
       this.imageCopy =
           await this.imagesService.asyncFindById(this.$route?.params?.id)
     },
+    /**
+     * A methode that sets the small detail navigation bar inside the imageDetail
+     *
+     * @param word
+     * @author Seyma Kaya
+     */
     setNav(word){
       if (word === 'com'){
         this.showDesc = false;
@@ -193,6 +203,11 @@ export default {
         this.showDesc = true;
       }
     },
+    /**
+     * A methode that sets the variable for editing an Image
+     *
+     * @author Seyma Kaya
+     */
     onChange(){
       if (this.editComment === true){
         this.editComment = false;
@@ -200,6 +215,12 @@ export default {
         this.editComment = true;
       }
     },
+    /**
+     * A methode that deletes an image
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async onDelete(){
       await this.imagesService.asyncDeleteById(this.imageCopy.id)
       this.$emit('refresh')

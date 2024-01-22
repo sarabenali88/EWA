@@ -12,7 +12,7 @@
       <div v-if="selectedImage">
         <div class="card card-body">
           <router-view
-                       @delete-image="deleteImage()" @save-image="saveImage" v-on:refresh="this.onRefresh()">
+                       v-on:refresh="this.onRefresh()">
           </router-view>
         </div>
       </div>
@@ -47,7 +47,8 @@
   <div class="container-fluid p-3 mobile">
     <div v-if="selectedImage">
       <div class="card card-body">
-        <router-view>
+        <router-view
+            v-on:refresh="this.onRefresh()">
 
         </router-view>
       </div>
@@ -78,29 +79,29 @@
 </template>
 
 <script>
-import imageDetailComponent from "@/components/ImageDetailComponent";
-
 export default {
   name: "imageStatusTodoComponent",
   inject: ["accountsService", "imagesService", "sessionService"],
-  components: imageDetailComponent,
   data() {
     return {
       images: [],
       selectedImage: null,
-      accounts: [],
       account: null,
       sessionService: this.sessionService
     }
   },
   async created() {
-    this.images = await this.imagesService.asyncFindAll();
-    this.accounts = await this.accountsService.asyncFindAll();
-
+    await this.onRefresh();
     this.account = this.sessionService._currentAccount
-    this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id);
   },
   methods: {
+    /**
+     * A methode that find the corresponding image with the id in the router
+     *
+     * @param id
+     * @returns {null|*}
+     * @author Seyma Kaya
+     */
     findSelectedFromRouteParams(id) {
       if (id > 0) {
         id = parseInt(id)
@@ -117,6 +118,12 @@ export default {
     isCorrespondingStatus(image) {
       return image.status === "TODO";
     },
+    /**
+     * A methode that sets the route with the corresponding imageId
+     *
+     * @param image
+     * @author Seyma Kaya
+     */
     setImage(image) {
       let parentPath = this.$route?.fullPath.replace(new RegExp("/\\d+(/\\d+)?$"), '');
       if (this.selectedImage === image) {
@@ -128,11 +135,12 @@ export default {
       }
       console.log(this.selectedImage)
     },
-    deleteImage() {
-      const index = this.images.indexOf(this.selectedImage);
-      this.images.splice(index, 1);
-      this.selectedImage = null;
-    },
+    /**
+     * A methode that reinitializes the view of images
+     *
+     * @returns {Promise<void>}
+     * @author Seyma Kaya
+     */
     async onRefresh() {
       this.images = await this.imagesService.asyncFindAll();
       this.selectedImage = this.findSelectedFromRouteParams(this.$route?.params?.id)

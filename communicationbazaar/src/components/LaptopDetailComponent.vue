@@ -85,7 +85,6 @@ export default {
     async reInitialise() {
       this.laptopCopy =
           await this.laptopsService.asyncFindById(this.$route?.params?.id)
-      console.log(this.laptopCopy)
     },
     /**
      * A methode that saves the edited image and updates the view
