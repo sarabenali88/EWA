@@ -1,3 +1,7 @@
+/**
+ * Test for testing the image service and component
+ * @author Sara Benali
+ */
 import { ImagesAdaptor } from "@/services/ImagesAdaptor";
 import { mount } from "@vue/test-utils";
 import { reactive } from "vue";

@@ -1,3 +1,7 @@
+/**
+ * Test for the image detail to check if a detail can be opened
+ * @author Sara Benali
+ */
 import { ImagesAdaptor } from "@/services/ImagesAdaptor";
 import { mount } from "@vue/test-utils";
 import { reactive } from "vue";
